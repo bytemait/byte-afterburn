@@ -1,0 +1,81 @@
+<canvas class="dots"></canvas>
+
+<style>
+  .dots {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var canvases = document.querySelectorAll('canvas.dots');
+    canvases.forEach(function (canvas) {
+      var hero = canvas.closest('.home-hero');
+      if (!hero) return;
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var ctx = canvas.getContext('2d');
+      var W, H, DPR, cols, rows;
+      var gap = 26;
+      var mouse = { x: -9999, y: -9999 };
+
+      function resize() {
+        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        W = hero.clientWidth;
+        H = hero.clientHeight;
+        canvas.width = W * DPR;
+        canvas.height = H * DPR;
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        cols = Math.ceil(W / gap) + 1;
+        rows = Math.ceil(H / gap) + 1;
+      }
+      window.addEventListener('resize', resize);
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+      });
+      hero.addEventListener('pointerleave', function () {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      });
+
+      var tt = 0;
+      function draw() {
+        tt += reduceMotion ? 0 : 0.01;
+        ctx.clearRect(0, 0, W, H);
+        var influence = 130;
+        for (var yi = 0; yi < rows; yi++) {
+          for (var xi = 0; xi < cols; xi++) {
+            var x = xi * gap,
+              y = yi * gap;
+            var d = Math.hypot(x - mouse.x, y - mouse.y);
+            var near = Math.max(0, 1 - d / influence);
+            var breathe = reduceMotion ? 0 : (Math.sin(tt + xi * 0.6 + yi * 0.6) * 0.5 + 0.5) * 0.06;
+            var r = 1 + near * 2.2;
+            var alpha = 0.1 + near * 0.85 + breathe;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle =
+              near > 0.04
+                ? 'rgba(77,255,160,' + Math.min(1, alpha) + ')'
+                : 'rgba(77,255,160,' + Math.min(0.22, alpha) + ')';
+            if (near > 0.15) {
+              ctx.shadowColor = 'rgba(77,255,160,0.9)';
+              ctx.shadowBlur = 8 * near;
+            }
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      resize();
+      requestAnimationFrame(draw);
+    });
+  })();
+</script>
