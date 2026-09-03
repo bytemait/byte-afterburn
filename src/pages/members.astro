@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const coreTeam = [
+  { name: 'Aarav Sharma', role: 'President' },
+  { name: 'Ishita Verma', role: 'Vice President' },
+  { name: 'Rohan Mehta', role: 'Secretary' },
+  { name: 'Mehak Arora', role: 'Treasurer' },
+];
+const execTeam = [
+  { name: 'Kabir Singh', role: 'Technical Lead' },
+  { name: 'Ananya Gupta', role: 'Design Lead' },
+  { name: 'Rishabh Gupta', role: 'Event Lead' },
+  { name: 'Simran Kaur', role: 'Marketing Lead' },
+];
+const community = [
+  { name: 'Aditya Raj', role: 'Member' },
+  { name: 'Priya Nair', role: 'Member' },
+  { name: 'Vansh Goel', role: 'Member' },
+  { name: 'Neha Rana', role: 'Member' },
+  { name: 'Manav Jha', role: 'Member' },
+];
+---
+
+<Layout title="Members — B.Y.T.E." active="members">
+  <div class="page-header">
+    <div class="wrap">
+      <h1>Our Members</h1>
+      <p>The passionate people behind B.Y.T.E.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="tab-row">
+        <button class="tab-btn active">Core Team</button>
+        <button class="tab-btn">Executive Team</button>
+        <button class="tab-btn">Our Community</button>
+      </div>
+
+      <p class="team-label">Core Team</p>
+      <div class="member-grid">
+        {coreTeam.map((m) => (
+          <div class="member-card">
+            <div class="ph avatar"><svg><use href="#i-user"/></svg></div>
+            <h4>{m.name}</h4><span>{m.role}</span>
+            <div class="social-row">
+              <a><svg><use href="#i-li"/></svg></a><a><svg><use href="#i-gh"/></svg></a><a><svg><use href="#i-ig"/></svg></a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="team-label">Executive Team</p>
+      <div class="member-grid">
+        {execTeam.map((m) => (
+          <div class="member-card">
+            <div class="ph avatar"><svg><use href="#i-user"/></svg></div>
+            <h4>{m.name}</h4><span>{m.role}</span>
+            <div class="social-row">
+              <a><svg><use href="#i-li"/></svg></a><a><svg><use href="#i-gh"/></svg></a><a><svg><use href="#i-ig"/></svg></a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="team-label">Our Community</p>
+      <div class="member-grid community-grid">
+        {community.map((m) => (
+          <div class="member-card">
+            <div class="ph avatar"><svg><use href="#i-user"/></svg></div>
+            <h4>{m.name}</h4><span>{m.role}</span>
+            <div class="social-row">
+              <a><svg><use href="#i-li"/></svg></a><a><svg><use href="#i-gh"/></svg></a><a><svg><use href="#i-ig"/></svg></a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="cta-band">
+        <div>
+          <h3>Want to join our team?</h3>
+          <p>We are always looking for passionate and driven individuals. Come be a part of our journey.</p>
+        </div>
+        <button class="btn btn-primary">Join Us</button>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach((p) => {
+    p.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach((x) => x.classList.remove('active'));
+      p.classList.add('active');
+    });
+  });
+</script>

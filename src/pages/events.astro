@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Events — B.Y.T.E." active="events">
+  <div class="page-header">
+    <div class="wrap">
+      <h1>Events</h1>
+      <p>Discover. Learn. Grow. Together.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="filter-row">
+        <button class="filter-pill active">All</button>
+        <button class="filter-pill">Workshop</button>
+        <button class="filter-pill">Competition</button>
+        <button class="filter-pill">Tech Talk</button>
+        <button class="filter-pill">Social</button>
+      </div>
+
+      <div class="events-list">
+        <div class="event-card">
+          <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
+          <div class="event-body">
+            <div class="date-chip"><b>12</b><span>Sep</span></div>
+            <div class="event-content">
+              <h3>Web Dev Workshop 2026</h3>
+              <p>Hands-on workshop on modern web development technologies and best practices.</p>
+              <div class="meta-row">
+                <span><svg><use href="#i-clock"/></svg>06:00 PM – 08:00 PM</span>
+                <span><svg><use href="#i-pin"/></svg>Seminar Hall, CSE Block</span>
+              </div>
+              <a href="#" class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card flip">
+          <div class="event-body">
+            <div class="date-chip"><b>20</b><span>Sep</span></div>
+            <div class="event-content">
+              <h3>Hack The Future Hackathon</h3>
+              <p>24-hour hackathon to build innovative solutions for real-world problems.</p>
+              <div class="meta-row">
+                <span><svg><use href="#i-clock"/></svg>09:00 AM – 06:00 PM</span>
+                <span><svg><use href="#i-pin"/></svg>Auditorium, Main Block</span>
+              </div>
+              <a href="#" class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+          <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
+        </div>
+
+        <div class="event-card">
+          <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
+          <div class="event-body">
+            <div class="date-chip"><b>04</b><span>Oct</span></div>
+            <div class="event-content">
+              <h3>AI/ML Hands-on Session</h3>
+              <p>Practical session to get started with AI/ML models and real-world applications.</p>
+              <div class="meta-row">
+                <span><svg><use href="#i-clock"/></svg>04:00 PM – 07:00 PM</span>
+                <span><svg><use href="#i-pin"/></svg>Lab 3, CSE Block</span>
+              </div>
+              <a href="#" class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card flip">
+          <div class="event-body">
+            <div class="date-chip"><b>18</b><span>Oct</span></div>
+            <div class="event-content">
+              <h3>Tech Talk: Future of Technology</h3>
+              <p>Expert talk and discussion on upcoming technologies and career opportunities.</p>
+              <div class="meta-row">
+                <span><svg><use href="#i-clock"/></svg>11:00 AM – 01:00 PM</span>
+                <span><svg><use href="#i-pin"/></svg>Seminar Hall, CSE Block</span>
+              </div>
+              <a href="#" class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+            </div>
+          </div>
+          <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="newsletter">
+        <div>
+          <h3>Stay Updated</h3>
+          <p>Subscribe to get the latest updates about our events.</p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Enter your email">
+          <button class="btn btn-primary">Subscribe</button>
+        </div>
+        <div class="ph newsletter-visual"><svg><use href="#i-mail"/></svg></div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.querySelectorAll('.filter-pill').forEach((p) => {
+    p.addEventListener('click', () => {
+      document.querySelectorAll('.filter-pill').forEach((x) => x.classList.remove('active'));
+      p.classList.add('active');
+    });
+  });
+</script>

@@ -1,0 +1,43 @@
+---
+interface Props {
+  active?: 'home' | 'events' | 'members';
+}
+const { active = 'home' } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/#about', label: 'About', key: 'home' },
+  { href: '/events', label: 'Events', key: 'events' },
+  { href: '/members', label: 'Members', key: 'members' },
+  { href: '/', label: 'Projects', key: 'home' },
+  { href: '/', label: 'Contact', key: 'home' },
+];
+---
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="brand"><span class="mark"><svg><use href="#i-cube"/></svg></span> Byte</a>
+    <nav class="links">
+      {links.map((l) => (
+        <a href={l.href} class:list={['nav-link', { active: l.key === active }]}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="nav-right">
+      <button class="btn btn-outline">Sign In</button>
+      <button class="btn btn-primary">Join Us</button>
+      <button class="burger" id="burgerBtn"><svg><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    {links.map((l) => (
+      <a href={l.href} class:list={['nav-link', { active: l.key === active }]}>{l.label}</a>
+    ))}
+    <button class="btn btn-primary">Join Us</button>
+  </div>
+</header>
+
+<script>
+  document.getElementById('burgerBtn')?.addEventListener('click', () => {
+    document.getElementById('mobileMenu')?.classList.toggle('open');
+  });
+</script>

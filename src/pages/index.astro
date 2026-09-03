@@ -1,11 +1,100 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="B.Y.T.E. — Build. Connect. Create Impact." active="home">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">WELCOME TO B.Y.T.E.</div>
+        <h1>Build.<br>Connect.<br><span class="accent">Create Impact.</span></h1>
+        <p class="lead">A community of curious minds and passionate creators building ideas, experiences and something bigger.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/events">Explore Events</a>
+          <button class="btn btn-outline">Join The Society</button>
+        </div>
+      </div>
+      <div>
+        <div class="ph hero-visual" data-ratio="1200 × 1500"><span class="ph-tag">Image</span><svg><use href="#i-image"/></svg></div>
+        <div class="scroll-cue"><span class="scroll-dot"></span>Scroll</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="wrap stats-grid">
+      <div class="stat"><div class="stat-icon"><svg><use href="#i-user"/></svg></div><div><b>150+</b><span>Members</span></div></div>
+      <div class="stat"><div class="stat-icon"><svg><use href="#i-sun"/></svg></div><div><b>25+</b><span>Events</span></div></div>
+      <div class="stat"><div class="stat-icon"><svg><use href="#i-folder"/></svg></div><div><b>10+</b><span>Projects</span></div></div>
+      <div class="stat"><div class="stat-icon"><svg><use href="#i-award"/></svg></div><div><b>4+</b><span>Years</span></div></div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap who-grid">
+      <div class="who-copy">
+        <div class="eyebrow">WHO WE ARE</div>
+        <h2>We don't just attend college.<br>We <span class="hi">build</span> what comes next.</h2>
+        <p>B.Y.T.E. is a community of innovators, thinkers and doers. We organize events, build projects and collaborate to create meaningful impact.</p>
+        <button class="btn btn-outline">Learn More</button>
+      </div>
+      <div class="ph who-visual" data-ratio="1600 × 1100"><span class="ph-tag">Image</span><svg><use href="#i-image"/></svg></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Upcoming Events</h2>
+        <a href="/events" class="view-all">View all events</a>
+      </div>
+      <div class="upcoming-mini">
+        <div class="mini-card">
+          <div class="date-chip"><b>12</b><span>Sep</span></div>
+          <div>
+            <h4>Web Dev Workshop 2026</h4>
+            <div class="meta-row">
+              <span><svg><use href="#i-pin"/></svg>Seminar Hall, CSE Block</span>
+              <span><svg><use href="#i-clock"/></svg>06:00 PM – 08:00 PM</span>
+            </div>
+            <a href="/events" class="view">View Details</a>
+          </div>
+        </div>
+        <div class="mini-card">
+          <div class="date-chip"><b>20</b><span>Sep</span></div>
+          <div>
+            <h4>Hack The Future Hackathon</h4>
+            <div class="meta-row">
+              <span><svg><use href="#i-pin"/></svg>Auditorium, Main Block</span>
+              <span><svg><use href="#i-clock"/></svg>09:00 AM – 06:00 PM</span>
+            </div>
+            <a href="/events" class="view">View Details</a>
+          </div>
+        </div>
+        <div class="mini-card">
+          <div class="date-chip"><b>04</b><span>Oct</span></div>
+          <div>
+            <h4>AI/ML Hands-on Session</h4>
+            <div class="meta-row">
+              <span><svg><use href="#i-pin"/></svg>Lab 3, CSE Block</span>
+              <span><svg><use href="#i-clock"/></svg>04:00 PM – 07:00 PM</span>
+            </div>
+            <a href="/events" class="view">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h3>Ready to be part of it?</h3>
+          <p>Great things happen when we build together.</p>
+        </div>
+        <button class="btn btn-primary">Join The Society</button>
+      </div>
+    </div>
+  </section>
 </Layout>
