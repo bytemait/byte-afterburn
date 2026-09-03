@@ -1,0 +1,106 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+export interface ProjectCardData {
+  grad: string;
+  mark: string;
+  label: string;
+  rot: number;
+  curve?: number;
+  spin?: number;
+  style: string;
+  hide?: 'tablet' | 'wide';
+}
+
+interface Props {
+  cards: ProjectCardData[];
+}
+
+const { cards } = Astro.props;
+---
+
+<div class="project-cards" aria-hidden="true">
+  {cards.map((c) => <ProjectCard {...c} />)}
+</div>
+
+<style>
+  .project-cards {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var clusters = document.querySelectorAll('.project-cards');
+    clusters.forEach(function (cluster) {
+      var hero = cluster.closest('.home-hero');
+      if (!hero) return;
+
+      var cards = Array.prototype.slice.call(cluster.querySelectorAll('.project-card'));
+      if (cards.length === 0) return;
+
+      /* scroll-scrubbed convergence: each scattered card travels its own
+         curved path into a central focal point, spinning + shrinking as it
+         arrives — a pure function of scroll position, so scrolling back up
+         unwinds it exactly. No time-based motion, no transition lag. */
+      var bases = [];
+
+      function measureBases() {
+        bases = cards.map(function (el) {
+          return {
+            cx: el.offsetLeft + el.offsetWidth / 2,
+            cy: el.offsetTop + el.offsetHeight / 2,
+          };
+        });
+      }
+
+      function easeInOutCubic(x) {
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      }
+
+      function renderConvergence() {
+        var heroH = hero.offsetHeight || 1;
+        var scrollY = window.scrollY || 0;
+        var convergeDist = heroH * 0.32;
+        var raw = Math.min(1, Math.max(0, scrollY / convergeDist));
+        var t = easeInOutCubic(raw);
+
+        var target = { x: hero.clientWidth * 0.5, y: hero.clientHeight * 0.53 };
+
+        cards.forEach(function (el, i) {
+          var b = bases[i];
+          if (!b) return;
+          var rot = parseFloat(el.dataset.rot || 0);
+          var curve = parseFloat(el.dataset.curve || 1);
+          var spin = parseFloat(el.dataset.spin || 360);
+
+          var dx = target.x - b.cx;
+          var dy = target.y - b.cy;
+          var dist = Math.hypot(dx, dy) || 1;
+          var arc = Math.sin(t * Math.PI) * dist * 0.32 * curve;
+          var px = -dy / dist,
+            py = dx / dist;
+
+          var tx = dx * t + px * arc;
+          var ty = dy * t + py * arc;
+          var rotation = rot + t * spin;
+          var scale = 1 - t * 0.93;
+          var opacity = t < 0.62 ? 1 : Math.max(0, 1 - (t - 0.62) / 0.38);
+
+          el.style.transform = 'translate(' + tx + 'px,' + ty + 'px) rotate(' + rotation + 'deg) scale(' + scale + ')';
+          el.style.opacity = opacity;
+          el.style.willChange = 'transform, opacity';
+        });
+
+        requestAnimationFrame(renderConvergence);
+      }
+
+      measureBases();
+      window.addEventListener('resize', measureBases);
+      requestAnimationFrame(renderConvergence);
+    });
+  })();
+</script>
