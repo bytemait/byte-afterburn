@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { ParticleObject } from '../components/canvasui/ParticleObject.tsx';
 ---
 
 <Layout title="B.Y.T.E. — Build. Connect. Create Impact." active="home">
@@ -15,7 +16,12 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
       <div>
-        <div class="ph hero-visual" data-ratio="1200 × 1500"><span class="ph-tag">Image</span><svg><use href="#i-image"/></svg></div>
+          <ParticleObject
+            client:only="react"
+            className="hero-visual"
+            src="https://byte-site.vercel.app/favicon.jpg"
+            count={28000}
+          />
         <div class="scroll-cue"><span class="scroll-dot"></span>Scroll</div>
       </div>
     </div>
