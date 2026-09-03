@@ -1,0 +1,71 @@
+---
+interface Props {
+  items?: string[];
+}
+
+const { items = ['BUILDERS', 'HACKERS', 'DESIGNERS', 'MAKERS', 'DREAMERS'] } = Astro.props;
+// duplicated once so the marquee can loop seamlessly at translateX(-50%)
+const looped = [...items, ...items];
+---
+
+<div class="ticker-strip">
+  <div class="ticker">
+    {looped.map((label) => (
+      <span>{label} <i class="pip"></i></span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .ticker-strip {
+    position: relative;
+    z-index: 2;
+    background: var(--dark-2);
+    border-top: 1px solid rgba(77, 255, 160, 0.16);
+    border-bottom: 1px solid rgba(77, 255, 160, 0.16);
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  .ticker {
+    display: flex;
+    width: max-content;
+    animation: sw-tickx 24s linear infinite;
+    padding: 14px 0;
+  }
+  .ticker-strip:hover .ticker {
+    animation-play-state: paused;
+  }
+  .ticker span {
+    font-family: 'Bungee', sans-serif;
+    font-size: clamp(16px, 2.6vw, 26px);
+    color: var(--neon);
+    padding: 0 26px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    text-transform: uppercase;
+  }
+  .ticker span.pip {
+    width: 8px;
+    height: 8px;
+    background: var(--neon);
+    border-radius: 50%;
+    display: inline-block;
+    padding: 0;
+    box-shadow: 0 0 8px 1px rgba(77, 255, 160, 0.6);
+  }
+  @keyframes sw-tickx {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker {
+      animation: none;
+    }
+  }
+</style>

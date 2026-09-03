@@ -1,0 +1,145 @@
+---
+interface Props {
+  eyebrow?: string;
+  line1?: string;
+  line2?: string;
+  highlightWord?: string;
+  outlineWord?: string;
+  sub?: string;
+  primaryHref?: string;
+  primaryLabel?: string;
+  secondaryLabel?: string;
+}
+
+const {
+  eyebrow = 'A community of doers',
+  line1 = 'Build.',
+  line2 = 'Connect.',
+  highlightWord = 'Create',
+  outlineWord = 'Impact.',
+  sub = 'A community of curious minds and passionate creators building ideas, experiences and something bigger.',
+  primaryHref = '/events',
+  primaryLabel = 'Explore Events',
+  secondaryLabel = 'Join The Society',
+} = Astro.props;
+---
+
+<div class="hero-inner">
+  <p class="eyebrow">{eyebrow}</p>
+  <h1 class="headline">
+    {line1}<br />{line2}<br /><span class="block">{highlightWord}</span> &amp; <span class="out">{outlineWord}</span>
+  </h1>
+  <p class="sub">{sub}</p>
+  <div class="hero-ctas">
+    <a class="btn-solid" href={primaryHref}>{primaryLabel}</a>
+    <button class="btn-outline">{secondaryLabel}</button>
+  </div>
+</div>
+
+<style>
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: clamp(90px, 14vw, 140px) 20px 40px;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--neon);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin: 0 0 24px;
+  }
+  .eyebrow::before,
+  .eyebrow::after {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--neon-dim);
+  }
+
+  h1.headline {
+    font-family: 'Archivo Black', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 7.2vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  h1.headline .out {
+    -webkit-text-stroke: 2px var(--neon);
+    color: transparent;
+    text-shadow: 0 0 26px rgba(77, 255, 160, 0.35);
+  }
+  h1.headline .block {
+    background: var(--neon);
+    color: var(--ink);
+    padding: 2px 16px 8px;
+    display: inline-block;
+    box-shadow: 0 0 34px rgba(77, 255, 160, 0.35);
+  }
+  .sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 400;
+    max-width: 44ch;
+    margin: 26px auto 32px;
+    line-height: 1.55;
+    color: #c5dbcd;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+  .btn-solid {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 13.5px;
+    text-transform: uppercase;
+    background: var(--neon);
+    color: var(--ink);
+    border: none;
+    border-radius: 999px;
+    padding: 15px 28px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    box-shadow: 0 12px 30px -12px rgba(77, 255, 160, 0.6);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-solid:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px -12px rgba(77, 255, 160, 0.7);
+  }
+  .btn-outline {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 13.5px;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--paper);
+    border: 1.5px solid rgba(244, 247, 239, 0.35);
+    border-radius: 999px;
+    padding: 15px 28px;
+    cursor: pointer;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+  .btn-outline:hover {
+    border-color: var(--neon);
+    color: var(--neon);
+    transform: translateY(-2px);
+  }
+</style>
