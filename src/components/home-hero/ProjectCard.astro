@@ -1,0 +1,93 @@
+---
+// Single scattered card. Position/size come in as a raw inline `style`
+// string (each instance is placed uniquely, so named position classes
+// would just be one-off classes anyway). Rotation/curve/spin are read by
+// ProjectCardCluster's convergence script via the data-* attributes below.
+interface Props {
+  grad: string; // gradient variant, "grad1".."grad10" (defined below)
+  mark: string; // short glyph shown on the card, e.g. "TB"
+  label: string;
+  rot: number;
+  curve?: number;
+  spin?: number;
+  style: string;
+  hide?: 'tablet' | 'wide'; // matches ProjectCardCluster's responsive gate
+}
+
+const { grad, mark, label, rot, curve = 1, spin = 400, style, hide } = Astro.props;
+---
+
+<div
+  class:list={['project-card', hide && `hide-${hide}`]}
+  style={style}
+  data-rot={rot}
+  data-curve={curve}
+  data-spin={spin}
+>
+  <div class:list={['art', grad]}><span class="mark">{mark}</span></div>
+  <div class="cap">{label}</div>
+</div>
+
+<style>
+  .project-card {
+    position: absolute;
+    pointer-events: auto;
+    border: 2.5px solid rgba(244, 247, 239, 0.14);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 44px -18px rgba(0, 0, 0, 0.75);
+    background: var(--dark-2);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+  }
+  .project-card:hover {
+    transform: scale(1.07) rotate(0deg) !important;
+    z-index: 6;
+    border-color: rgba(77, 255, 160, 0.5);
+  }
+  .project-card .cap {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 6px 9px;
+    background: var(--dark-2);
+    text-transform: uppercase;
+    color: var(--paper);
+    border-top: 1px solid rgba(244, 247, 239, 0.1);
+  }
+  .project-card .art {
+    aspect-ratio: 4 / 3;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .project-card .art span.mark {
+    font-family: 'Bungee', sans-serif;
+    font-size: 24px;
+    color: rgba(9, 13, 10, 0.82);
+  }
+
+  .grad1 { background: linear-gradient(135deg, #ff3d6e, #ffb199); }
+  .grad2 { background: linear-gradient(135deg, #12241a, #2a3a2e); }
+  .grad3 { background: linear-gradient(135deg, #ffe14d, #39e56a); }
+  .grad4 { background: linear-gradient(135deg, #4dffa0, #0b3d24); }
+  .grad5 { background: linear-gradient(135deg, #f4f7ef, #8fae9c); }
+  .grad6 { background: linear-gradient(135deg, #ff3d6e, #2a0b18); }
+  .grad7 { background: linear-gradient(135deg, #22c37a, #0e140f); }
+  .grad8 { background: linear-gradient(135deg, #ffe14d, #ff3d6e); }
+  .grad9 { background: linear-gradient(135deg, #4dffa0, #39e56a); }
+  .grad10 { background: linear-gradient(135deg, #0e140f, #4dffa0); }
+
+  /* the 4 outermost cards only show on very wide viewports; the rest of
+     the cluster disappears earlier, below tablet width */
+  @media (max-width: 1180px) {
+    .hide-wide { display: none; }
+  }
+  @media (max-width: 900px) {
+    .hide-tablet,
+    .hide-wide {
+      display: none;
+    }
+  }
+</style>

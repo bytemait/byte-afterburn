@@ -1,25 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HomeHero from '../components/HomeHero.astro';
 ---
 
 <Layout title="B.Y.T.E. — Build. Connect. Create Impact." active="home">
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="eyebrow">WELCOME TO B.Y.T.E.</div>
-        <h1>Build.<br>Connect.<br><span class="accent">Create Impact.</span></h1>
-        <p class="lead">A community of curious minds and passionate creators building ideas, experiences and something bigger.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/events">Explore Events</a>
-          <button class="btn btn-outline">Join The Society</button>
-        </div>
-      </div>
-      <div>
-        <div class="ph hero-visual" data-ratio="1200 × 1500"><span class="ph-tag">Image</span><svg><use href="#i-image"/></svg></div>
-        <div class="scroll-cue"><span class="scroll-dot"></span>Scroll</div>
-      </div>
-    </div>
-  </section>
+  <HomeHero />
 
   <div class="stats-bar">
     <div class="wrap stats-grid">
