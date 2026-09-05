@@ -24,13 +24,13 @@ const {
 } = Astro.props;
 ---
 
-<div class="hero-inner">
-  <p class="eyebrow">{eyebrow}</p>
-  <h1 class="headline">
+<div class="hero-inner" data-hero-inner>
+  <p class="eyebrow" data-hero-stage="0">{eyebrow}</p>
+  <h1 class="headline" data-hero-stage="1">
     {line1}<br />{line2}<br /><span class="block">{highlightWord}</span> &amp; <span class="out">{outlineWord}</span>
   </h1>
-  <p class="sub">{sub}</p>
-  <div class="hero-ctas">
+  <p class="sub" data-hero-stage="2">{sub}</p>
+  <div class="hero-ctas" data-hero-stage="3">
     <a class="btn-solid" href={primaryHref}>{primaryLabel}</a>
     <button class="btn-outline">{secondaryLabel}</button>
   </div>
@@ -45,6 +45,25 @@ const {
     text-align: center;
     padding: clamp(90px, 14vw, 140px) 20px 40px;
   }
+
+  /* Load-in sequence. Gated behind .js-anim (added by the script below only
+     when JS runs and the user hasn't asked for reduced motion) so that
+     without JS — or with prefers-reduced-motion — every stage is simply
+     visible immediately. No flash-of-invisible hero copy. */
+  [data-hero-inner].js-anim [data-hero-stage] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  [data-hero-inner].js-anim.is-loaded [data-hero-stage] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-hero-inner].js-anim.is-loaded [data-hero-stage='0'] { transition-delay: 0.05s; }
+  [data-hero-inner].js-anim.is-loaded [data-hero-stage='1'] { transition-delay: 0.16s; }
+  [data-hero-inner].js-anim.is-loaded [data-hero-stage='2'] { transition-delay: 0.3s; }
+  [data-hero-inner].js-anim.is-loaded [data-hero-stage='3'] { transition-delay: 0.42s; }
+
   .eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
@@ -142,4 +161,52 @@ const {
     color: var(--neon);
     transform: translateY(-2px);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-hero-inner].js-anim [data-hero-stage] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
 </style>
+
+<script>
+  (function () {
+    var inner = document.querySelector('[data-hero-inner]');
+    if (!inner) return;
+    var hero = inner.closest('.home-hero');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reduceMotion) {
+      inner.classList.add('js-anim');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          inner.classList.add('is-loaded');
+        });
+      });
+    }
+
+    if (reduceMotion || !hero) return;
+
+    function update() {
+      var heroH = hero.offsetHeight || 1;
+      var scrolled = window.scrollY || 0;
+      var p = Math.min(1, Math.max(0, scrolled / (heroH * 0.75)));
+      inner.style.transform = 'translateY(' + p * -40 + 'px)';
+      inner.style.opacity = String(1 - p * 0.9);
+    }
+    var ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(function () {
+          update();
+          ticking = false;
+        });
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
+  })();
+</script>
