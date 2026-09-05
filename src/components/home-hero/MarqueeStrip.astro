@@ -29,7 +29,9 @@ const looped = [...items, ...items];
   .ticker {
     display: flex;
     width: max-content;
-    animation: sw-tickx 24s linear infinite;
+    /* --tick-duration is nudged by the script below in response to scroll
+       velocity; 24s is the resting/no-JS speed. */
+    animation: sw-tickx var(--tick-duration, 24s) linear infinite;
     padding: 14px 0;
   }
   .ticker-strip:hover .ticker {
@@ -69,3 +71,34 @@ const looped = [...items, ...items];
     }
   }
 </style>
+
+<script>
+  (function () {
+    var strips = document.querySelectorAll('.ticker-strip');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    strips.forEach(function (strip) {
+      var ticker = strip.querySelector('.ticker');
+      if (!ticker) return;
+
+      // Scroll faster -> shorter loop duration (feels "pulled" by the
+      // scroll); relaxes back to the base 24s once scrolling stops.
+      var baseDuration = 24;
+      var minDuration = 6;
+      var lastY = window.scrollY;
+      var current = baseDuration;
+
+      function frame() {
+        var y = window.scrollY;
+        var delta = Math.abs(y - lastY);
+        lastY = y;
+        var target = Math.max(minDuration, baseDuration - delta * 1.4);
+        current += (target - current) * 0.12;
+        ticker.style.setProperty('--tick-duration', current.toFixed(2) + 's');
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  })();
+</script>
