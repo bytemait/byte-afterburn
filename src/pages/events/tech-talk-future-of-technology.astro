@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EventDetail from '../../components/EventDetail.astro';
+---
+
+<Layout title="Tech Talk: Future of Technology — B.Y.T.E." active="events">
+  <EventDetail
+    name="Tech Talk: Future of Technology"
+    type="Tech Talk"
+    date="18 Oct"
+    time="11:00 AM – 01:00 PM"
+    venue="Seminar Hall, CSE Block"
+    description="An open talk and discussion on where technology is heading next — covering emerging tools, shifting career paths, and what to focus on as a student trying to stay ahead of the curve. The second half opens up into an informal Q&A, so bring your questions."
+    agenda={[
+      { time: '11:00 AM', title: 'Opening talk', detail: 'Where the industry is moving and why it matters for students.' },
+      { time: '11:45 AM', title: 'Career paths panel', detail: 'A grounded look at different routes into tech careers.' },
+      { time: '12:20 PM', title: 'Open Q&A', detail: 'Ask anything — career, technology, or getting started.' },
+      { time: '12:50 PM', title: 'Networking & closing', detail: 'Informal conversation over refreshments.' },
+    ]}
+    whoCanAttend={[
+      'Open to all students, regardless of branch or year.',
+      'No technical background required — the talk is aimed at a general student audience.',
+      'Especially useful for those exploring career directions in tech.',
+    ]}
+  />
+</Layout>
