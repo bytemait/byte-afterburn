@@ -1,0 +1,11010 @@
+import { t as e } from "./rolldown-runtime.OA-FSkXT.mjs";
+import {
+  A as t,
+  D as n,
+  E as r,
+  F as i,
+  I as a,
+  L as o,
+  M as s,
+  N as c,
+  P as l,
+  V as u,
+  _ as d,
+  b as f,
+  c as p,
+  d as m,
+  g as h,
+  j as g,
+  l as _,
+  s as v,
+  u as y,
+  v as b,
+  w as x,
+  x as S,
+  z as C,
+} from "./react.B14is_4f.mjs";
+import {
+  I as ee,
+  J as w,
+  K as T,
+  T as E,
+  V as D,
+  _ as O,
+  a as k,
+  i as te,
+  m as ne,
+  r as A,
+  s as j,
+  w as re,
+  z as ie,
+} from "./motion.Dr1kldnU.mjs";
+import {
+  A as ae,
+  D as oe,
+  Dt as se,
+  F as M,
+  G as N,
+  L as P,
+  M as F,
+  O as I,
+  Ot as ce,
+  S as L,
+  St as le,
+  T as ue,
+  Tt as de,
+  U as R,
+  W as z,
+  Z as B,
+  _ as V,
+  _t as H,
+  bt as fe,
+  ct as pe,
+  f as U,
+  ft as me,
+  ht as W,
+  i as G,
+  it as K,
+  j as he,
+  lt as q,
+  mt as ge,
+  n as J,
+  o as _e,
+  pt as ve,
+  r as Y,
+  t as ye,
+  u as be,
+  vt as xe,
+  wt as Se,
+  x as Ce,
+  xt as we,
+  yt as Te,
+} from "./framer.eVaEUwzX.mjs";
+import {
+  a as Ee,
+  c as De,
+  d as Oe,
+  f as ke,
+  i as Ae,
+  l as je,
+  m as Me,
+  o as Ne,
+  p as X,
+  r as Pe,
+  s as Fe,
+  u as Ie,
+} from "./shared-lib.xFh3YqWg.mjs";
+import { i as Le, n as Re, r as ze, t as Be } from "./lRMRijzgW.CIwMEsV1.mjs";
+import {
+  a as Ve,
+  i as He,
+  n as Ue,
+  o as We,
+  r as Ge,
+  t as Ke,
+} from "./dGgcQqMTf.CyiqK6Kc.mjs";
+import {
+  a as qe,
+  i as Je,
+  n as Ye,
+  o as Xe,
+  r as Ze,
+  t as Qe,
+} from "./k11UIaCpC.C68IJaC-.mjs";
+import { i as $e, n as et, r as tt, t as nt } from "./SxduMBiXC.BXa-DJ7q.mjs";
+import { i as rt, n as it, r as at, t as ot } from "./dNhCdbx07.C7TuQEsm.mjs";
+import {
+  a as st,
+  i as ct,
+  n as lt,
+  o as ut,
+  r as dt,
+  t as ft,
+} from "./lJDMHA56k.BG8nf-rN.mjs";
+import { i as pt, n as mt, r as ht, t as gt } from "./UNvevQM2g.Dv_XrMeO.mjs";
+import { i as Z, n as _t, r as vt, t as yt } from "./yWVJZ77gA.DR9A4IRf.mjs";
+import { n as bt, t as xt } from "./vOftlLc3f.C2gXyT22.mjs";
+import { i as St, n as Ct, r as wt, t as Tt } from "./BkbmfNuFM.iZigWFrs.mjs";
+import { i as Et, t as Dt } from "./Q1V1DlgrJ.BN-N8jEX.mjs";
+import { i as Ot, n as kt, r as At, t as jt } from "./NxwsJ6BR6.Du8FJVdA.mjs";
+import { n as Mt, r as Nt } from "./augiA20Il.u8ZiJcG1.mjs";
+var Pt,
+  Ft = e(() => {
+    Pt = (e) => e;
+  }),
+  It = e(() => {
+    Ft();
+  }),
+  Lt = e(() => {
+    It();
+  });
+function Rt(e, t) {
+  var n = {};
+  for (var r in e)
+    Object.prototype.hasOwnProperty.call(e, r) &&
+      t.indexOf(r) < 0 &&
+      (n[r] = e[r]);
+  if (e != null && typeof Object.getOwnPropertySymbols == `function`) {
+    var i = 0;
+    for (r = Object.getOwnPropertySymbols(e); i < r.length; i++)
+      t.indexOf(r[i]) < 0 &&
+        Object.prototype.propertyIsEnumerable.call(e, r[i]) &&
+        (n[r[i]] = e[r[i]]);
+  }
+  return n;
+}
+var zt = e(() => {}),
+  Bt,
+  Vt = e(() => {
+    ((Bt = {}),
+      Object.defineProperty(Bt, `__esModule`, { value: !0 }),
+      (Bt.warning = function () {}),
+      (Bt.invariant = function () {}),
+      Bt.__esModule,
+      Bt.warning,
+      Bt.invariant);
+  }),
+  Ht = e(() => {
+    Ft();
+  });
+function Ut(e, t) {
+  return (
+    typeof e == `string`
+      ? t
+        ? (t[e] ?? (t[e] = document.querySelectorAll(e)), (e = t[e]))
+        : (e = document.querySelectorAll(e))
+      : e instanceof Element && (e = [e]),
+    Array.from(e || [])
+  );
+}
+function Wt(e, t, { root: n, margin: r, amount: i = `any` } = {}) {
+  if (typeof IntersectionObserver > `u`) return () => {};
+  let a = Ut(e),
+    o = new WeakMap(),
+    s = new IntersectionObserver(
+      (e) => {
+        e.forEach((e) => {
+          let n = o.get(e.target);
+          if (e.isIntersecting !== !!n)
+            if (e.isIntersecting) {
+              let n = t(e);
+              typeof n == `function`
+                ? o.set(e.target, n)
+                : s.unobserve(e.target);
+            } else n && (n(e), o.delete(e.target));
+        });
+      },
+      { root: n, rootMargin: r, threshold: typeof i == `number` ? i : pn[i] },
+    );
+  return (a.forEach((e) => s.observe(e)), () => s.disconnect());
+}
+function Gt(e, t) {
+  if (t) {
+    let { inlineSize: e, blockSize: n } = t[0];
+    return { width: e, height: n };
+  }
+  return e instanceof SVGElement && `getBBox` in e
+    ? e.getBBox()
+    : { width: e.offsetWidth, height: e.offsetHeight };
+}
+function Kt({ target: e, contentRect: t, borderBoxSize: n }) {
+  var r;
+  (r = mn.get(e)) == null ||
+    r.forEach((r) => {
+      r({
+        target: e,
+        contentSize: t,
+        get size() {
+          return Gt(e, n);
+        },
+      });
+    });
+}
+function qt(e) {
+  e.forEach(Kt);
+}
+function Jt() {
+  typeof ResizeObserver < `u` && (hn = new ResizeObserver(qt));
+}
+function Yt(e, t) {
+  hn || Jt();
+  let n = Ut(e);
+  return (
+    n.forEach((e) => {
+      let n = mn.get(e);
+      (n || ((n = new Set()), mn.set(e, n)), n.add(t), hn?.observe(e));
+    }),
+    () => {
+      n.forEach((e) => {
+        let n = mn.get(e);
+        (n?.delete(t), (n != null && n.size) || hn == null || hn.unobserve(e));
+      });
+    }
+  );
+}
+function Xt() {
+  ((_n = () => {
+    let e = { width: u.innerWidth, height: u.innerHeight },
+      t = { target: u, size: e, contentSize: e };
+    gn.forEach((e) => e(t));
+  }),
+    u.addEventListener(`resize`, _n));
+}
+function Zt(e) {
+  return (
+    gn.add(e),
+    _n || Xt(),
+    () => {
+      (gn.delete(e), !gn.size && _n && (_n = void 0));
+    }
+  );
+}
+function Qt(e, t) {
+  return typeof e == `function` ? Zt(e) : Yt(e, t);
+}
+function $t(e, t, n) {
+  e.dispatchEvent(new CustomEvent(t, { detail: { originalEvent: n } }));
+}
+function en(e, t, n) {
+  e.dispatchEvent(new CustomEvent(t, { detail: { originalEntry: n } }));
+}
+var tn,
+  nn,
+  rn,
+  an,
+  on,
+  sn,
+  cn,
+  ln,
+  un,
+  dn,
+  fn,
+  pn,
+  mn,
+  hn,
+  gn,
+  _n,
+  vn,
+  yn,
+  bn,
+  xn = e(() => {
+    for (let e in (C(),
+    Ft(),
+    Lt(),
+    zt(),
+    Vt(),
+    Ht(),
+    (tn = [``, `X`, `Y`, `Z`]),
+    (nn = [`translate`, `scale`, `rotate`, `skew`]),
+    (rn = {
+      syntax: `<angle>`,
+      initialValue: `0deg`,
+      toDefaultUnit: (e) => e + `deg`,
+    }),
+    (an = {
+      translate: {
+        syntax: `<length-percentage>`,
+        initialValue: `0px`,
+        toDefaultUnit: (e) => e + `px`,
+      },
+      rotate: rn,
+      scale: { syntax: `<number>`, initialValue: 1, toDefaultUnit: Pt },
+      skew: rn,
+    }),
+    (on = new Map()),
+    (sn = (e) => `--motion-${e}`),
+    (cn = [`x`, `y`, `z`]),
+    nn.forEach((e) => {
+      tn.forEach((t) => {
+        (cn.push(e + t), on.set(sn(e + t), an[e]));
+      });
+    }),
+    new Set(cn),
+    (ln = (e) => document.createElement(`div`).animate(e, { duration: 0.001 })),
+    (un = {
+      cssRegisterProperty: () =>
+        typeof CSS < `u` && Object.hasOwnProperty.call(CSS, `registerProperty`),
+      waapi: () => Object.hasOwnProperty.call(Element.prototype, `animate`),
+      partialKeyframes: () => {
+        try {
+          ln({ opacity: [1] });
+        } catch {
+          return !1;
+        }
+        return !0;
+      },
+      finished: () => !!ln({ opacity: [0, 1] }).finished,
+    }),
+    (dn = {}),
+    (fn = {}),
+    un))
+      fn[e] = () => (dn[e] === void 0 && (dn[e] = un[e]()), dn[e]);
+    ((pn = { any: 0, all: 1 }),
+      (mn = new WeakMap()),
+      (gn = new Set()),
+      (vn = {
+        isActive: (e) => !!e.inView,
+        subscribe: (
+          e,
+          { enable: t, disable: n },
+          { inViewOptions: r = {} },
+        ) => {
+          let { once: i } = r;
+          return Wt(
+            e,
+            (r) => {
+              if ((t(), en(e, `viewenter`, r), !i))
+                return (t) => {
+                  (n(), en(e, `viewleave`, t));
+                };
+            },
+            Rt(r, [`once`]),
+          );
+        },
+      }),
+      (yn = (e, t, n) => (r) => {
+        (!r.pointerType || r.pointerType === `mouse`) && (n(), $t(e, t, r));
+      }),
+      (bn = {
+        inView: vn,
+        hover: {
+          isActive: (e) => !!e.hover,
+          subscribe: (e, { enable: t, disable: n }) => {
+            let r = yn(e, `hoverstart`, t),
+              i = yn(e, `hoverend`, n);
+            return (
+              e.addEventListener(`pointerenter`, r),
+              e.addEventListener(`pointerleave`, i),
+              () => {
+                (e.removeEventListener(`pointerenter`, r),
+                  e.removeEventListener(`pointerleave`, i));
+              }
+            );
+          },
+        },
+        press: {
+          isActive: (e) => !!e.press,
+          subscribe: (e, { enable: t, disable: n }) => {
+            let r = (t) => {
+                (n(),
+                  $t(e, `pressend`, t),
+                  u.removeEventListener(`pointerup`, r));
+              },
+              i = (n) => {
+                (t(),
+                  $t(e, `pressstart`, n),
+                  u.addEventListener(`pointerup`, r));
+              };
+            return (
+              e.addEventListener(`pointerdown`, i),
+              () => {
+                (e.removeEventListener(`pointerdown`, i),
+                  u.removeEventListener(`pointerup`, r));
+              }
+            );
+          },
+        },
+      }),
+      [...Object.keys(bn)]);
+  });
+function Sn() {
+  if (!Cn()) return;
+  let [e, t] = o(!document.hidden);
+  return (
+    i(() => {
+      let e = () => t(!document.hidden);
+      return (
+        document.addEventListener(`visibilitychange`, e, !1),
+        () => {
+          document.removeEventListener(`visibilitychange`, e);
+        }
+      );
+    }, []),
+    e
+  );
+}
+var Cn,
+  wn = e(() => {
+    (r(), (Cn = () => typeof document == `object`));
+  });
+function Tn(e, t) {
+  let n,
+    r = e.current;
+  return (
+    Object.defineProperty(e, `current`, {
+      get() {
+        return r;
+      },
+      set(e) {
+        if (((r = e), e === null)) {
+          t.abort();
+          return;
+        }
+        n?.(e);
+      },
+      configurable: !0,
+    }),
+    r ||
+      new Promise((e, r) => {
+        ((n = e), t.signal.addEventListener(`abort`, r));
+      }).catch(() => {})
+  );
+}
+function Q(e) {
+  let {
+      slots: r = [],
+      startFrom: a,
+      direction: s,
+      effectsOptions: d,
+      autoPlayControl: f,
+      dragControl: p,
+      alignment: m,
+      gap: h,
+      padding: g,
+      paddingPerSide: v,
+      paddingTop: S,
+      paddingRight: C,
+      paddingBottom: D,
+      paddingLeft: k,
+      itemAmount: te,
+      fadeOptions: A,
+      intervalControl: j,
+      transitionControl: re,
+      arrowOptions: ae,
+      borderRadius: oe,
+      progressOptions: se,
+      style: M,
+    } = e,
+    {
+      effectsOpacity: N,
+      effectsScale: P,
+      effectsRotate: F,
+      effectsPerspective: I,
+      effectsHover: ce,
+      playOffscreen: L,
+    } = d,
+    {
+      fadeContent: le,
+      overflow: de,
+      fadeWidth: R,
+      fadeInset: z,
+      fadeAlpha: B,
+    } = A,
+    {
+      showMouseControls: V,
+      arrowSize: H,
+      arrowRadius: fe,
+      arrowFill: pe,
+      leftArrow: U,
+      rightArrow: me,
+      arrowShouldSpace: W = !0,
+      arrowShouldFadeIn: G = !1,
+      arrowPosition: K,
+      arrowPadding: he,
+      arrowGap: q,
+      arrowPaddingTop: ge,
+      arrowPaddingRight: J,
+      arrowPaddingBottom: _e,
+      arrowPaddingLeft: ve,
+    } = ae,
+    {
+      showProgressDots: Y,
+      dotSize: ye,
+      dotsInset: be,
+      dotsRadius: xe,
+      dotsPadding: Se,
+      dotsGap: Ce,
+      dotsFill: we,
+      dotsBackground: Te,
+      dotsActiveOpacity: Ee,
+      dotsOpacity: De,
+      dotsBlur: Oe,
+    } = se,
+    ke = v ? `${S}px ${C}px ${D}px ${k}px` : `${g}px`,
+    Ae = ue.current() === ue.canvas,
+    je = r.filter(Boolean),
+    Me = n.count(je),
+    Ne = Me > 0,
+    X = s === `left` || s === `right`,
+    Pe = s === `right` || s === `bottom`;
+  if (!Ne)
+    return y(`section`, {
+      style: On,
+      children: [
+        _(`div`, { style: kn, children: `⭐️` }),
+        _(`p`, { style: An, children: `Connect to Content` }),
+        _(`p`, {
+          style: jn,
+          children: `Add layers or components to make infinite auto-playing slideshows.`,
+        }),
+      ],
+    });
+  let Fe = t(null),
+    Ie = c(() => [{ current: null }, { current: null }], [je]),
+    Le = t(void 0),
+    [Re, ze] = o({
+      parent: null,
+      children: null,
+      item: null,
+      itemWidth: null,
+      itemHeight: null,
+      viewportLength: null,
+    }),
+    [Be, Ve] = o(!1),
+    [He, Ue] = o(f),
+    [We, Ge] = o(!1),
+    [Ke, qe] = o(!1),
+    Je = [],
+    Ye = 4;
+  Ae && (Ye = 1);
+  let Xe = l(() => {
+      if (!Fe.current) return;
+      let e = Ie[0].current,
+        t = Ie[1].current,
+        n = X ? Fe.current.offsetWidth : Fe.current.offsetHeight,
+        r = e ? (X ? e.offsetLeft : e.offsetTop) : 0;
+      ze({
+        parent: n,
+        children:
+          (t
+            ? X
+              ? t.offsetLeft + t.offsetWidth
+              : t.offsetTop + t.offsetHeight
+            : 0) -
+          r +
+          h,
+        item: e ? (X ? e.offsetWidth : e.offsetHeight) : 0,
+        itemWidth: e ? e.offsetWidth : 0,
+        itemHeight: e ? e.offsetHeight : 0,
+        viewportLength: X
+          ? Math.max(
+              document.documentElement.clientWidth || 0,
+              u.innerWidth || 0,
+              Fe.current.offsetWidth,
+            )
+          : Math.max(
+              document.documentElement.clientHeight || 0,
+              u.innerHeight || 0,
+              Fe.current.offsetHeight,
+            ),
+      });
+    }, []),
+    Ze = l(async () => {
+      let e = new AbortController(),
+        [t, n] = Ie;
+      if (!Ae && (!t.current || !n.current))
+        try {
+          await Promise.all([Tn(t, e), Me > 1 ? Tn(n, e) : !0]);
+        } catch {
+          e.abort();
+        }
+      O.read(Xe, !1, !0);
+    }, [Xe]);
+  x(() => {
+    Ze();
+  }, [te]);
+  let Qe = t(!0);
+  (i(
+    () =>
+      Qt(Fe.current, ({ contentSize: e }) => {
+        (!Qe.current && (e.width || e.height) && (Ze(), b(() => qe(!0))),
+          (Qe.current = !1));
+      }),
+    [],
+  ),
+    i(() => {
+      if (Ke) {
+        let e = setTimeout(() => b(() => qe(!1)), 500);
+        return () => clearTimeout(e);
+      }
+    }, [Ke]));
+  let $e = je?.length,
+    et = Ae ? 0 : Re?.children,
+    tt = Re?.item + h,
+    nt = a * tt,
+    [rt, it] = o(a + $e),
+    [at, ot] = o(!1);
+  Ae && rt !== a && it(a);
+  let st = t(null),
+    ct = ee(st),
+    lt = Sn() && ct,
+    ut = Pe ? 1 : -1,
+    dt = ie(et),
+    ft = X ? -a * (Re?.itemWidth + h) : -a * (Re?.itemHeight + h),
+    pt = () => ut * rt * tt,
+    mt = Ae
+      ? 0
+      : T(dt, (e) => {
+          let t = w(-et, -et * 2, e);
+          return isNaN(t) ? 0 : t;
+        }),
+    ht = w(0, $e, rt),
+    gt = w(0, -$e, rt);
+  x(() => {
+    Re?.children !== null && !Qe.current && Ke && dt.set(pt());
+  }, [Re, et, ut, nt, rt, tt, Ke]);
+  let Z = () => {
+      Ae ||
+        !Ne ||
+        !Re.parent ||
+        at ||
+        (dt.get() !== pt() && ne(dt, pt(), re),
+        f &&
+          He &&
+          (L || lt) &&
+          (Le.current = setTimeout(() => {
+            (b(() => it((e) => e + 1)), Z());
+          }, j * 1e3)));
+    },
+    _t = (e, t = !1) => {
+      Pe
+        ? t
+          ? b(() => it((t) => t - e))
+          : it((t) => t - e)
+        : t
+          ? b(() => it((t) => t + e))
+          : it((t) => t + e);
+    },
+    vt = (e) => {
+      let t = w(0, $e, rt),
+        n = w(0, -$e, rt),
+        r = e - t,
+        i = e - Math.abs(n);
+      b(Pe ? () => it((e) => e - i) : () => it((e) => e + r));
+    },
+    yt = () => {
+      b(() => ot(!0));
+    },
+    bt = (e, { offset: t, velocity: n }) => {
+      b(() => ot(!1));
+      let r = X ? t.x : t.y,
+        i = X ? n.x : n.y,
+        a = r < -Re.item / 2,
+        o = r > Re.item / 2,
+        s = Math.abs(r),
+        c = Math.round(s / Re.item),
+        l = c === 0 ? 1 : c;
+      i > 200
+        ? _t(-l, !0)
+        : i < -200
+          ? _t(l, !0)
+          : (a && _t(c, !0), o && _t(-c, !0));
+    };
+  i(() => {
+    if (!(!lt || Ke || Me <= 1))
+      return (Z(), () => Le.current && clearTimeout(Le.current));
+  }, [Je, lt, Ke]);
+  let xt = 0,
+    St = `calc(${100 / te}% - ${h}px + ${h / te}px)`;
+  for (let e = 0; e < Ye; e++)
+    Je = Je.concat(
+      n.map(je, (t, n) => {
+        let r;
+        return (
+          e === 0 &&
+            (n === 0 ? (r = Ie[0]) : n === je.length - 1 && (r = Ie[1])),
+          _(
+            Fn,
+            {
+              ref: r,
+              slideKey: e + n + `lg`,
+              index: e,
+              width: X && te > 1 ? St : `100%`,
+              height: X ? `100%` : te > 1 ? St : `100%`,
+              size: Re,
+              child: t,
+              numChildren: je?.length,
+              wrappedValue: mt,
+              childCounter: xt++,
+              gap: h,
+              isCanvas: Ae,
+              isHorizontal: X,
+              effectsOpacity: N,
+              effectsScale: P,
+              effectsRotate: F,
+              children: e + n,
+            },
+            e + n + `lg`,
+          )
+        );
+      }),
+    );
+  let Ct = X ? `to right` : `to bottom`,
+    wt = R / 2,
+    Tt = 100 - R / 2,
+    Et = `linear-gradient(${Ct}, rgba(0, 0, 0, ${B}) ${Pn(z, 0, wt)}%, rgba(0, 0, 0, 1) ${wt}%, rgba(0, 0, 0, 1) ${Tt}%, rgba(0, 0, 0, ${B}) ${100 - z}%)`,
+    Dt = [],
+    Ot = {};
+  if (Y) {
+    for (let e = 0; e < je?.length; e++)
+      Dt.push(
+        _(
+          In,
+          {
+            dotStyle: { ...Rn, width: ye, height: ye, backgroundColor: we },
+            buttonStyle: Mn,
+            selectedOpacity: Ee,
+            opacity: De,
+            onClick: () => vt(e),
+            wrappedIndex: ht,
+            wrappedIndexInverted: gt,
+            total: $e,
+            index: e,
+            gap: Ce,
+            padding: Se,
+            isHorizontal: X,
+            isInverted: Pe,
+          },
+          e,
+        ),
+      );
+    Oe > 0 && (Ot.backdropFilter = Ot.WebkitBackdropFilter = `blur(${Oe}px)`);
+  }
+  let kt = p
+      ? {
+          drag: X ? `x` : `y`,
+          onDragStart: yt,
+          onDragEnd: bt,
+          dragDirectionLock: !0,
+          values: { x: dt, y: dt },
+          dragMomentum: !1,
+        }
+      : {},
+    At = K === `top-left` || K === `top-mid` || K === `top-right`,
+    jt = K === `bottom-left` || K === `bottom-mid` || K === `bottom-right`,
+    Mt = K === `top-left` || K === `bottom-left`,
+    Nt = K === `top-right` || K === `bottom-right`,
+    Pt = K === `top-mid` || K === `bottom-mid` || K === `auto`;
+  return y(`section`, {
+    style: {
+      ...Dn,
+      padding: ke,
+      WebkitMaskImage: le ? Et : void 0,
+      maskImage: le ? Et : void 0,
+      opacity: Re?.item === null ? En : 1,
+      userSelect: `none`,
+    },
+    onMouseEnter: () => {
+      (Ve(!0), ce || Ue(!1));
+    },
+    onMouseLeave: () => {
+      (Ve(!1), ce || Ue(!0));
+    },
+    onMouseDown: (e) => {
+      (e.preventDefault(), b(() => Ge(!0)));
+    },
+    onMouseUp: () => b(() => Ge(!1)),
+    ref: st,
+    children: [
+      _(`div`, {
+        style: {
+          width: `100%`,
+          height: `100%`,
+          margin: 0,
+          padding: `inherit`,
+          position: `absolute`,
+          inset: 0,
+          overflow: de ? `visible` : `hidden`,
+          borderRadius: oe,
+          userSelect: `none`,
+          perspective: Ae ? `none` : I,
+        },
+        children: _(E.ul, {
+          ref: Fe,
+          ...kt,
+          style: {
+            ...Dn,
+            gap: h,
+            placeItems: m,
+            x: X ? (Ae ? ft : mt) : 0,
+            y: X ? 0 : Ae ? ft : mt,
+            flexDirection: X ? `row` : `column`,
+            transformStyle: F !== 0 && !Ae ? `preserve-3d` : void 0,
+            cursor: p ? (We ? `grabbing` : `grab`) : `auto`,
+            userSelect: `none`,
+            ...M,
+          },
+          children: Je,
+        }),
+      }),
+      y(`fieldset`, {
+        style: { ...Nn },
+        "aria-label": `Slideshow pagination controls`,
+        className: `framer--slideshow-controls`,
+        children: [
+          y(E.div, {
+            style: {
+              position: `absolute`,
+              display: `flex`,
+              flexDirection: X ? `row` : `column`,
+              justifyContent: W ? `space-between` : `center`,
+              gap: W ? `unset` : q,
+              opacity: G ? En : 1,
+              alignItems: `center`,
+              inset: he,
+              top: W ? he : At ? ge : `unset`,
+              left: W ? he : Mt ? ve : Pt ? 0 : `unset`,
+              right: W ? he : Nt ? J : Pt ? 0 : `unset`,
+              bottom: W ? he : jt ? _e : `unset`,
+            },
+            animate: G && { opacity: Be ? 1 : En },
+            transition: re,
+            children: [
+              _(E.button, {
+                type: `button`,
+                style: {
+                  ...Mn,
+                  backgroundColor: pe,
+                  width: H,
+                  height: H,
+                  borderRadius: fe,
+                  rotate: X ? 0 : 90,
+                  display: V ? `block` : `none`,
+                  pointerEvents: `auto`,
+                },
+                onClick: () => _t(-1, !0),
+                "aria-label": `Previous`,
+                whileTap: { scale: 0.9 },
+                transition: { duration: 0.15 },
+                children: _(`img`, {
+                  decoding: `async`,
+                  width: H,
+                  height: H,
+                  src:
+                    U ||
+                    `https://framerusercontent.com/images/6tTbkXggWgQCAJ4DO2QEdXXmgM.svg`,
+                  alt: `Back Arrow`,
+                }),
+              }),
+              _(E.button, {
+                type: `button`,
+                style: {
+                  ...Mn,
+                  backgroundColor: pe,
+                  width: H,
+                  height: H,
+                  borderRadius: fe,
+                  rotate: X ? 0 : 90,
+                  display: V ? `block` : `none`,
+                  pointerEvents: `auto`,
+                },
+                onClick: () => _t(1, !0),
+                "aria-label": `Next`,
+                whileTap: { scale: 0.9 },
+                transition: { duration: 0.15 },
+                children: _(`img`, {
+                  decoding: `async`,
+                  width: H,
+                  height: H,
+                  src:
+                    me ||
+                    `https://framerusercontent.com/images/11KSGbIZoRSg4pjdnUoif6MKHI.svg`,
+                  alt: `Next Arrow`,
+                }),
+              }),
+            ],
+          }),
+          Dt.length > 1
+            ? _(`div`, {
+                style: {
+                  ...Ln,
+                  left: X ? `50%` : be,
+                  top: X ? `unset` : `50%`,
+                  transform: X ? `translateX(-50%)` : `translateY(-50%)`,
+                  flexDirection: X ? `row` : `column`,
+                  bottom: X ? be : `unset`,
+                  borderRadius: xe,
+                  backgroundColor: Te,
+                  userSelect: `none`,
+                  ...Ot,
+                },
+                children: Dt,
+              })
+            : null,
+        ],
+      }),
+    ],
+  });
+}
+var En,
+  Dn,
+  On,
+  kn,
+  An,
+  jn,
+  Mn,
+  Nn,
+  Pn,
+  Fn,
+  In,
+  Ln,
+  Rn,
+  zn = e(() => {
+    (C(),
+      v(),
+      xn(),
+      B(),
+      A(),
+      r(),
+      wn(),
+      (En = 0.001),
+      (Q.defaultProps = {
+        direction: `left`,
+        dragControl: !1,
+        startFrom: 0,
+        itemAmount: 1,
+        infinity: !0,
+        gap: 10,
+        padding: 10,
+        autoPlayControl: !0,
+        effectsOptions: {
+          effectsOpacity: 1,
+          effectsScale: 1,
+          effectsRotate: 0,
+          effectsPerspective: 1200,
+          effectsHover: !0,
+          playOffscreen: !1,
+        },
+        transitionControl: { type: `spring`, stiffness: 200, damping: 40 },
+        fadeOptions: {
+          fadeContent: !1,
+          overflow: !1,
+          fadeWidth: 25,
+          fadeAlpha: 0,
+          fadeInset: 0,
+        },
+        arrowOptions: {
+          showMouseControls: !0,
+          arrowShouldFadeIn: !1,
+          arrowShouldSpace: !0,
+          arrowFill: `rgba(0,0,0,0.2)`,
+          arrowSize: 40,
+        },
+        progressOptions: { showProgressDots: !0 },
+      }),
+      F(Q, {
+        slots: {
+          type: G.Array,
+          title: `Content`,
+          control: { type: G.ComponentInstance },
+        },
+        direction: {
+          type: G.Enum,
+          title: `Direction`,
+          options: [`left`, `right`, `top`, `bottom`],
+          optionIcons: [
+            `direction-left`,
+            `direction-right`,
+            `direction-up`,
+            `direction-down`,
+          ],
+          optionTitles: [`Left`, `Right`, `Top`, `Bottom`],
+          displaySegmentedControl: !0,
+          defaultValue: Q.defaultProps.direction,
+        },
+        autoPlayControl: {
+          type: G.Boolean,
+          title: `Auto Play`,
+          defaultValue: !0,
+        },
+        intervalControl: {
+          type: G.Number,
+          title: `Interval`,
+          defaultValue: 1.5,
+          min: 0.5,
+          max: 10,
+          step: 0.1,
+          displayStepper: !0,
+          unit: `s`,
+          hidden: (e) => !e.autoPlayControl,
+        },
+        dragControl: { type: G.Boolean, title: `Draggable`, defaultValue: !1 },
+        startFrom: {
+          type: G.Number,
+          title: `Current`,
+          min: 0,
+          max: 10,
+          displayStepper: !0,
+          defaultValue: Q.defaultProps.startFrom,
+        },
+        effectsOptions: {
+          type: G.Object,
+          title: `Effects`,
+          controls: {
+            effectsOpacity: {
+              type: G.Number,
+              title: `Opacity`,
+              defaultValue: Q.defaultProps.effectsOptions.effectsOpacity,
+              min: 0,
+              max: 1,
+              step: 0.01,
+              displayStepper: !0,
+            },
+            effectsScale: {
+              type: G.Number,
+              title: `Scale`,
+              defaultValue: Q.defaultProps.effectsOptions.effectsScale,
+              min: 0,
+              max: 1,
+              step: 0.01,
+              displayStepper: !0,
+            },
+            effectsPerspective: {
+              type: G.Number,
+              title: `Perspective`,
+              defaultValue: Q.defaultProps.effectsOptions.effectsPerspective,
+              min: 200,
+              max: 2e3,
+              step: 1,
+            },
+            effectsRotate: {
+              type: G.Number,
+              title: `Rotate`,
+              defaultValue: Q.defaultProps.effectsOptions.effectsRotate,
+              min: -180,
+              max: 180,
+              step: 1,
+            },
+            effectsHover: {
+              type: G.Boolean,
+              title: `On Hover`,
+              enabledTitle: `Play`,
+              disabledTitle: `Pause`,
+              defaultValue: Q.defaultProps.effectsOptions.effectsHover,
+            },
+            playOffscreen: {
+              type: G.Boolean,
+              title: `Offscreen`,
+              enabledTitle: `Play`,
+              disabledTitle: `Pause`,
+              defaultValue: Q.defaultProps.effectsOptions.playOffscreen,
+            },
+          },
+        },
+        alignment: {
+          type: G.Enum,
+          title: `Align`,
+          options: [`flex-start`, `center`, `flex-end`],
+          optionIcons: {
+            direction: {
+              right: [`align-top`, `align-middle`, `align-bottom`],
+              left: [`align-top`, `align-middle`, `align-bottom`],
+              top: [`align-left`, `align-center`, `align-right`],
+              bottom: [`align-left`, `align-center`, `align-right`],
+            },
+          },
+          defaultValue: `center`,
+          displaySegmentedControl: !0,
+        },
+        itemAmount: {
+          type: G.Number,
+          title: `Items`,
+          min: 1,
+          max: 10,
+          displayStepper: !0,
+          defaultValue: Q.defaultProps.itemAmount,
+        },
+        gap: { type: G.Number, title: `Gap`, min: 0 },
+        padding: {
+          title: `Padding`,
+          type: G.FusedNumber,
+          toggleKey: `paddingPerSide`,
+          toggleTitles: [`Padding`, `Padding per side`],
+          defaultValue: 0,
+          valueKeys: [
+            `paddingTop`,
+            `paddingRight`,
+            `paddingBottom`,
+            `paddingLeft`,
+          ],
+          valueLabels: [`T`, `R`, `B`, `L`],
+          min: 0,
+        },
+        borderRadius: {
+          type: G.Number,
+          title: `Radius`,
+          min: 0,
+          max: 500,
+          displayStepper: !0,
+          defaultValue: 0,
+        },
+        transitionControl: {
+          type: G.Transition,
+          defaultValue: Q.defaultProps.transitionControl,
+          title: `Transition`,
+        },
+        fadeOptions: {
+          type: G.Object,
+          title: `Clipping`,
+          controls: {
+            fadeContent: { type: G.Boolean, title: `Fade`, defaultValue: !1 },
+            overflow: {
+              type: G.Boolean,
+              title: `Overflow`,
+              enabledTitle: `Show`,
+              disabledTitle: `Hide`,
+              defaultValue: !1,
+              hidden(e) {
+                return e.fadeContent === !0;
+              },
+            },
+            fadeWidth: {
+              type: G.Number,
+              title: `Width`,
+              defaultValue: 25,
+              min: 0,
+              max: 100,
+              unit: `%`,
+              hidden(e) {
+                return e.fadeContent === !1;
+              },
+            },
+            fadeInset: {
+              type: G.Number,
+              title: `Inset`,
+              defaultValue: 0,
+              min: 0,
+              max: 100,
+              unit: `%`,
+              hidden(e) {
+                return e.fadeContent === !1;
+              },
+            },
+            fadeAlpha: {
+              type: G.Number,
+              title: `Opacity`,
+              defaultValue: 0,
+              min: 0,
+              max: 1,
+              step: 0.05,
+              hidden(e) {
+                return e.fadeContent === !1;
+              },
+            },
+          },
+        },
+        arrowOptions: {
+          type: G.Object,
+          title: `Arrows`,
+          controls: {
+            showMouseControls: {
+              type: G.Boolean,
+              title: `Show`,
+              defaultValue: Q.defaultProps.arrowOptions.showMouseControls,
+            },
+            arrowFill: {
+              type: G.Color,
+              title: `Fill`,
+              hidden: (e) => !e.showMouseControls,
+              defaultValue: Q.defaultProps.arrowOptions.arrowFill,
+            },
+            leftArrow: {
+              type: G.Image,
+              title: `Previous`,
+              hidden: (e) => !e.showMouseControls,
+            },
+            rightArrow: {
+              type: G.Image,
+              title: `Next`,
+              hidden: (e) => !e.showMouseControls,
+            },
+            arrowSize: {
+              type: G.Number,
+              title: `Size`,
+              min: 0,
+              max: 200,
+              displayStepper: !0,
+              defaultValue: Q.defaultProps.arrowOptions.arrowSize,
+              hidden: (e) => !e.showMouseControls,
+            },
+            arrowRadius: {
+              type: G.Number,
+              title: `Radius`,
+              min: 0,
+              max: 500,
+              defaultValue: 40,
+              hidden: (e) => !e.showMouseControls,
+            },
+            arrowShouldFadeIn: {
+              type: G.Boolean,
+              title: `Fade In`,
+              defaultValue: !1,
+              hidden: (e) => !e.showMouseControls,
+            },
+            arrowShouldSpace: {
+              type: G.Boolean,
+              title: `Distance`,
+              enabledTitle: `Space`,
+              disabledTitle: `Group`,
+              defaultValue: Q.defaultProps.arrowOptions.arrowShouldSpace,
+              hidden: (e) => !e.showMouseControls,
+            },
+            arrowPosition: {
+              type: G.Enum,
+              title: `Position`,
+              options: [
+                `auto`,
+                `top-left`,
+                `top-mid`,
+                `top-right`,
+                `bottom-left`,
+                `bottom-mid`,
+                `bottom-right`,
+              ],
+              optionTitles: [
+                `Center`,
+                `Top Left`,
+                `Top Middle`,
+                `Top Right`,
+                `Bottom Left`,
+                `Bottom Middle`,
+                `Bottom Right`,
+              ],
+              hidden: (e) => !e.showMouseControls || e.arrowShouldSpace,
+            },
+            arrowPadding: {
+              type: G.Number,
+              title: `Inset`,
+              min: -100,
+              max: 100,
+              defaultValue: 20,
+              displayStepper: !0,
+              hidden: (e) => !e.showMouseControls || !e.arrowShouldSpace,
+            },
+            arrowPaddingTop: {
+              type: G.Number,
+              title: `Top`,
+              min: -500,
+              max: 500,
+              defaultValue: 0,
+              displayStepper: !0,
+              hidden: (e) =>
+                !e.showMouseControls ||
+                e.arrowShouldSpace ||
+                e.arrowPosition === `auto` ||
+                e.arrowPosition === `bottom-mid` ||
+                e.arrowPosition === `bottom-left` ||
+                e.arrowPosition === `bottom-right`,
+            },
+            arrowPaddingBottom: {
+              type: G.Number,
+              title: `Bottom`,
+              min: -500,
+              max: 500,
+              defaultValue: 0,
+              displayStepper: !0,
+              hidden: (e) =>
+                !e.showMouseControls ||
+                e.arrowShouldSpace ||
+                e.arrowPosition === `auto` ||
+                e.arrowPosition === `top-mid` ||
+                e.arrowPosition === `top-left` ||
+                e.arrowPosition === `top-right`,
+            },
+            arrowPaddingRight: {
+              type: G.Number,
+              title: `Right`,
+              min: -500,
+              max: 500,
+              defaultValue: 0,
+              displayStepper: !0,
+              hidden: (e) =>
+                !e.showMouseControls ||
+                e.arrowShouldSpace ||
+                e.arrowPosition === `auto` ||
+                e.arrowPosition === `top-left` ||
+                e.arrowPosition === `top-mid` ||
+                e.arrowPosition === `bottom-left` ||
+                e.arrowPosition === `bottom-mid`,
+            },
+            arrowPaddingLeft: {
+              type: G.Number,
+              title: `Left`,
+              min: -500,
+              max: 500,
+              defaultValue: 0,
+              displayStepper: !0,
+              hidden: (e) =>
+                !e.showMouseControls ||
+                e.arrowShouldSpace ||
+                e.arrowPosition === `auto` ||
+                e.arrowPosition === `top-right` ||
+                e.arrowPosition === `top-mid` ||
+                e.arrowPosition === `bottom-right` ||
+                e.arrowPosition === `bottom-mid`,
+            },
+            arrowGap: {
+              type: G.Number,
+              title: `Gap`,
+              min: 0,
+              max: 100,
+              defaultValue: 10,
+              displayStepper: !0,
+              hidden: (e) => !e.showMouseControls || e.arrowShouldSpace,
+            },
+          },
+        },
+        progressOptions: {
+          type: G.Object,
+          title: `Dots`,
+          controls: {
+            showProgressDots: {
+              type: G.Boolean,
+              title: `Show`,
+              defaultValue: !1,
+            },
+            dotSize: {
+              type: G.Number,
+              title: `Size`,
+              min: 1,
+              max: 100,
+              defaultValue: 10,
+              displayStepper: !0,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsInset: {
+              type: G.Number,
+              title: `Inset`,
+              min: -100,
+              max: 100,
+              defaultValue: 10,
+              displayStepper: !0,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsGap: {
+              type: G.Number,
+              title: `Gap`,
+              min: 0,
+              max: 100,
+              defaultValue: 10,
+              displayStepper: !0,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsPadding: {
+              type: G.Number,
+              title: `Padding`,
+              min: 0,
+              max: 100,
+              defaultValue: 10,
+              displayStepper: !0,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsFill: {
+              type: G.Color,
+              title: `Fill`,
+              defaultValue: `#fff`,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsBackground: {
+              type: G.Color,
+              title: `Backdrop`,
+              defaultValue: `rgba(0,0,0,0.2)`,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsRadius: {
+              type: G.Number,
+              title: `Radius`,
+              min: 0,
+              max: 200,
+              defaultValue: 50,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsOpacity: {
+              type: G.Number,
+              title: `Opacity`,
+              min: 0,
+              max: 1,
+              defaultValue: 0.5,
+              step: 0.1,
+              displayStepper: !0,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsActiveOpacity: {
+              type: G.Number,
+              title: `Current`,
+              min: 0,
+              max: 1,
+              defaultValue: 1,
+              step: 0.1,
+              displayStepper: !0,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+            dotsBlur: {
+              type: G.Number,
+              title: `Blur`,
+              min: 0,
+              max: 50,
+              defaultValue: 0,
+              step: 1,
+              hidden: (e) => !e.showProgressDots || e.showScrollbar,
+            },
+          },
+        },
+      }),
+      (Dn = {
+        display: `flex`,
+        flexDirection: `row`,
+        width: `100%`,
+        height: `100%`,
+        maxWidth: `100%`,
+        maxHeight: `100%`,
+        placeItems: `center`,
+        margin: 0,
+        padding: 0,
+        listStyleType: `none`,
+        textIndent: `none`,
+      }),
+      (On = {
+        display: `flex`,
+        width: `100%`,
+        height: `100%`,
+        placeContent: `center`,
+        placeItems: `center`,
+        flexDirection: `column`,
+        color: `#96F`,
+        background: `rgba(136, 85, 255, 0.1)`,
+        fontSize: 11,
+        overflow: `hidden`,
+        padding: `20px 20px 30px 20px`,
+      }),
+      (kn = { fontSize: 32, marginBottom: 10 }),
+      (An = {
+        margin: 0,
+        marginBottom: 10,
+        fontWeight: 600,
+        textAlign: `center`,
+      }),
+      (jn = {
+        margin: 0,
+        opacity: 0.7,
+        maxWidth: 180,
+        lineHeight: 1.5,
+        textAlign: `center`,
+      }),
+      (Mn = {
+        border: `none`,
+        display: `flex`,
+        placeContent: `center`,
+        placeItems: `center`,
+        overflow: `hidden`,
+        background: `transparent`,
+        cursor: `pointer`,
+        margin: 0,
+        padding: 0,
+      }),
+      (Nn = {
+        display: `flex`,
+        justifyContent: `space-between`,
+        alignItems: `center`,
+        position: `absolute`,
+        pointerEvents: `none`,
+        userSelect: `none`,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        border: 0,
+        padding: 0,
+        margin: 0,
+      }),
+      (Pn = (e, t, n) => Math.min(Math.max(e, t), n)),
+      (Fn = h(
+        d(function (e, n) {
+          let {
+              slideKey: r,
+              width: a,
+              height: o,
+              child: s,
+              size: c,
+              gap: l,
+              wrappedValue: u,
+              numChildren: d,
+              childCounter: f,
+              isCanvas: p,
+              effects: m,
+              effectsOpacity: h,
+              effectsScale: v,
+              effectsRotate: y,
+              isHorizontal: b,
+              isLast: x,
+              index: S,
+            } = e,
+            C = t(),
+            ee = (c?.item + l) * f,
+            w = [-c?.item, 0, c?.parent - c?.item + l, c?.parent].map(
+              (e) => e - ee,
+            ),
+            E = !p && T(u, w, [-y, 0, 0, y]),
+            D = !p && T(u, w, [y, 0, 0, -y]),
+            O = !p && T(u, w, [h, 1, 1, h]),
+            te = !p && T(u, w, [v, 1, 1, v]),
+            ne = !p && T(u, w, [1, 1, 0, 0]),
+            A = !p && T(u, (e) => e >= w[1] && e <= w[2]);
+          i(() => {
+            if (!A) return;
+            function e(e) {
+              let t = n?.current ?? C.current;
+              t &&
+                (e
+                  ? t.querySelectorAll(`button,a`).forEach((e) => {
+                      let t = e.dataset.origTabIndex;
+                      t ? (e.tabIndex = t) : e.removeAttribute(`tabIndex`);
+                    })
+                  : t.querySelectorAll(`button,a`).forEach((e) => {
+                      let t = e.getAttribute(`tabIndex`);
+                      (t && (e.dataset.origTabIndex = t), (e.tabIndex = -1));
+                    }),
+                t.setAttribute(`aria-hidden`, !e));
+            }
+            return (
+              e(A),
+              A.on(`change`, (t) => {
+                e(t);
+              })
+            );
+          }, []);
+          let j = p
+              ? `visible`
+              : T(
+                  u,
+                  [
+                    w[0] - c.viewportLength,
+                    re(w[1], w[2], 0.5),
+                    w[3] + c.viewportLength,
+                  ],
+                  [`hidden`, `visible`, `hidden`],
+                ),
+            ie = r + `child`;
+          return _(k, {
+            inherit: `id`,
+            id: ie,
+            children: _(`li`, {
+              style: { display: `contents` },
+              children: g(s, {
+                ref: n ?? C,
+                key: ie,
+                style: {
+                  ...s.props?.style,
+                  flexShrink: 0,
+                  userSelect: `none`,
+                  width: a,
+                  height: o,
+                  opacity: O,
+                  scale: te,
+                  originX: b ? ne : 0.5,
+                  originY: b ? 0.5 : ne,
+                  rotateY: b ? E : 0,
+                  rotateX: b ? 0 : D,
+                  visibility: j,
+                },
+                layoutId: s.props.layoutId
+                  ? s.props.layoutId + `-original-` + S
+                  : void 0,
+              }),
+            }),
+          });
+        }),
+      )),
+      (In = h(function ({
+        selectedOpacity: e,
+        opacity: t,
+        total: n,
+        index: r,
+        wrappedIndex: i,
+        wrappedIndexInverted: a,
+        dotStyle: o,
+        buttonStyle: s,
+        gap: c,
+        padding: l,
+        isHorizontal: u,
+        isInverted: d,
+        ...f
+      }) {
+        let p = i === r;
+        d && (p = Math.abs(a) === r);
+        let m = c / 2,
+          h = !u && r > 0 ? m : l,
+          g = !u && r !== n - 1 ? m : l,
+          v = u && r !== n - 1 ? m : l,
+          y = u && r > 0 ? m : l;
+        return _(`button`, {
+          "aria-label": `Scroll to page ${r + 1}`,
+          type: `button`,
+          ...f,
+          style: { ...s, padding: `${h}px ${v}px ${g}px ${y}px` },
+          children: _(E.div, {
+            style: { ...o },
+            initial: !1,
+            animate: { opacity: p ? e : t },
+            transition: { duration: 0.3 },
+          }),
+        });
+      })),
+      (Ln = {
+        display: `flex`,
+        placeContent: `center`,
+        placeItems: `center`,
+        overflow: `hidden`,
+        position: `absolute`,
+        pointerEvents: `auto`,
+      }),
+      (Rn = {
+        borderRadius: `50%`,
+        background: `white`,
+        cursor: `pointer`,
+        border: `none`,
+        placeContent: `center`,
+        placeItems: `center`,
+        padding: 0,
+      }));
+  });
+function Bn(e, ...t) {
+  let n = {};
+  return (t?.forEach((t) => t && Object.assign(n, e[t])), n);
+}
+var Vn,
+  Hn,
+  Un,
+  Wn,
+  Gn,
+  Kn,
+  qn,
+  Jn,
+  Yn,
+  Xn,
+  Zn,
+  Qn = e(() => {
+    (v(),
+      B(),
+      A(),
+      r(),
+      zn(),
+      (Vn = R(Q)),
+      (Hn = { bvVJM3Pv6: { hover: !0 } }),
+      (Un = `framer-wFemX`),
+      (Wn = { bvVJM3Pv6: `framer-v-1qgkzju` }),
+      (Gn = { damping: 60, delay: 0, mass: 1, stiffness: 500, type: `spring` }),
+      (Kn = ({ value: e, children: t }) => {
+        let n = s(j),
+          r = e ?? n.transition,
+          i = c(() => ({ ...n, transition: r }), [JSON.stringify(r)]);
+        return _(j.Provider, { value: i, children: t });
+      }),
+      (qn = E.create(a)),
+      (Jn = ({ height: e, hover: t, id: n, link: r, width: i, ...a }) => ({
+        ...a,
+        e_PhRTgWu: t ?? a.e_PhRTgWu,
+        us9R2YTHv: r ?? a.us9R2YTHv,
+      })),
+      (Yn = (e, t) =>
+        e.layoutDependency ? t.join(`-`) + e.layoutDependency : t.join(`-`)),
+      (Xn = de(
+        d(function (e, n) {
+          let r = t(null),
+            i = n ?? r,
+            o = f(),
+            { activeLocale: s, setLocale: c } = H();
+          q();
+          let {
+              style: l,
+              className: u,
+              layoutId: d,
+              variant: p,
+              us9R2YTHv: m,
+              e_PhRTgWu: h,
+              ...g
+            } = Jn(e),
+            {
+              baseVariant: v,
+              classNames: b,
+              clearLoadingGesture: x,
+              gestureHandlers: S,
+              gestureVariant: C,
+              isLoading: ee,
+              setGestureState: w,
+              setVariant: T,
+              variants: D,
+            } = Se({
+              defaultVariant: `bvVJM3Pv6`,
+              enabledGestures: Hn,
+              ref: i,
+              variant: p,
+              variantClassNames: Wn,
+            }),
+            O = Yn(e, D),
+            { activeVariantCallback: te, delay: ne } = pe(v),
+            A = te(async (...e) => {
+              if ((w({ isHovered: !0 }), h && (await h(...e)) === !1))
+                return !1;
+            }),
+            j = M(Un);
+          return _(k, {
+            id: d ?? o,
+            children: _(qn, {
+              animate: D,
+              initial: !1,
+              children: _(Kn, {
+                value: Gn,
+                children: _(V, {
+                  href: m,
+                  motionChild: !0,
+                  nodeId: `bvVJM3Pv6`,
+                  openInNewTab: !0,
+                  scopeId: `vPGHCfMCw`,
+                  children: y(E.a, {
+                    ...g,
+                    ...S,
+                    className: `${M(j, `framer-1qgkzju`, u, b)} framer-1ncoyd9`,
+                    "data-border": !0,
+                    "data-framer-name": `Variant 1`,
+                    "data-highlight": !0,
+                    layoutDependency: O,
+                    layoutId: `bvVJM3Pv6`,
+                    onMouseEnter: A,
+                    ref: i,
+                    style: {
+                      "--border-bottom-width": `1.3px`,
+                      "--border-color": `rgb(46, 46, 46)`,
+                      "--border-left-width": `1.3px`,
+                      "--border-right-width": `1.3px`,
+                      "--border-style": `solid`,
+                      "--border-top-width": `1.3px`,
+                      backgroundColor: `rgb(18, 18, 18)`,
+                      borderBottomLeftRadius: 10,
+                      borderBottomRightRadius: 10,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                      boxShadow: `0px 4px 6px 0px rgba(0, 0, 0, 0.25)`,
+                      ...l,
+                    },
+                    ...Bn(
+                      { "bvVJM3Pv6-hover": { "data-framer-name": void 0 } },
+                      v,
+                      C,
+                    ),
+                    children: [
+                      _(E.div, {
+                        className: `framer-1rjmekr`,
+                        layoutDependency: O,
+                        layoutId: `dlGRimeGJ`,
+                        style: {
+                          borderTopLeftRadius: 5,
+                          borderTopRightRadius: 5,
+                        },
+                        children: _(J, {
+                          children: _(ae, {
+                            className: `framer-16b1xvl-container`,
+                            isAuthoredByUser: !0,
+                            isModuleExternal: !0,
+                            layoutDependency: O,
+                            layoutId: `dqq1ZPH0p-container`,
+                            nodeId: `dqq1ZPH0p`,
+                            rendersWithMotion: !0,
+                            scopeId: `vPGHCfMCw`,
+                            children: _(Q, {
+                              alignment: `center`,
+                              arrowOptions: {
+                                arrowFill: `rgba(0, 0, 0, 0.2)`,
+                                arrowGap: 10,
+                                arrowPadding: 20,
+                                arrowPaddingBottom: 0,
+                                arrowPaddingLeft: 0,
+                                arrowPaddingRight: 0,
+                                arrowPaddingTop: 0,
+                                arrowPosition: `auto`,
+                                arrowRadius: 40,
+                                arrowShouldFadeIn: !1,
+                                arrowShouldSpace: !0,
+                                arrowSize: 40,
+                                showMouseControls: !1,
+                              },
+                              autoPlayControl: !0,
+                              borderRadius: 0,
+                              direction: `top`,
+                              dragControl: !1,
+                              effectsOptions: {
+                                effectsHover: !0,
+                                effectsOpacity: 1,
+                                effectsPerspective: 1200,
+                                effectsRotate: 0,
+                                effectsScale: 1,
+                                playOffscreen: !1,
+                              },
+                              fadeOptions: {
+                                fadeAlpha: 0,
+                                fadeContent: !1,
+                                fadeInset: 0,
+                                fadeWidth: 25,
+                                overflow: !1,
+                              },
+                              gap: 0,
+                              height: `100%`,
+                              id: `dqq1ZPH0p`,
+                              intervalControl: 3,
+                              itemAmount: 1,
+                              layoutId: `dqq1ZPH0p`,
+                              padding: 0,
+                              paddingBottom: 0,
+                              paddingLeft: 0,
+                              paddingPerSide: !1,
+                              paddingRight: 0,
+                              paddingTop: 0,
+                              progressOptions: {
+                                dotsActiveOpacity: 1,
+                                dotsBackground: `rgba(0, 0, 0, 0.2)`,
+                                dotsBlur: 0,
+                                dotsFill: `rgb(255, 255, 255)`,
+                                dotsGap: 10,
+                                dotsInset: 10,
+                                dotSize: 10,
+                                dotsOpacity: 0.5,
+                                dotsPadding: 10,
+                                dotsRadius: 50,
+                                showProgressDots: !1,
+                              },
+                              slots: [
+                                _(U, {
+                                  background: {
+                                    alt: ``,
+                                    fit: `fill`,
+                                    intrinsicHeight: 1108,
+                                    intrinsicWidth: 1600,
+                                    pixelHeight: 1200,
+                                    pixelWidth: 1600,
+                                    sizes: `160px`,
+                                    src: `https://framerusercontent.com/images/aR3TKcVMliXQPWIhQTclJhXcTMg.png?width=1600&height=1200`,
+                                    srcSet: `https://framerusercontent.com/images/aR3TKcVMliXQPWIhQTclJhXcTMg.png?scale-down-to=512&width=1600&height=1200 512w,https://framerusercontent.com/images/aR3TKcVMliXQPWIhQTclJhXcTMg.png?scale-down-to=1024&width=1600&height=1200 1024w,https://framerusercontent.com/images/aR3TKcVMliXQPWIhQTclJhXcTMg.png?width=1600&height=1200 1600w`,
+                                  },
+                                  className: `framer-17f0k7q`,
+                                  "data-framer-name": `Cover`,
+                                  layoutDependency: O,
+                                  layoutId: `Zu1rG_iDf`,
+                                }),
+                                _(U, {
+                                  background: {
+                                    alt: ``,
+                                    fit: `fill`,
+                                    intrinsicHeight: 1425,
+                                    intrinsicWidth: 2100,
+                                    pixelHeight: 2400,
+                                    pixelWidth: 3200,
+                                    sizes: `160px`,
+                                    src: `https://framerusercontent.com/images/69auPD1YzLBCNcO5v9D5nks5aS4.png?width=3200&height=2400`,
+                                    srcSet: `https://framerusercontent.com/images/69auPD1YzLBCNcO5v9D5nks5aS4.png?scale-down-to=512&width=3200&height=2400 512w,https://framerusercontent.com/images/69auPD1YzLBCNcO5v9D5nks5aS4.png?scale-down-to=1024&width=3200&height=2400 1024w,https://framerusercontent.com/images/69auPD1YzLBCNcO5v9D5nks5aS4.png?scale-down-to=2048&width=3200&height=2400 2048w,https://framerusercontent.com/images/69auPD1YzLBCNcO5v9D5nks5aS4.png?width=3200&height=2400 3200w`,
+                                  },
+                                  className: `framer-71mh8h`,
+                                  "data-framer-name": `Screenshot_1`,
+                                  layoutDependency: O,
+                                  layoutId: `JOdQLtPky`,
+                                }),
+                                _(U, {
+                                  background: {
+                                    alt: ``,
+                                    fit: `fill`,
+                                    intrinsicHeight: 1425,
+                                    intrinsicWidth: 2100,
+                                    pixelHeight: 1200,
+                                    pixelWidth: 1600,
+                                    sizes: `160px`,
+                                    src: `https://framerusercontent.com/images/YDnxl1a68JhgSkmG8E0skqnoFM.png?width=1600&height=1200`,
+                                    srcSet: `https://framerusercontent.com/images/YDnxl1a68JhgSkmG8E0skqnoFM.png?scale-down-to=512&width=1600&height=1200 512w,https://framerusercontent.com/images/YDnxl1a68JhgSkmG8E0skqnoFM.png?scale-down-to=1024&width=1600&height=1200 1024w,https://framerusercontent.com/images/YDnxl1a68JhgSkmG8E0skqnoFM.png?width=1600&height=1200 1600w`,
+                                  },
+                                  className: `framer-qut612`,
+                                  "data-framer-name": `Screenshot_2`,
+                                  layoutDependency: O,
+                                  layoutId: `cvH9Ft1mx`,
+                                }),
+                                _(U, {
+                                  background: {
+                                    alt: ``,
+                                    fit: `fill`,
+                                    intrinsicHeight: 1425,
+                                    intrinsicWidth: 2100,
+                                    pixelHeight: 1320,
+                                    pixelWidth: 1760,
+                                    sizes: `160px`,
+                                    src: `https://framerusercontent.com/images/bUQhIsAv8wdGMuDZ6cBmNmLqJmc.png?width=1760&height=1320`,
+                                    srcSet: `https://framerusercontent.com/images/bUQhIsAv8wdGMuDZ6cBmNmLqJmc.png?scale-down-to=512&width=1760&height=1320 512w,https://framerusercontent.com/images/bUQhIsAv8wdGMuDZ6cBmNmLqJmc.png?scale-down-to=1024&width=1760&height=1320 1024w,https://framerusercontent.com/images/bUQhIsAv8wdGMuDZ6cBmNmLqJmc.png?width=1760&height=1320 1760w`,
+                                  },
+                                  className: `framer-sw8tv7`,
+                                  "data-framer-name": `Screenshot_3`,
+                                  layoutDependency: O,
+                                  layoutId: `u9WIU_UKD`,
+                                }),
+                              ],
+                              startFrom: 0,
+                              style: { height: `100%`, width: `100%` },
+                              transitionControl: {
+                                damping: 40,
+                                delay: 0,
+                                mass: 1,
+                                stiffness: 200,
+                                type: `spring`,
+                              },
+                              width: `100%`,
+                            }),
+                          }),
+                        }),
+                      }),
+                      _(E.div, {
+                        className: `framer-1sof44i`,
+                        layoutDependency: O,
+                        layoutId: `pdBQuga9q`,
+                        children: _(I, {
+                          __fromCanvasComponent: !0,
+                          children: _(a, {
+                            children: _(E.p, {
+                              style: {
+                                "--font-selector": `RlI7SW50ZXJEaXNwbGF5LUJvbGQ=`,
+                                "--framer-font-family": `"Inter Display", "Inter Display Placeholder", sans-serif`,
+                                "--framer-font-size": `11.5px`,
+                                "--framer-font-weight": `700`,
+                                "--framer-line-height": `1em`,
+                                "--framer-text-color": `var(--extracted-r6o4lv, rgb(255, 255, 255))`,
+                              },
+                              children: `NEW TEMPLATES`,
+                            }),
+                          }),
+                          className: `framer-1v2xrty`,
+                          fonts: [`FR;InterDisplay-Bold`],
+                          layoutDependency: O,
+                          layoutId: `sdRWvlhBx`,
+                          style: {
+                            "--extracted-r6o4lv": `rgb(255, 255, 255)`,
+                            "--framer-link-text-color": `rgb(0, 153, 255)`,
+                            "--framer-link-text-decoration": `underline`,
+                          },
+                          verticalAlignment: `center`,
+                          withExternalLayout: !0,
+                        }),
+                      }),
+                    ],
+                  }),
+                }),
+              }),
+            }),
+          });
+        }),
+        [
+          `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+          `.framer-wFemX.framer-1ncoyd9, .framer-wFemX .framer-1ncoyd9 { display: block; }`,
+          `.framer-wFemX.framer-1qgkzju { align-content: center; align-items: center; cursor: pointer; display: flex; flex-direction: column; flex-wrap: nowrap; gap: 7px; height: 110px; justify-content: center; overflow: hidden; padding: 5px; position: relative; text-decoration: none; width: 142px; will-change: var(--framer-will-change-override, transform); }`,
+          `.framer-wFemX .framer-1rjmekr { align-content: center; align-items: center; display: flex; flex: 1 0 0px; flex-direction: row; flex-wrap: nowrap; gap: 10px; height: 1px; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 100%; will-change: var(--framer-will-change-override, transform); }`,
+          `.framer-wFemX .framer-16b1xvl-container { flex: none; height: 100%; position: relative; width: 100%; }`,
+          `.framer-wFemX .framer-17f0k7q { align-content: center; align-items: center; aspect-ratio: 1.444043321299639 / 1; cursor: pointer; display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; height: var(--framer-aspect-ratio-supported, 111px); justify-content: center; overflow: visible; padding: 0px; position: relative; width: 160px; }`,
+          `.framer-wFemX .framer-71mh8h, .framer-wFemX .framer-qut612, .framer-wFemX .framer-sw8tv7 { align-content: center; align-items: center; aspect-ratio: 1.4736842105263157 / 1; cursor: pointer; display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; height: var(--framer-aspect-ratio-supported, 109px); justify-content: center; overflow: visible; padding: 0px; position: relative; width: 160px; }`,
+          `.framer-wFemX .framer-1sof44i { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 10px; height: min-content; justify-content: center; overflow: hidden; padding: 0px 0px 4px 0px; position: relative; width: 100%; }`,
+          `.framer-wFemX .framer-1v2xrty { flex: none; height: 14px; position: relative; white-space: pre; width: auto; }`,
+          `.framer-wFemX[data-border="true"]::after, .framer-wFemX [data-border="true"]::after { content: ""; border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0); border-color: var(--border-color, none); border-style: var(--border-style, none); width: 100%; height: 100%; position: absolute; box-sizing: border-box; left: 0; top: 0; border-radius: inherit; pointer-events: none; }`,
+        ],
+        `framer-wFemX`,
+      )),
+      (Zn = Xn),
+      (Xn.displayName = `New Template Card`),
+      (Xn.defaultProps = { height: 110, width: 142 }),
+      F(Xn, {
+        us9R2YTHv: { title: `Link`, type: G.Link },
+        e_PhRTgWu: { title: `Hover`, type: G.EventHandler },
+      }),
+      he(
+        Xn,
+        [
+          {
+            explicitInter: !0,
+            fonts: [
+              {
+                cssFamilyName: `Inter Display`,
+                source: `framer`,
+                style: `normal`,
+                uiFamilyName: `Inter Display`,
+                unicodeRange: `U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F`,
+                url: `https://framerusercontent.com/assets/I11LrmuBDQZweplJ62KkVsklU5Y.woff2`,
+                weight: `700`,
+              },
+              {
+                cssFamilyName: `Inter Display`,
+                source: `framer`,
+                style: `normal`,
+                uiFamilyName: `Inter Display`,
+                unicodeRange: `U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116`,
+                url: `https://framerusercontent.com/assets/UjFZPDy3qGuDktQM4q9CxhKfIa8.woff2`,
+                weight: `700`,
+              },
+              {
+                cssFamilyName: `Inter Display`,
+                source: `framer`,
+                style: `normal`,
+                uiFamilyName: `Inter Display`,
+                unicodeRange: `U+1F00-1FFF`,
+                url: `https://framerusercontent.com/assets/8exwVHJy2DhJ4N5prYlVMrEKmQ.woff2`,
+                weight: `700`,
+              },
+              {
+                cssFamilyName: `Inter Display`,
+                source: `framer`,
+                style: `normal`,
+                uiFamilyName: `Inter Display`,
+                unicodeRange: `U+0370-03FF`,
+                url: `https://framerusercontent.com/assets/UTeedEK21hO5jDxEUldzdScUqpg.woff2`,
+                weight: `700`,
+              },
+              {
+                cssFamilyName: `Inter Display`,
+                source: `framer`,
+                style: `normal`,
+                uiFamilyName: `Inter Display`,
+                unicodeRange: `U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF`,
+                url: `https://framerusercontent.com/assets/Ig8B8nzy11hzIWEIYnkg91sofjo.woff2`,
+                weight: `700`,
+              },
+              {
+                cssFamilyName: `Inter Display`,
+                source: `framer`,
+                style: `normal`,
+                uiFamilyName: `Inter Display`,
+                unicodeRange: `U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2070, U+2074-207E, U+2080-208E, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD`,
+                url: `https://framerusercontent.com/assets/qITWJ2WdG0wrgQPDb8lvnYnTXDg.woff2`,
+                weight: `700`,
+              },
+              {
+                cssFamilyName: `Inter Display`,
+                source: `framer`,
+                style: `normal`,
+                uiFamilyName: `Inter Display`,
+                unicodeRange: `U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB`,
+                url: `https://framerusercontent.com/assets/qctQFoJqJ9aIbRSIp0AhCQpFxn8.woff2`,
+                weight: `700`,
+              },
+            ],
+          },
+          ...Vn,
+        ],
+        { supportsExplicitInterCodegen: !0 },
+      ));
+  });
+function $n(e) {
+  let {
+      mode: n,
+      start: r,
+      end: a,
+      value: s,
+      decimals: c,
+      commas: l,
+      color: u,
+      animation: d,
+    } = e,
+    f = ue.current() === ue.canvas,
+    m = e.tag,
+    h = E[e.tag],
+    g = n == `default`,
+    _ = g ? r : s,
+    v = g ? d.transition : e.transition,
+    b = (e) => {
+      let t = e.toFixed(c);
+      return (l && (t = t.replace(/\B(?=(\d{3})+(?!\d))/g, `,`)), t);
+    },
+    [x, S] = o(_),
+    [C, w] = o(x),
+    [T, D] = o(null),
+    O = t(null),
+    k = ee(O, { once: !e.animation.replay, amount: `some` });
+  ie(s);
+  let te = (e, t) => {
+    f ||
+      (T && T.stop(),
+      w(t),
+      D(
+        ne(e, t, {
+          ...v,
+          onUpdate: (e) => {
+            S(e);
+          },
+        }),
+      ));
+  };
+  return (
+    i(() => {
+      g && d.trigger == `appear` && te(r, a);
+    }, []),
+    i(() => {
+      g && d.trigger == `layerInView` && (k ? te(r, a) : (T && T.stop(), S(r)));
+    }, [k]),
+    i(() => {
+      g || te(x, s);
+    }, [s]),
+    y(p, {
+      children: [
+        y(m, {
+          style: {
+            ...e.style,
+            margin: 0,
+            opacity: 0,
+            pointerEvents: `none`,
+            userSelect: `none`,
+            textWrap: e.balance ? `balance` : void 0,
+            fontVariantNumeric: e.monospace ? `tabular-nums` : void 0,
+            textAlign: `center`,
+            ...e.font,
+          },
+          children: [e.prefix, b(f ? _ : C), e.suffix],
+        }),
+        y(h, {
+          ref: O,
+          style: {
+            position: `absolute`,
+            inset: 0,
+            userSelect: e.userSelect ? `auto` : `none`,
+            fontVariantNumeric: e.monospace ? `tabular-nums` : void 0,
+            margin: 0,
+            ...(u.mode == `solid`
+              ? { color: u.color }
+              : {
+                  WebkitBackgroundClip: `text`,
+                  WebkitTextFillColor: `transparent`,
+                  backgroundImage: `linear-gradient(${u.angle}deg, ${u.startColor}, ${u.endColor})`,
+                }),
+            textDecoration: e.decoration,
+            textWrap: e.balance ? `balance` : void 0,
+            textAlign: `center`,
+            ...e.font,
+            ...e.style,
+          },
+          children: [e.prefix, b(f ? _ : x), e.suffix],
+        }),
+      ],
+    })
+  );
+}
+var er = e(() => {
+  (v(),
+    B(),
+    r(),
+    A(),
+    ($n.displayName = `Animated Number Counter`),
+    F($n, {
+      mode: {
+        type: G.Enum,
+        options: [`default`, `variants`],
+        optionTitles: [`Default`, `Variants`],
+        displaySegmentedControl: !0,
+      },
+      value: {
+        type: G.Number,
+        defaultValue: 0,
+        hidden: (e) => e.mode !== `variants`,
+      },
+      start: {
+        type: G.Number,
+        defaultValue: 0,
+        hidden: (e) => e.mode !== `default`,
+      },
+      end: {
+        type: G.Number,
+        defaultValue: 100,
+        hidden: (e) => e.mode !== `default`,
+      },
+      animation: {
+        type: G.Object,
+        icon: `effect`,
+        hidden: (e) => e.mode !== `default`,
+        controls: {
+          trigger: {
+            type: G.Enum,
+            defaultValue: `layerInView`,
+            options: [`appear`, `layerInView`],
+            optionTitles: [`Appear`, `Layer in View`],
+            displaySegmentedControl: !0,
+            segmentedControlDirection: `vertical`,
+          },
+          replay: {
+            type: G.Boolean,
+            defaultValue: !0,
+            hidden(e) {
+              return e.trigger !== `layerInView`;
+            },
+          },
+          transition: {
+            type: G.Transition,
+            defaultValue: { type: `spring`, duration: 1, bounce: 0 },
+          },
+        },
+      },
+      transition: {
+        type: G.Transition,
+        defaultValue: { type: `spring`, duration: 1, bounce: 0 },
+        hidden: (e) => e.mode !== `variants`,
+      },
+      decimals: {
+        type: G.Enum,
+        defaultValue: 0,
+        options: [0, 1, 2, 3],
+        optionTitles: [`Off`, `1`, `2`, `3`],
+        displaySegmentedControl: !0,
+      },
+      commas: { type: G.Boolean, defaultValue: !0 },
+      font: {
+        type: `font`,
+        controls: `extended`,
+        defaultFontType: `sans-serif`,
+        defaultValue: { fontSize: 16, lineHeight: 1 },
+      },
+      color: {
+        type: G.Object,
+        controls: {
+          mode: {
+            type: G.Enum,
+            defaultValue: `solid`,
+            options: [`solid`, `gradient`],
+            optionTitles: [`Solid`, `Gradient`],
+            displaySegmentedControl: !0,
+          },
+          color: {
+            type: G.Color,
+            defaultValue: `#000`,
+            hidden: (e) => e.mode !== `solid`,
+          },
+          startColor: {
+            type: G.Color,
+            defaultValue: `#000`,
+            hidden: (e) => e.mode !== `gradient`,
+          },
+          endColor: {
+            type: G.Color,
+            defaultValue: `#FFF`,
+            hidden: (e) => e.mode !== `gradient`,
+          },
+          angle: {
+            type: G.Number,
+            defaultValue: 180,
+            min: -360,
+            max: 360,
+            unit: `°`,
+            hidden: (e) => e.mode !== `gradient`,
+          },
+        },
+      },
+      prefix: { type: G.String, placeholder: `Prefix` },
+      suffix: { type: G.String, placeholder: `Suffix` },
+      decoration: {
+        type: G.Enum,
+        defaultValue: `none`,
+        options: [`none`, `underline`, `line-through`],
+        optionTitles: [`None`, `Underline`, `Strikethrough`],
+      },
+      balance: { type: G.Boolean, defaultValue: !1 },
+      userSelect: { type: G.Boolean, defaultValue: !0 },
+      tag: {
+        type: G.Enum,
+        defaultValue: `p`,
+        displaySegmentedControl: !0,
+        options: [`h1`, `h2`, `h3`, `p`],
+        optionTitles: [`H1`, `H2`, `H3`, `P`],
+      },
+      monospace: {
+        type: G.Boolean,
+        defaultValue: !1,
+        description: `More components at [Framer University](https://frameruni.link/cc).`,
+      },
+    }));
+});
+function tr(e, ...t) {
+  let n = {};
+  return (t?.forEach((t) => t && Object.assign(n, e[t])), n);
+}
+var nr,
+  rr,
+  ir,
+  ar,
+  or,
+  sr,
+  cr,
+  lr,
+  ur,
+  dr,
+  fr,
+  pr,
+  mr,
+  hr,
+  gr,
+  _r,
+  vr,
+  yr = e(() => {
+    (v(),
+      B(),
+      A(),
+      r(),
+      Le(),
+      pt(),
+      (nr = se(E.a)),
+      (rr = { uh4EM5Dud: { hover: !0 } }),
+      (ir = [`uh4EM5Dud`, `J20pk65nD`]),
+      (ar = `framer-dZPIJ`),
+      (or = { J20pk65nD: `framer-v-ocz1h0`, uh4EM5Dud: `framer-v-jugthg` }),
+      (sr = {
+        opacity: 1,
+        rotate: 0,
+        rotateX: 0,
+        rotateY: 0,
+        scale: 1,
+        skewX: 0,
+        skewY: 0,
+        x: -60,
+        y: 0,
+      }),
+      (cr = { damping: 40, delay: 0, mass: 1, stiffness: 200, type: `spring` }),
+      (lr = {
+        opacity: 1,
+        rotate: 0,
+        rotateX: 0,
+        rotateY: 0,
+        scale: 1,
+        skewX: 0,
+        skewY: 0,
+        transition: cr,
+        x: -60,
+        y: 0,
+      }),
+      (ur = { damping: 60, delay: 0, mass: 1, stiffness: 350, type: `spring` }),
+      (dr = (e) =>
+        typeof e == `object` && e && typeof e.src == `string`
+          ? e
+          : typeof e == `string`
+            ? { src: e }
+            : void 0),
+      (fr = ({ value: e, children: t }) => {
+        let n = s(j),
+          r = e ?? n.transition,
+          i = c(() => ({ ...n, transition: r }), [JSON.stringify(r)]);
+        return _(j.Provider, { value: i, children: t });
+      }),
+      (pr = E.create(a)),
+      (mr = { Primary: `uh4EM5Dud`, Secondary: `J20pk65nD` }),
+      (hr = ({
+        brand: e,
+        height: t,
+        hoverImage: n,
+        id: r,
+        link: i,
+        name1: a,
+        title: o,
+        width: s,
+        ...c
+      }) => ({
+        ...c,
+        JOsAZi8LO: i ?? c.JOsAZi8LO,
+        mHtuG5qhV: o ?? c.mHtuG5qhV ?? `AWWWARDS`,
+        szkEyGTd4: e ?? c.szkEyGTd4 ?? `Agencify`,
+        tJGUkACRt: a ?? c.tJGUkACRt ?? `AWWWARDS SOTM`,
+        u17m_GSpk: n ??
+          c.u17m_GSpk ?? {
+            alt: `award-image`,
+            pixelHeight: 112,
+            pixelWidth: 2672,
+            src: `https://framerusercontent.com/images/iJCbFq6QDZH4K4GXxSZ8VVuvK6Y.png?scale-down-to=1024`,
+            srcSet: `https://framerusercontent.com/images/iJCbFq6QDZH4K4GXxSZ8VVuvK6Y.png?scale-down-to=512 512w,https://framerusercontent.com/images/iJCbFq6QDZH4K4GXxSZ8VVuvK6Y.png?scale-down-to=1024 1024w,https://framerusercontent.com/images/iJCbFq6QDZH4K4GXxSZ8VVuvK6Y.png?scale-down-to=2048 2048w,https://framerusercontent.com/images/iJCbFq6QDZH4K4GXxSZ8VVuvK6Y.png 2672w`,
+          },
+        variant: mr[c.variant] ?? c.variant ?? `uh4EM5Dud`,
+      })),
+      (gr = (e, t) =>
+        e.layoutDependency ? t.join(`-`) + e.layoutDependency : t.join(`-`)),
+      (_r = de(
+        d(function (e, n) {
+          let r = t(null),
+            i = n ?? r,
+            o = f(),
+            { activeLocale: s, setLocale: c } = H(),
+            l = q(),
+            {
+              style: u,
+              className: d,
+              layoutId: p,
+              variant: m,
+              mHtuG5qhV: h,
+              tJGUkACRt: g,
+              szkEyGTd4: v,
+              u17m_GSpk: b,
+              JOsAZi8LO: x,
+              ...S
+            } = hr(e),
+            {
+              baseVariant: C,
+              classNames: ee,
+              clearLoadingGesture: w,
+              gestureHandlers: T,
+              gestureVariant: D,
+              isLoading: O,
+              setGestureState: te,
+              setVariant: ne,
+              variants: A,
+            } = Se({
+              cycleOrder: ir,
+              defaultVariant: `uh4EM5Dud`,
+              enabledGestures: rr,
+              ref: i,
+              variant: m,
+              variantClassNames: or,
+            }),
+            j = gr(e, A),
+            re = M(ar, Be, gt),
+            ie = () => C !== `J20pk65nD`;
+          return _(k, {
+            id: p ?? o,
+            children: _(pr, {
+              animate: A,
+              initial: !1,
+              children: _(fr, {
+                value: ur,
+                children: _(V, {
+                  href: x,
+                  motionChild: !0,
+                  nodeId: `uh4EM5Dud`,
+                  openInNewTab: !0,
+                  scopeId: `GfbgV65Wz`,
+                  smoothScroll: !0,
+                  children: _(nr, {
+                    ...S,
+                    ...T,
+                    __framer__animate: { transition: cr },
+                    __framer__animateOnce: !0,
+                    __framer__enter: sr,
+                    __framer__exit: lr,
+                    __framer__styleAppearEffectEnabled: !0,
+                    __framer__threshold: 0,
+                    __perspectiveFX: !1,
+                    __smartComponentFX: !0,
+                    __targetOpacity: 1,
+                    className: `${M(re, `framer-jugthg`, d, ee)} framer-s38oja`,
+                    "data-framer-name": `Primary`,
+                    layoutDependency: j,
+                    layoutId: `uh4EM5Dud`,
+                    ref: i,
+                    style: { ...u },
+                    ...tr(
+                      {
+                        "uh4EM5Dud-hover": { "data-framer-name": void 0 },
+                        J20pk65nD: { "data-framer-name": `Secondary` },
+                      },
+                      C,
+                      D,
+                    ),
+                    children: y(E.div, {
+                      className: `framer-1easimz`,
+                      "data-framer-name": `Content`,
+                      layoutDependency: j,
+                      layoutId: `RMUa2uEF3`,
+                      style: {
+                        backgroundColor: `var(--token-070d6d62-ec29-4734-b244-64b019cdc1a7, rgb(27, 27, 27))`,
+                        originY: 1,
+                        rotateX: 0,
+                        transformPerspective: 1200,
+                      },
+                      variants: { "uh4EM5Dud-hover": { rotateX: -45 } },
+                      children: [
+                        ie() &&
+                          _(E.div, {
+                            className: `framer-1ubhqd1`,
+                            "data-framer-name": `Peek`,
+                            layoutDependency: j,
+                            layoutId: `OtnAlPbFu`,
+                            style: { originY: 0, rotateX: -90 },
+                            children: _(U, {
+                              background: {
+                                alt: ``,
+                                fit: `fill`,
+                                intrinsicHeight: 84.5,
+                                intrinsicWidth: 598,
+                                loading: N(
+                                  (l?.y || 0) +
+                                    0 +
+                                    (((l?.height || 96) -
+                                      0 -
+                                      (Math.max(
+                                        0,
+                                        ((l?.height || 96) - 0 - 0) / 1,
+                                      ) *
+                                        1 +
+                                        0)) /
+                                      2 +
+                                      0 +
+                                      0) +
+                                    0 +
+                                    0,
+                                ),
+                                pixelHeight: 112,
+                                pixelWidth: 2672,
+                                sizes: l?.width || `100vw`,
+                                ...dr(b),
+                              },
+                              className: `framer-ei249a`,
+                              "data-framer-name": `image`,
+                              layoutDependency: j,
+                              layoutId: `l4Xryofto`,
+                              style: { rotateX: 180 },
+                            }),
+                          }),
+                        _(I, {
+                          __fromCanvasComponent: !0,
+                          children: _(a, {
+                            children: _(E.p, {
+                              className: `framer-styles-preset-4r8vu`,
+                              "data-styles-preset": `lRMRijzgW`,
+                              style: {
+                                "--framer-text-color": `var(--extracted-r6o4lv, var(--token-cefd53da-2fb8-43ce-a46f-ce10f21a062c, rgb(102, 102, 102)))`,
+                              },
+                              children: `AWWWARDS`,
+                            }),
+                          }),
+                          className: `framer-18kiz7f`,
+                          fonts: [`Inter`],
+                          layoutDependency: j,
+                          layoutId: `HEFYvdpSE`,
+                          style: {
+                            "--extracted-r6o4lv": `var(--token-cefd53da-2fb8-43ce-a46f-ce10f21a062c, rgb(102, 102, 102))`,
+                            "--framer-link-text-color": `rgb(0, 153, 255)`,
+                            "--framer-link-text-decoration": `underline`,
+                          },
+                          text: h,
+                          variants: {
+                            "uh4EM5Dud-hover": {
+                              "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                            },
+                          },
+                          verticalAlignment: `top`,
+                          withExternalLayout: !0,
+                          ...tr(
+                            {
+                              "uh4EM5Dud-hover": {
+                                children: _(a, {
+                                  children: _(E.p, {
+                                    className: `framer-styles-preset-4r8vu`,
+                                    "data-styles-preset": `lRMRijzgW`,
+                                    style: {
+                                      "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                    },
+                                    children: `AWWWARDS`,
+                                  }),
+                                }),
+                              },
+                            },
+                            C,
+                            D,
+                          ),
+                        }),
+                        _(I, {
+                          __fromCanvasComponent: !0,
+                          children: _(a, {
+                            children: _(E.h5, {
+                              className: `framer-styles-preset-frl4vq`,
+                              "data-styles-preset": `UNvevQM2g`,
+                              style: {
+                                "--framer-text-alignment": `center`,
+                                "--framer-text-color": `var(--extracted-1lwpl3i, var(--token-cefd53da-2fb8-43ce-a46f-ce10f21a062c, rgb(102, 102, 102)))`,
+                              },
+                              children: `AWWWARDS SOTM`,
+                            }),
+                          }),
+                          className: `framer-1ws60ac`,
+                          fonts: [`Inter`],
+                          layoutDependency: j,
+                          layoutId: `JEmQdEwdZ`,
+                          style: {
+                            "--extracted-1lwpl3i": `var(--token-cefd53da-2fb8-43ce-a46f-ce10f21a062c, rgb(102, 102, 102))`,
+                            "--framer-link-text-color": `rgb(0, 153, 255)`,
+                            "--framer-link-text-decoration": `underline`,
+                          },
+                          text: g,
+                          variants: {
+                            "uh4EM5Dud-hover": {
+                              "--extracted-1lwpl3i": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                            },
+                          },
+                          verticalAlignment: `top`,
+                          withExternalLayout: !0,
+                          ...tr(
+                            {
+                              "uh4EM5Dud-hover": {
+                                children: _(a, {
+                                  children: _(E.h5, {
+                                    className: `framer-styles-preset-frl4vq`,
+                                    "data-styles-preset": `UNvevQM2g`,
+                                    style: {
+                                      "--framer-text-alignment": `center`,
+                                      "--framer-text-color": `var(--extracted-1lwpl3i, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                    },
+                                    children: `AWWWARDS SOTM`,
+                                  }),
+                                }),
+                              },
+                              J20pk65nD: {
+                                children: _(a, {
+                                  children: _(E.h5, {
+                                    className: `framer-styles-preset-frl4vq`,
+                                    "data-styles-preset": `UNvevQM2g`,
+                                    style: {
+                                      "--framer-text-alignment": `right`,
+                                      "--framer-text-color": `var(--extracted-1lwpl3i, var(--token-cefd53da-2fb8-43ce-a46f-ce10f21a062c, rgb(102, 102, 102)))`,
+                                    },
+                                    children: `AWWWARDS SOTM`,
+                                  }),
+                                }),
+                              },
+                            },
+                            C,
+                            D,
+                          ),
+                        }),
+                        ie() &&
+                          _(I, {
+                            __fromCanvasComponent: !0,
+                            children: _(a, {
+                              children: _(E.p, {
+                                className: `framer-styles-preset-4r8vu`,
+                                "data-styles-preset": `lRMRijzgW`,
+                                style: {
+                                  "--framer-text-color": `var(--extracted-r6o4lv, var(--token-cefd53da-2fb8-43ce-a46f-ce10f21a062c, rgb(102, 102, 102)))`,
+                                },
+                                children: `Agencify`,
+                              }),
+                            }),
+                            className: `framer-qa1rn1`,
+                            fonts: [`Inter`],
+                            layoutDependency: j,
+                            layoutId: `mrIhv3kxA`,
+                            style: {
+                              "--extracted-r6o4lv": `var(--token-cefd53da-2fb8-43ce-a46f-ce10f21a062c, rgb(102, 102, 102))`,
+                              "--framer-link-text-color": `rgb(0, 153, 255)`,
+                              "--framer-link-text-decoration": `underline`,
+                            },
+                            text: v,
+                            variants: {
+                              "uh4EM5Dud-hover": {
+                                "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                              },
+                            },
+                            verticalAlignment: `top`,
+                            withExternalLayout: !0,
+                            ...tr(
+                              {
+                                "uh4EM5Dud-hover": {
+                                  children: _(a, {
+                                    children: _(E.p, {
+                                      className: `framer-styles-preset-4r8vu`,
+                                      "data-styles-preset": `lRMRijzgW`,
+                                      style: {
+                                        "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                      },
+                                      children: `Agencify`,
+                                    }),
+                                  }),
+                                },
+                              },
+                              C,
+                              D,
+                            ),
+                          }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+            }),
+          });
+        }),
+        [
+          `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+          `.framer-dZPIJ.framer-s38oja, .framer-dZPIJ .framer-s38oja { display: block; }`,
+          `.framer-dZPIJ.framer-jugthg { align-content: center; align-items: center; cursor: pointer; display: flex; flex-direction: column; flex-wrap: nowrap; gap: 10px; height: 96px; justify-content: center; overflow: visible; padding: 0px; position: relative; text-decoration: none; width: 700px; }`,
+          `.framer-dZPIJ .framer-1easimz { align-content: center; align-items: center; display: flex; flex: 1 0 0px; flex-direction: row; flex-wrap: nowrap; height: 1px; justify-content: space-between; overflow: visible; padding: 0px 32px 0px 32px; position: relative; transform-style: preserve-3d; width: 100%; }`,
+          `.framer-dZPIJ .framer-1ubhqd1 { flex: none; height: 100%; left: calc(50.00000000000002% - 100% / 2); overflow: hidden; position: absolute; top: 0px; width: 100%; z-index: 1; }`,
+          `.framer-dZPIJ .framer-ei249a { -webkit-user-select: none; bottom: 0px; flex: none; left: 0px; overflow: visible; pointer-events: none; position: absolute; right: 0px; top: 0px; user-select: none; }`,
+          `.framer-dZPIJ .framer-18kiz7f, .framer-dZPIJ .framer-qa1rn1 { flex: none; height: auto; position: relative; white-space: pre; width: auto; }`,
+          `.framer-dZPIJ .framer-1ws60ac { flex: 1 0 0px; height: auto; position: relative; white-space: pre-wrap; width: 1px; word-break: break-word; word-wrap: break-word; }`,
+          `.framer-dZPIJ.framer-v-ocz1h0.framer-jugthg { height: min-content; width: 390px; }`,
+          `.framer-dZPIJ.framer-v-ocz1h0 .framer-1easimz { flex: none; gap: 16px; height: min-content; justify-content: flex-start; padding: 30px 20px 30px 10px; }`,
+          ...Re,
+          ...mt,
+        ],
+        `framer-dZPIJ`,
+      )),
+      (vr = _r),
+      (_r.displayName = `Award Card`),
+      (_r.defaultProps = { height: 96, width: 700 }),
+      F(_r, {
+        variant: {
+          options: [`uh4EM5Dud`, `J20pk65nD`],
+          optionTitles: [`Primary`, `Secondary`],
+          title: `Variant`,
+          type: G.Enum,
+        },
+        mHtuG5qhV: {
+          defaultValue: `AWWWARDS`,
+          displayTextArea: !1,
+          title: `Title`,
+          type: G.String,
+        },
+        tJGUkACRt: {
+          defaultValue: `AWWWARDS SOTM`,
+          displayTextArea: !1,
+          title: `Name`,
+          type: G.String,
+        },
+        szkEyGTd4: {
+          defaultValue: `Agencify`,
+          displayTextArea: !1,
+          title: `Brand`,
+          type: G.String,
+        },
+        u17m_GSpk: {
+          __defaultAssetReference: `data:framer/asset-reference,iJCbFq6QDZH4K4GXxSZ8VVuvK6Y.png?originalFilename=award.png&preferredSize=auto`,
+          __vekterDefault: {
+            alt: `award-image`,
+            assetReference: `data:framer/asset-reference,iJCbFq6QDZH4K4GXxSZ8VVuvK6Y.png?originalFilename=award.png&preferredSize=auto`,
+          },
+          description: ``,
+          title: `Hover Image`,
+          type: G.ResponsiveImage,
+        },
+        JOsAZi8LO: { title: `Link`, type: G.Link },
+      }),
+      he(
+        _r,
+        [
+          {
+            explicitInter: !0,
+            fonts: [
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F`,
+                url: `https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116`,
+                url: `https://framerusercontent.com/assets/EOr0mi4hNtlgWNn9if640EZzXCo.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+1F00-1FFF`,
+                url: `https://framerusercontent.com/assets/Y9k9QrlZAqio88Klkmbd8VoMQc.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0370-03FF`,
+                url: `https://framerusercontent.com/assets/OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF`,
+                url: `https://framerusercontent.com/assets/JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2070, U+2074-207E, U+2080-208E, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD`,
+                url: `https://framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB`,
+                url: `https://framerusercontent.com/assets/b6Y37FthZeALduNqHicBT6FutY.woff2`,
+                weight: `400`,
+              },
+            ],
+          },
+          ...z(ze),
+          ...z(ht),
+        ],
+        { supportsExplicitInterCodegen: !0 },
+      ));
+  });
+function br(e) {
+  let {
+      slots: r = [],
+      gap: a,
+      padding: s,
+      paddingPerSide: u,
+      paddingTop: d,
+      paddingRight: f,
+      paddingBottom: p,
+      paddingLeft: m,
+      speed: h,
+      hoverFactor: v,
+      direction: S,
+      alignment: C,
+      sizingOptions: w,
+      fadeOptions: te,
+      style: ne,
+    } = e,
+    {
+      fadeContent: A,
+      overflow: j,
+      fadeWidth: re,
+      fadeInset: ae,
+      fadeAlpha: oe,
+    } = te,
+    { widthType: se, heightType: M } = w,
+    N = u ? `${d}px ${f}px ${p}px ${m}px` : `${s}px`,
+    P = ue.current(),
+    F = P === ue.canvas || P === ue.export,
+    I = xr(),
+    ce = r.filter(Boolean),
+    L = n.count(ce),
+    le = L > 0,
+    de = ie(0),
+    R = Sr(S === !0 ? `left` : S, I),
+    z = R === `left` || R === `right`,
+    B = wr[R];
+  T(de, B);
+  let V = t(null),
+    H = c(() => [{ current: null }, { current: null }], []),
+    [fe, pe] = o({ parent: null, children: null }),
+    U = null,
+    me = [],
+    W = 0,
+    G = 0;
+  (F && ((W = L ? Math.floor(10 / L) : 0), (G = 1)),
+    !F &&
+      le &&
+      fe.parent &&
+      ((W = Math.round((fe.parent / fe.children) * 2) + 1),
+      (W = Math.min(W, Cr)),
+      (G = 1)));
+  let K = l(() => {
+      if (le && V.current) {
+        let e = z ? V.current.offsetWidth : V.current.offsetHeight,
+          t = H[0].current
+            ? z
+              ? H[0].current.offsetLeft
+              : H[0].current.offsetTop
+            : 0,
+          n =
+            (H[1].current
+              ? z
+                ? H[1].current.offsetLeft + H[1].current.offsetWidth
+                : H[1].current.offsetTop + H[1].current.offsetHeight
+              : 0) -
+            t +
+            a;
+        b(() => {
+          pe({ parent: e, children: n });
+        });
+      }
+    }, []),
+    he = F ? { contentVisibility: `auto` } : {};
+  if (le) {
+    if (!F) {
+      let e = t(!0);
+      x(
+        () => (
+          O.read(K, !1, !0),
+          Qt(V.current, ({ contentSize: t }) => {
+            (!e.current && (t.width || t.height) && O.read(K, !1, !0),
+              (e.current = !1));
+          })
+        ),
+        [],
+      );
+    }
+    U = n.map(ce, (e, t) => {
+      let n;
+      (t === 0 && (n = H[I === `rtl` && z ? 1 : 0]),
+        t === ce.length - 1 && (n = H[I === `rtl` && z ? 0 : 1]));
+      let r = {
+        width: se ? e.props?.width : `100%`,
+        height: M ? e.props?.height : `100%`,
+      };
+      return _(k, {
+        inherit: `id`,
+        children: _(Tr, {
+          ref: n,
+          style: r,
+          children: g(
+            e,
+            {
+              style: { ...e.props?.style, ...r, flexShrink: 0, ...he },
+              layoutId: e.props.layoutId
+                ? e.props.layoutId + `-original-` + t
+                : void 0,
+            },
+            e.props?.children,
+          ),
+        }),
+      });
+    });
+  }
+  let q = F ? !0 : ee(V);
+  if (!F)
+    for (let e = 0; e < W; e++)
+      me = me.concat(
+        n.map(ce, (t, n) =>
+          _(
+            k,
+            {
+              inherit: `id`,
+              children: _(
+                Tr,
+                {
+                  style: {
+                    width: se ? t.props?.width : `100%`,
+                    height: M ? t.props?.height : `100%`,
+                    willChange: q ? `transform` : void 0,
+                  },
+                  children: g(
+                    t,
+                    {
+                      key: e + ` ` + n,
+                      style: {
+                        ...t.props?.style,
+                        width: se ? t.props?.width : `100%`,
+                        height: M ? t.props?.height : `100%`,
+                        flexShrink: 0,
+                        ...he,
+                      },
+                      layoutId: t.props.layoutId
+                        ? t.props.layoutId + `-dupe-` + e
+                        : void 0,
+                    },
+                    t.props?.children,
+                  ),
+                },
+                e + `li` + n,
+              ),
+            },
+            e + `lg` + n,
+          ),
+        ),
+      );
+  let ge = fe.children + fe.children * Math.round(fe.parent / fe.children);
+  (t(null), t(null), t(0));
+  let J = t(!1),
+    _e = D(),
+    ve = t(null),
+    Y = t(null);
+  if (!F) {
+    i(() => {
+      if (!(_e || !ge || !h))
+        return (
+          (Y.current = ve.current.animate(
+            { transform: [B(0), B(ge)] },
+            {
+              duration: (Math.abs(ge) / h) * 1e3,
+              iterations: 1 / 0,
+              iterationStart: I === `rtl` ? 1 : 0,
+              easing: `linear`,
+            },
+          )),
+          () => Y.current.cancel()
+        );
+    }, [v, ge, h, I]);
+    let e = l(() => {
+      if (!Y.current) return;
+      let e = document.hidden;
+      q && !e && Y.current.playState === `paused`
+        ? Y.current.play()
+        : (!q || e) && Y.current.playState === `running` && Y.current.pause();
+    }, [q]);
+    (i(() => {
+      e();
+    }, [q, v, ge, h]),
+      i(
+        () => (
+          document.addEventListener(`visibilitychange`, e),
+          () => {
+            document.removeEventListener(`visibilitychange`, e);
+          }
+        ),
+        [e],
+      ));
+  }
+  let ye = z ? `to right` : `to bottom`,
+    be = re / 2,
+    xe = 100 - re / 2,
+    Se = `linear-gradient(${ye}, rgba(0, 0, 0, ${oe}) ${jr(ae, 0, be)}%, rgba(0, 0, 0, 1) ${be}%, rgba(0, 0, 0, 1) ${xe}%, rgba(0, 0, 0, ${oe}) ${100 - ae}%)`;
+  return le
+    ? _(`section`, {
+        style: {
+          ...Er,
+          opacity: G,
+          WebkitMaskImage: A ? Se : void 0,
+          maskImage: A ? Se : void 0,
+          overflow: j ? `visible` : `hidden`,
+          padding: N,
+        },
+        ref: V,
+        children: y(E.ul, {
+          ref: ve,
+          style: {
+            ...Er,
+            gap: a,
+            top: S === `bottom` && Mr(ge) ? -ge : void 0,
+            left:
+              S === `right` && Mr(ge) ? ge * (I === `rtl` ? 1 : -1) : void 0,
+            placeItems: C,
+            position: `relative`,
+            flexDirection: z ? `row` : `column`,
+            ...ne,
+            willChange: F || !q ? `auto` : `transform`,
+            transform: B(0),
+          },
+          onMouseEnter: () => {
+            ((J.current = !0), Y.current && (Y.current.playbackRate = v));
+          },
+          onMouseLeave: () => {
+            ((J.current = !1), Y.current && (Y.current.playbackRate = 1));
+          },
+          children: [U, me],
+        }),
+      })
+    : y(`section`, {
+        style: Dr,
+        children: [
+          _(`div`, { style: Or, children: `✨` }),
+          _(`p`, { style: kr, children: `Connect to Content` }),
+          _(`p`, {
+            style: Ar,
+            children: `Add layers or components to infinitely loop on your page.`,
+          }),
+        ],
+      });
+}
+function xr() {
+  return !u || !u.document || !u.document.documentElement
+    ? `ltr`
+    : u.document.documentElement.dir === `rtl`
+      ? `rtl`
+      : `ltr`;
+}
+function Sr(e, t) {
+  return t === `rtl`
+    ? e === `left`
+      ? `right`
+      : e === `right`
+        ? `left`
+        : e
+    : e;
+}
+var Cr,
+  wr,
+  Tr,
+  Er,
+  Dr,
+  Or,
+  kr,
+  Ar,
+  jr,
+  Mr,
+  Nr = e(() => {
+    (C(),
+      v(),
+      r(),
+      B(),
+      A(),
+      xn(),
+      (Cr = 100),
+      (wr = {
+        left: (e) => `translateX(-${e}px)`,
+        right: (e) => `translateX(${e}px)`,
+        top: (e) => `translateY(-${e}px)`,
+        bottom: (e) => `translateY(${e}px)`,
+      }),
+      (Tr = d(({ children: e, ...n }, r) => {
+        let a = t(),
+          o = ee(a);
+        return (
+          S(r, () => a.current),
+          i(() => {
+            let e = a.current;
+            e &&
+              (o
+                ? e.querySelectorAll(`button,a`).forEach((e) => {
+                    let t = e.dataset.origTabIndex;
+                    t ? (e.tabIndex = t) : e.removeAttribute(`tabIndex`);
+                  })
+                : e.querySelectorAll(`button,a`).forEach((e) => {
+                    let t = e.getAttribute(`tabIndex`);
+                    (t && (e.dataset.origTabIndex = t), (e.tabIndex = -1));
+                  }));
+          }, [o]),
+          _(`li`, { ...n, "aria-hidden": !o, ref: a, children: e })
+        );
+      })),
+      (br.defaultProps = {
+        gap: 10,
+        padding: 10,
+        sizingOptions: { widthType: !0, heightType: !0 },
+        fadeOptions: {
+          fadeContent: !0,
+          overflow: !1,
+          fadeWidth: 25,
+          fadeAlpha: 0,
+          fadeInset: 0,
+        },
+        direction: !0,
+      }),
+      F(br, {
+        slots: {
+          type: G.Array,
+          title: `Children`,
+          control: { type: G.ComponentInstance },
+        },
+        speed: {
+          type: G.Number,
+          title: `Speed`,
+          min: 0,
+          max: 1e3,
+          defaultValue: 100,
+          unit: `%`,
+          displayStepper: !0,
+          step: 5,
+        },
+        direction: {
+          type: G.Enum,
+          title: `Direction`,
+          options: [`left`, `right`, `top`, `bottom`],
+          optionIcons: [
+            `direction-left`,
+            `direction-right`,
+            `direction-up`,
+            `direction-down`,
+          ],
+          optionTitles: [`Left`, `Right`, `Top`, `Bottom`],
+          defaultValue: `left`,
+          displaySegmentedControl: !0,
+        },
+        alignment: {
+          type: G.Enum,
+          title: `Align`,
+          options: [`flex-start`, `center`, `flex-end`],
+          optionIcons: {
+            direction: {
+              right: [`align-top`, `align-middle`, `align-bottom`],
+              left: [`align-top`, `align-middle`, `align-bottom`],
+              top: [`align-left`, `align-center`, `align-right`],
+              bottom: [`align-left`, `align-center`, `align-right`],
+            },
+          },
+          defaultValue: `center`,
+          displaySegmentedControl: !0,
+        },
+        gap: { type: G.Number, title: `Gap` },
+        padding: {
+          title: `Padding`,
+          type: G.FusedNumber,
+          toggleKey: `paddingPerSide`,
+          toggleTitles: [`Padding`, `Padding per side`],
+          valueKeys: [
+            `paddingTop`,
+            `paddingRight`,
+            `paddingBottom`,
+            `paddingLeft`,
+          ],
+          valueLabels: [`T`, `R`, `B`, `L`],
+          min: 0,
+        },
+        sizingOptions: {
+          type: G.Object,
+          title: `Sizing`,
+          controls: {
+            widthType: {
+              type: G.Boolean,
+              title: `Width`,
+              enabledTitle: `Auto`,
+              disabledTitle: `Stretch`,
+              defaultValue: !0,
+            },
+            heightType: {
+              type: G.Boolean,
+              title: `Height`,
+              enabledTitle: `Auto`,
+              disabledTitle: `Stretch`,
+              defaultValue: !0,
+            },
+          },
+        },
+        fadeOptions: {
+          type: G.Object,
+          title: `Clipping`,
+          controls: {
+            fadeContent: { type: G.Boolean, title: `Fade`, defaultValue: !0 },
+            overflow: {
+              type: G.Boolean,
+              title: `Overflow`,
+              enabledTitle: `Show`,
+              disabledTitle: `Hide`,
+              defaultValue: !1,
+              hidden(e) {
+                return e.fadeContent === !0;
+              },
+            },
+            fadeWidth: {
+              type: G.Number,
+              title: `Width`,
+              defaultValue: 25,
+              min: 0,
+              max: 100,
+              unit: `%`,
+              hidden(e) {
+                return e.fadeContent === !1;
+              },
+            },
+            fadeInset: {
+              type: G.Number,
+              title: `Inset`,
+              defaultValue: 0,
+              min: 0,
+              max: 100,
+              unit: `%`,
+              hidden(e) {
+                return e.fadeContent === !1;
+              },
+            },
+            fadeAlpha: {
+              type: G.Number,
+              title: `Opacity`,
+              defaultValue: 0,
+              min: 0,
+              max: 1,
+              step: 0.05,
+              hidden(e) {
+                return e.fadeContent === !1;
+              },
+            },
+          },
+        },
+        hoverFactor: {
+          type: G.Number,
+          title: `Hover`,
+          min: 0,
+          max: 1,
+          unit: `x`,
+          defaultValue: 1,
+          step: 0.1,
+          displayStepper: !0,
+          description: `Slows down the speed while you are hovering.`,
+        },
+      }),
+      (Er = {
+        display: `flex`,
+        width: `100%`,
+        height: `100%`,
+        maxWidth: `100%`,
+        maxHeight: `100%`,
+        placeItems: `center`,
+        margin: 0,
+        padding: 0,
+        listStyleType: `none`,
+        textIndent: `none`,
+      }),
+      (Dr = {
+        display: `flex`,
+        width: `100%`,
+        height: `100%`,
+        placeContent: `center`,
+        placeItems: `center`,
+        flexDirection: `column`,
+        color: `#96F`,
+        background: `rgba(136, 85, 255, 0.1)`,
+        fontSize: 11,
+        overflow: `hidden`,
+        padding: `20px 20px 30px 20px`,
+      }),
+      (Or = { fontSize: 32, marginBottom: 10 }),
+      (kr = {
+        margin: 0,
+        marginBottom: 10,
+        fontWeight: 600,
+        textAlign: `center`,
+      }),
+      (Ar = {
+        margin: 0,
+        opacity: 0.7,
+        maxWidth: 150,
+        lineHeight: 1.5,
+        textAlign: `center`,
+      }),
+      (jr = (e, t, n) => Math.min(Math.max(e, t), n)),
+      (Mr = (e) => typeof e == `number` && !isNaN(e)));
+  }),
+  Pr,
+  Fr,
+  Ir,
+  Lr,
+  Rr,
+  zr,
+  Br,
+  Vr,
+  Hr,
+  Ur = e(() => {
+    (v(),
+      B(),
+      A(),
+      r(),
+      Le(),
+      (Pr = `framer-2QVhU`),
+      (Fr = { sqpoqmx3q: `framer-v-chmawg` }),
+      (Ir = { bounce: 0.2, delay: 0, duration: 0.4, type: `spring` }),
+      (Lr = ({ value: e, children: t }) => {
+        let n = s(j),
+          r = e ?? n.transition,
+          i = c(() => ({ ...n, transition: r }), [JSON.stringify(r)]);
+        return _(j.Provider, { value: i, children: t });
+      }),
+      (Rr = E.create(a)),
+      (zr = ({ height: e, id: t, title: n, width: r, ...i }) => ({
+        ...i,
+        omLbBQRm7: n ?? i.omLbBQRm7 ?? `AVAILABLE FOR NEW PROJECT`,
+      })),
+      (Br = (e, t) =>
+        e.layoutDependency ? t.join(`-`) + e.layoutDependency : t.join(`-`)),
+      (Vr = de(
+        d(function (e, n) {
+          let r = t(null),
+            i = n ?? r,
+            o = f(),
+            { activeLocale: s, setLocale: c } = H();
+          q();
+          let {
+              style: l,
+              className: u,
+              layoutId: d,
+              variant: p,
+              omLbBQRm7: m,
+              ...h
+            } = zr(e),
+            {
+              baseVariant: g,
+              classNames: v,
+              clearLoadingGesture: b,
+              gestureHandlers: x,
+              gestureVariant: S,
+              isLoading: C,
+              setGestureState: ee,
+              setVariant: w,
+              variants: T,
+            } = Se({
+              defaultVariant: `sqpoqmx3q`,
+              ref: i,
+              variant: p,
+              variantClassNames: Fr,
+            }),
+            D = Br(e, T),
+            O = M(Pr, Be);
+          return _(k, {
+            id: d ?? o,
+            children: _(Rr, {
+              animate: T,
+              initial: !1,
+              children: _(Lr, {
+                value: Ir,
+                children: y(E.div, {
+                  ...h,
+                  ...x,
+                  className: M(O, `framer-chmawg`, u, v),
+                  "data-framer-name": `Primary`,
+                  layoutDependency: D,
+                  layoutId: `sqpoqmx3q`,
+                  ref: i,
+                  style: { ...l },
+                  children: [
+                    _(E.div, {
+                      className: `framer-12hhhhx`,
+                      "data-framer-name": `Slider Dot`,
+                      layoutDependency: D,
+                      layoutId: `NX11a41Ft`,
+                      style: {
+                        backgroundColor: `var(--token-7342a71a-a74b-4ad4-9463-eef127a3e4db, rgb(64, 206, 3))`,
+                        borderBottomLeftRadius: 50,
+                        borderBottomRightRadius: 50,
+                        borderTopLeftRadius: 50,
+                        borderTopRightRadius: 50,
+                      },
+                    }),
+                    _(I, {
+                      __fromCanvasComponent: !0,
+                      children: _(a, {
+                        children: _(E.p, {
+                          className: `framer-styles-preset-4r8vu`,
+                          "data-styles-preset": `lRMRijzgW`,
+                          children: `AVAILABLE FOR NEW PROJECT`,
+                        }),
+                      }),
+                      className: `framer-1s535q5`,
+                      fonts: [`Inter`],
+                      layoutDependency: D,
+                      layoutId: `Cx_ushwJC`,
+                      style: {
+                        "--framer-link-text-color": `rgb(0, 153, 255)`,
+                        "--framer-link-text-decoration": `underline`,
+                      },
+                      text: m,
+                      verticalAlignment: `top`,
+                      withExternalLayout: !0,
+                    }),
+                  ],
+                }),
+              }),
+            }),
+          });
+        }),
+        [
+          `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+          `.framer-2QVhU.framer-iik39l, .framer-2QVhU .framer-iik39l { display: block; }`,
+          `.framer-2QVhU.framer-chmawg { align-content: center; align-items: center; display: flex; flex-direction: row; flex-wrap: nowrap; gap: 115px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: min-content; }`,
+          `.framer-2QVhU .framer-12hhhhx { flex: none; height: 10px; overflow: hidden; position: relative; width: 10px; will-change: var(--framer-will-change-override, transform); }`,
+          `.framer-2QVhU .framer-1s535q5 { flex: none; height: auto; position: relative; white-space: pre; width: auto; }`,
+          ...Re,
+        ],
+        `framer-2QVhU`,
+      )),
+      (Hr = Vr),
+      (Vr.displayName = `Slider Text`),
+      (Vr.defaultProps = { height: 18, width: 336 }),
+      F(Vr, {
+        omLbBQRm7: {
+          defaultValue: `AVAILABLE FOR NEW PROJECT`,
+          displayTextArea: !1,
+          title: `Title`,
+          type: G.String,
+        },
+      }),
+      he(
+        Vr,
+        [
+          {
+            explicitInter: !0,
+            fonts: [
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F`,
+                url: `https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116`,
+                url: `https://framerusercontent.com/assets/EOr0mi4hNtlgWNn9if640EZzXCo.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+1F00-1FFF`,
+                url: `https://framerusercontent.com/assets/Y9k9QrlZAqio88Klkmbd8VoMQc.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0370-03FF`,
+                url: `https://framerusercontent.com/assets/OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF`,
+                url: `https://framerusercontent.com/assets/JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD`,
+                url: `https://framerusercontent.com/assets/vQyevYAyHtARFwPqUzQGpnDs.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB`,
+                url: `https://framerusercontent.com/assets/b6Y37FthZeALduNqHicBT6FutY.woff2`,
+                weight: `400`,
+              },
+            ],
+          },
+          ...z(ze),
+        ],
+        { supportsExplicitInterCodegen: !0 },
+      ));
+  }),
+  Wr,
+  Gr,
+  Kr,
+  qr,
+  Jr,
+  Yr,
+  Xr,
+  Zr,
+  Qr,
+  $r,
+  ei,
+  ti = e(() => {
+    (v(),
+      B(),
+      A(),
+      r(),
+      Nr(),
+      Ur(),
+      (Wr = R(Hr)),
+      (Gr = R(br)),
+      (Kr = `framer-tLK93`),
+      (qr = { jtfJoTqCm: `framer-v-sbk7cg` }),
+      (Jr = { bounce: 0.2, delay: 0, duration: 0.4, type: `spring` }),
+      (Yr = ({ value: e, children: t }) => {
+        let n = s(j),
+          r = e ?? n.transition,
+          i = c(() => ({ ...n, transition: r }), [JSON.stringify(r)]);
+        return _(j.Provider, { value: i, children: t });
+      }),
+      (Xr = E.create(a)),
+      (Zr = ({ height: e, id: t, width: n, ...r }) => ({ ...r })),
+      (Qr = (e, t) =>
+        e.layoutDependency ? t.join(`-`) + e.layoutDependency : t.join(`-`)),
+      ($r = de(
+        d(function (e, n) {
+          let r = t(null),
+            i = n ?? r,
+            a = f(),
+            { activeLocale: o, setLocale: s } = H();
+          q();
+          let { style: c, className: l, layoutId: u, variant: d, ...p } = Zr(e),
+            {
+              baseVariant: m,
+              classNames: h,
+              clearLoadingGesture: g,
+              gestureHandlers: v,
+              gestureVariant: y,
+              isLoading: b,
+              setGestureState: x,
+              setVariant: S,
+              variants: C,
+            } = Se({
+              defaultVariant: `jtfJoTqCm`,
+              ref: i,
+              variant: d,
+              variantClassNames: qr,
+            }),
+            ee = Qr(e, C),
+            w = M(Kr);
+          return _(k, {
+            id: u ?? a,
+            children: _(Xr, {
+              animate: C,
+              initial: !1,
+              children: _(Yr, {
+                value: Jr,
+                children: _(E.div, {
+                  ...p,
+                  ...v,
+                  className: M(w, `framer-sbk7cg`, l, h),
+                  "data-framer-name": `Primary`,
+                  layoutDependency: ee,
+                  layoutId: `jtfJoTqCm`,
+                  ref: i,
+                  style: { ...c },
+                  children: _(J, {
+                    children: _(ae, {
+                      className: `framer-1jk3mw5-container`,
+                      isAuthoredByUser: !0,
+                      isModuleExternal: !0,
+                      layoutDependency: ee,
+                      layoutId: `MsGDPYOmc-container`,
+                      nodeId: `MsGDPYOmc`,
+                      rendersWithMotion: !0,
+                      scopeId: `oS6nYjRKr`,
+                      children: _(br, {
+                        alignment: `center`,
+                        direction: `left`,
+                        fadeOptions: {
+                          fadeAlpha: 0,
+                          fadeContent: !0,
+                          fadeInset: 0,
+                          fadeWidth: 25,
+                          overflow: !1,
+                        },
+                        gap: 115,
+                        height: `100%`,
+                        hoverFactor: 1,
+                        id: `MsGDPYOmc`,
+                        layoutId: `MsGDPYOmc`,
+                        padding: 0,
+                        paddingBottom: 0,
+                        paddingLeft: 0,
+                        paddingPerSide: !1,
+                        paddingRight: 0,
+                        paddingTop: 0,
+                        sizingOptions: { heightType: !0, widthType: !0 },
+                        slots: [
+                          _(J, {
+                            height: 18,
+                            children: _(ae, {
+                              className: `framer-1xcouwa-container`,
+                              "data-framer-name": `Text1`,
+                              inComponentSlot: !0,
+                              layoutDependency: ee,
+                              layoutId: `wQGnzQDIh-container`,
+                              name: `Text1`,
+                              nodeId: `wQGnzQDIh`,
+                              rendersWithMotion: !0,
+                              scopeId: `oS6nYjRKr`,
+                              children: _(Hr, {
+                                height: `100%`,
+                                id: `wQGnzQDIh`,
+                                layoutId: `wQGnzQDIh`,
+                                name: `Text1`,
+                                omLbBQRm7: `AVAILABLE FOR NEW PROJECT`,
+                                width: `100%`,
+                              }),
+                            }),
+                          }),
+                          _(J, {
+                            height: 18,
+                            children: _(ae, {
+                              className: `framer-hlv4it-container`,
+                              "data-framer-name": `Text2`,
+                              inComponentSlot: !0,
+                              layoutDependency: ee,
+                              layoutId: `d8p5gc5da-container`,
+                              name: `Text2`,
+                              nodeId: `d8p5gc5da`,
+                              rendersWithMotion: !0,
+                              scopeId: `oS6nYjRKr`,
+                              children: _(Hr, {
+                                height: `100%`,
+                                id: `d8p5gc5da`,
+                                layoutId: `d8p5gc5da`,
+                                name: `Text2`,
+                                omLbBQRm7: `RESULT ON TIME DELIVERY`,
+                                width: `100%`,
+                              }),
+                            }),
+                          }),
+                          _(J, {
+                            height: 18,
+                            children: _(ae, {
+                              className: `framer-1kutoat-container`,
+                              "data-framer-name": `Text3`,
+                              inComponentSlot: !0,
+                              layoutDependency: ee,
+                              layoutId: `INrRnESL9-container`,
+                              name: `Text3`,
+                              nodeId: `INrRnESL9`,
+                              rendersWithMotion: !0,
+                              scopeId: `oS6nYjRKr`,
+                              children: _(Hr, {
+                                height: `100%`,
+                                id: `INrRnESL9`,
+                                layoutId: `INrRnESL9`,
+                                name: `Text3`,
+                                omLbBQRm7: `NDA AGREEMENT READY`,
+                                width: `100%`,
+                              }),
+                            }),
+                          }),
+                        ],
+                        speed: 50,
+                        style: { height: `100%`, width: `100%` },
+                        width: `100%`,
+                      }),
+                    }),
+                  }),
+                }),
+              }),
+            }),
+          });
+        }),
+        [
+          `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+          `.framer-tLK93.framer-17zme2p, .framer-tLK93 .framer-17zme2p { display: block; }`,
+          `.framer-tLK93.framer-sbk7cg { align-content: center; align-items: center; display: flex; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: 114px; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 1296px; }`,
+          `.framer-tLK93 .framer-1jk3mw5-container { flex: none; height: 114px; position: relative; width: 1296px; }`,
+          `.framer-tLK93 .framer-1xcouwa-container, .framer-tLK93 .framer-hlv4it-container, .framer-tLK93 .framer-1kutoat-container { height: auto; position: relative; width: auto; }`,
+        ],
+        `framer-tLK93`,
+      )),
+      (ei = $r),
+      ($r.displayName = `Text Slider`),
+      ($r.defaultProps = { height: 114, width: 1296 }),
+      he($r, [{ explicitInter: !0, fonts: [] }, ...Wr, ...Gr], {
+        supportsExplicitInterCodegen: !0,
+      }));
+  });
+function ni(e) {
+  let n = ue.hasRestrictions(),
+    r = t(null),
+    a = t(null),
+    s = ee(a, { once: !1, margin: `50px` }),
+    d = t(null),
+    f = t([]),
+    p = t(null),
+    [m, h] = o(0),
+    [g, v] = o(`static`),
+    b = t(0),
+    x = t(0),
+    { wrapperSize: S, setWrapperSize: C } = li(),
+    w = ri(e.density, [0, 10], [0.3, 1], !0),
+    T = c(
+      () => (n ? 2 : u === void 0 ? 1 : u.devicePixelRatio * 1.5 || 1),
+      [n],
+    ),
+    E = c(() => ({ width: `100%`, height: `100%`, pointerEvents: `none` }), []),
+    D = c(
+      () => ({ minWidth: `30px`, minHeight: `20px`, pointerEvents: `none` }),
+      [],
+    ),
+    O = c(
+      () => ({
+        VAPORIZE_DURATION: e.animation.vaporizeDuration * 1e3,
+        FADE_IN_DURATION: e.animation.fadeInDuration * 1e3,
+        WAIT_DURATION: e.animation.waitDuration * 1e3,
+      }),
+      [
+        e.animation.vaporizeDuration,
+        e.animation.fadeInDuration,
+        e.animation.waitDuration,
+      ],
+    ),
+    k = c(() => {
+      let t = parseInt(e.font.fontSize?.replace(`px`, ``) || `50`),
+        n = gi(t);
+      return {
+        fontSize: t,
+        VAPORIZE_SPREAD: n,
+        MULTIPLIED_VAPORIZE_SPREAD: n * e.spread,
+        font: `${e.font.fontWeight ?? 400} ${t * T}px ${e.font.fontFamily}`,
+      };
+    }, [e.font.fontSize, e.font.fontWeight, e.font.fontFamily, e.spread, T]),
+    te = l(
+      (t, n, r) =>
+        fi(
+          t,
+          n,
+          r,
+          k.MULTIPLIED_VAPORIZE_SPREAD,
+          O.VAPORIZE_DURATION,
+          e.direction,
+          w,
+        ),
+      [k.MULTIPLIED_VAPORIZE_SPREAD, O.VAPORIZE_DURATION, e.direction, w],
+    ),
+    ne = l(
+      (e, t) => {
+        pi(e, t, T);
+      },
+      [T],
+    );
+  return (
+    i(() => {
+      if (n && !e.canvasPreview) {
+        let t = r.current,
+          n = t?.getContext(`2d`);
+        if (!t || !n) return;
+        hi(n, e, t, T);
+        return;
+      }
+      if (s) {
+        let e = setTimeout(() => {
+          v(`vaporizing`);
+        }, 0);
+        return () => clearTimeout(e);
+      } else
+        (v(`static`), (p.current &&= (cancelAnimationFrame(p.current), null)));
+    }, [s, n, e.canvasPreview]),
+    i(() => {
+      if (!s || (n && !e.canvasPreview)) return;
+      let t = performance.now(),
+        i,
+        a = (n) => {
+          let o = (n - t) / 1e3;
+          t = n;
+          let s = r.current,
+            c = s?.getContext(`2d`);
+          if (!s || !c || !f.current.length) {
+            i = requestAnimationFrame(a);
+            return;
+          }
+          switch ((c.clearRect(0, 0, s.width, s.height), g)) {
+            case `static`:
+              ne(c, f.current);
+              break;
+            case `vaporizing`: {
+              b.current += (o * 100) / (O.VAPORIZE_DURATION / 1e3);
+              let t = s.textBoundaries,
+                n = Math.min(100, b.current),
+                r =
+                  e.direction === `left-to-right`
+                    ? t.left + (t.width * n) / 100
+                    : t.right - (t.width * n) / 100,
+                i = te(f.current, r, o);
+              (ne(c, f.current),
+                b.current >= 100 &&
+                  i &&
+                  (h((t) => (t + 1) % e.texts.length),
+                  v(`fadingIn`),
+                  (x.current = 0)));
+              break;
+            }
+            case `fadingIn`:
+              ((x.current += (o * 1e3) / O.FADE_IN_DURATION),
+                c.save(),
+                c.scale(T, T),
+                f.current.forEach((e) => {
+                  ((e.x = e.originalX), (e.y = e.originalY));
+                  let t = Math.min(x.current, 1) * e.originalAlpha;
+                  ((c.fillStyle = e.color.replace(/[\d.]+\)$/, `${t})`)),
+                    c.fillRect(e.x / T, e.y / T, 1, 1));
+                }),
+                c.restore(),
+                x.current >= 1 &&
+                  (v(`waiting`),
+                  setTimeout(() => {
+                    (v(`vaporizing`), (b.current = 0), mi(f.current));
+                  }, O.WAIT_DURATION)));
+              break;
+            case `waiting`:
+              ne(c, f.current);
+              break;
+          }
+          i = requestAnimationFrame(a);
+        };
+      return (
+        (i = requestAnimationFrame(a)),
+        () => {
+          i && cancelAnimationFrame(i);
+        }
+      );
+    }, [
+      g,
+      s,
+      n,
+      e.canvasPreview,
+      e.texts.length,
+      e.direction,
+      T,
+      te,
+      ne,
+      O.FADE_IN_DURATION,
+      O.WAIT_DURATION,
+      O.VAPORIZE_DURATION,
+    ]),
+    i(
+      () => (
+        ui({
+          framerProps: e,
+          canvasRef: r,
+          wrapperSize: S,
+          isOnFramerCanvas: n,
+          particlesRef: f,
+          globalDpr: T,
+          currentTextIndex: m,
+          transformedDensity: w,
+        }),
+        oi({
+          currentFont: e.font.fontFamily || `sans-serif`,
+          lastFontRef: d,
+          isOnFramerCanvas: n,
+          props: e,
+          canvasRef: r,
+          wrapperSize: S,
+          particlesRef: f,
+          globalDpr: T,
+          currentTextIndex: m,
+          transformedDensity: w,
+        })
+      ),
+      [e, r, S, n, m],
+    ),
+    ci({
+      wrapperRef: a,
+      wrapperSize: S,
+      setWrapperSize: C,
+      props: e,
+      canvasRef: r,
+      isOnFramerCanvas: n,
+      particlesRef: f,
+      globalDpr: T,
+      currentTextIndex: m,
+      transformedDensity: w,
+    }),
+    y(`div`, {
+      ref: a,
+      style: E,
+      children: [
+        _(`canvas`, { ref: r, style: D }),
+        _(ai, { tag: e.tag, texts: e.texts }),
+      ],
+    })
+  );
+}
+function ri(e, t, n, r = !1) {
+  let [i, a] = t,
+    [o, s] = n,
+    c = o + ((e - i) / (a - i)) * (s - o);
+  return (
+    r &&
+      (c = s > o ? Math.min(Math.max(c, o), s) : Math.min(Math.max(c, s), o)),
+    c
+  );
+}
+var ii,
+  ai,
+  oi,
+  si,
+  ci,
+  li,
+  ui,
+  di,
+  fi,
+  pi,
+  mi,
+  hi,
+  gi,
+  _i,
+  vi = e(() => {
+    (C(),
+      v(),
+      B(),
+      r(),
+      A(),
+      (function (e) {
+        ((e.H1 = `h1`), (e.H2 = `h2`), (e.H3 = `h3`), (e.P = `p`));
+      })((ii ||= {})),
+      F(ni, {
+        texts: {
+          type: G.Array,
+          control: { type: G.String },
+          defaultValue: [`Framer University`, `Learn Framer`],
+        },
+        font: {
+          type: G.Font,
+          defaultFontType: `sans-serif`,
+          controls: `extended`,
+        },
+        color: { type: G.Color, defaultValue: `rgb(153, 153, 153)` },
+        spread: {
+          type: G.Number,
+          title: `Spread`,
+          defaultValue: 5,
+          min: 1,
+          max: 50,
+          step: 1,
+          unit: `x`,
+        },
+        density: {
+          type: G.Number,
+          title: `Density`,
+          defaultValue: 5,
+          min: 0.1,
+          max: 10,
+          step: 0.01,
+          unit: `x`,
+        },
+        animation: {
+          type: G.Object,
+          controls: {
+            vaporizeDuration: {
+              type: G.Number,
+              defaultValue: 2,
+              min: 0.1,
+              max: 10,
+              step: 0.1,
+              unit: `s`,
+              title: `Duration`,
+            },
+            fadeInDuration: {
+              type: G.Number,
+              defaultValue: 1,
+              min: 0,
+              max: 5,
+              step: 0.1,
+              unit: `s`,
+              title: `Fade In`,
+            },
+            waitDuration: {
+              type: G.Number,
+              defaultValue: 0.5,
+              min: 0,
+              max: 5,
+              step: 0.1,
+              unit: `s`,
+              title: `Delay`,
+            },
+          },
+        },
+        direction: {
+          type: G.Enum,
+          displaySegmentedControl: !0,
+          title: `Direction`,
+          defaultValue: `left-to-right`,
+          options: [`right-to-left`, `left-to-right`],
+          optionTitles: [`Right to Left`, `Left to Right`],
+          optionIcons: [`direction-left`, `direction-right`],
+        },
+        alignment: {
+          type: G.Enum,
+          displaySegmentedControl: !0,
+          title: `Alignment`,
+          defaultValue: `center`,
+          options: [`left`, `center`, `right`],
+          optionTitles: [`Left`, `Center`, `Right`],
+        },
+        tag: {
+          type: G.Enum,
+          title: `Tag`,
+          defaultValue: `p`,
+          displaySegmentedControl: !0,
+          segmentedControlDirection: `horizontal`,
+          options: [`h1`, `h2`, `h3`, `p`],
+          optionTitles: [`H1`, `H2`, `H3`, `P`],
+        },
+        canvasPreview: {
+          type: G.Boolean,
+          defaultValue: !0,
+          title: `Preview`,
+          description: `More components at [Framer University](https://frameruni.link/cc).`,
+        },
+      }),
+      (ni.defaultProps = {
+        texts: [`Framer University`, `Learn Framer`],
+        font: {
+          fontFamily: `sans-serif`,
+          fontSize: `50px`,
+          textAlign: `center`,
+          fontWeight: 400,
+        },
+        color: `rgb(153, 153, 153)`,
+        spread: 5,
+        density: 5,
+        animation: {
+          vaporizeDuration: 2,
+          fadeInDuration: 1,
+          waitDuration: 0.5,
+        },
+        direction: `left-to-right`,
+        alignment: `center`,
+        canvasPreview: !1,
+      }),
+      (ai = h(({ tag: e = `p`, texts: t }) => {
+        let n = c(
+          () => ({
+            position: `absolute`,
+            width: `0`,
+            height: `0`,
+            overflow: `hidden`,
+            userSelect: `none`,
+            pointerEvents: `none`,
+          }),
+          [],
+        );
+        return m(
+          Object.values(ii).includes(e) ? e : `p`,
+          { style: n },
+          t?.join(` `) ?? ``,
+        );
+      })),
+      (oi = ({
+        currentFont: e,
+        lastFontRef: t,
+        isOnFramerCanvas: n,
+        props: r,
+        canvasRef: i,
+        wrapperSize: a,
+        particlesRef: o,
+        globalDpr: s,
+        currentTextIndex: c,
+        transformedDensity: l,
+      }) => {
+        if (e !== t.current && n) {
+          t.current = e;
+          let u = setTimeout(() => {
+            (si({ canvasRef: i, particlesRef: o }),
+              ui({
+                framerProps: r,
+                canvasRef: i,
+                wrapperSize: a,
+                isOnFramerCanvas: n,
+                particlesRef: o,
+                globalDpr: s,
+                currentTextIndex: c,
+                transformedDensity: l,
+              }));
+          }, 1e3);
+          return () => {
+            (clearTimeout(u), si({ canvasRef: i, particlesRef: o }));
+          };
+        }
+      }),
+      (si = ({ canvasRef: e, particlesRef: t }) => {
+        let n = e.current,
+          r = n?.getContext(`2d`);
+        (n && r && r.clearRect(0, 0, n.width, n.height), (t.current &&= []));
+      }),
+      (ci = ({
+        wrapperRef: e,
+        wrapperSize: t,
+        setWrapperSize: n,
+        props: r,
+        canvasRef: a,
+        isOnFramerCanvas: o,
+        particlesRef: s,
+        globalDpr: c,
+        currentTextIndex: l,
+        transformedDensity: u,
+      }) => {
+        i(() => {
+          let i = e.current;
+          if (!i) return;
+          let d = new ResizeObserver((e) => {
+            for (let t of e) {
+              let { width: e, height: r } = t.contentRect;
+              n({ width: e, height: r });
+            }
+            ui({
+              framerProps: r,
+              canvasRef: a,
+              wrapperSize: t,
+              isOnFramerCanvas: o,
+              particlesRef: s,
+              globalDpr: c,
+              currentTextIndex: l,
+              transformedDensity: u,
+            });
+          });
+          return (
+            d.observe(i),
+            () => {
+              d.disconnect();
+            }
+          );
+        }, [e]);
+      }),
+      (li = () => {
+        let e = t(null),
+          [n, r] = o({ width: null, height: null });
+        return (
+          i(() => {
+            if (e.current) {
+              let t = e.current.getBoundingClientRect();
+              r({ width: t.width, height: t.height });
+            }
+          }, [e]),
+          { wrapperSize: n, setWrapperSize: r, wrapperRef: e }
+        );
+      }),
+      (ui = ({
+        framerProps: e,
+        canvasRef: t,
+        wrapperSize: n,
+        isOnFramerCanvas: r,
+        particlesRef: i,
+        globalDpr: a,
+        currentTextIndex: o,
+        transformedDensity: s,
+      }) => {
+        let c = t.current;
+        if (!c || !n.width || !n.height) return;
+        let l = c.getContext(`2d`);
+        if (!l) return;
+        let { width: u, height: d } = n;
+        if (
+          ((c.style.width = `${u}px`),
+          (c.style.height = `${d}px`),
+          (c.width = Math.floor(u * a)),
+          (c.height = Math.floor(d * a)),
+          r && !e.canvasPreview)
+        ) {
+          hi(l, e, c, a);
+          return;
+        }
+        let f = parseInt(e.font.fontSize?.replace(`px`, ``) || `50`),
+          p = `${e.font.fontWeight ?? 400} ${f * a}px ${e.font.fontFamily}`,
+          m = _i(e.color),
+          h,
+          g = c.height / 2,
+          _ = e.texts[o] || `Framer`;
+        h =
+          e.alignment === `center`
+            ? c.width / 2
+            : e.alignment === `left`
+              ? 0
+              : c.width;
+        let { particles: v, textBoundaries: y } = di(
+          l,
+          c,
+          _,
+          h,
+          g,
+          p,
+          m,
+          e.alignment,
+        );
+        ((i.current = v), (c.textBoundaries = y));
+      }),
+      (di = (e, t, n, r, i, a, o, s) => {
+        let c = [];
+        (e.clearRect(0, 0, t.width, t.height),
+          (e.fillStyle = o),
+          (e.font = a),
+          (e.textAlign = s),
+          (e.textBaseline = `middle`),
+          (e.imageSmoothingQuality = `high`),
+          (e.imageSmoothingEnabled = !0),
+          (e.fontKerning &&= `normal`),
+          (e.textRendering &&= `geometricPrecision`));
+        let l = e.measureText(n),
+          u,
+          d = l.width;
+        u = s === `center` ? r - d / 2 : s === `left` ? r : r - d;
+        let f = { left: u, right: u + d, width: d };
+        e.fillText(n, r, i);
+        let p = e.getImageData(0, 0, t.width, t.height).data,
+          m = t.width / parseInt(t.style.width),
+          h = Math.max(1, Math.round(m / 3)),
+          g = Math.max(1, Math.round(h));
+        for (let e = 0; e < t.height; e += g)
+          for (let n = 0; n < t.width; n += g) {
+            let r = (e * t.width + n) * 4,
+              i = p[r + 3];
+            if (i > 0) {
+              let t = (i / 255) * (g / m),
+                a = {
+                  x: n,
+                  y: e,
+                  originalX: n,
+                  originalY: e,
+                  color: `rgba(${p[r]}, ${p[r + 1]}, ${p[r + 2]}, ${t})`,
+                  opacity: t,
+                  originalAlpha: t,
+                  velocityX: 0,
+                  velocityY: 0,
+                  angle: 0,
+                  speed: 0,
+                };
+              c.push(a);
+            }
+          }
+        return (
+          e.clearRect(0, 0, t.width, t.height),
+          { particles: c, textBoundaries: f }
+        );
+      }),
+      (fi = (e, t, n, r, i, a, o) => {
+        let s = !0;
+        return (
+          e.forEach((e) => {
+            if (a === `left-to-right` ? e.originalX <= t : e.originalX >= t) {
+              if (
+                (e.speed === 0 &&
+                  ((e.angle = Math.random() * Math.PI * 2),
+                  (e.speed = (Math.random() * 1 + 0.5) * r),
+                  (e.velocityX = Math.cos(e.angle) * e.speed),
+                  (e.velocityY = Math.sin(e.angle) * e.speed),
+                  (e.shouldFadeQuickly = Math.random() > o)),
+                e.shouldFadeQuickly)
+              )
+                e.opacity = Math.max(0, e.opacity - n);
+              else {
+                let t = e.originalX - e.x,
+                  a = e.originalY - e.y,
+                  o = Math.sqrt(t * t + a * a),
+                  s = Math.max(0.95, 1 - o / (100 * r)),
+                  c = r * 3,
+                  l = (Math.random() - 0.5) * c,
+                  u = (Math.random() - 0.5) * c;
+                ((e.velocityX = (e.velocityX + l + t * 0.002) * s),
+                  (e.velocityY = (e.velocityY + u + a * 0.002) * s));
+                let d = r * 2,
+                  f = Math.sqrt(
+                    e.velocityX * e.velocityX + e.velocityY * e.velocityY,
+                  );
+                if (f > d) {
+                  let t = d / f;
+                  ((e.velocityX *= t), (e.velocityY *= t));
+                }
+                ((e.x += e.velocityX * n * 20), (e.y += e.velocityY * n * 10));
+                let p = (2e3 / i) * 0.25;
+                e.opacity = Math.max(0, e.opacity - n * p);
+              }
+              e.opacity > 0.01 && (s = !1);
+            } else s = !1;
+          }),
+          s
+        );
+      }),
+      (pi = (e, t, n) => {
+        (e.save(),
+          e.scale(n, n),
+          t.forEach((t) => {
+            t.opacity > 0 &&
+              ((e.fillStyle = t.color.replace(/[\d.]+\)$/, `${t.opacity})`)),
+              e.fillRect(t.x / n, t.y / n, 1, 1));
+          }),
+          e.restore());
+      }),
+      (mi = (e) => {
+        e.forEach((e) => {
+          ((e.x = e.originalX),
+            (e.y = e.originalY),
+            (e.opacity = e.originalAlpha),
+            (e.speed = 0),
+            (e.velocityX = 0),
+            (e.velocityY = 0));
+        });
+      }),
+      (hi = (e, t, n, r) => {
+        (e.clearRect(0, 0, n.width, n.height), e.save(), e.scale(r, r));
+        let i = parseInt(t.font.fontSize?.replace(`px`, ``) || `50`);
+        ((e.font = `${t.font.fontWeight ?? 400} ${i}px ${t.font.fontFamily}`),
+          (e.fillStyle = t.color),
+          (e.textAlign = t.alignment),
+          (e.textBaseline = `middle`));
+        let a;
+        ((a =
+          t.alignment === `center`
+            ? n.width / (2 * r)
+            : t.alignment === `left`
+              ? 0
+              : n.width / r),
+          e.fillText(t.texts[0], a, n.height / (2 * r)),
+          e.restore());
+      }),
+      (gi = (e) => {
+        let t = typeof e == `string` ? parseInt(e) : e,
+          n = [
+            { size: 20, spread: 0.2 },
+            { size: 50, spread: 0.5 },
+            { size: 100, spread: 1.5 },
+          ];
+        if (t <= n[0].size) return n[0].spread;
+        if (t >= n[n.length - 1].size) return n[n.length - 1].spread;
+        let r = 0;
+        for (; r < n.length - 1 && n[r + 1].size < t;) r++;
+        let i = n[r],
+          a = n[r + 1];
+        return (
+          i.spread + ((t - i.size) * (a.spread - i.spread)) / (a.size - i.size)
+        );
+      }),
+      (_i = (e) => {
+        let t = e.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/),
+          n = e.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+        if (n) {
+          let [e, t, r, i, a] = n;
+          return `rgba(${t}, ${r}, ${i}, ${a})`;
+        } else if (t) {
+          let [e, n, r, i] = t;
+          return `rgba(${n}, ${r}, ${i}, 1)`;
+        }
+        return (console.warn(`Could not parse color:`, e), `rgba(0, 0, 0, 1)`);
+      }),
+      (ni.displayName = `Vaporize Text Cycle`));
+  });
+function yi(e, ...t) {
+  let n = {};
+  return (t?.forEach((t) => t && Object.assign(n, e[t])), n);
+}
+var bi,
+  xi,
+  Si,
+  Ci,
+  wi,
+  Ti,
+  Ei,
+  Di,
+  Oi,
+  ki,
+  Ai,
+  ji,
+  Mi = e(() => {
+    (v(),
+      B(),
+      A(),
+      r(),
+      vi(),
+      rt(),
+      ut(),
+      (bi = R(at)),
+      (xi = R(ni)),
+      (Si = { j35aQfgVV: { hover: !0 } }),
+      (Ci = `framer-608kD`),
+      (wi = { j35aQfgVV: `framer-v-1eliq7m` }),
+      (Ti = { damping: 60, delay: 0, mass: 1, stiffness: 350, type: `spring` }),
+      (Ei = ({ value: e, children: t }) => {
+        let n = s(j),
+          r = e ?? n.transition,
+          i = c(() => ({ ...n, transition: r }), [JSON.stringify(r)]);
+        return _(j.Provider, { value: i, children: t });
+      }),
+      (Di = E.create(a)),
+      (Oi = ({ height: e, id: t, link: n, width: r, ...i }) => ({
+        ...i,
+        Rt0KTEHj_: n ?? i.Rt0KTEHj_,
+      })),
+      (ki = (e, t) =>
+        e.layoutDependency ? t.join(`-`) + e.layoutDependency : t.join(`-`)),
+      (Ai = de(
+        d(function (e, n) {
+          let r = t(null),
+            i = n ?? r,
+            o = f(),
+            { activeLocale: s, setLocale: c } = H();
+          q();
+          let {
+              style: l,
+              className: u,
+              layoutId: d,
+              variant: p,
+              Rt0KTEHj_: m,
+              ...h
+            } = Oi(e),
+            {
+              baseVariant: g,
+              classNames: v,
+              clearLoadingGesture: b,
+              gestureHandlers: x,
+              gestureVariant: S,
+              isLoading: C,
+              setGestureState: ee,
+              setVariant: w,
+              variants: T,
+            } = Se({
+              defaultVariant: `j35aQfgVV`,
+              enabledGestures: Si,
+              ref: i,
+              variant: p,
+              variantClassNames: wi,
+            }),
+            D = ki(e, T),
+            O = M(Ci, dt);
+          return _(k, {
+            id: d ?? o,
+            children: _(Di, {
+              animate: T,
+              initial: !1,
+              children: _(Ei, {
+                value: Ti,
+                children: _(V, {
+                  href: m,
+                  motionChild: !0,
+                  nodeId: `j35aQfgVV`,
+                  openInNewTab: !1,
+                  scopeId: `PMO6U9T8W`,
+                  smoothScroll: !0,
+                  children: y(E.a, {
+                    ...h,
+                    ...x,
+                    className: `${M(O, `framer-1eliq7m`, u, v)} framer-7pcao`,
+                    "data-border": !0,
+                    "data-framer-name": `Primary`,
+                    layoutDependency: D,
+                    layoutId: `j35aQfgVV`,
+                    ref: i,
+                    style: {
+                      "--border-bottom-width": `1px`,
+                      "--border-color": `var(--token-63b18e2c-cb9a-4cd9-ae6e-aee8b60c68d9, rgb(51, 51, 51))`,
+                      "--border-left-width": `1px`,
+                      "--border-right-width": `1px`,
+                      "--border-style": `solid`,
+                      "--border-top-width": `1px`,
+                      borderBottomLeftRadius: 256,
+                      borderBottomRightRadius: 256,
+                      borderTopLeftRadius: 256,
+                      borderTopRightRadius: 256,
+                      ...l,
+                    },
+                    variants: {
+                      "j35aQfgVV-hover": {
+                        "--border-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                      },
+                    },
+                    ...yi(
+                      { "j35aQfgVV-hover": { "data-framer-name": void 0 } },
+                      g,
+                      S,
+                    ),
+                    children: [
+                      _(E.div, {
+                        className: `framer-96cygi`,
+                        "data-framer-name": `Top`,
+                        layoutDependency: D,
+                        layoutId: `anz6uaN9A`,
+                        children: _(at, {
+                          animated: !0,
+                          className: `framer-14x4eke`,
+                          layoutDependency: D,
+                          layoutId: `Ete6WdeET`,
+                          style: {
+                            "--1m6trwb": 0,
+                            "--21h8s6": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                            "--pgex8v": 1.5,
+                          },
+                        }),
+                      }),
+                      y(E.div, {
+                        className: `framer-1ervk25`,
+                        "data-framer-name": `Bottom`,
+                        layoutDependency: D,
+                        layoutId: `l0BJDVTRz`,
+                        children: [
+                          _(I, {
+                            __fromCanvasComponent: !0,
+                            children: _(a, {
+                              children: _(E.h6, {
+                                className: `framer-styles-preset-16wzhsz`,
+                                "data-styles-preset": `qIfjbXU6p`,
+                                style: { "--framer-text-alignment": `center` },
+                                children: `HIRE US`,
+                              }),
+                            }),
+                            className: `framer-jmjylr`,
+                            fonts: [`Inter`],
+                            layoutDependency: D,
+                            layoutId: `Ol_Q9YpOc`,
+                            style: {
+                              "--framer-link-text-color": `rgb(0, 153, 255)`,
+                              "--framer-link-text-decoration": `underline`,
+                            },
+                            verticalAlignment: `top`,
+                            withExternalLayout: !0,
+                          }),
+                          _(J, {
+                            children: _(ae, {
+                              className: `framer-10qy0l1-container`,
+                              isAuthoredByUser: !0,
+                              isModuleExternal: !0,
+                              layoutDependency: D,
+                              layoutId: `N09nJAf5w-container`,
+                              nodeId: `N09nJAf5w`,
+                              rendersWithMotion: !0,
+                              scopeId: `PMO6U9T8W`,
+                              children: _(ni, {
+                                alignment: `center`,
+                                animation: {
+                                  fadeInDuration: 1,
+                                  vaporizeDuration: 2,
+                                  waitDuration: 0.5,
+                                },
+                                canvasPreview: !0,
+                                color: `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                density: 5,
+                                direction: `left-to-right`,
+                                font: {
+                                  fontFamily: `"Clash Display", "Clash Display Placeholder", sans-serif`,
+                                  fontSize: `24px`,
+                                  fontStyle: `normal`,
+                                  fontWeight: 600,
+                                  letterSpacing: `0em`,
+                                  lineHeight: `32px`,
+                                },
+                                height: `100%`,
+                                id: `N09nJAf5w`,
+                                layoutId: `N09nJAf5w`,
+                                spread: 5,
+                                style: { height: `100%`, width: `100%` },
+                                tag: `p`,
+                                texts: [`WEB DESIGN`, `APP DESIGN`, `MECHATRONICS`],
+                                width: `100%`,
+                              }),
+                            }),
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                }),
+              }),
+            }),
+          });
+        }),
+        [
+          `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+          `.framer-608kD.framer-7pcao, .framer-608kD .framer-7pcao { display: block; }`,
+          `.framer-608kD.framer-1eliq7m { align-content: center; align-items: center; cursor: pointer; display: flex; flex-direction: column; flex-wrap: nowrap; gap: 20px; height: min-content; justify-content: center; overflow: hidden; padding: 79px 0px 79px 0px; position: relative; text-decoration: none; width: 306px; will-change: var(--framer-will-change-override, transform); }`,
+          `.framer-608kD .framer-96cygi { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: 64px; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 64px; }`,
+          `.framer-608kD .framer-14x4eke { flex: none; height: var(--framer-aspect-ratio-supported, 64px); position: relative; width: 64px; }`,
+          `.framer-608kD .framer-1ervk25 { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; overflow: visible; padding: 0px; position: relative; width: 100%; }`,
+          `.framer-608kD .framer-jmjylr { flex: none; height: auto; position: relative; white-space: pre-wrap; width: 100%; word-break: break-word; word-wrap: break-word; }`,
+          `.framer-608kD .framer-10qy0l1-container { flex: none; height: 32px; position: relative; width: 100%; }`,
+          ...ct,
+          `.framer-608kD[data-border="true"]::after, .framer-608kD [data-border="true"]::after { content: ""; border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0); border-color: var(--border-color, none); border-style: var(--border-style, none); width: 100%; height: 100%; position: absolute; box-sizing: border-box; left: 0; top: 0; border-radius: inherit; pointer-events: none; }`,
+        ],
+        `framer-608kD`,
+      )),
+      (ji = Ai),
+      (Ai.displayName = `Project Button`),
+      (Ai.defaultProps = { height: 306, width: 306 }),
+      F(Ai, { Rt0KTEHj_: { title: `Link`, type: G.Link } }),
+      he(
+        Ai,
+        [
+          {
+            explicitInter: !0,
+            fonts: [
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F`,
+                url: `https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116`,
+                url: `https://framerusercontent.com/assets/EOr0mi4hNtlgWNn9if640EZzXCo.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+1F00-1FFF`,
+                url: `https://framerusercontent.com/assets/Y9k9QrlZAqio88Klkmbd8VoMQc.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0370-03FF`,
+                url: `https://framerusercontent.com/assets/OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF`,
+                url: `https://framerusercontent.com/assets/JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2070, U+2074-207E, U+2080-208E, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD`,
+                url: `https://framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB`,
+                url: `https://framerusercontent.com/assets/b6Y37FthZeALduNqHicBT6FutY.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Clash Display`,
+                source: `fontshare`,
+                style: `normal`,
+                url: `https://framerusercontent.com/third-party-assets/fontshare/wf/FPDAZ2S6SW4QMSRIIKNNGTPM6VIXYMKO/5HNPQ453FRLIQWV2FNOBUU3FKTDZQVSG/Z3MGHFHX6DCTLQ55LJYRJ5MDCZPMFZU6.woff2`,
+                weight: `600`,
+              },
+            ],
+          },
+          ...bi,
+          ...xi,
+          ...z(st),
+        ],
+        { supportsExplicitInterCodegen: !0 },
+      ));
+  }),
+  Ni,
+  Pi,
+  Fi,
+  Ii,
+  Li,
+  Ri,
+  zi,
+  Bi,
+  Vi,
+  Hi = e(() => {
+    (v(),
+      B(),
+      A(),
+      r(),
+      Me(),
+      Ne(),
+      (Ni = `framer-fF6No`),
+      (Pi = { tSZrrkLFX: `framer-v-1etn8yx` }),
+      (Fi = { bounce: 0.2, delay: 0, duration: 0.4, type: `spring` }),
+      (Ii = ({ value: e, children: t }) => {
+        let n = s(j),
+          r = e ?? n.transition,
+          i = c(() => ({ ...n, transition: r }), [JSON.stringify(r)]);
+        return _(j.Provider, { value: i, children: t });
+      }),
+      (Li = E.create(a)),
+      (Ri = ({ height: e, id: t, title: n, title1: r, width: i, ...a }) => ({
+        ...a,
+        wuGM9oDFL: r ?? a.wuGM9oDFL ?? `RMIT University`,
+        zDoiFPok8: n ?? a.zDoiFPok8 ?? `Bachelor Degree of Design `,
+      })),
+      (zi = (e, t) =>
+        e.layoutDependency ? t.join(`-`) + e.layoutDependency : t.join(`-`)),
+      (Bi = de(
+        d(function (e, n) {
+          let r = t(null),
+            i = n ?? r,
+            o = f(),
+            { activeLocale: s, setLocale: c } = H();
+          q();
+          let {
+              style: l,
+              className: u,
+              layoutId: d,
+              variant: p,
+              zDoiFPok8: m,
+              wuGM9oDFL: h,
+              ...g
+            } = Ri(e),
+            {
+              baseVariant: v,
+              classNames: b,
+              clearLoadingGesture: x,
+              gestureHandlers: S,
+              gestureVariant: C,
+              isLoading: ee,
+              setGestureState: w,
+              setVariant: T,
+              variants: D,
+            } = Se({
+              defaultVariant: `tSZrrkLFX`,
+              ref: i,
+              variant: p,
+              variantClassNames: Pi,
+            }),
+            O = zi(e, D),
+            te = M(Ni, Oe, Pe);
+          return _(k, {
+            id: d ?? o,
+            children: _(Li, {
+              animate: D,
+              initial: !1,
+              children: _(Ii, {
+                value: Fi,
+                children: y(E.div, {
+                  ...g,
+                  ...S,
+                  className: M(te, `framer-1etn8yx`, u, b),
+                  "data-framer-name": `Primary`,
+                  layoutDependency: O,
+                  layoutId: `tSZrrkLFX`,
+                  ref: i,
+                  style: { ...l },
+                  children: [
+                    _(I, {
+                      __fromCanvasComponent: !0,
+                      children: _(a, {
+                        children: _(E.p, {
+                          className: `framer-styles-preset-13g92bw`,
+                          "data-styles-preset": `JnqPwgPMu`,
+                          children: `Bachelor Degree of Design `,
+                        }),
+                      }),
+                      className: `framer-wjp9h6`,
+                      fonts: [`Inter`],
+                      layoutDependency: O,
+                      layoutId: `Cu6xTftx9`,
+                      style: {
+                        "--framer-link-text-color": `rgb(0, 153, 255)`,
+                        "--framer-link-text-decoration": `underline`,
+                      },
+                      text: m,
+                      verticalAlignment: `top`,
+                      withExternalLayout: !0,
+                    }),
+                    _(I, {
+                      __fromCanvasComponent: !0,
+                      children: _(a, {
+                        children: _(E.p, {
+                          className: `framer-styles-preset-h0wt6i`,
+                          "data-styles-preset": `ZCD3JCImn`,
+                          style: {
+                            "--framer-text-color": `var(--extracted-r6o4lv, var(--token-21448508-32f0-4068-aff5-bb7abebeef94, rgb(128, 128, 128)))`,
+                          },
+                          children: `RMIT University`,
+                        }),
+                      }),
+                      className: `framer-ced12z`,
+                      fonts: [`Inter`],
+                      layoutDependency: O,
+                      layoutId: `x0oLIvWRz`,
+                      style: {
+                        "--extracted-r6o4lv": `var(--token-21448508-32f0-4068-aff5-bb7abebeef94, rgb(128, 128, 128))`,
+                        "--framer-link-text-color": `rgb(0, 153, 255)`,
+                        "--framer-link-text-decoration": `underline`,
+                      },
+                      text: h,
+                      verticalAlignment: `top`,
+                      withExternalLayout: !0,
+                    }),
+                  ],
+                }),
+              }),
+            }),
+          });
+        }),
+        [
+          `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+          `.framer-fF6No.framer-ocg1zj, .framer-fF6No .framer-ocg1zj { display: block; }`,
+          `.framer-fF6No.framer-1etn8yx { align-content: flex-start; align-items: flex-start; display: flex; flex-direction: column; flex-wrap: nowrap; gap: 4px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 464px; }`,
+          `.framer-fF6No .framer-wjp9h6, .framer-fF6No .framer-ced12z { flex: none; height: auto; position: relative; white-space: pre-wrap; width: 100%; word-break: break-word; word-wrap: break-word; }`,
+          ...ke,
+          ...Ae,
+        ],
+        `framer-fF6No`,
+      )),
+      (Vi = Bi),
+      (Bi.displayName = `Education Point`),
+      (Bi.defaultProps = { height: 48, width: 464 }),
+      F(Bi, {
+        zDoiFPok8: {
+          defaultValue: `Bachelor Degree of Design `,
+          displayTextArea: !1,
+          title: `Title`,
+          type: G.String,
+        },
+        wuGM9oDFL: {
+          defaultValue: `RMIT University`,
+          displayTextArea: !1,
+          title: `Title1`,
+          type: G.String,
+        },
+      }),
+      he(
+        Bi,
+        [
+          {
+            explicitInter: !0,
+            fonts: [
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F`,
+                url: `https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116`,
+                url: `https://framerusercontent.com/assets/EOr0mi4hNtlgWNn9if640EZzXCo.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+1F00-1FFF`,
+                url: `https://framerusercontent.com/assets/Y9k9QrlZAqio88Klkmbd8VoMQc.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0370-03FF`,
+                url: `https://framerusercontent.com/assets/OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF`,
+                url: `https://framerusercontent.com/assets/JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD`,
+                url: `https://framerusercontent.com/assets/vQyevYAyHtARFwPqUzQGpnDs.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB`,
+                url: `https://framerusercontent.com/assets/b6Y37FthZeALduNqHicBT6FutY.woff2`,
+                weight: `400`,
+              },
+            ],
+          },
+          ...z(X),
+          ...z(Ee),
+        ],
+        { supportsExplicitInterCodegen: !0 },
+      ));
+  }),
+  Ui,
+  Wi,
+  Gi,
+  Ki,
+  qi,
+  Ji,
+  Yi,
+  Xi,
+  Zi,
+  Qi,
+  $i,
+  ea = e(() => {
+    (v(),
+      B(),
+      A(),
+      r(),
+      Nr(),
+      (Ui = R(br)),
+      (Wi = se(E.div)),
+      (Gi = `framer-7XNpB`),
+      (Ki = { Rr8OYzNhl: `framer-v-14dne16` }),
+      (qi = { bounce: 0.2, delay: 0, duration: 0.4, type: `spring` }),
+      (Ji = ({ value: e, children: t }) => {
+        let n = s(j),
+          r = e ?? n.transition,
+          i = c(() => ({ ...n, transition: r }), [JSON.stringify(r)]);
+        return _(j.Provider, { value: i, children: t });
+      }),
+      (Yi = E.create(a)),
+      (Xi = ({ height: e, id: t, width: n, ...r }) => ({ ...r })),
+      (Zi = (e, t) =>
+        e.layoutDependency ? t.join(`-`) + e.layoutDependency : t.join(`-`)),
+      (Qi = de(
+        d(function (e, n) {
+          let r = t(null),
+            i = n ?? r,
+            a = f(),
+            { activeLocale: o, setLocale: s } = H();
+          q();
+          let { style: c, className: l, layoutId: u, variant: d, ...p } = Xi(e),
+            {
+              baseVariant: m,
+              classNames: h,
+              clearLoadingGesture: g,
+              gestureHandlers: v,
+              gestureVariant: b,
+              isLoading: x,
+              setGestureState: S,
+              setVariant: C,
+              variants: ee,
+            } = Se({
+              defaultVariant: `Rr8OYzNhl`,
+              ref: i,
+              variant: d,
+              variantClassNames: Ki,
+            }),
+            w = Zi(e, ee),
+            T = M(Gi);
+          return _(k, {
+            id: u ?? a,
+            children: _(Yi, {
+              animate: ee,
+              initial: !1,
+              children: _(Ji, {
+                value: qi,
+                children: _(Wi, {
+                  ...p,
+                  ...v,
+                  __framer__spring: {
+                    damping: 60,
+                    delay: 0,
+                    duration: 0.3,
+                    ease: [0.44, 0, 0.56, 1],
+                    mass: 1,
+                    stiffness: 350,
+                    type: `spring`,
+                  },
+                  __framer__styleTransformEffectEnabled: !0,
+                  __framer__transformTargets: [
+                    {
+                      target: {
+                        opacity: 0,
+                        rotate: 0,
+                        rotateX: 0,
+                        rotateY: 0,
+                        scale: 1,
+                        skewX: 0,
+                        skewY: 0,
+                        x: 0,
+                        y: 140,
+                      },
+                    },
+                    {
+                      target: {
+                        opacity: 1,
+                        rotate: 0,
+                        rotateX: 0,
+                        rotateY: 0,
+                        scale: 1,
+                        skewX: 0,
+                        skewY: 0,
+                        x: 0,
+                        y: 0,
+                      },
+                    },
+                  ],
+                  __framer__transformTrigger: `onInView`,
+                  __perspectiveFX: !1,
+                  __smartComponentFX: !0,
+                  __targetOpacity: 1,
+                  className: M(T, `framer-14dne16`, l, h),
+                  "data-framer-name": `Primary`,
+                  layoutDependency: w,
+                  layoutId: `Rr8OYzNhl`,
+                  ref: i,
+                  style: { ...c },
+                  children: _(J, {
+                    children: _(ae, {
+                      className: `framer-1y8r1l1-container`,
+                      isAuthoredByUser: !0,
+                      isModuleExternal: !0,
+                      layoutDependency: w,
+                      layoutId: `H7Rc4k1OM-container`,
+                      nodeId: `H7Rc4k1OM`,
+                      rendersWithMotion: !0,
+                      scopeId: `SMhbAN6De`,
+                      children: _(br, {
+                        alignment: `center`,
+                        direction: `left`,
+                        fadeOptions: {
+                          fadeAlpha: 0,
+                          fadeContent: !0,
+                          fadeInset: 0,
+                          fadeWidth: 25,
+                          overflow: !1,
+                        },
+                        gap: 10,
+                        height: `100%`,
+                        hoverFactor: 1,
+                        id: `H7Rc4k1OM`,
+                        layoutId: `H7Rc4k1OM`,
+                        padding: 0,
+                        paddingBottom: 0,
+                        paddingLeft: 0,
+                        paddingPerSide: !1,
+                        paddingRight: 0,
+                        paddingTop: 0,
+                        sizingOptions: { heightType: !0, widthType: !0 },
+                        slots: [
+                          y(E.div, {
+                            className: `framer-o2950x`,
+                            "data-framer-name": `Slider Brands`,
+                            layoutDependency: w,
+                            layoutId: `tERvLQoml`,
+                            children: [
+                              _(E.div, {
+                                className: `framer-ai58mj`,
+                                "data-border": !0,
+                                "data-framer-name": `Logo1`,
+                                layoutDependency: w,
+                                layoutId: `WBt1VBkw4`,
+                                style: {
+                                  "--border-bottom-width": `1px`,
+                                  "--border-color": `var(--token-63b18e2c-cb9a-4cd9-ae6e-aee8b60c68d9, rgb(51, 51, 51))`,
+                                  "--border-left-width": `1px`,
+                                  "--border-right-width": `1px`,
+                                  "--border-style": `solid`,
+                                  "--border-top-width": `1px`,
+                                  borderBottomLeftRadius: 256,
+                                  borderBottomRightRadius: 256,
+                                  borderTopLeftRadius: 256,
+                                  borderTopRightRadius: 256,
+                                },
+                                children: _(U, {
+                                  background: {
+                                    alt: `logo`,
+                                    fit: `fill`,
+                                    pixelHeight: 43,
+                                    pixelWidth: 148,
+                                    src: `https://framerusercontent.com/images/wCQfZhU0e7AuIU5znxU0B6Sf1A.svg?width=148&height=43`,
+                                  },
+                                  className: `framer-qsn4gp`,
+                                  layoutDependency: w,
+                                  layoutId: `etIfpTnKX`,
+                                }),
+                              }),
+                              _(E.div, {
+                                className: `framer-1q3vd2i`,
+                                "data-border": !0,
+                                "data-framer-name": `Logo2`,
+                                layoutDependency: w,
+                                layoutId: `kaVojooT5`,
+                                style: {
+                                  "--border-bottom-width": `1px`,
+                                  "--border-color": `var(--token-63b18e2c-cb9a-4cd9-ae6e-aee8b60c68d9, rgb(51, 51, 51))`,
+                                  "--border-left-width": `1px`,
+                                  "--border-right-width": `1px`,
+                                  "--border-style": `solid`,
+                                  "--border-top-width": `1px`,
+                                  borderBottomLeftRadius: 256,
+                                  borderBottomRightRadius: 256,
+                                  borderTopLeftRadius: 256,
+                                  borderTopRightRadius: 256,
+                                },
+                                children: _(U, {
+                                  background: {
+                                    alt: `logo`,
+                                    fit: `fill`,
+                                    pixelHeight: 69,
+                                    pixelWidth: 80,
+                                    src: `https://framerusercontent.com/images/oL2WfQWhRsDBmFmli5h917GOIg.svg?width=80&height=69`,
+                                  },
+                                  className: `framer-g6eikq`,
+                                  layoutDependency: w,
+                                  layoutId: `xaRjPGLvB`,
+                                }),
+                              }),
+                              _(E.div, {
+                                className: `framer-1a42quy`,
+                                "data-border": !0,
+                                "data-framer-name": `Logo3`,
+                                layoutDependency: w,
+                                layoutId: `YK3nSqkYO`,
+                                style: {
+                                  "--border-bottom-width": `1px`,
+                                  "--border-color": `var(--token-63b18e2c-cb9a-4cd9-ae6e-aee8b60c68d9, rgb(51, 51, 51))`,
+                                  "--border-left-width": `1px`,
+                                  "--border-right-width": `1px`,
+                                  "--border-style": `solid`,
+                                  "--border-top-width": `1px`,
+                                  borderBottomLeftRadius: 256,
+                                  borderBottomRightRadius: 256,
+                                  borderTopLeftRadius: 256,
+                                  borderTopRightRadius: 256,
+                                },
+                                children: _(U, {
+                                  background: {
+                                    alt: `logo`,
+                                    fit: `fit`,
+                                    pixelHeight: 34,
+                                    pixelWidth: 123,
+                                    positionX: `center`,
+                                    positionY: `center`,
+                                    src: `https://framerusercontent.com/images/joFX9bI9GP0BFWAjA1eNJfEw.svg?width=123&height=34`,
+                                  },
+                                  className: `framer-hbriwq`,
+                                  layoutDependency: w,
+                                  layoutId: `xIAcbxWoN`,
+                                }),
+                              }),
+                              _(E.div, {
+                                className: `framer-w8c438`,
+                                "data-border": !0,
+                                "data-framer-name": `Logo4`,
+                                layoutDependency: w,
+                                layoutId: `gbjib0hIh`,
+                                style: {
+                                  "--border-bottom-width": `1px`,
+                                  "--border-color": `var(--token-63b18e2c-cb9a-4cd9-ae6e-aee8b60c68d9, rgb(51, 51, 51))`,
+                                  "--border-left-width": `1px`,
+                                  "--border-right-width": `1px`,
+                                  "--border-style": `solid`,
+                                  "--border-top-width": `1px`,
+                                  borderBottomLeftRadius: 256,
+                                  borderBottomRightRadius: 256,
+                                  borderTopLeftRadius: 256,
+                                  borderTopRightRadius: 256,
+                                },
+                                children: _(U, {
+                                  background: {
+                                    alt: `logo`,
+                                    fit: `fill`,
+                                    pixelHeight: 62,
+                                    pixelWidth: 106,
+                                    src: `https://framerusercontent.com/images/yKAW1BTMNeZIfrE7nZ4R0xuw.svg?width=106&height=62`,
+                                  },
+                                  className: `framer-s3nkwq`,
+                                  layoutDependency: w,
+                                  layoutId: `AjtrVdFIS`,
+                                }),
+                              }),
+                              _(E.div, {
+                                className: `framer-f3fjg1`,
+                                "data-border": !0,
+                                "data-framer-name": `Logo5`,
+                                layoutDependency: w,
+                                layoutId: `nOvgMpD8o`,
+                                style: {
+                                  "--border-bottom-width": `1px`,
+                                  "--border-color": `var(--token-63b18e2c-cb9a-4cd9-ae6e-aee8b60c68d9, rgb(51, 51, 51))`,
+                                  "--border-left-width": `1px`,
+                                  "--border-right-width": `1px`,
+                                  "--border-style": `solid`,
+                                  "--border-top-width": `1px`,
+                                  borderBottomLeftRadius: 256,
+                                  borderBottomRightRadius: 256,
+                                  borderTopLeftRadius: 256,
+                                  borderTopRightRadius: 256,
+                                },
+                                children: _(U, {
+                                  background: {
+                                    alt: `logo`,
+                                    fit: `fill`,
+                                    pixelHeight: 73,
+                                    pixelWidth: 140,
+                                    src: `https://framerusercontent.com/images/UqzniT6nDeh7jkThhRY05XerlsI.svg?width=140&height=73`,
+                                  },
+                                  className: `framer-1y9xx7y`,
+                                  layoutDependency: w,
+                                  layoutId: `yWQ66PDtY`,
+                                }),
+                              }),
+                            ],
+                          }),
+                        ],
+                        speed: 100,
+                        style: { height: `100%`, width: `100%` },
+                        width: `100%`,
+                      }),
+                    }),
+                  }),
+                }),
+              }),
+            }),
+          });
+        }),
+        [
+          `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+          `.framer-7XNpB.framer-wz6n9n, .framer-7XNpB .framer-wz6n9n { display: block; }`,
+          `.framer-7XNpB.framer-14dne16 { align-content: center; align-items: center; display: flex; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; overflow: visible; padding: 0px; position: relative; width: min-content; }`,
+          `.framer-7XNpB .framer-1y8r1l1-container { flex: none; height: 284px; position: relative; width: 1296px; }`,
+          `.framer-7XNpB .framer-o2950x { align-content: center; align-items: center; display: flex; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; min-height: 284px; min-width: 1296px; overflow: hidden; padding: 0px; position: relative; width: min-content; z-index: 1; }`,
+          `.framer-7XNpB .framer-ai58mj { align-content: center; align-items: center; bottom: 0px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; justify-content: center; left: 0px; overflow: hidden; padding: 0px; position: absolute; top: 0px; width: 284px; will-change: var(--framer-will-change-override, transform); z-index: 1; }`,
+          `.framer-7XNpB .framer-qsn4gp { flex: none; gap: 0px; height: 42px; overflow: hidden; position: relative; width: 148px; }`,
+          `.framer-7XNpB .framer-1q3vd2i { align-content: center; align-items: center; bottom: 0px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; justify-content: center; left: 253px; overflow: hidden; padding: 0px; position: absolute; top: 0px; width: 284px; will-change: var(--framer-will-change-override, transform); z-index: 1; }`,
+          `.framer-7XNpB .framer-g6eikq { flex: none; gap: 0px; height: 69px; overflow: hidden; position: relative; width: 80px; }`,
+          `.framer-7XNpB .framer-1a42quy { align-content: center; align-items: center; bottom: 0px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; justify-content: center; left: calc(50.00000000000002% - 284px / 2); overflow: hidden; padding: 0px; position: absolute; top: 0px; width: 284px; will-change: var(--framer-will-change-override, transform); z-index: 1; }`,
+          `.framer-7XNpB .framer-hbriwq { flex: none; gap: 0px; height: 67px; overflow: hidden; position: relative; width: 129px; }`,
+          `.framer-7XNpB .framer-w8c438 { align-content: center; align-items: center; bottom: 0px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; justify-content: center; left: 759px; overflow: hidden; padding: 0px; position: absolute; top: 0px; width: 284px; will-change: var(--framer-will-change-override, transform); z-index: 1; }`,
+          `.framer-7XNpB .framer-s3nkwq { flex: none; gap: 0px; height: 60px; overflow: hidden; position: relative; width: 105px; }`,
+          `.framer-7XNpB .framer-f3fjg1 { align-content: center; align-items: center; bottom: 0px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; justify-content: center; overflow: hidden; padding: 0px; position: absolute; right: 0px; top: 0px; width: 284px; will-change: var(--framer-will-change-override, transform); z-index: 1; }`,
+          `.framer-7XNpB .framer-1y9xx7y { flex: none; gap: 0px; height: 73px; overflow: hidden; position: relative; width: 140px; }`,
+          `.framer-7XNpB[data-border="true"]::after, .framer-7XNpB [data-border="true"]::after { content: ""; border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0); border-color: var(--border-color, none); border-style: var(--border-style, none); width: 100%; height: 100%; position: absolute; box-sizing: border-box; left: 0; top: 0; border-radius: inherit; pointer-events: none; }`,
+        ],
+        `framer-7XNpB`,
+      )),
+      ($i = Qi),
+      (Qi.displayName = `Client Slider`),
+      (Qi.defaultProps = { height: 284, width: 1296 }),
+      he(Qi, [{ explicitInter: !0, fonts: [] }, ...Ui], {
+        supportsExplicitInterCodegen: !0,
+      }));
+  });
+function ta(e, ...t) {
+  let n = {};
+  return (t?.forEach((t) => t && Object.assign(n, e[t])), n);
+}
+var na,
+  ra,
+  ia,
+  aa,
+  oa,
+  sa,
+  ca,
+  la,
+  ua,
+  da,
+  fa,
+  pa = e(() => {
+    (v(),
+      B(),
+      A(),
+      r(),
+      Xe(),
+      Ne(),
+      (na = [
+        `fYE3joar9`,
+        `JhN58gTYJ`,
+        `rBPmIIcFr`,
+        `n_e6aymYg`,
+        `hYeVcoLPr`,
+        `m3tPLSGZt`,
+        `G_eW3lAFr`,
+        `HMHnIGaG8`,
+      ]),
+      (ra = `framer-LvFoh`),
+      (ia = {
+        fYE3joar9: `framer-v-1cmr48j`,
+        G_eW3lAFr: `framer-v-89k2xg`,
+        HMHnIGaG8: `framer-v-1hyuwya`,
+        hYeVcoLPr: `framer-v-mnds4l`,
+        JhN58gTYJ: `framer-v-yan00m`,
+        m3tPLSGZt: `framer-v-1iyzxdw`,
+        n_e6aymYg: `framer-v-1ejiaaf`,
+        rBPmIIcFr: `framer-v-1ksdzwk`,
+      }),
+      (aa = {
+        delay: 0,
+        duration: 0.6,
+        ease: [0.75, 0.05, 0, 1.03],
+        type: `tween`,
+      }),
+      (oa = ({ value: e, children: t }) => {
+        let n = s(j),
+          r = e ?? n.transition,
+          i = c(() => ({ ...n, transition: r }), [JSON.stringify(r)]);
+        return _(j.Provider, { value: i, children: t });
+      }),
+      (sa = E.create(a)),
+      (ca = {
+        "Animation-Desktop": `n_e6aymYg`,
+        "Animation-Tablet": `HMHnIGaG8`,
+        "Branding-Desktop": `JhN58gTYJ`,
+        "Branding-Tablet": `m3tPLSGZt`,
+        "Framer-Desktop": `rBPmIIcFr`,
+        "Framer-Tablet": `G_eW3lAFr`,
+        "Ui/Ux-Desktop": `fYE3joar9`,
+        "Ui/Ux-Tablet": `hYeVcoLPr`,
+      }),
+      (la = ({ height: e, id: t, width: n, ...r }) => ({
+        ...r,
+        variant: ca[r.variant] ?? r.variant ?? `fYE3joar9`,
+      })),
+      (ua = (e, t) =>
+        e.layoutDependency ? t.join(`-`) + e.layoutDependency : t.join(`-`)),
+      (da = de(
+        d(function (e, n) {
+          let r = t(null),
+            i = n ?? r,
+            o = f(),
+            { activeLocale: s, setLocale: c } = H(),
+            l = q(),
+            { style: u, className: d, layoutId: p, variant: m, ...h } = la(e),
+            {
+              baseVariant: g,
+              classNames: v,
+              clearLoadingGesture: b,
+              gestureHandlers: x,
+              gestureVariant: S,
+              isLoading: C,
+              setGestureState: ee,
+              setVariant: w,
+              variants: T,
+            } = Se({
+              cycleOrder: na,
+              defaultVariant: `fYE3joar9`,
+              ref: i,
+              variant: m,
+              variantClassNames: ia,
+            }),
+            D = ua(e, T),
+            { activeVariantCallback: O, delay: te } = pe(g),
+            ne = O(async (...e) => {
+              w(`JhN58gTYJ`);
+            }),
+            A = O(async (...e) => {
+              w(`m3tPLSGZt`);
+            }),
+            j = O(async (...e) => {
+              w(`fYE3joar9`);
+            }),
+            re = O(async (...e) => {
+              w(`hYeVcoLPr`);
+            }),
+            ie = O(async (...e) => {
+              w(`rBPmIIcFr`);
+            }),
+            ae = O(async (...e) => {
+              w(`G_eW3lAFr`);
+            }),
+            oe = O(async (...e) => {
+              w(`n_e6aymYg`);
+            }),
+            se = O(async (...e) => {
+              w(`HMHnIGaG8`);
+            }),
+            P = M(ra, Ze, Pe),
+            F = () =>
+              ![`hYeVcoLPr`, `m3tPLSGZt`, `G_eW3lAFr`, `HMHnIGaG8`].includes(g);
+          return _(k, {
+            id: p ?? o,
+            children: _(sa, {
+              animate: T,
+              initial: !1,
+              children: _(oa, {
+                value: aa,
+                children: y(E.div, {
+                  ...h,
+                  ...x,
+                  className: M(P, `framer-1cmr48j`, d, v),
+                  "data-framer-name": `Ui/Ux-Desktop`,
+                  layoutDependency: D,
+                  layoutId: `fYE3joar9`,
+                  ref: i,
+                  style: { ...u },
+                  ...ta(
+                    {
+                      G_eW3lAFr: { "data-framer-name": `Framer-Tablet` },
+                      HMHnIGaG8: { "data-framer-name": `Animation-Tablet` },
+                      hYeVcoLPr: { "data-framer-name": `Ui/Ux-Tablet` },
+                      JhN58gTYJ: { "data-framer-name": `Branding-Desktop` },
+                      m3tPLSGZt: { "data-framer-name": `Branding-Tablet` },
+                      n_e6aymYg: { "data-framer-name": `Animation-Desktop` },
+                      rBPmIIcFr: { "data-framer-name": `Framer-Desktop` },
+                    },
+                    g,
+                    S,
+                  ),
+                  children: [
+                    y(E.div, {
+                      className: `framer-g41w2`,
+                      "data-framer-name": `Content`,
+                      layoutDependency: D,
+                      layoutId: `ymodq_LJy`,
+                      children: [_(V, {
+                        href: {
+                          pathVariables: { zuPXbKjY1: `branding` },
+                          unresolvedPathSlugs: {
+                            zuPXbKjY1: {
+                              collectionId: `UcWbpW2oX`,
+                              collectionItemId: `K3rIJmxHP`,
+                            },
+                          },
+                          webPageId: `WLs0OF8B2`,
+                        },
+                        motionChild: !0,
+                        nodeId: `TUAmqvAap`,
+                        openInNewTab: !1,
+                        scopeId: `xf5I4_Lbn`,
+                        children: y(E.a, {
+                          className: `framer-xo5sa1 framer-fnoon7`,
+                          "data-framer-name": `Point 1`,
+                          layoutDependency: D,
+                          layoutId: `TUAmqvAap`,
+                          children: [
+                            _(I, {
+                              __fromCanvasComponent: !0,
+                              children: _(a, {
+                                children: _(E.h2, {
+                                  className: `framer-styles-preset-d6ofy9`,
+                                  "data-styles-preset": `kzUSIwReW`,
+                                  style: {
+                                    "--framer-text-alignment": `center`,
+                                  },
+                                  children: `DEVELOPMENT`,
+                                }),
+                              }),
+                              className: `framer-1tt4h79`,
+                              "data-highlight": !0,
+                              fonts: [`Inter`],
+                              layoutDependency: D,
+                              layoutId: `EW9iAynpC`,
+                              onMouseEnter: ne,
+                              style: {
+                                "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                "--framer-link-text-decoration": `underline`,
+                              },
+                              variants: {
+                                JhN58gTYJ: {
+                                  "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                },
+                                m3tPLSGZt: {
+                                  "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                },
+                              },
+                              verticalAlignment: `top`,
+                              withExternalLayout: !0,
+                              ...ta(
+                                {
+                                  G_eW3lAFr: { onMouseEnter: A },
+                                  HMHnIGaG8: { onMouseEnter: A },
+                                  hYeVcoLPr: { onMouseEnter: A },
+                                  JhN58gTYJ: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                          "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                        },
+                                        children: `DEVELOPMENT`,
+                                      }),
+                                    }),
+                                  },
+                                  m3tPLSGZt: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                          "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                        },
+                                        children: `DEVELOPMENT`,
+                                      }),
+                                    }),
+                                    onMouseEnter: A,
+                                  },
+                                },
+                                g,
+                                S,
+                              ),
+                            }),
+                            y(E.div, {
+                              className: `framer-1x9tv1g`,
+                              "data-framer-name": `Text`,
+                              layoutDependency: D,
+                              layoutId: `edm6R7Dto`,
+                              children: [
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(E.p, {
+                                      className: `framer-styles-preset-h0wt6i`,
+                                      "data-styles-preset": `ZCD3JCImn`,
+                                      style: {
+                                        "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                      },
+                                      children: `Web & Mobile`,
+                                    }),
+                                  }),
+                                  className: `framer-tpwd1f`,
+                                  fonts: [`Inter`],
+                                  layoutDependency: D,
+                                  layoutId: `bwot61Ens`,
+                                  style: {
+                                    "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                    "--framer-link-text-decoration": `underline`,
+                                  },
+                                  variants: {
+                                    JhN58gTYJ: {
+                                      "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    },
+                                    m3tPLSGZt: {
+                                      "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    },
+                                  },
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                  ...ta(
+                                    {
+                                      JhN58gTYJ: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                            },
+                                            children: `Web & Mobile`,
+                                          }),
+                                        }),
+                                      },
+                                      m3tPLSGZt: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                            },
+                                            children: `Web & Mobile`,
+                                          }),
+                                        }),
+                                      },
+                                    },
+                                    g,
+                                    S,
+                                  ),
+                                }),
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(E.p, {
+                                      className: `framer-styles-preset-h0wt6i`,
+                                      "data-styles-preset": `ZCD3JCImn`,
+                                      style: {
+                                        "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                      },
+                                      children: `Software Systems`,
+                                    }),
+                                  }),
+                                  className: `framer-1ononas`,
+                                  fonts: [`Inter`],
+                                  layoutDependency: D,
+                                  layoutId: `fcqmBWLoe`,
+                                  style: {
+                                    "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                    "--framer-link-text-decoration": `underline`,
+                                  },
+                                  variants: {
+                                    JhN58gTYJ: {
+                                      "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    },
+                                    m3tPLSGZt: {
+                                      "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    },
+                                  },
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                  ...ta(
+                                    {
+                                      JhN58gTYJ: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                            },
+                                            children: `Software Systems`,
+                                          }),
+                                        }),
+                                      },
+                                      m3tPLSGZt: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                            },
+                                            children: `Software Systems`,
+                                          }),
+                                        }),
+                                      },
+                                    },
+                                    g,
+                                    S,
+                                  ),
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                      }), _(V, {
+                        href: {
+                          pathVariables: { zuPXbKjY1: `ui-ux` },
+                          unresolvedPathSlugs: {
+                            zuPXbKjY1: {
+                              collectionId: `UcWbpW2oX`,
+                              collectionItemId: `g7KQ98Ym3`,
+                            },
+                          },
+                          webPageId: `WLs0OF8B2`,
+                        },
+                        motionChild: !0,
+                        nodeId: `gj6cFR5gZ`,
+                        openInNewTab: !1,
+                        scopeId: `xf5I4_Lbn`,
+                        children: y(E.a, {
+                          className: `framer-yeytro framer-fnoon7`,
+                          "data-framer-name": `Point 2`,
+                          layoutDependency: D,
+                          layoutId: `gj6cFR5gZ`,
+                          children: [
+                            y(E.div, {
+                              className: `framer-m30v27`,
+                              "data-framer-name": `Text`,
+                              layoutDependency: D,
+                              layoutId: `AAi66Ejon`,
+                              children: [
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(E.p, {
+                                      className: `framer-styles-preset-h0wt6i`,
+                                      "data-styles-preset": `ZCD3JCImn`,
+                                      style: {
+                                        "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                      },
+                                      children: `Machine Learning`,
+                                    }),
+                                  }),
+                                  className: `framer-1ugcg9f`,
+                                  fonts: [`Inter`],
+                                  layoutDependency: D,
+                                  layoutId: `KoqVQpLRf`,
+                                  style: {
+                                    "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                    "--framer-link-text-decoration": `underline`,
+                                  },
+                                  variants: {
+                                    G_eW3lAFr: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    HMHnIGaG8: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    JhN58gTYJ: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    m3tPLSGZt: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    n_e6aymYg: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    rBPmIIcFr: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                  },
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                  ...ta(
+                                    {
+                                      G_eW3lAFr: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Machine Learning`,
+                                          }),
+                                        }),
+                                      },
+                                      HMHnIGaG8: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Machine Learning`,
+                                          }),
+                                        }),
+                                      },
+                                      JhN58gTYJ: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Machine Learning`,
+                                          }),
+                                        }),
+                                      },
+                                      m3tPLSGZt: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Machine Learning`,
+                                          }),
+                                        }),
+                                      },
+                                      n_e6aymYg: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Machine Learning`,
+                                          }),
+                                        }),
+                                      },
+                                      rBPmIIcFr: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Machine Learning`,
+                                          }),
+                                        }),
+                                      },
+                                    },
+                                    g,
+                                    S,
+                                  ),
+                                }),
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(E.p, {
+                                      className: `framer-styles-preset-h0wt6i`,
+                                      "data-styles-preset": `ZCD3JCImn`,
+                                      style: {
+                                        "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                      },
+                                      children: `Intelligent Systems`,
+                                    }),
+                                  }),
+                                  className: `framer-3at8g8`,
+                                  fonts: [`Inter`],
+                                  layoutDependency: D,
+                                  layoutId: `CeVXRlTQ_`,
+                                  style: {
+                                    "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                    "--framer-link-text-decoration": `underline`,
+                                  },
+                                  variants: {
+                                    G_eW3lAFr: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    HMHnIGaG8: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    JhN58gTYJ: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    m3tPLSGZt: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    n_e6aymYg: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                    rBPmIIcFr: {
+                                      "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    },
+                                  },
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                  ...ta(
+                                    {
+                                      G_eW3lAFr: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Intelligent Systems`,
+                                          }),
+                                        }),
+                                      },
+                                      HMHnIGaG8: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Intelligent Systems`,
+                                          }),
+                                        }),
+                                      },
+                                      JhN58gTYJ: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Intelligent Systems`,
+                                          }),
+                                        }),
+                                      },
+                                      m3tPLSGZt: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Intelligent Systems`,
+                                          }),
+                                        }),
+                                      },
+                                      n_e6aymYg: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Intelligent Systems`,
+                                          }),
+                                        }),
+                                      },
+                                      rBPmIIcFr: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                            },
+                                            children: `Intelligent Systems`,
+                                          }),
+                                        }),
+                                      },
+                                    },
+                                    g,
+                                    S,
+                                  ),
+                                }),
+                              ],
+                            }),
+                            _(I, {
+                              __fromCanvasComponent: !0,
+                              children: _(a, {
+                                children: _(E.h2, {
+                                  className: `framer-styles-preset-d6ofy9`,
+                                  "data-styles-preset": `kzUSIwReW`,
+                                  style: {
+                                    "--framer-text-alignment": `center`,
+                                    "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                  },
+                                  children: `AI/ML`,
+                                }),
+                              }),
+                              className: `framer-5lvxt2`,
+                              "data-highlight": !0,
+                              fonts: [`Inter`],
+                              layoutDependency: D,
+                              layoutId: `xZyBh7cE_`,
+                              onMouseEnter: j,
+                              style: {
+                                "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                "--framer-link-text-decoration": `underline`,
+                              },
+                              verticalAlignment: `top`,
+                              withExternalLayout: !0,
+                              ...ta(
+                                {
+                                  G_eW3lAFr: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                        },
+                                        children: `AI/ML`,
+                                      }),
+                                    }),
+                                    onMouseEnter: re,
+                                  },
+                                  HMHnIGaG8: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                        },
+                                        children: `AI/ML`,
+                                      }),
+                                    }),
+                                    onMouseEnter: re,
+                                  },
+                                  hYeVcoLPr: { onMouseEnter: re },
+                                  JhN58gTYJ: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                        },
+                                        children: `AI/ML`,
+                                      }),
+                                    }),
+                                  },
+                                  m3tPLSGZt: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                        },
+                                        children: `AI/ML`,
+                                      }),
+                                    }),
+                                    onMouseEnter: re,
+                                  },
+                                  n_e6aymYg: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                        },
+                                        children: `AI/ML`,
+                                      }),
+                                    }),
+                                  },
+                                  rBPmIIcFr: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                        },
+                                        children: `AI/ML`,
+                                      }),
+                                    }),
+                                  },
+                                },
+                                g,
+                                S,
+                              ),
+                            }),
+                          ],
+                        }),
+                      }), _(V, {
+                        href: {
+                          pathVariables: { zuPXbKjY1: `framer` },
+                          unresolvedPathSlugs: {
+                            zuPXbKjY1: {
+                              collectionId: `UcWbpW2oX`,
+                              collectionItemId: `lA6iLF0Ix`,
+                            },
+                          },
+                          webPageId: `WLs0OF8B2`,
+                        },
+                        motionChild: !0,
+                        nodeId: `O3Al_bcfz`,
+                        openInNewTab: !1,
+                        scopeId: `xf5I4_Lbn`,
+                        children: y(E.a, {
+                          className: `framer-c9wfz0 framer-fnoon7`,
+                          "data-framer-name": `Point 3`,
+                          layoutDependency: D,
+                          layoutId: `O3Al_bcfz`,
+                          children: [
+                            _(I, {
+                              __fromCanvasComponent: !0,
+                              children: _(a, {
+                                children: _(E.h2, {
+                                  className: `framer-styles-preset-d6ofy9`,
+                                  "data-styles-preset": `kzUSIwReW`,
+                                  style: {
+                                    "--framer-text-alignment": `center`,
+                                  },
+                                  children: `MECHATRONICS`,
+                                }),
+                              }),
+                              className: `framer-1kjpvta`,
+                              "data-highlight": !0,
+                              fonts: [`Inter`],
+                              layoutDependency: D,
+                              layoutId: `uBz1EgfBw`,
+                              onMouseEnter: ie,
+                              style: {
+                                "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                "--framer-link-text-decoration": `underline`,
+                              },
+                              variants: {
+                                G_eW3lAFr: {
+                                  "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                },
+                                rBPmIIcFr: {
+                                  "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                },
+                              },
+                              verticalAlignment: `top`,
+                              withExternalLayout: !0,
+                              ...ta(
+                                {
+                                  G_eW3lAFr: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                          "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                        },
+                                        children: `MECHATRONICS`,
+                                      }),
+                                    }),
+                                    onMouseEnter: ae,
+                                  },
+                                  HMHnIGaG8: { onMouseEnter: ae },
+                                  hYeVcoLPr: { onMouseEnter: ae },
+                                  m3tPLSGZt: { onMouseEnter: ae },
+                                  rBPmIIcFr: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                          "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                        },
+                                        children: `MECHATRONICS`,
+                                      }),
+                                    }),
+                                  },
+                                },
+                                g,
+                                S,
+                              ),
+                            }),
+                            _(E.div, {
+                              className: `framer-zku36l`,
+                              "data-framer-name": `Text`,
+                              layoutDependency: D,
+                              layoutId: `yPV7BkiXa`,
+                              children: _(I, {
+                                __fromCanvasComponent: !0,
+                                children: _(a, {
+                                  children: _(E.p, {
+                                    className: `framer-styles-preset-h0wt6i`,
+                                    "data-styles-preset": `ZCD3JCImn`,
+                                    style: {
+                                      "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                    },
+                                    children: `Robotics & Hardware`,
+                                  }),
+                                }),
+                                className: `framer-1cr6g4y`,
+                                fonts: [`Inter`],
+                                layoutDependency: D,
+                                layoutId: `KFvBDXiha`,
+                                style: {
+                                  "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                  "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                  "--framer-link-text-decoration": `underline`,
+                                },
+                                variants: {
+                                  G_eW3lAFr: {
+                                    "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                  },
+                                  rBPmIIcFr: {
+                                    "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                  },
+                                },
+                                verticalAlignment: `top`,
+                                withExternalLayout: !0,
+                                ...ta(
+                                  {
+                                    G_eW3lAFr: {
+                                      children: _(a, {
+                                        children: _(E.p, {
+                                          className: `framer-styles-preset-h0wt6i`,
+                                          "data-styles-preset": `ZCD3JCImn`,
+                                          style: {
+                                            "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                          },
+                                          children: `Robotics & Hardware`,
+                                        }),
+                                      }),
+                                    },
+                                    rBPmIIcFr: {
+                                      children: _(a, {
+                                        children: _(E.p, {
+                                          className: `framer-styles-preset-h0wt6i`,
+                                          "data-styles-preset": `ZCD3JCImn`,
+                                          style: {
+                                            "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                          },
+                                          children: `Robotics & Hardware`,
+                                        }),
+                                      }),
+                                    },
+                                  },
+                                  g,
+                                  S,
+                                ),
+                              }),
+                            }),
+                          ],
+                        }),
+                      }), _(V, {
+                        href: {
+                          pathVariables: { zuPXbKjY1: `animation` },
+                          unresolvedPathSlugs: {
+                            zuPXbKjY1: {
+                              collectionId: `UcWbpW2oX`,
+                              collectionItemId: `wniEElUYE`,
+                            },
+                          },
+                          webPageId: `WLs0OF8B2`,
+                        },
+                        motionChild: !0,
+                        nodeId: `rG5m7zvzX`,
+                        openInNewTab: !1,
+                        scopeId: `xf5I4_Lbn`,
+                        children: y(E.a, {
+                          className: `framer-1e4s23v framer-fnoon7`,
+                          "data-framer-name": `Point 4`,
+                          layoutDependency: D,
+                          layoutId: `rG5m7zvzX`,
+                          children: [
+                            y(E.div, {
+                              className: `framer-1ccdnes`,
+                              "data-framer-name": `Text`,
+                              layoutDependency: D,
+                              layoutId: `ACOrI9ggR`,
+                              children: [
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(E.p, {
+                                      className: `framer-styles-preset-h0wt6i`,
+                                      "data-styles-preset": `ZCD3JCImn`,
+                                      style: {
+                                        "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                      },
+                                      children: `Network Security`,
+                                    }),
+                                  }),
+                                  className: `framer-1790xbs`,
+                                  fonts: [`Inter`],
+                                  layoutDependency: D,
+                                  layoutId: `V565qXzWZ`,
+                                  style: {
+                                    "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                    "--framer-link-text-decoration": `underline`,
+                                  },
+                                  variants: {
+                                    HMHnIGaG8: {
+                                      "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    },
+                                    n_e6aymYg: {
+                                      "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    },
+                                  },
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                  ...ta(
+                                    {
+                                      HMHnIGaG8: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                            },
+                                            children: `Network Security`,
+                                          }),
+                                        }),
+                                      },
+                                      n_e6aymYg: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                            },
+                                            children: `Network Security`,
+                                          }),
+                                        }),
+                                      },
+                                    },
+                                    g,
+                                    S,
+                                  ),
+                                }),
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(E.p, {
+                                      className: `framer-styles-preset-h0wt6i`,
+                                      "data-styles-preset": `ZCD3JCImn`,
+                                      style: {
+                                        "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                      },
+                                      children: `Infrastructure & Audits`,
+                                    }),
+                                  }),
+                                  className: `framer-1qp6l38`,
+                                  fonts: [`Inter`],
+                                  layoutDependency: D,
+                                  layoutId: `HcbbctVaU`,
+                                  style: {
+                                    "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                    "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                    "--framer-link-text-decoration": `underline`,
+                                  },
+                                  variants: {
+                                    HMHnIGaG8: {
+                                      "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    },
+                                    n_e6aymYg: {
+                                      "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                    },
+                                  },
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                  ...ta(
+                                    {
+                                      HMHnIGaG8: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                            },
+                                            children: `Infrastructure & Audits`,
+                                          }),
+                                        }),
+                                      },
+                                      n_e6aymYg: {
+                                        children: _(a, {
+                                          children: _(E.p, {
+                                            className: `framer-styles-preset-h0wt6i`,
+                                            "data-styles-preset": `ZCD3JCImn`,
+                                            style: {
+                                              "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                            },
+                                            children: `Infrastructure & Audits`,
+                                          }),
+                                        }),
+                                      },
+                                    },
+                                    g,
+                                    S,
+                                  ),
+                                }),
+                              ],
+                            }),
+                            _(I, {
+                              __fromCanvasComponent: !0,
+                              children: _(a, {
+                                children: _(E.h2, {
+                                  className: `framer-styles-preset-d6ofy9`,
+                                  "data-styles-preset": `kzUSIwReW`,
+                                  style: {
+                                    "--framer-text-alignment": `center`,
+                                  },
+                                  children: `CYBERSECURITY`,
+                                }),
+                              }),
+                              className: `framer-1nh6yap`,
+                              "data-highlight": !0,
+                              fonts: [`Inter`],
+                              layoutDependency: D,
+                              layoutId: `yEBt0FCgx`,
+                              onMouseEnter: oe,
+                              style: {
+                                "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                "--framer-link-text-decoration": `underline`,
+                              },
+                              variants: {
+                                HMHnIGaG8: {
+                                  "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                },
+                                n_e6aymYg: {
+                                  "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                },
+                              },
+                              verticalAlignment: `top`,
+                              withExternalLayout: !0,
+                              ...ta(
+                                {
+                                  G_eW3lAFr: { onMouseEnter: se },
+                                  HMHnIGaG8: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                          "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                        },
+                                        children: `CYBERSECURITY`,
+                                      }),
+                                    }),
+                                    onMouseEnter: se,
+                                  },
+                                  hYeVcoLPr: { onMouseEnter: se },
+                                  m3tPLSGZt: { onMouseEnter: se },
+                                  n_e6aymYg: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                          "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                        },
+                                        children: `CYBERSECURITY`,
+                                      }),
+                                    }),
+                                  },
+                                },
+                                g,
+                                S,
+                              ),
+                            }),
+                          ],
+                        }),
+                      }), _(V, {
+                        href: {
+                          pathVariables: { zuPXbKjY1: `outreach` },
+                          unresolvedPathSlugs: {
+                            zuPXbKjY1: {
+                              collectionId: `UcWbpW2oX`,
+                              collectionItemId: `lA6iLF0Ix`,
+                            },
+                          },
+                          webPageId: `WLs0OF8B2`,
+                        },
+                        motionChild: !0,
+                        nodeId: `O3Al_bcfz5`,
+                        openInNewTab: !1,
+                        scopeId: `xf5I4_Lbn`,
+                        children: y(E.a, {
+                          className: `framer-c9wfz0 framer-fnoon7`,
+                          "data-framer-name": `Point 5`,
+                          layoutDependency: D,
+                          layoutId: `O3Al_bcfz5`,
+                          children: [
+                            _(I, {
+                              __fromCanvasComponent: !0,
+                              children: _(a, {
+                                children: _(E.h2, {
+                                  className: `framer-styles-preset-d6ofy9`,
+                                  "data-styles-preset": `kzUSIwReW`,
+                                  style: {
+                                    "--framer-text-alignment": `center`,
+                                  },
+                                  children: `OUTREACH`,
+                                }),
+                              }),
+                              className: `framer-1kjpvta`,
+                              "data-highlight": !0,
+                              fonts: [`Inter`],
+                              layoutDependency: D,
+                              layoutId: `uBz1EgfBw5`,
+                              onMouseEnter: ie,
+                              style: {
+                                "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                "--framer-link-text-decoration": `underline`,
+                              },
+                              variants: {
+                                G_eW3lAFr: {
+                                  "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                },
+                                rBPmIIcFr: {
+                                  "--extracted-1of0zx5": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                },
+                              },
+                              verticalAlignment: `top`,
+                              withExternalLayout: !0,
+                              ...ta(
+                                {
+                                  G_eW3lAFr: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                          "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                        },
+                                        children: `OUTREACH`,
+                                      }),
+                                    }),
+                                    onMouseEnter: ae,
+                                  },
+                                  HMHnIGaG8: { onMouseEnter: ae },
+                                  hYeVcoLPr: { onMouseEnter: ae },
+                                  m3tPLSGZt: { onMouseEnter: ae },
+                                  rBPmIIcFr: {
+                                    children: _(a, {
+                                      children: _(E.h2, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `center`,
+                                          "--framer-text-color": `var(--extracted-1of0zx5, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                        },
+                                        children: `OUTREACH`,
+                                      }),
+                                    }),
+                                  },
+                                },
+                                g,
+                                S,
+                              ),
+                            }),
+                            _(E.div, {
+                              className: `framer-zku36l`,
+                              "data-framer-name": `Text`,
+                              layoutDependency: D,
+                              layoutId: `yPV7BkiXa5`,
+                              children: _(I, {
+                                __fromCanvasComponent: !0,
+                                children: _(a, {
+                                  children: _(E.p, {
+                                    className: `framer-styles-preset-h0wt6i`,
+                                    "data-styles-preset": `ZCD3JCImn`,
+                                    style: {
+                                      "--framer-text-color": `var(--extracted-r6o4lv, var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46)))`,
+                                    },
+                                    children: `Creative & Community`,
+                                  }),
+                                }),
+                                className: `framer-1cr6g4y`,
+                                fonts: [`Inter`],
+                                layoutDependency: D,
+                                layoutId: `KFvBDXiha5`,
+                                style: {
+                                  "--extracted-r6o4lv": `var(--token-5777202a-0ea6-448f-b785-3c665721a4a8, rgb(46, 46, 46))`,
+                                  "--framer-link-text-color": `rgb(0, 153, 255)`,
+                                  "--framer-link-text-decoration": `underline`,
+                                },
+                                variants: {
+                                  G_eW3lAFr: {
+                                    "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                  },
+                                  rBPmIIcFr: {
+                                    "--extracted-r6o4lv": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                  },
+                                },
+                                verticalAlignment: `top`,
+                                withExternalLayout: !0,
+                                ...ta(
+                                  {
+                                    G_eW3lAFr: {
+                                      children: _(a, {
+                                        children: _(E.p, {
+                                          className: `framer-styles-preset-h0wt6i`,
+                                          "data-styles-preset": `ZCD3JCImn`,
+                                          style: {
+                                            "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                          },
+                                          children: `Creative & Community`,
+                                        }),
+                                      }),
+                                    },
+                                    rBPmIIcFr: {
+                                      children: _(a, {
+                                        children: _(E.p, {
+                                          className: `framer-styles-preset-h0wt6i`,
+                                          "data-styles-preset": `ZCD3JCImn`,
+                                          style: {
+                                            "--framer-text-color": `var(--extracted-r6o4lv, var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255)))`,
+                                          },
+                                          children: `Creative & Community`,
+                                        }),
+                                      }),
+                                    },
+                                  },
+                                  g,
+                                  S,
+                                ),
+                              }),
+                            }),
+                          ],
+                        }),
+                      })],
+                    }),
+                    F() &&
+                      _(U, {
+                        background: {
+                          alt: `UI image`,
+                          fit: `fill`,
+                          loading: N((l?.y || 0) + 68),
+                          pixelHeight: 304,
+                          pixelWidth: 440,
+                          src: `https://framerusercontent.com/images/Te0KZO8vu8nZAiqQWZqQ1eMg.png`,
+                        },
+                        className: `framer-vtz9m`,
+                        "data-framer-name": `Image1`,
+                        layoutDependency: D,
+                        layoutId: `kadxibn70`,
+                        ...ta(
+                          {
+                            JhN58gTYJ: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 68),
+                                pixelHeight: 248,
+                                pixelWidth: 360,
+                                src: `https://framerusercontent.com/images/CC8McVzzO0R7udDOSECyPEPGsE0.png`,
+                              },
+                            },
+                            n_e6aymYg: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 389),
+                                pixelHeight: 386,
+                                pixelWidth: 558,
+                                sizes: `279px`,
+                                src: `https://framerusercontent.com/images/jJFlftiHE3hSOQ1JIc5El1MAQnw.png`,
+                                srcSet: `https://framerusercontent.com/images/jJFlftiHE3hSOQ1JIc5El1MAQnw.png?scale-down-to=512 512w,https://framerusercontent.com/images/jJFlftiHE3hSOQ1JIc5El1MAQnw.png 558w`,
+                              },
+                            },
+                            rBPmIIcFr: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 141),
+                                pixelHeight: 386,
+                                pixelWidth: 558,
+                                sizes: `279px`,
+                                src: `https://framerusercontent.com/images/EprXwjKEBoRM8KRGGEcIr7YBDdw.png`,
+                                srcSet: `https://framerusercontent.com/images/EprXwjKEBoRM8KRGGEcIr7YBDdw.png?scale-down-to=512 512w,https://framerusercontent.com/images/EprXwjKEBoRM8KRGGEcIr7YBDdw.png 558w`,
+                              },
+                            },
+                          },
+                          g,
+                          S,
+                        ),
+                      }),
+                    F() &&
+                      _(U, {
+                        background: {
+                          alt: `UI image`,
+                          fit: `fill`,
+                          loading: N((l?.y || 0) + 366),
+                          pixelHeight: 304,
+                          pixelWidth: 440,
+                          src: `https://framerusercontent.com/images/Aqbu7kPIEdd41hwrARS5mPe8Ta8.png`,
+                        },
+                        className: `framer-1a9jdw4`,
+                        "data-framer-name": `Image2`,
+                        layoutDependency: D,
+                        layoutId: `ck_jEascr`,
+                        ...ta(
+                          {
+                            JhN58gTYJ: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 118),
+                                pixelHeight: 304,
+                                pixelWidth: 440,
+                                src: `https://framerusercontent.com/images/SqvXFHpY99P8W4osLxWdgK1w.png`,
+                              },
+                            },
+                            n_e6aymYg: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 294),
+                                pixelHeight: 248,
+                                pixelWidth: 358,
+                                src: `https://framerusercontent.com/images/mTFmtxmygqdvpVJYlTH4uXV2otA.png`,
+                              },
+                            },
+                            rBPmIIcFr: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 418),
+                                pixelHeight: 248,
+                                pixelWidth: 358,
+                                src: `https://framerusercontent.com/images/qD74yJN0mtCfqzLiyeeVdjj30.png`,
+                              },
+                            },
+                          },
+                          g,
+                          S,
+                        ),
+                      }),
+                    F() &&
+                      _(U, {
+                        background: {
+                          alt: `UI image`,
+                          fit: `fill`,
+                          loading: N((l?.y || 0) + 238),
+                          pixelHeight: 248,
+                          pixelWidth: 358,
+                          src: `https://framerusercontent.com/images/aGsDjoLwW8jT2bmM2uK86UpTBKo.png`,
+                        },
+                        className: `framer-1yrlmfy`,
+                        "data-framer-name": `Image3`,
+                        layoutDependency: D,
+                        layoutId: `Dd3HQ8k70`,
+                        ...ta(
+                          {
+                            JhN58gTYJ: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 371),
+                                pixelHeight: 386,
+                                pixelWidth: 558,
+                                sizes: `279px`,
+                                src: `https://framerusercontent.com/images/AWyWbUhQemVzFi2HWkUsj8kuos4.png`,
+                                srcSet: `https://framerusercontent.com/images/AWyWbUhQemVzFi2HWkUsj8kuos4.png?scale-down-to=512 512w,https://framerusercontent.com/images/AWyWbUhQemVzFi2HWkUsj8kuos4.png 558w`,
+                              },
+                            },
+                            n_e6aymYg: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 617),
+                                pixelHeight: 304,
+                                pixelWidth: 440,
+                                src: `https://framerusercontent.com/images/SjmtAi2v2tz7hZs4HMTJOr2NlXQ.png`,
+                              },
+                            },
+                            rBPmIIcFr: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 604),
+                                pixelHeight: 304,
+                                pixelWidth: 440,
+                                src: `https://framerusercontent.com/images/L28eSLKreJT4IFWi9VMzoc7TI.png`,
+                              },
+                            },
+                          },
+                          g,
+                          S,
+                        ),
+                      }),
+                    F() &&
+                      _(U, {
+                        background: {
+                          alt: `UI image`,
+                          fit: `fill`,
+                          loading: N((l?.y || 0) + (l?.height || 869) - 267),
+                          pixelHeight: 386,
+                          pixelWidth: 558,
+                          sizes: `279px`,
+                          src: `https://framerusercontent.com/images/Qy1hTtXWXmM1yNP30LPkmQ0q6Hc.png`,
+                          srcSet: `https://framerusercontent.com/images/Qy1hTtXWXmM1yNP30LPkmQ0q6Hc.png?scale-down-to=512 512w,https://framerusercontent.com/images/Qy1hTtXWXmM1yNP30LPkmQ0q6Hc.png 558w`,
+                        },
+                        className: `framer-1mqtbpa`,
+                        "data-framer-name": `Image4`,
+                        layoutDependency: D,
+                        layoutId: `uMX_981qJ`,
+                        ...ta(
+                          {
+                            JhN58gTYJ: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 225),
+                                pixelHeight: 248,
+                                pixelWidth: 360,
+                                src: `https://framerusercontent.com/images/xCsAD6OiFbRdZcIasNtRgmHqoZM.png`,
+                              },
+                            },
+                            n_e6aymYg: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 717),
+                                pixelHeight: 304,
+                                pixelWidth: 440,
+                                src: `https://framerusercontent.com/images/ZjZDRYMPHpxcGY3jymUBP8h2yBg.png`,
+                              },
+                            },
+                            rBPmIIcFr: {
+                              background: {
+                                alt: `UI image`,
+                                fit: `fill`,
+                                loading: N((l?.y || 0) + 258),
+                                pixelHeight: 248,
+                                pixelWidth: 358,
+                                src: `https://framerusercontent.com/images/mTFmtxmygqdvpVJYlTH4uXV2otA.png`,
+                              },
+                            },
+                          },
+                          g,
+                          S,
+                        ),
+                      }),
+                    F() &&
+                      _(E.div, {
+                        className: `framer-412ujz`,
+                        "data-framer-name": `Images`,
+                        layoutDependency: D,
+                        layoutId: `y0tzc7gYd`,
+                      }),
+                  ],
+                }),
+              }),
+            }),
+          });
+        }),
+        [
+          `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+          `.framer-LvFoh.framer-fnoon7, .framer-LvFoh .framer-fnoon7 { display: block; }`,
+          `.framer-LvFoh.framer-1cmr48j { align-content: center; align-items: center; cursor: default; display: flex; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; overflow: hidden; padding: 170px 0px 227px 0px; position: relative; width: 1296px; }`,
+          `.framer-LvFoh .framer-g41w2 { align-content: center; align-items: center; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: center; max-width: 893px; overflow: hidden; padding: 0px; position: relative; width: 1px; }`,
+          `.framer-LvFoh .framer-xo5sa1, .framer-LvFoh .framer-c9wfz0 { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: flex-end; overflow: hidden; padding: 0px; position: relative; text-decoration: none; width: 100%; }`,
+          `.framer-LvFoh .framer-1tt4h79, .framer-LvFoh .framer-5lvxt2, .framer-LvFoh .framer-1kjpvta, .framer-LvFoh .framer-1nh6yap { flex: none; height: auto; position: relative; white-space: pre; width: auto; z-index: 1; }`,
+          `.framer-LvFoh .framer-1x9tv1g, .framer-LvFoh .framer-m30v27, .framer-LvFoh .framer-zku36l, .framer-LvFoh .framer-1ccdnes { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: min-content; }`,
+          `.framer-LvFoh .framer-tpwd1f, .framer-LvFoh .framer-1ononas, .framer-LvFoh .framer-1ugcg9f, .framer-LvFoh .framer-3at8g8, .framer-LvFoh .framer-1cr6g4y, .framer-LvFoh .framer-1790xbs, .framer-LvFoh .framer-1qp6l38 { flex: none; height: auto; position: relative; white-space: pre; width: auto; }`,
+          `.framer-LvFoh .framer-yeytro { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: center; overflow: hidden; padding: 0px; position: relative; text-decoration: none; width: 100%; }`,
+          `.framer-LvFoh .framer-1e4s23v { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; text-decoration: none; width: 100%; }`,
+          `.framer-LvFoh .framer-vtz9m { flex: none; height: 152px; left: 220px; overflow: hidden; position: absolute; top: 68px; width: 220px; z-index: 1; }`,
+          `.framer-LvFoh .framer-1a9jdw4 { flex: none; height: 152px; left: 0px; overflow: hidden; position: absolute; top: 366px; width: 220px; z-index: 1; }`,
+          `.framer-LvFoh .framer-1yrlmfy { flex: none; height: 124px; overflow: hidden; position: absolute; right: 127px; top: 238px; width: 179px; z-index: 1; }`,
+          `.framer-LvFoh .framer-1mqtbpa { bottom: 74px; flex: none; height: 193px; left: calc(49.30555555555558% - 279px / 2); overflow: hidden; position: absolute; width: 279px; z-index: 1; }`,
+          `.framer-LvFoh .framer-412ujz { align-content: center; align-items: center; aspect-ratio: 1.607977991746905 / 1; bottom: 74px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 10px; justify-content: center; left: 0px; overflow: hidden; padding: 0px; position: absolute; top: 68px; width: var(--framer-aspect-ratio-supported, 1169px); z-index: 0; }`,
+          `.framer-LvFoh.framer-v-yan00m .framer-g41w2, .framer-LvFoh.framer-v-mnds4l .framer-5lvxt2, .framer-LvFoh.framer-v-mnds4l .framer-1nh6yap, .framer-LvFoh.framer-v-1iyzxdw .framer-5lvxt2, .framer-LvFoh.framer-v-1iyzxdw .framer-1nh6yap, .framer-LvFoh.framer-v-89k2xg .framer-5lvxt2, .framer-LvFoh.framer-v-89k2xg .framer-1nh6yap, .framer-LvFoh.framer-v-1hyuwya .framer-5lvxt2, .framer-LvFoh.framer-v-1hyuwya .framer-1nh6yap { order: 0; }`,
+          `.framer-LvFoh.framer-v-yan00m .framer-vtz9m { height: 124px; left: unset; order: 1; right: 456px; width: 180px; }`,
+          `.framer-LvFoh.framer-v-yan00m .framer-1a9jdw4 { order: 2; top: 118px; }`,
+          `.framer-LvFoh.framer-v-yan00m .framer-1yrlmfy { height: 193px; left: 110px; order: 3; right: unset; top: 371px; width: 279px; }`,
+          `.framer-LvFoh.framer-v-yan00m .framer-1mqtbpa { bottom: unset; height: 124px; left: unset; order: 4; right: 0px; top: 225px; width: 180px; }`,
+          `.framer-LvFoh.framer-v-yan00m .framer-412ujz { aspect-ratio: unset; bottom: 305px; left: unset; order: 5; right: 0px; top: 0px; width: 1296px; }`,
+          `.framer-LvFoh.framer-v-1ksdzwk .framer-vtz9m { height: 193px; left: unset; right: 308px; top: 141px; width: 279px; }`,
+          `.framer-LvFoh.framer-v-1ksdzwk .framer-1a9jdw4 { bottom: 327px; height: unset; left: calc(6.867283950617306% - 179px / 2); top: 418px; width: 179px; }`,
+          `.framer-LvFoh.framer-v-1ksdzwk .framer-1yrlmfy { height: 152px; right: 660px; top: 604px; width: 220px; }`,
+          `.framer-LvFoh.framer-v-1ksdzwk .framer-1mqtbpa { bottom: unset; height: 124px; left: unset; right: 39px; top: 258px; width: 179px; }`,
+          `.framer-LvFoh.framer-v-1ksdzwk .framer-412ujz, .framer-LvFoh.framer-v-1ejiaaf .framer-412ujz { aspect-ratio: unset; bottom: 305px; left: unset; right: 0px; top: 0px; width: 1296px; }`,
+          `.framer-LvFoh.framer-v-1ejiaaf .framer-vtz9m { height: 193px; left: unset; right: 0px; top: 389px; width: 279px; }`,
+          `.framer-LvFoh.framer-v-1ejiaaf .framer-1a9jdw4 { bottom: 451px; height: unset; left: calc(30.47839506172842% - 179px / 2); top: 294px; width: 179px; }`,
+          `.framer-LvFoh.framer-v-1ejiaaf .framer-1yrlmfy { height: 152px; right: 1076px; top: 617px; width: 220px; }`,
+          `.framer-LvFoh.framer-v-1ejiaaf .framer-1mqtbpa { bottom: 0px; height: unset; left: calc(76.3888888888889% - 220px / 2); top: 717px; width: 220px; }`,
+          `.framer-LvFoh.framer-v-mnds4l.framer-1cmr48j, .framer-LvFoh.framer-v-1iyzxdw.framer-1cmr48j, .framer-LvFoh.framer-v-89k2xg.framer-1cmr48j, .framer-LvFoh.framer-v-1hyuwya.framer-1cmr48j { padding: 50px 0px 50px 0px; width: 810px; }`,
+          `.framer-LvFoh.framer-v-mnds4l .framer-xo5sa1, .framer-LvFoh.framer-v-mnds4l .framer-yeytro, .framer-LvFoh.framer-v-mnds4l .framer-c9wfz0, .framer-LvFoh.framer-v-1iyzxdw .framer-xo5sa1, .framer-LvFoh.framer-v-1iyzxdw .framer-yeytro, .framer-LvFoh.framer-v-1iyzxdw .framer-c9wfz0, .framer-LvFoh.framer-v-89k2xg .framer-xo5sa1, .framer-LvFoh.framer-v-89k2xg .framer-yeytro, .framer-LvFoh.framer-v-89k2xg .framer-c9wfz0, .framer-LvFoh.framer-v-1hyuwya .framer-xo5sa1, .framer-LvFoh.framer-v-1hyuwya .framer-yeytro, .framer-LvFoh.framer-v-1hyuwya .framer-c9wfz0 { flex-direction: column; justify-content: flex-start; }`,
+          `.framer-LvFoh.framer-v-mnds4l .framer-m30v27, .framer-LvFoh.framer-v-mnds4l .framer-1ccdnes, .framer-LvFoh.framer-v-1iyzxdw .framer-m30v27, .framer-LvFoh.framer-v-1iyzxdw .framer-1ccdnes, .framer-LvFoh.framer-v-89k2xg .framer-m30v27, .framer-LvFoh.framer-v-89k2xg .framer-1ccdnes, .framer-LvFoh.framer-v-1hyuwya .framer-m30v27, .framer-LvFoh.framer-v-1hyuwya .framer-1ccdnes { order: 1; }`,
+          `.framer-LvFoh.framer-v-mnds4l .framer-1e4s23v, .framer-LvFoh.framer-v-1iyzxdw .framer-1e4s23v, .framer-LvFoh.framer-v-89k2xg .framer-1e4s23v, .framer-LvFoh.framer-v-1hyuwya .framer-1e4s23v { flex-direction: column; }`,
+          ...Je,
+          ...Ae,
+        ],
+        `framer-LvFoh`,
+      )),
+      (fa = da),
+      (da.displayName = `Home Service Card`),
+      (da.defaultProps = { height: 869, width: 1296 }),
+      F(da, {
+        variant: {
+          options: [
+            `fYE3joar9`,
+            `JhN58gTYJ`,
+            `rBPmIIcFr`,
+            `n_e6aymYg`,
+            `hYeVcoLPr`,
+            `m3tPLSGZt`,
+            `G_eW3lAFr`,
+            `HMHnIGaG8`,
+          ],
+          optionTitles: [
+            `Ui/Ux-Desktop`,
+            `Branding-Desktop`,
+            `Framer-Desktop`,
+            `Animation-Desktop`,
+            `Ui/Ux-Tablet`,
+            `Branding-Tablet`,
+            `Framer-Tablet`,
+            `Animation-Tablet`,
+          ],
+          title: `Variant`,
+          type: G.Enum,
+        },
+      }),
+      he(
+        da,
+        [
+          {
+            explicitInter: !0,
+            fonts: [
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F`,
+                url: `https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116`,
+                url: `https://framerusercontent.com/assets/EOr0mi4hNtlgWNn9if640EZzXCo.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+1F00-1FFF`,
+                url: `https://framerusercontent.com/assets/Y9k9QrlZAqio88Klkmbd8VoMQc.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0370-03FF`,
+                url: `https://framerusercontent.com/assets/OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF`,
+                url: `https://framerusercontent.com/assets/JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2070, U+2074-207E, U+2080-208E, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD`,
+                url: `https://framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2`,
+                weight: `400`,
+              },
+              {
+                family: `Inter`,
+                source: `framer`,
+                style: `normal`,
+                unicodeRange: `U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB`,
+                url: `https://framerusercontent.com/assets/b6Y37FthZeALduNqHicBT6FutY.woff2`,
+                weight: `400`,
+              },
+            ],
+          },
+          ...z(qe),
+          ...z(Ee),
+        ],
+        { supportsExplicitInterCodegen: !0 },
+      ));
+  }),
+  ma,
+  ha,
+  ga,
+  _a,
+  va,
+  ya,
+  ba,
+  xa,
+  Sa,
+  Ca,
+  wa,
+  Ta,
+  Ea,
+  Da,
+  Oa,
+  ka,
+  Aa,
+  ja,
+  Ma,
+  Na,
+  Pa,
+  Fa,
+  Ia,
+  La,
+  Ra,
+  za,
+  Ba,
+  Va,
+  Ha,
+  Ua,
+  Wa,
+  Ga,
+  Ka,
+  qa,
+  Ja,
+  Ya,
+  Xa,
+  Za,
+  Qa,
+  $,
+  $a,
+  eo,
+  to,
+  no,
+  ro,
+  io,
+  ao,
+  oo,
+  so,
+  co,
+  lo,
+  uo,
+  fo,
+  po,
+  mo,
+  ho,
+  go,
+  _o,
+  vo,
+  yo,
+  bo,
+  xo,
+  So,
+  Co,
+  wo,
+  To,
+  Eo,
+  Do,
+  Oo,
+  ko,
+  Ao,
+  jo,
+  Mo,
+  No,
+  Po,
+  Fo,
+  Io;
+e(() => {
+  (v(),
+    B(),
+    A(),
+    r(),
+    Qn(),
+    er(),
+    De(),
+    $e(),
+    Ue(),
+    it(),
+    yr(),
+    Qe(),
+    ft(),
+    vt(),
+    ti(),
+    Mi(),
+    Hi(),
+    ea(),
+    et(),
+    je(),
+    xt(),
+    pa(),
+    yt(),
+    Et(),
+    St(),
+    Me(),
+    We(),
+    Xe(),
+    Le(),
+    Ot(),
+    Ne(),
+    Mt(),
+    (ma = ce(I)),
+    (ha = ce(E.div)),
+    (ga = se(U)),
+    (_a = se(E.div)),
+    (va = ce(E.section)),
+    (ya = R(ei)),
+    (ba = R(lt)),
+    (xa = R(fa)),
+    (Sa = R(Z)),
+    (Ca = R(ji)),
+    (wa = R(Ke)),
+    (Ta = R($n)),
+    (Ea = R(Ie)),
+    (Da = R($i)),
+    (Oa = R(vr)),
+    (ka = R(Vi)),
+    (Aa = R(_t)),
+    (ja = R(nt)),
+    (Ma = R(tt)),
+    (Na = R(ot)),
+    (Pa = R(Ye)),
+    (Fa = R(Fe)),
+    (Ia = R(Zn)),
+    (La = se(Y)),
+    (Ra = R(bt)),
+    (za = {
+      sugBnXNGk: `(min-width: 810px) and (max-width: 1439.98px)`,
+      UBAPecy2c: `(max-width: 809.98px)`,
+      WQLkyLRf1: `(min-width: 1440px)`,
+    }),
+    (Ba = () => typeof document < `u`),
+    (Va = []),
+    (Ha = `framer-Gw3Ml`),
+    (Ua = {
+      sugBnXNGk: `framer-v-tzj1x2`,
+      UBAPecy2c: `framer-v-1ip9ec5`,
+      WQLkyLRf1: `framer-v-72rtr7`,
+    }),
+    (Wa = (e, t, n) => (e && t ? `position` : n)),
+    (Ga = {
+      opacity: 1,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      transition: {
+        damping: 40,
+        delay: 0,
+        mass: 1,
+        stiffness: 200,
+        type: `spring`,
+      },
+      x: 0,
+      y: 0,
+    }),
+    (Ka = {
+      opacity: 0.001,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      x: 0,
+      y: -400,
+    }),
+    (qa = {
+      opacity: 1,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      transition: {
+        damping: 40,
+        delay: 0.2,
+        mass: 1,
+        stiffness: 200,
+        type: `spring`,
+      },
+      x: 0,
+      y: 0,
+    }),
+    (Ja = {
+      opacity: 0.001,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      x: 0,
+      y: 30,
+    }),
+    (Ya = { delay: 0, duration: 10, ease: [0, 0, 1, 1], type: `tween` }),
+    (Xa = {
+      opacity: 1,
+      rotate: 360,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      x: 0,
+      y: 0,
+    }),
+    (Za = {
+      opacity: 1,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      transformPerspective: 1200,
+      transition: {
+        damping: 40,
+        delay: 0.8,
+        mass: 1,
+        stiffness: 200,
+        type: `spring`,
+      },
+      x: 0,
+      y: 0,
+    }),
+    (Qa = {
+      opacity: 1,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      transformPerspective: 1200,
+      x: 0,
+      y: 160,
+    }),
+    ($ = (...e) => {
+      for (let t of e) if (t && typeof t == `string`) return t;
+    }),
+    ($a = (e) =>
+      typeof e == `object` && e && typeof e.src == `string`
+        ? e
+        : typeof e == `string`
+          ? { src: e }
+          : void 0),
+    (eo = () => ({
+      from: { alias: `utnDc7H7z`, data: Dt, type: `Collection` },
+      offset: { type: `LiteralValue`, value: 0 },
+      select: [
+        { collection: `utnDc7H7z`, name: `FqXanvpX5`, type: `Identifier` },
+        { collection: `utnDc7H7z`, name: `JBYwxjGF4`, type: `Identifier` },
+        { collection: `utnDc7H7z`, name: `XPyR5q4iP`, type: `Identifier` },
+        { collection: `utnDc7H7z`, name: `QF04XtOqX`, type: `Identifier` },
+        { collection: `utnDc7H7z`, name: `BXB57XQsa`, type: `Identifier` },
+        { collection: `utnDc7H7z`, name: `vcvU8M3f9`, type: `Identifier` },
+        { collection: `utnDc7H7z`, name: `id`, type: `Identifier` },
+      ],
+    })),
+    (to = ({ query: e, pageSize: t, children: n }) => {
+      let {
+        paginatedQuery: r,
+        paginationInfo: i,
+        loadMore: a,
+      } = W(e, t, `utnDc7H7z`);
+      return n(fe(r), i, a);
+    }),
+    (no = () => ({
+      from: { alias: `E_frjiqNY`, data: Dt, type: `Collection` },
+      offset: { type: `LiteralValue`, value: 1 },
+      select: [
+        { collection: `E_frjiqNY`, name: `FqXanvpX5`, type: `Identifier` },
+        { collection: `E_frjiqNY`, name: `JBYwxjGF4`, type: `Identifier` },
+        { collection: `E_frjiqNY`, name: `XPyR5q4iP`, type: `Identifier` },
+        { collection: `E_frjiqNY`, name: `QF04XtOqX`, type: `Identifier` },
+        { collection: `E_frjiqNY`, name: `BXB57XQsa`, type: `Identifier` },
+        { collection: `E_frjiqNY`, name: `vcvU8M3f9`, type: `Identifier` },
+        { collection: `E_frjiqNY`, name: `id`, type: `Identifier` },
+      ],
+    })),
+    (ro = ({ query: e, pageSize: t, children: n }) => {
+      let {
+        paginatedQuery: r,
+        paginationInfo: i,
+        loadMore: a,
+      } = W(e, t, `E_frjiqNY`);
+      return n(fe(r), i, a);
+    }),
+    (io = () => ({
+      from: { alias: `mpd83Xc_j`, data: Dt, type: `Collection` },
+      offset: { type: `LiteralValue`, value: 2 },
+      select: [
+        { collection: `mpd83Xc_j`, name: `FqXanvpX5`, type: `Identifier` },
+        { collection: `mpd83Xc_j`, name: `JBYwxjGF4`, type: `Identifier` },
+        { collection: `mpd83Xc_j`, name: `XPyR5q4iP`, type: `Identifier` },
+        { collection: `mpd83Xc_j`, name: `QF04XtOqX`, type: `Identifier` },
+        { collection: `mpd83Xc_j`, name: `BXB57XQsa`, type: `Identifier` },
+        { collection: `mpd83Xc_j`, name: `vcvU8M3f9`, type: `Identifier` },
+        { collection: `mpd83Xc_j`, name: `id`, type: `Identifier` },
+      ],
+    })),
+    (ao = ({ query: e, pageSize: t, children: n }) => {
+      let {
+        paginatedQuery: r,
+        paginationInfo: i,
+        loadMore: a,
+      } = W(e, t, `mpd83Xc_j`);
+      return n(fe(r), i, a);
+    }),
+    (oo = () => ({
+      from: { alias: `P1TpZZqGN`, data: Dt, type: `Collection` },
+      offset: { type: `LiteralValue`, value: 3 },
+      select: [
+        { collection: `P1TpZZqGN`, name: `FqXanvpX5`, type: `Identifier` },
+        { collection: `P1TpZZqGN`, name: `JBYwxjGF4`, type: `Identifier` },
+        { collection: `P1TpZZqGN`, name: `XPyR5q4iP`, type: `Identifier` },
+        { collection: `P1TpZZqGN`, name: `QF04XtOqX`, type: `Identifier` },
+        { collection: `P1TpZZqGN`, name: `BXB57XQsa`, type: `Identifier` },
+        { collection: `P1TpZZqGN`, name: `vcvU8M3f9`, type: `Identifier` },
+        { collection: `P1TpZZqGN`, name: `id`, type: `Identifier` },
+      ],
+    })),
+    (so = ({ query: e, pageSize: t, children: n }) => {
+      let {
+        paginatedQuery: r,
+        paginationInfo: i,
+        loadMore: a,
+      } = W(e, t, `P1TpZZqGN`);
+      return n(fe(r), i, a);
+    }),
+    (co = () => ({
+      from: { alias: `DuiNL0Rqb`, data: Dt, type: `Collection` },
+      offset: { type: `LiteralValue`, value: 4 },
+      select: [
+        { collection: `DuiNL0Rqb`, name: `FqXanvpX5`, type: `Identifier` },
+        { collection: `DuiNL0Rqb`, name: `JBYwxjGF4`, type: `Identifier` },
+        { collection: `DuiNL0Rqb`, name: `XPyR5q4iP`, type: `Identifier` },
+        { collection: `DuiNL0Rqb`, name: `QF04XtOqX`, type: `Identifier` },
+        { collection: `DuiNL0Rqb`, name: `BXB57XQsa`, type: `Identifier` },
+        { collection: `DuiNL0Rqb`, name: `vcvU8M3f9`, type: `Identifier` },
+        { collection: `DuiNL0Rqb`, name: `id`, type: `Identifier` },
+      ],
+    })),
+    (lo = ({ query: e, pageSize: t, children: n }) => {
+      let {
+        paginatedQuery: r,
+        paginationInfo: i,
+        loadMore: a,
+      } = W(e, t, `DuiNL0Rqb`);
+      return n(fe(r), i, a);
+    }),
+    (uo = () => ({
+      from: { alias: `BDEBGhHRx`, data: Dt, type: `Collection` },
+      offset: { type: `LiteralValue`, value: 5 },
+      select: [
+        { collection: `BDEBGhHRx`, name: `FqXanvpX5`, type: `Identifier` },
+        { collection: `BDEBGhHRx`, name: `JBYwxjGF4`, type: `Identifier` },
+        { collection: `BDEBGhHRx`, name: `XPyR5q4iP`, type: `Identifier` },
+        { collection: `BDEBGhHRx`, name: `QF04XtOqX`, type: `Identifier` },
+        { collection: `BDEBGhHRx`, name: `BXB57XQsa`, type: `Identifier` },
+        { collection: `BDEBGhHRx`, name: `vcvU8M3f9`, type: `Identifier` },
+        { collection: `BDEBGhHRx`, name: `id`, type: `Identifier` },
+      ],
+    })),
+    (fo = ({ query: e, pageSize: t, children: n }) => {
+      let {
+        paginatedQuery: r,
+        paginationInfo: i,
+        loadMore: a,
+      } = W(e, t, `BDEBGhHRx`);
+      return n(fe(r), i, a);
+    }),
+    (po = () => ({
+      from: { alias: `tysKrXpjy`, data: Dt, type: `Collection` },
+      offset: { type: `LiteralValue`, value: 6 },
+      select: [
+        { collection: `tysKrXpjy`, name: `FqXanvpX5`, type: `Identifier` },
+        { collection: `tysKrXpjy`, name: `JBYwxjGF4`, type: `Identifier` },
+        { collection: `tysKrXpjy`, name: `XPyR5q4iP`, type: `Identifier` },
+        { collection: `tysKrXpjy`, name: `QF04XtOqX`, type: `Identifier` },
+        { collection: `tysKrXpjy`, name: `BXB57XQsa`, type: `Identifier` },
+        { collection: `tysKrXpjy`, name: `vcvU8M3f9`, type: `Identifier` },
+        { collection: `tysKrXpjy`, name: `id`, type: `Identifier` },
+      ],
+    })),
+    (mo = ({ query: e, pageSize: t, children: n }) => {
+      let {
+        paginatedQuery: r,
+        paginationInfo: i,
+        loadMore: a,
+      } = W(e, t, `tysKrXpjy`);
+      return n(fe(r), i, a);
+    }),
+    (ho = {
+      opacity: 0.001,
+      rotate: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      x: 0,
+      y: 10,
+    }),
+    (go = { bounce: 0, delay: 0.1, duration: 0.6, type: `spring` }),
+    (_o = {
+      effect: ho,
+      repeat: !1,
+      startDelay: 0,
+      threshold: 0.5,
+      tokenization: `word`,
+      transition: go,
+      trigger: `onInView`,
+      type: `appear`,
+    }),
+    (vo = {
+      effect: ho,
+      repeat: !1,
+      startDelay: 0,
+      threshold: 0.5,
+      tokenization: `character`,
+      transition: go,
+      trigger: `onInView`,
+      type: `appear`,
+    }),
+    (yo = {
+      effect: ho,
+      repeat: !1,
+      startDelay: 0.2,
+      threshold: 1,
+      tokenization: `character`,
+      transition: go,
+      trigger: `onInView`,
+      type: `appear`,
+    }),
+    (bo = {
+      effect: ho,
+      repeat: !1,
+      startDelay: 0.4,
+      threshold: 0.5,
+      tokenization: `word`,
+      transition: go,
+      trigger: `onInView`,
+      type: `appear`,
+    }),
+    (xo = (e, t) => {
+      if (!(!e || typeof e != `object`)) return { ...e, alt: t };
+    }),
+    (So = {
+      opacity: 0,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      x: 30,
+      y: 0,
+    }),
+    (Co = { delay: 0, duration: 1, ease: [0.22, 1, 0.36, 1], type: `tween` }),
+    (wo = {
+      opacity: 0,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      transition: Co,
+      x: 30,
+      y: 0,
+    }),
+    (To = { damping: 30, delay: 0, mass: 1, stiffness: 400, type: `spring` }),
+    (Eo = {
+      opacity: 0,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      transition: To,
+      x: 0,
+      y: 0,
+    }),
+    (Do = {
+      opacity: 1,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      transition: To,
+      x: 0,
+      y: 0,
+    }),
+    (Oo = {
+      opacity: 0,
+      rotate: 0,
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      skewX: 0,
+      skewY: 0,
+      x: 0,
+      y: 0,
+    }),
+    (ko = ({
+      children: e,
+      blockDocumentScrolling: t,
+      dismissWithEsc: n,
+      enabled: r = !0,
+    }) => {
+      let [i, a] = Te({ blockDocumentScrolling: t, dismissWithEsc: r && n });
+      return e({
+        hide: () => a(!1),
+        show: () => a(!0),
+        toggle: () => a(!i),
+        visible: r && i,
+      });
+    }),
+    (Ao = { Desktop: `WQLkyLRf1`, Phone: `UBAPecy2c`, Tablet: `sugBnXNGk` }),
+    (jo = ({ value: e }) =>
+      ge()
+        ? null
+        : _(`style`, {
+            dangerouslySetInnerHTML: { __html: e },
+            "data-framer-html-style": ``,
+          })),
+    (Mo = ({ height: e, id: t, width: n, ...r }) => ({
+      ...r,
+      variant: Ao[r.variant] ?? r.variant ?? `WQLkyLRf1`,
+    })),
+    (No = { component: bt, variant: `lRqfcszWj` }),
+    (Po = de(
+      d(function (e, n) {
+        let r = t(null),
+          i = n ?? r,
+          o = f(),
+          { activeLocale: l, setLocale: u } = H(),
+          d = q(),
+          { style: m, className: h, layoutId: g, variant: v, ...b } = Mo(e);
+        xe(c(() => Nt({}, l), [l]));
+        let [x, S] = ve(v, za, !1),
+          { activeVariantCallback: C, delay: ee } = pe(void 0),
+          w = ({ overlay: e }) =>
+            C(async (...t) => {
+              e.show();
+            }),
+          T = M(Ha, jt, Oe, Pe, Ze, Tt, Be, Ge),
+          D = s(be)?.isLayoutTemplate,
+          O = Wa(D, !!s(j)?.transition?.layout),
+          ne = we(`NPY09YXqo`),
+          A = t(null),
+          re = we(`e1U7afjw5`),
+          ie = t(null);
+        le();
+        let ae = () => (Ba() ? x !== `UBAPecy2c` : !0),
+          se = t(null),
+          N = t(null);
+        return (me({ "15zfr43": No }), _(be.Provider, {
+          value: {
+            activeVariantId: x,
+            humanReadableVariantMap: Ao,
+            primaryVariantId: `WQLkyLRf1`,
+            variantClassNames: Ua,
+          },
+          children: y(k, {
+            id: g ?? o,
+            children: [
+              _(jo, { value: `html body { background: none; }` }),
+              y(E.div, {
+                ...b,
+                className: M(T, `framer-72rtr7`, h),
+                ref: i,
+                style: { ...m },
+                children: [
+                  _(E.section, {
+                    className: `framer-32hs07`,
+                    "data-framer-name": `Hero-Section`,
+                    id: ne,
+                    layout: O,
+                    ref: A,
+                    children: y(`div`, {
+                      className: `framer-x9b4ny`,
+                      "data-framer-name": `Container`,
+                      children: [
+                        y(`div`, {
+                          className: `framer-1jfj32j`,
+                          "data-framer-name": `Top`,
+                          children: [
+                            _(ma, {
+                              __fromCanvasComponent: !0,
+                              animate: Ga,
+                              children: _(a, {
+                                children: _(`h1`, {
+                                  className: `framer-styles-preset-1az8ez8`,
+                                  "data-styles-preset": `NxwsJ6BR6`,
+                                  children: `PORTX`,
+                                }),
+                              }),
+                              className: `framer-ggctko`,
+                              "data-framer-appear-id": `ggctko`,
+                              fonts: [`Inter`],
+                              initial: Ka,
+                              optimized: !0,
+                              verticalAlignment: `top`,
+                              withExternalLayout: !0,
+                            }),
+                            y(`div`, {
+                              className: `framer-bk9237`,
+                              "data-framer-name": `Bottom`,
+                              children: [
+                                _(ma, {
+                                  __fromCanvasComponent: !0,
+                                  animate: Ga,
+                                  children: _(a, {
+                                    children: _(`h2`, {
+                                      className: `framer-styles-preset-1az8ez8`,
+                                      "data-styles-preset": `NxwsJ6BR6`,
+                                      children: `.DES`,
+                                    }),
+                                  }),
+                                  className: `framer-yp4aqy`,
+                                  "data-framer-appear-id": `yp4aqy`,
+                                  fonts: [`Inter`],
+                                  initial: Ka,
+                                  optimized: !0,
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                }),
+                                y(ha, {
+                                  animate: qa,
+                                  className: `framer-1x0ust`,
+                                  "data-framer-appear-id": `1x0ust`,
+                                  "data-framer-name": `Right`,
+                                  initial: Ja,
+                                  optimized: !0,
+                                  children: [
+                                    _(`div`, {
+                                      className: `framer-14iof0f`,
+                                      "data-framer-name": `Icon`,
+                                      children: _(U, {
+                                        background: {
+                                          alt: `icon`,
+                                          fit: `fill`,
+                                          pixelHeight: 61,
+                                          pixelWidth: 88,
+                                          sizes: `86px`,
+                                          src: `https://framerusercontent.com/images/OKN3tSB3aHvhwcvIHUBYIzHLlY.svg?width=88&height=61`,
+                                        },
+                                        className: `framer-6xf3is`,
+                                      }),
+                                    }),
+                                    y(`div`, {
+                                      className: `framer-tai1f9`,
+                                      "data-framer-name": `Content`,
+                                      children: [
+                                        _(I, {
+                                          __fromCanvasComponent: !0,
+                                          children: _(a, {
+                                            children: _(`p`, {
+                                              className: `framer-styles-preset-13g92bw`,
+                                              "data-styles-preset": `JnqPwgPMu`,
+                                              children: `STUDENT INNOVATION & TECHNICAL SOCIETY`,
+                                            }),
+                                          }),
+                                          className: `framer-im8xw`,
+                                          fonts: [`Inter`],
+                                          verticalAlignment: `top`,
+                                          withExternalLayout: !0,
+                                        }),
+                                        _(I, {
+                                          __fromCanvasComponent: !0,
+                                          children: _(a, {
+                                            children: _(`p`, {
+                                              className: `framer-styles-preset-h0wt6i`,
+                                              "data-styles-preset": `ZCD3JCImn`,
+                                              style: {
+                                                "--framer-text-color": `var(--token-aa2aae09-fd2b-480f-94fb-7ffa5e6da639, rgb(153, 153, 153))`,
+                                              },
+                                              children: `A community of curious minds, builders, designers, and innovators creating impactful technology.`,
+                                            }),
+                                          }),
+                                          className: `framer-hw9a8t`,
+                                          fonts: [`Inter`],
+                                          verticalAlignment: `top`,
+                                          withExternalLayout: !0,
+                                        }),
+                                      ],
+                                    }),
+                                  ],
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                        y(`div`, {
+                          className: `framer-lift1i`,
+                          "data-framer-name": `Banner Logo`,
+                          children: [
+                            _(L, {
+                              breakpoint: x,
+                              overrides: {
+                                sugBnXNGk: {
+                                  background: {
+                                    alt: `banner logo`,
+                                    fit: `fit`,
+                                    pixelHeight: 323,
+                                    pixelWidth: 323,
+                                    positionX: `center`,
+                                    positionY: `center`,
+                                    sizes: `220px`,
+                                    src: `https://framerusercontent.com/images/YGmzE3tVgHHjmx4ey2sive0D9rc.svg?width=323&height=323`,
+                                  },
+                                },
+                                UBAPecy2c: {
+                                  background: {
+                                    alt: `banner logo`,
+                                    fit: `fit`,
+                                    pixelHeight: 323,
+                                    pixelWidth: 323,
+                                    positionX: `center`,
+                                    positionY: `center`,
+                                    sizes: `150px`,
+                                    src: `https://framerusercontent.com/images/YGmzE3tVgHHjmx4ey2sive0D9rc.svg?width=323&height=323`,
+                                  },
+                                },
+                              },
+                              children: _(ga, {
+                                __framer__loop: Xa,
+                                __framer__loopEffectEnabled: !0,
+                                __framer__loopRepeatDelay: 0,
+                                __framer__loopRepeatType: `loop`,
+                                __framer__loopTransition: Ya,
+                                __perspectiveFX: !1,
+                                __targetOpacity: 1,
+                                background: {
+                                  alt: `banner logo`,
+                                  fit: `fit`,
+                                  pixelHeight: 323,
+                                  pixelWidth: 323,
+                                  positionX: `center`,
+                                  positionY: `center`,
+                                  sizes: `322px`,
+                                  src: `https://framerusercontent.com/images/YGmzE3tVgHHjmx4ey2sive0D9rc.svg?width=323&height=323`,
+                                },
+                                className: `framer-bg4vup`,
+                              }),
+                            }),
+                            _(`div`, {
+                              className: `framer-qw3wof`,
+                              "data-framer-name": `BG-Blur`,
+                            }),
+                          ],
+                        }),
+                        _(va, {
+                          animate: Za,
+                          className: `framer-13zag25`,
+                          "data-framer-appear-id": `13zag25`,
+                          "data-framer-name": `Zoom Image`,
+                          id: re,
+                          initial: Qa,
+                          optimized: !0,
+                          ref: ie,
+                          style: { transformPerspective: 1200 },
+                          children: _(_a, {
+                            __perspectiveFX: !1,
+                            __targetOpacity: 1,
+                            className: `framer-1m8godw`,
+                            "data-framer-name": `Image`,
+                            style: { transformPerspective: 1200 },
+                            children: _(L, {
+                              breakpoint: x,
+                              overrides: {
+                                sugBnXNGk: {
+                                  background: {
+                                    alt: `hero-banner`,
+                                    fit: `fill`,
+                                    intrinsicHeight: 900,
+                                    intrinsicWidth: 1600,
+                                    pixelHeight: 915,
+                                    pixelWidth: 1944,
+                                    sizes: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                    src: `https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?width=1944&height=915`,
+                                    srcSet: `https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?scale-down-to=512&width=1944&height=915 512w,https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?scale-down-to=1024&width=1944&height=915 1024w,https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?width=1944&height=915 1944w`,
+                                  },
+                                },
+                                UBAPecy2c: {
+                                  background: {
+                                    alt: `hero-banner`,
+                                    fit: `fill`,
+                                    intrinsicHeight: 900,
+                                    intrinsicWidth: 1600,
+                                    pixelHeight: 915,
+                                    pixelWidth: 1944,
+                                    sizes: `max(min(${d?.width || `100vw`}, 1920px) - 40px, 1px)`,
+                                    src: `https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?width=1944&height=915`,
+                                    srcSet: `https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?scale-down-to=512&width=1944&height=915 512w,https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?scale-down-to=1024&width=1944&height=915 1024w,https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?width=1944&height=915 1944w`,
+                                  },
+                                },
+                              },
+                              children: _(ga, {
+                                __framer__spring: {
+                                  damping: 60,
+                                  delay: 0,
+                                  duration: 0.3,
+                                  ease: [0.44, 0, 0.56, 1],
+                                  mass: 1,
+                                  stiffness: 400,
+                                  type: `spring`,
+                                },
+                                __framer__styleTransformEffectEnabled: !0,
+                                __framer__transformTargets: [
+                                  {
+                                    target: {
+                                      opacity: 1,
+                                      rotate: 0,
+                                      rotateX: 0,
+                                      rotateY: 0,
+                                      scale: 1.25,
+                                      skewX: 0,
+                                      skewY: 0,
+                                      x: 0,
+                                      y: 0,
+                                    },
+                                  },
+                                  {
+                                    target: {
+                                      opacity: 1,
+                                      rotate: 0,
+                                      rotateX: 0,
+                                      rotateY: 0,
+                                      scale: 1,
+                                      skewX: 0,
+                                      skewY: 0,
+                                      x: 0,
+                                      y: 0,
+                                    },
+                                  },
+                                ],
+                                __framer__transformTrigger: `onInView`,
+                                __perspectiveFX: !1,
+                                __targetOpacity: 1,
+                                background: {
+                                  alt: `hero-banner`,
+                                  fit: `fill`,
+                                  intrinsicHeight: 900,
+                                  intrinsicWidth: 1600,
+                                  pixelHeight: 915,
+                                  pixelWidth: 1944,
+                                  sizes: `max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px)`,
+                                  src: `https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?width=1944&height=915`,
+                                  srcSet: `https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?scale-down-to=512&width=1944&height=915 512w,https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?scale-down-to=1024&width=1944&height=915 1024w,https://framerusercontent.com/images/S7P0AeoUuaYD1j1M3wxJNpmyOQ.png?width=1944&height=915 1944w`,
+                                },
+                                className: `framer-1w33l1k`,
+                                "data-framer-name": `Fill Your Image Here`,
+                                draggable: `false`,
+                                style: { transformPerspective: 1200 },
+                              }),
+                            }),
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                  _(J, {
+                    height: 114,
+                    width: `min(${d?.width || `100vw`}, 1920px)`,
+                    children: _(Y, {
+                      className: `framer-1vykq4p-container`,
+                      layout: O,
+                      nodeId: `tEoi8bM5d`,
+                      scopeId: `augiA20Il`,
+                      children: _(ei, {
+                        height: `100%`,
+                        id: `tEoi8bM5d`,
+                        layoutId: `tEoi8bM5d`,
+                        style: { maxWidth: `100%`, width: `100%` },
+                        width: `100%`,
+                      }),
+                    }),
+                  }),
+                  _(E.section, {
+                    className: `framer-1pwcsen`,
+                    "data-framer-name": `About-Section`,
+                    id: `1pwcsen`,
+                    layout: O,
+                    children: y(`div`, {
+                      className: `framer-1b529fd`,
+                      "data-framer-name": `Container`,
+                      children: [
+                        _(L, {
+                          breakpoint: x,
+                          overrides: {
+                            sugBnXNGk: {
+                              width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                            },
+                            UBAPecy2c: {
+                              width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                            },
+                          },
+                          children: _(J, {
+                            height: 72,
+                            width: `max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px)`,
+                            children: _(Y, {
+                              className: `framer-v1n13o-container`,
+                              nodeId: `Mah4ssUlG`,
+                              scopeId: `augiA20Il`,
+                              children: _(L, {
+                                breakpoint: x,
+                                overrides: {
+                                  UBAPecy2c: { variant: $(`uJvz1X0hi`) },
+                                },
+                                children: _(lt, {
+                                  cKc8R9lOZ: `WHO ARE WE`,
+                                  height: `100%`,
+                                  id: `Mah4ssUlG`,
+                                  layoutId: `Mah4ssUlG`,
+                                  style: { width: `100%` },
+                                  variant: $(`KtTRODZnb`),
+                                  width: `100%`,
+                                }),
+                              }),
+                            }),
+                          }),
+                        }),
+                        y(`div`, {
+                          className: `framer-awbma9`,
+                          "data-framer-name": `Content`,
+                          children: [
+                            y(`div`, {
+                              className: `framer-8avvy7`,
+                              "data-framer-name": `Top`,
+                              children: [
+                                y(`div`, {
+                                  className: `framer-15vlh4u`,
+                                  "data-framer-name": `Content`,
+                                  children: [
+                                    _(I, {
+                                      __fromCanvasComponent: !0,
+                                      children: _(a, {
+                                        children: _(`h2`, {
+                                          className: `framer-styles-preset-d6ofy9`,
+                                          "data-styles-preset": `kzUSIwReW`,
+                                          style: {
+                                            "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                          },
+                                          children: `LOS ANGELES, CA BASE`,
+                                        }),
+                                      }),
+                                      className: `framer-14mhs0e`,
+                                      effect: _o,
+                                      fonts: [`Inter`],
+                                      verticalAlignment: `top`,
+                                      withExternalLayout: !0,
+                                    }),
+                                    y(`div`, {
+                                      className: `framer-1urdknh`,
+                                      "data-framer-name": `Tags`,
+                                      children: [
+                                        _(J, {
+                                          height: 24,
+                                          children: _(Y, {
+                                            className: `framer-14rb5v6-container`,
+                                            nodeId: `eWaDGYAkD`,
+                                            scopeId: `augiA20Il`,
+                                            children: _(Ke, {
+                                              height: `100%`,
+                                              id: `eWaDGYAkD`,
+                                              layoutId: `eWaDGYAkD`,
+                                              tsWamiadC: `ART DIRECTION`,
+                                              variant: $(`MEIXrAT4e`),
+                                              width: `100%`,
+                                            }),
+                                          }),
+                                        }),
+                                        _(J, {
+                                          height: 24,
+                                          children: _(Y, {
+                                            className: `framer-1542hyb-container`,
+                                            nodeId: `c8bypnSX8`,
+                                            scopeId: `augiA20Il`,
+                                            children: _(Ke, {
+                                              height: `100%`,
+                                              id: `c8bypnSX8`,
+                                              layoutId: `c8bypnSX8`,
+                                              tsWamiadC: `FIGMA`,
+                                              variant: $(`MEIXrAT4e`),
+                                              width: `100%`,
+                                            }),
+                                          }),
+                                        }),
+                                        _(J, {
+                                          height: 24,
+                                          children: _(Y, {
+                                            className: `framer-ik2pzg-container`,
+                                            nodeId: `RqpCvy9_c`,
+                                            scopeId: `augiA20Il`,
+                                            children: _(Ke, {
+                                              height: `100%`,
+                                              id: `RqpCvy9_c`,
+                                              layoutId: `RqpCvy9_c`,
+                                              tsWamiadC: `MECHATRONICS`,
+                                              variant: $(`MEIXrAT4e`),
+                                              width: `100%`,
+                                            }),
+                                          }),
+                                        }),
+                                        _(J, {
+                                          height: 24,
+                                          children: _(Y, {
+                                            className: `framer-1i8rsr0-container`,
+                                            nodeId: `hcecy6Awq`,
+                                            scopeId: `augiA20Il`,
+                                            children: _(Ke, {
+                                              height: `100%`,
+                                              id: `hcecy6Awq`,
+                                              layoutId: `hcecy6Awq`,
+                                              tsWamiadC: `REACT JS`,
+                                              variant: $(`MEIXrAT4e`),
+                                              width: `100%`,
+                                            }),
+                                          }),
+                                        }),
+                                        _(J, {
+                                          height: 24,
+                                          children: _(Y, {
+                                            className: `framer-17cqcoa-container`,
+                                            nodeId: `MnnLHXGAA`,
+                                            scopeId: `augiA20Il`,
+                                            children: _(Ke, {
+                                              height: `100%`,
+                                              id: `MnnLHXGAA`,
+                                              layoutId: `MnnLHXGAA`,
+                                              tsWamiadC: `GSAP`,
+                                              variant: $(`MEIXrAT4e`),
+                                              width: `100%`,
+                                            }),
+                                          }),
+                                        }),
+                                      ],
+                                    }),
+                                  ],
+                                }),
+                                _(U, {
+                                  background: {
+                                    alt: `about icon`,
+                                    fit: `fill`,
+                                    pixelHeight: 88,
+                                    pixelWidth: 88,
+                                    sizes: `86px`,
+                                    src: `https://framerusercontent.com/images/cvbbjpG7b7WD1WIS75xcnJH8Ts.svg?width=88&height=88`,
+                                  },
+                                  className: `framer-s2bml4`,
+                                  "data-framer-name": `Icon`,
+                                }),
+                              ],
+                            }),
+                            y(`div`, {
+                              className: `framer-burvho`,
+                              "data-framer-name": `Bottom`,
+                              children: [
+                                _(L, {
+                                  breakpoint: x,
+                                  overrides: {
+                                    sugBnXNGk: {
+                                      children: _(a, {
+                                        children: _(`h2`, {
+                                          className: `framer-styles-preset-d6ofy9`,
+                                          "data-styles-preset": `kzUSIwReW`,
+                                          style: {
+                                            "--framer-text-alignment": `left`,
+                                            "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                          },
+                                          children: `UI DESIGNER/`,
+                                        }),
+                                      }),
+                                    },
+                                    UBAPecy2c: {
+                                      children: _(a, {
+                                        children: _(`h2`, {
+                                          className: `framer-styles-preset-d6ofy9`,
+                                          "data-styles-preset": `kzUSIwReW`,
+                                          style: {
+                                            "--framer-text-alignment": `left`,
+                                            "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                          },
+                                          children: `UI DESIGNER/`,
+                                        }),
+                                      }),
+                                    },
+                                  },
+                                  children: _(I, {
+                                    __fromCanvasComponent: !0,
+                                    children: _(a, {
+                                      children: _(`h2`, {
+                                        className: `framer-styles-preset-d6ofy9`,
+                                        "data-styles-preset": `kzUSIwReW`,
+                                        style: {
+                                          "--framer-text-alignment": `right`,
+                                          "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                        },
+                                        children: `UI DESIGNER/`,
+                                      }),
+                                    }),
+                                    className: `framer-u8optx`,
+                                    effect: vo,
+                                    fonts: [`Inter`],
+                                    verticalAlignment: `top`,
+                                    withExternalLayout: !0,
+                                  }),
+                                }),
+                                y(`div`, {
+                                  className: `framer-gsltxu`,
+                                  "data-framer-name": `Content`,
+                                  children: [
+                                    _(I, {
+                                      __fromCanvasComponent: !0,
+                                      children: _(a, {
+                                        children: _(`h2`, {
+                                          className: `framer-styles-preset-d6ofy9`,
+                                          "data-styles-preset": `kzUSIwReW`,
+                                          style: {
+                                            "--framer-text-alignment": `left`,
+                                            "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                          },
+                                          children: `FRAMER DEV`,
+                                        }),
+                                      }),
+                                      className: `framer-1qjvvap`,
+                                      effect: yo,
+                                      fonts: [`Inter`],
+                                      verticalAlignment: `top`,
+                                      withExternalLayout: !0,
+                                    }),
+                                    _(I, {
+                                      __fromCanvasComponent: !0,
+                                      children: _(a, {
+                                        children: _(`p`, {
+                                          className: `framer-styles-preset-mgyl0p`,
+                                          "data-styles-preset": `BkbmfNuFM`,
+                                          style: {
+                                            "--framer-text-alignment": `left`,
+                                            "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                          },
+                                          children: `I specialize in Art Direction and Branding, bringing a blend of creativity and strategy to every project. With tools like Framer and No-Code Web Design, I ensure your vision comes to life seamlessly online.`,
+                                        }),
+                                      }),
+                                      className: `framer-ff9rs`,
+                                      effect: bo,
+                                      fonts: [`Inter`],
+                                      verticalAlignment: `top`,
+                                      withExternalLayout: !0,
+                                    }),
+                                  ],
+                                }),
+                              ],
+                            }),
+                            _(`div`, {
+                              className: `framer-t64nvv`,
+                              "data-framer-name": `Avatar IMG`,
+                              children:
+                                ae() &&
+                                _(ga, {
+                                  __framer__spring: {
+                                    damping: 60,
+                                    delay: 0,
+                                    duration: 0.3,
+                                    ease: [0.44, 0, 0.56, 1],
+                                    mass: 1,
+                                    stiffness: 300,
+                                    type: `spring`,
+                                  },
+                                  __framer__styleTransformEffectEnabled: !0,
+                                  __framer__transformTargets: [
+                                    {
+                                      target: {
+                                        opacity: 1,
+                                        rotate: 0,
+                                        rotateX: 0,
+                                        rotateY: 0,
+                                        scale: 1,
+                                        skewX: 0,
+                                        skewY: 0,
+                                        x: 0,
+                                        y: 240,
+                                      },
+                                    },
+                                    {
+                                      target: {
+                                        opacity: 1,
+                                        rotate: 0,
+                                        rotateX: 0,
+                                        rotateY: 0,
+                                        scale: 1,
+                                        skewX: 0,
+                                        skewY: 0,
+                                        x: 0,
+                                        y: 0,
+                                      },
+                                    },
+                                  ],
+                                  __framer__transformTrigger: `onInView`,
+                                  __perspectiveFX: !1,
+                                  __targetOpacity: 1,
+                                  background: {
+                                    alt: `about-image`,
+                                    fit: `fit`,
+                                    pixelHeight: 1149,
+                                    pixelWidth: 1296,
+                                    positionX: `center`,
+                                    positionY: `center`,
+                                    sizes: `1296px`,
+                                    src: `https://framerusercontent.com/images/PDaWwBppjCYpjfPDkNJHRliwW4.svg?width=1296&height=1149`,
+                                    srcSet: `https://framerusercontent.com/images/PDaWwBppjCYpjfPDkNJHRliwW4.svg?scale-down-to=512&width=1296&height=1149 512w,https://framerusercontent.com/images/PDaWwBppjCYpjfPDkNJHRliwW4.svg?scale-down-to=1024&width=1296&height=1149 1024w,https://framerusercontent.com/images/PDaWwBppjCYpjfPDkNJHRliwW4.svg?width=1296&height=1149 1296w`,
+                                  },
+                                  className: `framer-1o2nni6 hidden-1ip9ec5`,
+                                }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  _(E.section, {
+                    className: `framer-irdoz6`,
+                    "data-framer-name": `Works-Section`,
+                    layout: O,
+                    children: y(`div`, {
+                      className: `framer-1996b2y`,
+                      "data-framer-name": `Container`,
+                      children: [
+                        _(L, {
+                          breakpoint: x,
+                          overrides: {
+                            sugBnXNGk: {
+                              width: `calc(min(${d?.width || `100vw`}, 1920px) - 80px)`,
+                            },
+                            UBAPecy2c: {
+                              width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                            },
+                          },
+                          children: _(J, {
+                            height: 72,
+                            width: `calc(min(${d?.width || `100vw`}, 1920px) - 144px)`,
+                            children: _(Y, {
+                              className: `framer-f1c83-container`,
+                              nodeId: `jwWPHwhmQ`,
+                              scopeId: `augiA20Il`,
+                              children: _(L, {
+                                breakpoint: x,
+                                overrides: {
+                                  UBAPecy2c: { variant: $(`uJvz1X0hi`) },
+                                },
+                                children: _(lt, {
+                                  cKc8R9lOZ: `OUR ACHIEVEMENTS`,
+                                  height: `100%`,
+                                  id: `jwWPHwhmQ`,
+                                  layoutId: `jwWPHwhmQ`,
+                                  style: { width: `100%` },
+                                  variant: $(`KtTRODZnb`),
+                                  width: `100%`,
+                                }),
+                              }),
+                            }),
+                          }),
+                        }),
+                        _(`div`, {
+                          className: `framer-1jl4fbh`,
+                          "data-framer-name": `Description`,
+                          children: _(I, {
+                            __fromCanvasComponent: !0,
+                            children: _(a, {
+                              children: _(`p`, {
+                                className: `framer-styles-preset-h0wt6i`,
+                                "data-styles-preset": `ZCD3JCImn`,
+                                style: {
+                                  "--framer-text-alignment": `center`,
+                                },
+                                children: `A curated selection of projects that reflect our commitment to simplicity and purposeful design.`,
+                              }),
+                            }),
+                            className: `framer-1hi2u6j`,
+                            fonts: [`Inter`],
+                            verticalAlignment: `top`,
+                            withExternalLayout: !0,
+                          }),
+                        }),
+                        y(`div`, {
+                          className: `framer-c1li06`,
+                          "data-framer-name": `Cards`,
+                          children: [
+                            y(`div`, {
+                              className: `framer-61rju8`,
+                              "data-framer-name": `1`,
+                              children: [
+                                _(`div`, {
+                                  className: `framer-guhrrv`,
+                                  "data-framer-name": `Left`,
+                                  children: _(`div`, {
+                                    className: `framer-1ma7rug`,
+                                    children: _(ye, {
+                                      children: _(to, {
+                                        pageSize: 1,
+                                        query: eo(),
+                                        children: (e, t, n) =>
+                                          _(p, {
+                                            children: e?.map(
+                                              (
+                                                {
+                                                  BXB57XQsa: e,
+                                                  FqXanvpX5: t,
+                                                  id: n,
+                                                  JBYwxjGF4: r,
+                                                  QF04XtOqX: i,
+                                                  vcvU8M3f9: a,
+                                                  XPyR5q4iP: o,
+                                                },
+                                                s,
+                                              ) => (
+                                                (t ??= ``),
+                                                (o ??= ``),
+                                                (i ??= ``),
+                                                (e ??= ``),
+                                                (a ??= ``),
+                                                _(
+                                                  k,
+                                                  {
+                                                    id: `utnDc7H7z-${n}`,
+                                                    children: _(Ce.Provider, {
+                                                      value: { FqXanvpX5: t },
+                                                      children: _(V, {
+                                                        href: {
+                                                          pathVariables: {
+                                                            FqXanvpX5: t,
+                                                          },
+                                                          webPageId: `lf7zFwlyb`,
+                                                        },
+                                                        motionChild: !0,
+                                                        nodeId: `V5H6LggKE`,
+                                                        scopeId: `augiA20Il`,
+                                                        children: _(E.a, {
+                                                          className: `framer-65d4cb framer-lux5qc`,
+                                                          children: _(L, {
+                                                            breakpoint: x,
+                                                            overrides: {
+                                                              sugBnXNGk: {
+                                                                width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                                              },
+                                                              UBAPecy2c: {
+                                                                height: 398,
+                                                                width: `max(min(${d?.width || `100vw`}, 1920px) - 40px, 1px)`,
+                                                              },
+                                                            },
+                                                            children: _(J, {
+                                                              height: 598,
+                                                              width: `max((min(${d?.width || `100vw`}, 1920px) - 144px) / 2, 1px)`,
+                                                              children: _(Y, {
+                                                                className: `framer-15ds1m1-container`,
+                                                                "data-framer-cursor": `15zfr43`,
+                                                                nodeId: `BDLKKYOyF`,
+                                                                scopeId: `augiA20Il`,
+                                                                children: _(
+                                                                  L,
+                                                                  {
+                                                                    breakpoint:
+                                                                      x,
+                                                                    overrides:
+                                                                      {
+                                                                        sugBnXNGk:
+                                                                          {
+                                                                            style:
+                                                                              {
+                                                                                height: `100%`,
+                                                                                width: `100%`,
+                                                                              },
+                                                                          },
+                                                                        UBAPecy2c:
+                                                                          {
+                                                                            style:
+                                                                              {
+                                                                                height: `100%`,
+                                                                                width: `100%`,
+                                                                              },
+                                                                          },
+                                                                      },
+                                                                    children:
+                                                                      _(Z, {
+                                                                        height: `100%`,
+                                                                        hI_nqJJIG:
+                                                                          $a(
+                                                                            r,
+                                                                          ),
+                                                                        id: `BDLKKYOyF`,
+                                                                        l6xd4nbfU:
+                                                                          e,
+                                                                        layoutId: `BDLKKYOyF`,
+                                                                        style:
+                                                                          {
+                                                                            width: `100%`,
+                                                                          },
+                                                                        sVsNnQg0R:
+                                                                          i,
+                                                                        sWqSxKWG6:
+                                                                          o,
+                                                                        ubFhduwhk:
+                                                                          a,
+                                                                        width: `100%`,
+                                                                      }),
+                                                                  },
+                                                                ),
+                                                              }),
+                                                            }),
+                                                          }),
+                                                        }),
+                                                      }),
+                                                    }),
+                                                  },
+                                                  n,
+                                                )
+                                              ),
+                                            ),
+                                          }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                                _(`div`, {
+                                  className: `framer-34m7w7`,
+                                  "data-framer-name": `Right`,
+                                  children: _(`div`, {
+                                    className: `framer-5jl52w`,
+                                    children: _(ye, {
+                                      children: _(ro, {
+                                        pageSize: 1,
+                                        query: no(),
+                                        children: (e, t, n) =>
+                                          _(p, {
+                                            children: e?.map(
+                                              (
+                                                {
+                                                  BXB57XQsa: e,
+                                                  FqXanvpX5: t,
+                                                  id: n,
+                                                  JBYwxjGF4: r,
+                                                  QF04XtOqX: i,
+                                                  vcvU8M3f9: a,
+                                                  XPyR5q4iP: o,
+                                                },
+                                                s,
+                                              ) => (
+                                                (t ??= ``),
+                                                (o ??= ``),
+                                                (i ??= ``),
+                                                (e ??= ``),
+                                                (a ??= ``),
+                                                _(
+                                                  k,
+                                                  {
+                                                    id: `E_frjiqNY-${n}`,
+                                                    children: _(Ce.Provider, {
+                                                      value: { FqXanvpX5: t },
+                                                      children: _(V, {
+                                                        href: {
+                                                          pathVariables: {
+                                                            FqXanvpX5: t,
+                                                          },
+                                                          webPageId: `lf7zFwlyb`,
+                                                        },
+                                                        motionChild: !0,
+                                                        nodeId: `hpsJwkiZj`,
+                                                        scopeId: `augiA20Il`,
+                                                        children: _(E.a, {
+                                                          className: `framer-ig5bx0 framer-lux5qc`,
+                                                          children: _(L, {
+                                                            breakpoint: x,
+                                                            overrides: {
+                                                              sugBnXNGk: {
+                                                                height: 598,
+                                                                width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                                              },
+                                                              UBAPecy2c: {
+                                                                height: 398,
+                                                                width: `max(min(${d?.width || `100vw`}, 1920px) - 40px, 1px)`,
+                                                              },
+                                                            },
+                                                            children: _(J, {
+                                                              height: 424,
+                                                              width: `max((min(${d?.width || `100vw`}, 1920px) - 144px) * 0.2361, 1px)`,
+                                                              children: _(Y, {
+                                                                className: `framer-imgqmq-container`,
+                                                                "data-framer-cursor": `15zfr43`,
+                                                                nodeId: `DUVKpLewu`,
+                                                                scopeId: `augiA20Il`,
+                                                                children: _(
+                                                                  Z,
+                                                                  {
+                                                                    height: `100%`,
+                                                                    hI_nqJJIG:
+                                                                      $a(r),
+                                                                    id: `DUVKpLewu`,
+                                                                    l6xd4nbfU:
+                                                                      e,
+                                                                    layoutId: `DUVKpLewu`,
+                                                                    style: {
+                                                                      height: `100%`,
+                                                                      width: `100%`,
+                                                                    },
+                                                                    sVsNnQg0R:
+                                                                      i,
+                                                                    sWqSxKWG6:
+                                                                      o,
+                                                                    ubFhduwhk:
+                                                                      a,
+                                                                    width: `100%`,
+                                                                  },
+                                                                ),
+                                                              }),
+                                                            }),
+                                                          }),
+                                                        }),
+                                                      }),
+                                                    }),
+                                                  },
+                                                  n,
+                                                )
+                                              ),
+                                            ),
+                                          }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            _(`div`, {
+                              className: `framer-1bdmyji`,
+                              "data-framer-name": `2`,
+                              children: _(`div`, {
+                                className: `framer-112lv0c`,
+                                children: _(ye, {
+                                  children: _(ao, {
+                                    pageSize: 1,
+                                    query: io(),
+                                    children: (e, t, n) =>
+                                      _(p, {
+                                        children: e?.map(
+                                          (
+                                            {
+                                              BXB57XQsa: e,
+                                              FqXanvpX5: t,
+                                              id: n,
+                                              JBYwxjGF4: r,
+                                              QF04XtOqX: i,
+                                              vcvU8M3f9: a,
+                                              XPyR5q4iP: o,
+                                            },
+                                            s,
+                                          ) => (
+                                            (t ??= ``),
+                                            (o ??= ``),
+                                            (i ??= ``),
+                                            (e ??= ``),
+                                            (a ??= ``),
+                                            _(
+                                              k,
+                                              {
+                                                id: `mpd83Xc_j-${n}`,
+                                                children: _(Ce.Provider, {
+                                                  value: { FqXanvpX5: t },
+                                                  children: _(V, {
+                                                    href: {
+                                                      pathVariables: {
+                                                        FqXanvpX5: t,
+                                                      },
+                                                      webPageId: `lf7zFwlyb`,
+                                                    },
+                                                    motionChild: !0,
+                                                    nodeId: `VTFwJxXbX`,
+                                                    scopeId: `augiA20Il`,
+                                                    children: _(E.a, {
+                                                      className: `framer-19g4lqt framer-lux5qc`,
+                                                      children: _(L, {
+                                                        breakpoint: x,
+                                                        overrides: {
+                                                          sugBnXNGk: {
+                                                            height: 598,
+                                                            width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                                          },
+                                                          UBAPecy2c: {
+                                                            height: 398,
+                                                            width: `max(min(${d?.width || `100vw`}, 1920px) - 40px, 1px)`,
+                                                          },
+                                                        },
+                                                        children: _(J, {
+                                                          height: 847,
+                                                          width: `max((min(${d?.width || `100vw`}, 1920px) - 144px) * 0.7454, 1px)`,
+                                                          children: _(Y, {
+                                                            className: `framer-1rgd8n1-container`,
+                                                            "data-framer-cursor": `15zfr43`,
+                                                            nodeId: `xXrkigEK2`,
+                                                            scopeId: `augiA20Il`,
+                                                            children: _(Z, {
+                                                              height: `100%`,
+                                                              hI_nqJJIG:
+                                                                $a(r),
+                                                              id: `xXrkigEK2`,
+                                                              l6xd4nbfU: e,
+                                                              layoutId: `xXrkigEK2`,
+                                                              style: {
+                                                                height: `100%`,
+                                                                width: `100%`,
+                                                              },
+                                                              sVsNnQg0R: i,
+                                                              sWqSxKWG6: o,
+                                                              ubFhduwhk: a,
+                                                              width: `100%`,
+                                                            }),
+                                                          }),
+                                                        }),
+                                                      }),
+                                                    }),
+                                                  }),
+                                                }),
+                                              },
+                                              n,
+                                            )
+                                          ),
+                                        ),
+                                      }),
+                                  }),
+                                }),
+                              }),
+                            }),
+                            _(`div`, {
+                              className: `framer-448nku`,
+                              "data-framer-name": `3`,
+                              children: _(`div`, {
+                                className: `framer-izbnm0`,
+                                children: _(ye, {
+                                  children: _(so, {
+                                    pageSize: 1,
+                                    query: oo(),
+                                    children: (e, t, n) =>
+                                      _(p, {
+                                        children: e?.map(
+                                          (
+                                            {
+                                              BXB57XQsa: e,
+                                              FqXanvpX5: t,
+                                              id: n,
+                                              JBYwxjGF4: r,
+                                              QF04XtOqX: i,
+                                              vcvU8M3f9: a,
+                                              XPyR5q4iP: o,
+                                            },
+                                            s,
+                                          ) => (
+                                            (t ??= ``),
+                                            (o ??= ``),
+                                            (i ??= ``),
+                                            (e ??= ``),
+                                            (a ??= ``),
+                                            _(
+                                              k,
+                                              {
+                                                id: `P1TpZZqGN-${n}`,
+                                                children: _(Ce.Provider, {
+                                                  value: { FqXanvpX5: t },
+                                                  children: _(V, {
+                                                    href: {
+                                                      pathVariables: {
+                                                        FqXanvpX5: t,
+                                                      },
+                                                      webPageId: `lf7zFwlyb`,
+                                                    },
+                                                    motionChild: !0,
+                                                    nodeId: `On3or95Wf`,
+                                                    scopeId: `augiA20Il`,
+                                                    children: _(E.a, {
+                                                      className: `framer-4d6cj7 framer-lux5qc`,
+                                                      children: _(L, {
+                                                        breakpoint: x,
+                                                        overrides: {
+                                                          sugBnXNGk: {
+                                                            width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                                          },
+                                                          UBAPecy2c: {
+                                                            height: 398,
+                                                            width: `max(min(${d?.width || `100vw`}, 1920px) - 40px, 1px)`,
+                                                          },
+                                                        },
+                                                        children: _(J, {
+                                                          height: 598,
+                                                          width: `max((min(${d?.width || `100vw`}, 1920px) - 144px) * 0.4907, 1px)`,
+                                                          children: _(Y, {
+                                                            className: `framer-lnh6ph-container`,
+                                                            "data-framer-cursor": `15zfr43`,
+                                                            nodeId: `sv3EhtL6v`,
+                                                            scopeId: `augiA20Il`,
+                                                            children: _(L, {
+                                                              breakpoint: x,
+                                                              overrides: {
+                                                                sugBnXNGk: {
+                                                                  style: {
+                                                                    height: `100%`,
+                                                                    width: `100%`,
+                                                                  },
+                                                                },
+                                                                UBAPecy2c: {
+                                                                  style: {
+                                                                    height: `100%`,
+                                                                    width: `100%`,
+                                                                  },
+                                                                },
+                                                              },
+                                                              children: _(Z, {
+                                                                height: `100%`,
+                                                                hI_nqJJIG:
+                                                                  $a(r),
+                                                                id: `sv3EhtL6v`,
+                                                                l6xd4nbfU: e,
+                                                                layoutId: `sv3EhtL6v`,
+                                                                style: {
+                                                                  width: `100%`,
+                                                                },
+                                                                sVsNnQg0R: i,
+                                                                sWqSxKWG6: o,
+                                                                ubFhduwhk: a,
+                                                                width: `100%`,
+                                                              }),
+                                                            }),
+                                                          }),
+                                                        }),
+                                                      }),
+                                                    }),
+                                                  }),
+                                                }),
+                                              },
+                                              n,
+                                            )
+                                          ),
+                                        ),
+                                      }),
+                                  }),
+                                }),
+                              }),
+                            }),
+                            y(`div`, {
+                              className: `framer-1x1ka0n`,
+                              "data-framer-name": `4`,
+                              children: [
+                                _(`div`, {
+                                  className: `framer-1ykijiq`,
+                                  "data-framer-name": `Left`,
+                                  children: _(`div`, {
+                                    className: `framer-1n0vgrj`,
+                                    children: _(ye, {
+                                      children: _(lo, {
+                                        pageSize: 1,
+                                        query: co(),
+                                        children: (e, t, n) =>
+                                          _(p, {
+                                            children: e?.map(
+                                              (
+                                                {
+                                                  BXB57XQsa: e,
+                                                  FqXanvpX5: t,
+                                                  id: n,
+                                                  JBYwxjGF4: r,
+                                                  QF04XtOqX: i,
+                                                  vcvU8M3f9: a,
+                                                  XPyR5q4iP: o,
+                                                },
+                                                s,
+                                              ) => (
+                                                (t ??= ``),
+                                                (o ??= ``),
+                                                (i ??= ``),
+                                                (e ??= ``),
+                                                (a ??= ``),
+                                                _(
+                                                  k,
+                                                  {
+                                                    id: `DuiNL0Rqb-${n}`,
+                                                    children: _(Ce.Provider, {
+                                                      value: { FqXanvpX5: t },
+                                                      children: _(V, {
+                                                        href: {
+                                                          pathVariables: {
+                                                            FqXanvpX5: t,
+                                                          },
+                                                          webPageId: `lf7zFwlyb`,
+                                                        },
+                                                        motionChild: !0,
+                                                        nodeId: `ycXFrSpYU`,
+                                                        scopeId: `augiA20Il`,
+                                                        children: _(E.a, {
+                                                          className: `framer-11u144p framer-lux5qc`,
+                                                          children: _(L, {
+                                                            breakpoint: x,
+                                                            overrides: {
+                                                              sugBnXNGk: {
+                                                                height: 598,
+                                                                width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                                              },
+                                                              UBAPecy2c: {
+                                                                height: 398,
+                                                                width: `max(min(${d?.width || `100vw`}, 1920px) - 40px, 1px)`,
+                                                              },
+                                                            },
+                                                            children: _(J, {
+                                                              height: 424,
+                                                              width: `max((min(${d?.width || `100vw`}, 1920px) - 144px) * 0.2361, 1px)`,
+                                                              children: _(Y, {
+                                                                className: `framer-15ca3jc-container`,
+                                                                "data-framer-cursor": `15zfr43`,
+                                                                nodeId: `UEBvCaIWG`,
+                                                                scopeId: `augiA20Il`,
+                                                                children: _(
+                                                                  Z,
+                                                                  {
+                                                                    height: `100%`,
+                                                                    hI_nqJJIG:
+                                                                      $a(r),
+                                                                    id: `UEBvCaIWG`,
+                                                                    l6xd4nbfU:
+                                                                      e,
+                                                                    layoutId: `UEBvCaIWG`,
+                                                                    style: {
+                                                                      height: `100%`,
+                                                                      width: `100%`,
+                                                                    },
+                                                                    sVsNnQg0R:
+                                                                      i,
+                                                                    sWqSxKWG6:
+                                                                      o,
+                                                                    ubFhduwhk:
+                                                                      a,
+                                                                    width: `100%`,
+                                                                  },
+                                                                ),
+                                                              }),
+                                                            }),
+                                                          }),
+                                                        }),
+                                                      }),
+                                                    }),
+                                                  },
+                                                  n,
+                                                )
+                                              ),
+                                            ),
+                                          }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                                _(`div`, {
+                                  className: `framer-17cl0yt`,
+                                  "data-framer-name": `Right`,
+                                  children: _(`div`, {
+                                    className: `framer-wlg593`,
+                                    children: _(ye, {
+                                      children: _(fo, {
+                                        pageSize: 1,
+                                        query: uo(),
+                                        children: (e, t, n) =>
+                                          _(p, {
+                                            children: e?.map(
+                                              (
+                                                {
+                                                  BXB57XQsa: e,
+                                                  FqXanvpX5: t,
+                                                  id: n,
+                                                  JBYwxjGF4: r,
+                                                  QF04XtOqX: i,
+                                                  vcvU8M3f9: a,
+                                                  XPyR5q4iP: o,
+                                                },
+                                                s,
+                                              ) => (
+                                                (t ??= ``),
+                                                (o ??= ``),
+                                                (i ??= ``),
+                                                (e ??= ``),
+                                                (a ??= ``),
+                                                _(
+                                                  k,
+                                                  {
+                                                    id: `BDEBGhHRx-${n}`,
+                                                    children: _(Ce.Provider, {
+                                                      value: { FqXanvpX5: t },
+                                                      children: _(V, {
+                                                        href: {
+                                                          pathVariables: {
+                                                            FqXanvpX5: t,
+                                                          },
+                                                          webPageId: `lf7zFwlyb`,
+                                                        },
+                                                        motionChild: !0,
+                                                        nodeId: `zm99wStKy`,
+                                                        scopeId: `augiA20Il`,
+                                                        children: _(E.a, {
+                                                          className: `framer-gwdpuf framer-lux5qc`,
+                                                          children: _(L, {
+                                                            breakpoint: x,
+                                                            overrides: {
+                                                              sugBnXNGk: {
+                                                                width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                                              },
+                                                              UBAPecy2c: {
+                                                                height: 398,
+                                                                width: `max(min(${d?.width || `100vw`}, 1920px) - 40px, 1px)`,
+                                                              },
+                                                            },
+                                                            children: _(J, {
+                                                              height: 598,
+                                                              width: `max((min(${d?.width || `100vw`}, 1920px) - 144px) * 0.4907, 1px)`,
+                                                              children: _(Y, {
+                                                                className: `framer-be9bgn-container`,
+                                                                "data-framer-cursor": `15zfr43`,
+                                                                nodeId: `XzLQN8PtH`,
+                                                                scopeId: `augiA20Il`,
+                                                                children: _(
+                                                                  L,
+                                                                  {
+                                                                    breakpoint:
+                                                                      x,
+                                                                    overrides:
+                                                                      {
+                                                                        sugBnXNGk:
+                                                                          {
+                                                                            style:
+                                                                              {
+                                                                                height: `100%`,
+                                                                                width: `100%`,
+                                                                              },
+                                                                          },
+                                                                        UBAPecy2c:
+                                                                          {
+                                                                            style:
+                                                                              {
+                                                                                height: `100%`,
+                                                                                width: `100%`,
+                                                                              },
+                                                                          },
+                                                                      },
+                                                                    children:
+                                                                      _(Z, {
+                                                                        height: `100%`,
+                                                                        hI_nqJJIG:
+                                                                          $a(
+                                                                            r,
+                                                                          ),
+                                                                        id: `XzLQN8PtH`,
+                                                                        l6xd4nbfU:
+                                                                          e,
+                                                                        layoutId: `XzLQN8PtH`,
+                                                                        style:
+                                                                          {
+                                                                            width: `100%`,
+                                                                          },
+                                                                        sVsNnQg0R:
+                                                                          i,
+                                                                        sWqSxKWG6:
+                                                                          o,
+                                                                        ubFhduwhk:
+                                                                          a,
+                                                                        width: `100%`,
+                                                                      }),
+                                                                  },
+                                                                ),
+                                                              }),
+                                                            }),
+                                                          }),
+                                                        }),
+                                                      }),
+                                                    }),
+                                                  },
+                                                  n,
+                                                )
+                                              ),
+                                            ),
+                                          }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            _(`div`, {
+                              className: `framer-1uupxxr`,
+                              "data-framer-name": `5`,
+                              children: _(`div`, {
+                                className: `framer-1mmsvze`,
+                                children: _(ye, {
+                                  children: _(mo, {
+                                    pageSize: 1,
+                                    query: po(),
+                                    children: (e, t, n) =>
+                                      _(p, {
+                                        children: e?.map(
+                                          (
+                                            {
+                                              BXB57XQsa: e,
+                                              FqXanvpX5: t,
+                                              id: n,
+                                              JBYwxjGF4: r,
+                                              QF04XtOqX: i,
+                                              vcvU8M3f9: a,
+                                              XPyR5q4iP: o,
+                                            },
+                                            s,
+                                          ) => (
+                                            (t ??= ``),
+                                            (o ??= ``),
+                                            (i ??= ``),
+                                            (e ??= ``),
+                                            (a ??= ``),
+                                            _(
+                                              k,
+                                              {
+                                                id: `tysKrXpjy-${n}`,
+                                                children: _(Ce.Provider, {
+                                                  value: { FqXanvpX5: t },
+                                                  children: _(V, {
+                                                    href: {
+                                                      pathVariables: {
+                                                        FqXanvpX5: t,
+                                                      },
+                                                      webPageId: `lf7zFwlyb`,
+                                                    },
+                                                    motionChild: !0,
+                                                    nodeId: `iP1gKsy4Z`,
+                                                    scopeId: `augiA20Il`,
+                                                    children: _(E.a, {
+                                                      className: `framer-14o163q framer-lux5qc`,
+                                                      children: _(L, {
+                                                        breakpoint: x,
+                                                        overrides: {
+                                                          sugBnXNGk: {
+                                                            height: 598,
+                                                            width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                                          },
+                                                          UBAPecy2c: {
+                                                            height: 398,
+                                                            width: `max(min(${d?.width || `100vw`}, 1920px) - 40px, 1px)`,
+                                                          },
+                                                        },
+                                                        children: _(J, {
+                                                          height: 847,
+                                                          width: `max((min(${d?.width || `100vw`}, 1920px) - 144px) * 0.7454, 1px)`,
+                                                          children: _(Y, {
+                                                            className: `framer-58e29n-container`,
+                                                            "data-framer-cursor": `15zfr43`,
+                                                            nodeId: `ZCZxF7ijz`,
+                                                            scopeId: `augiA20Il`,
+                                                            children: _(Z, {
+                                                              height: `100%`,
+                                                              hI_nqJJIG:
+                                                                $a(r),
+                                                              id: `ZCZxF7ijz`,
+                                                              l6xd4nbfU: e,
+                                                              layoutId: `ZCZxF7ijz`,
+                                                              style: {
+                                                                height: `100%`,
+                                                                width: `100%`,
+                                                              },
+                                                              sVsNnQg0R: i,
+                                                              sWqSxKWG6: o,
+                                                              ubFhduwhk: a,
+                                                              width: `100%`,
+                                                            }),
+                                                          }),
+                                                        }),
+                                                      }),
+                                                    }),
+                                                  }),
+                                                }),
+                                              },
+                                              n,
+                                            )
+                                          ),
+                                        ),
+                                      }),
+                                  }),
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        null,
+                      ],
+                    }),
+                  }),
+                  _(E.section, {
+                    className: `framer-r0my2z`,
+                    "data-framer-name": `Services-Section`,
+                    layout: O,
+                    children: y(`div`, {
+                      className: `framer-p1a3fa`,
+                      "data-framer-name": `Container`,
+                      children: [
+                        _(L, {
+                          breakpoint: x,
+                          overrides: {
+                            sugBnXNGk: {
+                              width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                            },
+                            UBAPecy2c: {
+                              width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                            },
+                          },
+                          children: _(J, {
+                            height: 72,
+                            width: `max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px)`,
+                            children: _(Y, {
+                              className: `framer-12mqmrv-container`,
+                              nodeId: `XXfb9b87T`,
+                              scopeId: `augiA20Il`,
+                              children: _(L, {
+                                breakpoint: x,
+                                overrides: {
+                                  UBAPecy2c: { variant: $(`uJvz1X0hi`) },
+                                },
+                                children: _(lt, {
+                                  cKc8R9lOZ: `DEPARTMENTS`,
+                                  height: `100%`,
+                                  id: `XXfb9b87T`,
+                                  layoutId: `XXfb9b87T`,
+                                  style: { width: `100%` },
+                                  variant: $(`KtTRODZnb`),
+                                  width: `100%`,
+                                }),
+                              }),
+                            }),
+                          }),
+                        }),
+                        _(L, {
+                          breakpoint: x,
+                          overrides: {
+                            sugBnXNGk: {
+                              width: `min(max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px), 1920px)`,
+                            },
+                            UBAPecy2c: {
+                              width: `min(min(${d?.width || `100vw`}, 1920px) - 40px, 1920px)`,
+                            },
+                          },
+                          children: _(J, {
+                            height: 869,
+                            width: `min(max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px), 1920px)`,
+                            children: _(Y, {
+                              className: `framer-1smi84w-container`,
+                              nodeId: `i6citA_D3`,
+                              scopeId: `augiA20Il`,
+                              children: _(L, {
+                                breakpoint: x,
+                                overrides: {
+                                  sugBnXNGk: { variant: $(`hYeVcoLPr`) },
+                                  UBAPecy2c: { variant: $(`hYeVcoLPr`) },
+                                },
+                                children: _(fa, {
+                                  height: `100%`,
+                                  id: `i6citA_D3`,
+                                  layoutId: `i6citA_D3`,
+                                  style: { maxWidth: `100%`, width: `100%` },
+                                  variant: $(`fYE3joar9`),
+                                  width: `100%`,
+                                }),
+                              }),
+                            }),
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                  y(E.section, {
+                    className: `framer-1l1y4uy`,
+                    "data-framer-name": `Facts-Section`,
+                    layout: O,
+                    children: [
+                      y(`div`, {
+                        className: `framer-1b8u07s`,
+                        "data-framer-name": `Container`,
+                        children: [
+                          y(`div`, {
+                            className: `framer-1u6kk32`,
+                            "data-framer-name": `Stats1`,
+                            children: [
+                              y(`div`, {
+                                className: `framer-rhhoer`,
+                                "data-border": !0,
+                                "data-framer-name": `Text`,
+                                children: [
+                                  _(I, {
+                                    __fromCanvasComponent: !0,
+                                    children: _(a, {
+                                      children: _(`p`, {
+                                        className: `framer-styles-preset-4r8vu`,
+                                        "data-styles-preset": `lRMRijzgW`,
+                                        style: {
+                                          "--framer-text-color": `var(--token-f393e2de-0073-4f27-a761-6dc00da1d9f2, rgb(73, 73, 73))`,
+                                        },
+                                        children: `WORLDWIDE CLIENTS IN 15 COUNTRIES`,
+                                      }),
+                                    }),
+                                    className: `framer-1tyy0a4`,
+                                    fonts: [`Inter`],
+                                    verticalAlignment: `top`,
+                                    withExternalLayout: !0,
+                                  }),
+                                  _(I, {
+                                    __fromCanvasComponent: !0,
+                                    children: _(a, {
+                                      children: _(`p`, {
+                                        className: `framer-styles-preset-4r8vu`,
+                                        "data-styles-preset": `lRMRijzgW`,
+                                        style: {
+                                          "--framer-text-alignment": `right`,
+                                          "--framer-text-color": `var(--token-f393e2de-0073-4f27-a761-6dc00da1d9f2, rgb(73, 73, 73))`,
+                                        },
+                                        children: `//`,
+                                      }),
+                                    }),
+                                    className: `framer-1l01bed`,
+                                    fonts: [`Inter`],
+                                    verticalAlignment: `top`,
+                                    withExternalLayout: !0,
+                                  }),
+                                ],
+                              }),
+                              _(J, {
+                                children: _(Y, {
+                                  className: `framer-8ahafg-container`,
+                                  isAuthoredByUser: !0,
+                                  isModuleExternal: !0,
+                                  nodeId: `iCowpZGTO`,
+                                  scopeId: `augiA20Il`,
+                                  children: _($n, {
+                                    animation: {
+                                      replay: !1,
+                                      transition: {
+                                        bounce: 0,
+                                        delay: 0,
+                                        duration: 2,
+                                        type: `spring`,
+                                      },
+                                      trigger: `layerInView`,
+                                    },
+                                    balance: !1,
+                                    color: {
+                                      angle: 180,
+                                      color: `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                      endColor: `rgb(255, 255, 255)`,
+                                      mode: `solid`,
+                                      startColor: `rgb(0, 0, 0)`,
+                                    },
+                                    commas: !1,
+                                    decimals: 0,
+                                    decoration: `none`,
+                                    end: 54,
+                                    font: {
+                                      fontFamily: `"Clash Display", "Clash Display Placeholder", sans-serif`,
+                                      fontFeatureSettings: `'zero' on, 'tnum' on, 'cv06' on, 'cv13' on, 'cv07' on, 'cv05' on, 'cv10' on, 'cv12' on, 'cv08' on, 'cv11' on, 'cv04' on, 'cv03' on, 'cv02' on, 'cv09' on`,
+                                      fontSize: `120px`,
+                                      fontStyle: `normal`,
+                                      fontWeight: 600,
+                                      letterSpacing: `0px`,
+                                      lineHeight: `100px`,
+                                      textAlign: `center`,
+                                    },
+                                    height: `100%`,
+                                    id: `iCowpZGTO`,
+                                    layoutId: `iCowpZGTO`,
+                                    mode: `default`,
+                                    monospace: !1,
+                                    prefix: ``,
+                                    start: 30,
+                                    suffix: `+`,
+                                    tag: `h1`,
+                                    transition: {
+                                      bounce: 0,
+                                      delay: 0,
+                                      duration: 1,
+                                      type: `spring`,
+                                    },
+                                    userSelect: !0,
+                                    value: 90,
+                                    width: `100%`,
+                                  }),
+                                }),
+                              }),
+                            ],
+                          }),
+                          y(`div`, {
+                            className: `framer-44vkop`,
+                            "data-framer-name": `Stats2`,
+                            children: [
+                              y(`div`, {
+                                className: `framer-1v9jraj`,
+                                "data-border": !0,
+                                "data-framer-name": `Text`,
+                                children: [
+                                  _(I, {
+                                    __fromCanvasComponent: !0,
+                                    children: _(a, {
+                                      children: _(`p`, {
+                                        className: `framer-styles-preset-4r8vu`,
+                                        "data-styles-preset": `lRMRijzgW`,
+                                        style: {
+                                          "--framer-text-color": `var(--token-f393e2de-0073-4f27-a761-6dc00da1d9f2, rgb(73, 73, 73))`,
+                                        },
+                                        children: `PROJECTS COMPLETED`,
+                                      }),
+                                    }),
+                                    className: `framer-s6oirf`,
+                                    fonts: [`Inter`],
+                                    verticalAlignment: `top`,
+                                    withExternalLayout: !0,
+                                  }),
+                                  _(I, {
+                                    __fromCanvasComponent: !0,
+                                    children: _(a, {
+                                      children: _(`p`, {
+                                        className: `framer-styles-preset-4r8vu`,
+                                        "data-styles-preset": `lRMRijzgW`,
+                                        style: {
+                                          "--framer-text-alignment": `right`,
+                                          "--framer-text-color": `var(--token-f393e2de-0073-4f27-a761-6dc00da1d9f2, rgb(73, 73, 73))`,
+                                        },
+                                        children: `//`,
+                                      }),
+                                    }),
+                                    className: `framer-1prvhm8`,
+                                    fonts: [`Inter`],
+                                    verticalAlignment: `top`,
+                                    withExternalLayout: !0,
+                                  }),
+                                ],
+                              }),
+                              _(J, {
+                                children: _(Y, {
+                                  className: `framer-o7qrbf-container`,
+                                  isAuthoredByUser: !0,
+                                  isModuleExternal: !0,
+                                  nodeId: `MZiqISxGP`,
+                                  scopeId: `augiA20Il`,
+                                  children: _($n, {
+                                    animation: {
+                                      replay: !1,
+                                      transition: {
+                                        bounce: 0,
+                                        delay: 0,
+                                        duration: 2,
+                                        type: `spring`,
+                                      },
+                                      trigger: `layerInView`,
+                                    },
+                                    balance: !1,
+                                    color: {
+                                      angle: 180,
+                                      color: `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                      endColor: `rgb(255, 255, 255)`,
+                                      mode: `solid`,
+                                      startColor: `rgb(0, 0, 0)`,
+                                    },
+                                    commas: !1,
+                                    decimals: 0,
+                                    decoration: `none`,
+                                    end: 132,
+                                    font: {
+                                      fontFamily: `"Clash Display", "Clash Display Placeholder", sans-serif`,
+                                      fontFeatureSettings: `'zero' on, 'tnum' on, 'cv06' on, 'cv13' on, 'cv07' on, 'cv05' on, 'cv10' on, 'cv12' on, 'cv08' on, 'cv11' on, 'cv04' on, 'cv03' on, 'cv02' on, 'cv09' on`,
+                                      fontSize: `120px`,
+                                      fontStyle: `normal`,
+                                      fontWeight: 600,
+                                      letterSpacing: `0px`,
+                                      lineHeight: `100px`,
+                                      textAlign: `center`,
+                                    },
+                                    height: `100%`,
+                                    id: `MZiqISxGP`,
+                                    layoutId: `MZiqISxGP`,
+                                    mode: `default`,
+                                    monospace: !1,
+                                    prefix: ``,
+                                    start: 100,
+                                    suffix: `+`,
+                                    tag: `h1`,
+                                    transition: {
+                                      bounce: 0,
+                                      delay: 0,
+                                      duration: 1,
+                                      type: `spring`,
+                                    },
+                                    userSelect: !0,
+                                    value: 90,
+                                    width: `100%`,
+                                  }),
+                                }),
+                              }),
+                            ],
+                          }),
+                          y(`div`, {
+                            className: `framer-17dlb2q`,
+                            "data-framer-name": `Stats3`,
+                            children: [
+                              y(`div`, {
+                                className: `framer-1c984dy`,
+                                "data-border": !0,
+                                "data-framer-name": `Text`,
+                                children: [
+                                  _(I, {
+                                    __fromCanvasComponent: !0,
+                                    children: _(a, {
+                                      children: _(`p`, {
+                                        className: `framer-styles-preset-4r8vu`,
+                                        "data-styles-preset": `lRMRijzgW`,
+                                        style: {
+                                          "--framer-text-color": `var(--token-f393e2de-0073-4f27-a761-6dc00da1d9f2, rgb(73, 73, 73))`,
+                                        },
+                                        children: `AWARDS WON ON CSS, FWA & AWWWARDS`,
+                                      }),
+                                    }),
+                                    className: `framer-19wpvt8`,
+                                    fonts: [`Inter`],
+                                    verticalAlignment: `top`,
+                                    withExternalLayout: !0,
+                                  }),
+                                  _(I, {
+                                    __fromCanvasComponent: !0,
+                                    children: _(a, {
+                                      children: _(`p`, {
+                                        className: `framer-styles-preset-4r8vu`,
+                                        "data-styles-preset": `lRMRijzgW`,
+                                        style: {
+                                          "--framer-text-alignment": `right`,
+                                          "--framer-text-color": `var(--token-f393e2de-0073-4f27-a761-6dc00da1d9f2, rgb(73, 73, 73))`,
+                                        },
+                                        children: `//`,
+                                      }),
+                                    }),
+                                    className: `framer-yor2nc`,
+                                    fonts: [`Inter`],
+                                    verticalAlignment: `top`,
+                                    withExternalLayout: !0,
+                                  }),
+                                ],
+                              }),
+                              _(J, {
+                                children: _(Y, {
+                                  className: `framer-8jyt7t-container`,
+                                  isAuthoredByUser: !0,
+                                  isModuleExternal: !0,
+                                  nodeId: `ysWFVfibe`,
+                                  scopeId: `augiA20Il`,
+                                  children: _($n, {
+                                    animation: {
+                                      replay: !1,
+                                      transition: {
+                                        bounce: 0,
+                                        delay: 0,
+                                        duration: 2,
+                                        type: `spring`,
+                                      },
+                                      trigger: `layerInView`,
+                                    },
+                                    balance: !1,
+                                    color: {
+                                      angle: 180,
+                                      color: `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                      endColor: `rgb(255, 255, 255)`,
+                                      mode: `solid`,
+                                      startColor: `rgb(0, 0, 0)`,
+                                    },
+                                    commas: !1,
+                                    decimals: 0,
+                                    decoration: `none`,
+                                    end: 25,
+                                    font: {
+                                      fontFamily: `"Clash Display", "Clash Display Placeholder", sans-serif`,
+                                      fontFeatureSettings: `'zero' on, 'tnum' on, 'cv06' on, 'cv13' on, 'cv07' on, 'cv05' on, 'cv10' on, 'cv12' on, 'cv08' on, 'cv11' on, 'cv04' on, 'cv03' on, 'cv02' on, 'cv09' on`,
+                                      fontSize: `120px`,
+                                      fontStyle: `normal`,
+                                      fontWeight: 600,
+                                      letterSpacing: `0px`,
+                                      lineHeight: `100px`,
+                                      textAlign: `center`,
+                                    },
+                                    height: `100%`,
+                                    id: `ysWFVfibe`,
+                                    layoutId: `ysWFVfibe`,
+                                    mode: `default`,
+                                    monospace: !1,
+                                    prefix: ``,
+                                    start: 10,
+                                    suffix: ``,
+                                    tag: `h1`,
+                                    transition: {
+                                      bounce: 0,
+                                      delay: 0,
+                                      duration: 1,
+                                      type: `spring`,
+                                    },
+                                    userSelect: !0,
+                                    value: 90,
+                                    width: `100%`,
+                                  }),
+                                }),
+                              }),
+                            ],
+                          }),
+                        ],
+                      }),
+                      null,
+                    ],
+                  }),
+                  _(E.section, {
+                    className: `framer-o47gts`,
+                    "data-framer-name": `Partners-Section`,
+                    layout: O,
+                    children: y(`div`, {
+                      className: `framer-w7jekq`,
+                      "data-framer-name": `Container`,
+                      children: [
+                        _(I, {
+                          __fromCanvasComponent: !0,
+                          children: _(a, {
+                            children: _(`p`, {
+                              className: `framer-styles-preset-13g92bw`,
+                              "data-styles-preset": `JnqPwgPMu`,
+                              style: { "--framer-text-alignment": `center` },
+                              children: `TRUSTED BY 85+ BRANDS AND PARTNERS`,
+                            }),
+                          }),
+                          className: `framer-120luky`,
+                          fonts: [`Inter`],
+                          verticalAlignment: `top`,
+                          withExternalLayout: !0,
+                        }),
+                        _(L, {
+                          breakpoint: x,
+                          overrides: {
+                            sugBnXNGk: {
+                              width: `calc(min(${d?.width || `100vw`}, 1920px) - 80px)`,
+                            },
+                            UBAPecy2c: {
+                              width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                            },
+                          },
+                          children: _(J, {
+                            height: 284,
+                            width: `calc(min(${d?.width || `100vw`}, 1920px) - 144px)`,
+                            children: _(Y, {
+                              className: `framer-dizcvh-container`,
+                              nodeId: `BOeMgu2eZ`,
+                              scopeId: `augiA20Il`,
+                              children: _($i, {
+                                height: `100%`,
+                                id: `BOeMgu2eZ`,
+                                layoutId: `BOeMgu2eZ`,
+                                style: { width: `100%` },
+                                width: `100%`,
+                              }),
+                            }),
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                  _(E.section, {
+                    className: `framer-iu37fo`,
+                    "data-framer-name": `Awards-Section`,
+                    layout: O,
+                    children: y(`div`, {
+                      className: `framer-1b2n3ko`,
+                      "data-framer-name": `Container`,
+                      children: [
+                        y(`div`, {
+                          className: `framer-fwjcwp`,
+                          "data-framer-name": `Top`,
+                          children: [
+                            _(L, {
+                              breakpoint: x,
+                              overrides: {
+                                sugBnXNGk: {
+                                  width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                                },
+                                UBAPecy2c: {
+                                  width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                },
+                              },
+                              children: _(J, {
+                                height: 72,
+                                width: `max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px)`,
+                                children: _(Y, {
+                                  className: `framer-1mws1ns-container`,
+                                  nodeId: `UkerTWaUg`,
+                                  scopeId: `augiA20Il`,
+                                  children: _(L, {
+                                    breakpoint: x,
+                                    overrides: {
+                                      UBAPecy2c: { variant: $(`uJvz1X0hi`) },
+                                    },
+                                    children: _(lt, {
+                                      cKc8R9lOZ: `AWARDS`,
+                                      height: `100%`,
+                                      id: `UkerTWaUg`,
+                                      layoutId: `UkerTWaUg`,
+                                      style: { width: `100%` },
+                                      variant: $(`KtTRODZnb`),
+                                      width: `100%`,
+                                    }),
+                                  }),
+                                }),
+                              }),
+                            }),
+                            _(I, {
+                              __fromCanvasComponent: !0,
+                              children: _(a, {
+                                children: _(`p`, {
+                                  className: `framer-styles-preset-h0wt6i`,
+                                  "data-styles-preset": `ZCD3JCImn`,
+                                  style: {
+                                    "--framer-text-alignment": `center`,
+                                  },
+                                  children: `While my goals are not focused on any awards or praise, the recognition from the industry still makes me very proud and motivated. It demonstrates my effort and creativity to bring the best value to my clients`,
+                                }),
+                              }),
+                              className: `framer-12ecoke`,
+                              fonts: [`Inter`],
+                              verticalAlignment: `top`,
+                              withExternalLayout: !0,
+                            }),
+                          ],
+                        }),
+                        y(`div`, {
+                          className: `framer-3imp8q`,
+                          "data-framer-name": `Bottom`,
+                          children: [
+                            y(`div`, {
+                              className: `framer-1gpsboq`,
+                              "data-framer-name": `Awards`,
+                              children: [
+                                _(L, {
+                                  breakpoint: x,
+                                  overrides: {
+                                    sugBnXNGk: {
+                                      width: `min(max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px), 1296px)`,
+                                    },
+                                    UBAPecy2c: {
+                                      width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                    },
+                                  },
+                                  children: _(J, {
+                                    height: 96,
+                                    width: `min(max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px), 1296px)`,
+                                    children: _(Y, {
+                                      className: `framer-1d9hg23-container`,
+                                      nodeId: `rY6tcpCTM`,
+                                      scopeId: `augiA20Il`,
+                                      children: _(L, {
+                                        breakpoint: x,
+                                        overrides: {
+                                          sugBnXNGk: {
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                          UBAPecy2c: {
+                                            style: { width: `100%` },
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                        },
+                                        children: _(vr, {
+                                          height: `100%`,
+                                          id: `rY6tcpCTM`,
+                                          JOsAZi8LO: `https://thefwa.com/`,
+                                          layoutId: `rY6tcpCTM`,
+                                          mHtuG5qhV: `FWA`,
+                                          style: {
+                                            height: `100%`,
+                                            maxWidth: `100%`,
+                                            width: `100%`,
+                                          },
+                                          szkEyGTd4: `Tesla`,
+                                          tJGUkACRt: `FWA OF THE DAY`,
+                                          u17m_GSpk: xo(
+                                            {
+                                              pixelHeight: 112,
+                                              pixelWidth: 2672,
+                                              src: `https://framerusercontent.com/images/uUKYhUgBYFVMIYb0oOAX8sBls4.jpg?width=2672&height=112`,
+                                              srcSet: `https://framerusercontent.com/images/uUKYhUgBYFVMIYb0oOAX8sBls4.jpg?scale-down-to=512&width=2672&height=112 512w,https://framerusercontent.com/images/uUKYhUgBYFVMIYb0oOAX8sBls4.jpg?scale-down-to=1024&width=2672&height=112 1024w,https://framerusercontent.com/images/uUKYhUgBYFVMIYb0oOAX8sBls4.jpg?scale-down-to=2048&width=2672&height=112 2048w,https://framerusercontent.com/images/uUKYhUgBYFVMIYb0oOAX8sBls4.jpg?width=2672&height=112 2672w`,
+                                            },
+                                            `award-image`,
+                                          ),
+                                          variant: $(`uh4EM5Dud`),
+                                          width: `100%`,
+                                        }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                                _(L, {
+                                  breakpoint: x,
+                                  overrides: {
+                                    sugBnXNGk: {
+                                      width: `min(max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px), 1296px)`,
+                                    },
+                                    UBAPecy2c: {
+                                      width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                    },
+                                  },
+                                  children: _(J, {
+                                    height: 96,
+                                    width: `min(max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px), 1296px)`,
+                                    children: _(Y, {
+                                      className: `framer-us4qrw-container`,
+                                      nodeId: `PzQ12meOS`,
+                                      scopeId: `augiA20Il`,
+                                      children: _(L, {
+                                        breakpoint: x,
+                                        overrides: {
+                                          sugBnXNGk: {
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                          UBAPecy2c: {
+                                            style: { width: `100%` },
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                        },
+                                        children: _(vr, {
+                                          height: `100%`,
+                                          id: `PzQ12meOS`,
+                                          JOsAZi8LO: `https://www.cssdesignawards.com/wotd-award-nominees`,
+                                          layoutId: `PzQ12meOS`,
+                                          mHtuG5qhV: `CSSDA`,
+                                          style: {
+                                            height: `100%`,
+                                            maxWidth: `100%`,
+                                            width: `100%`,
+                                          },
+                                          szkEyGTd4: `Bruno`,
+                                          tJGUkACRt: `CSSDA WOTD`,
+                                          u17m_GSpk: xo(
+                                            {
+                                              pixelHeight: 112,
+                                              pixelWidth: 2672,
+                                              src: `https://framerusercontent.com/images/KYLMw4mXJWgNZfUZZWIUgDy08Wg.jpg?width=2672&height=112`,
+                                              srcSet: `https://framerusercontent.com/images/KYLMw4mXJWgNZfUZZWIUgDy08Wg.jpg?scale-down-to=512&width=2672&height=112 512w,https://framerusercontent.com/images/KYLMw4mXJWgNZfUZZWIUgDy08Wg.jpg?scale-down-to=1024&width=2672&height=112 1024w,https://framerusercontent.com/images/KYLMw4mXJWgNZfUZZWIUgDy08Wg.jpg?scale-down-to=2048&width=2672&height=112 2048w,https://framerusercontent.com/images/KYLMw4mXJWgNZfUZZWIUgDy08Wg.jpg?width=2672&height=112 2672w`,
+                                            },
+                                            `award-image`,
+                                          ),
+                                          variant: $(`uh4EM5Dud`),
+                                          width: `100%`,
+                                        }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                                _(L, {
+                                  breakpoint: x,
+                                  overrides: {
+                                    sugBnXNGk: {
+                                      width: `min(max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px), 1296px)`,
+                                    },
+                                    UBAPecy2c: {
+                                      width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                    },
+                                  },
+                                  children: _(J, {
+                                    height: 96,
+                                    width: `min(max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px), 1296px)`,
+                                    children: _(Y, {
+                                      className: `framer-1xsnhxo-container`,
+                                      nodeId: `sHxhfKf9L`,
+                                      scopeId: `augiA20Il`,
+                                      children: _(L, {
+                                        breakpoint: x,
+                                        overrides: {
+                                          sugBnXNGk: {
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                          UBAPecy2c: {
+                                            style: { width: `100%` },
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                        },
+                                        children: _(vr, {
+                                          height: `100%`,
+                                          id: `sHxhfKf9L`,
+                                          layoutId: `sHxhfKf9L`,
+                                          mHtuG5qhV: `BEHANCE`,
+                                          style: {
+                                            height: `100%`,
+                                            maxWidth: `100%`,
+                                            width: `100%`,
+                                          },
+                                          szkEyGTd4: `Product`,
+                                          tJGUkACRt: `BEHANCE UI GALLERY`,
+                                          u17m_GSpk: xo(
+                                            {
+                                              pixelHeight: 112,
+                                              pixelWidth: 2672,
+                                              src: `https://framerusercontent.com/images/xF5y7ik9XpvK5cdKYiNO7H93tiE.jpg?width=2672&height=112`,
+                                              srcSet: `https://framerusercontent.com/images/xF5y7ik9XpvK5cdKYiNO7H93tiE.jpg?scale-down-to=512&width=2672&height=112 512w,https://framerusercontent.com/images/xF5y7ik9XpvK5cdKYiNO7H93tiE.jpg?scale-down-to=1024&width=2672&height=112 1024w,https://framerusercontent.com/images/xF5y7ik9XpvK5cdKYiNO7H93tiE.jpg?scale-down-to=2048&width=2672&height=112 2048w,https://framerusercontent.com/images/xF5y7ik9XpvK5cdKYiNO7H93tiE.jpg?width=2672&height=112 2672w`,
+                                            },
+                                            `award-image`,
+                                          ),
+                                          variant: $(`uh4EM5Dud`),
+                                          width: `100%`,
+                                        }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                                _(L, {
+                                  breakpoint: x,
+                                  overrides: {
+                                    sugBnXNGk: {
+                                      width: `min(max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px), 1296px)`,
+                                    },
+                                    UBAPecy2c: {
+                                      width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                    },
+                                  },
+                                  children: _(J, {
+                                    height: 96,
+                                    width: `min(max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px), 1296px)`,
+                                    children: _(Y, {
+                                      className: `framer-1h6aljc-container`,
+                                      nodeId: `oofsPwvP2`,
+                                      scopeId: `augiA20Il`,
+                                      children: _(L, {
+                                        breakpoint: x,
+                                        overrides: {
+                                          sugBnXNGk: {
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                          UBAPecy2c: {
+                                            style: { width: `100%` },
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                        },
+                                        children: _(vr, {
+                                          height: `100%`,
+                                          id: `oofsPwvP2`,
+                                          layoutId: `oofsPwvP2`,
+                                          mHtuG5qhV: `WEBBY`,
+                                          style: {
+                                            height: `100%`,
+                                            maxWidth: `100%`,
+                                            width: `100%`,
+                                          },
+                                          szkEyGTd4: `Inoovation`,
+                                          tJGUkACRt: `WEBBY AWARDS`,
+                                          u17m_GSpk: xo(
+                                            {
+                                              pixelHeight: 112,
+                                              pixelWidth: 2672,
+                                              src: `https://framerusercontent.com/images/lQA0cL8JAB45ec2izKEWeoitrM.jpg?width=2672&height=112`,
+                                              srcSet: `https://framerusercontent.com/images/lQA0cL8JAB45ec2izKEWeoitrM.jpg?scale-down-to=512&width=2672&height=112 512w,https://framerusercontent.com/images/lQA0cL8JAB45ec2izKEWeoitrM.jpg?scale-down-to=1024&width=2672&height=112 1024w,https://framerusercontent.com/images/lQA0cL8JAB45ec2izKEWeoitrM.jpg?scale-down-to=2048&width=2672&height=112 2048w,https://framerusercontent.com/images/lQA0cL8JAB45ec2izKEWeoitrM.jpg?width=2672&height=112 2672w`,
+                                            },
+                                            `award-image`,
+                                          ),
+                                          variant: $(`uh4EM5Dud`),
+                                          width: `100%`,
+                                        }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                                _(L, {
+                                  breakpoint: x,
+                                  overrides: {
+                                    sugBnXNGk: {
+                                      width: `min(max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px), 1296px)`,
+                                    },
+                                    UBAPecy2c: {
+                                      width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                    },
+                                  },
+                                  children: _(J, {
+                                    height: 96,
+                                    width: `min(max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px), 1296px)`,
+                                    children: _(Y, {
+                                      className: `framer-1gjlvuy-container`,
+                                      nodeId: `K4kcGNa68`,
+                                      scopeId: `augiA20Il`,
+                                      children: _(L, {
+                                        breakpoint: x,
+                                        overrides: {
+                                          sugBnXNGk: {
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                          UBAPecy2c: {
+                                            style: { width: `100%` },
+                                            variant: $(`J20pk65nD`),
+                                          },
+                                        },
+                                        children: _(vr, {
+                                          height: `100%`,
+                                          id: `K4kcGNa68`,
+                                          JOsAZi8LO: `https://www.awwwards.com/inspiration_search/%23B3CF3C/`,
+                                          layoutId: `K4kcGNa68`,
+                                          mHtuG5qhV: `AWWWARDS`,
+                                          style: {
+                                            height: `100%`,
+                                            maxWidth: `100%`,
+                                            width: `100%`,
+                                          },
+                                          szkEyGTd4: `Tesla`,
+                                          tJGUkACRt: `AWWWARDS NOMINEE`,
+                                          u17m_GSpk: xo(
+                                            {
+                                              pixelHeight: 112,
+                                              pixelWidth: 2672,
+                                              src: `https://framerusercontent.com/images/4AfUgovkqN3hl7roJxqlMvjLV8.jpg?width=2672&height=112`,
+                                              srcSet: `https://framerusercontent.com/images/4AfUgovkqN3hl7roJxqlMvjLV8.jpg?scale-down-to=512&width=2672&height=112 512w,https://framerusercontent.com/images/4AfUgovkqN3hl7roJxqlMvjLV8.jpg?scale-down-to=1024&width=2672&height=112 1024w,https://framerusercontent.com/images/4AfUgovkqN3hl7roJxqlMvjLV8.jpg?scale-down-to=2048&width=2672&height=112 2048w,https://framerusercontent.com/images/4AfUgovkqN3hl7roJxqlMvjLV8.jpg?width=2672&height=112 2672w`,
+                                            },
+                                            `award-image`,
+                                          ),
+                                          variant: $(`uh4EM5Dud`),
+                                          width: `100%`,
+                                        }),
+                                      }),
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            _(I, {
+                              __fromCanvasComponent: !0,
+                              children: _(a, {
+                                children: _(`p`, {
+                                  className: `framer-styles-preset-h0wt6i`,
+                                  "data-styles-preset": `ZCD3JCImn`,
+                                  style: {
+                                    "--framer-text-alignment": `center`,
+                                    "--framer-text-color": `var(--token-21448508-32f0-4068-aff5-bb7abebeef94, rgb(128, 128, 128))`,
+                                  },
+                                  children: `And other mentions in USA Today Dot Awards, Muzli Design, Mindsparkle Mag,Sandu Publishing, Morre Design,...`,
+                                }),
+                              }),
+                              className: `framer-1ke3y9b`,
+                              fonts: [`Inter`],
+                              verticalAlignment: `top`,
+                              withExternalLayout: !0,
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  _(E.section, {
+                    className: `framer-pcmrsu`,
+                    "data-framer-name": `Experience-Section`,
+                    layout: O,
+                    children: y(`div`, {
+                      className: `framer-64okb9`,
+                      "data-framer-name": `Container`,
+                      children: [
+                        _(L, {
+                          breakpoint: x,
+                          overrides: {
+                            sugBnXNGk: {
+                              width: `max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px)`,
+                            },
+                            UBAPecy2c: {
+                              width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                            },
+                          },
+                          children: _(J, {
+                            height: 72,
+                            width: `max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px)`,
+                            children: _(Y, {
+                              className: `framer-nu6yg0-container`,
+                              nodeId: `u4dJEUMGj`,
+                              scopeId: `augiA20Il`,
+                              children: _(L, {
+                                breakpoint: x,
+                                overrides: {
+                                  UBAPecy2c: { variant: $(`uJvz1X0hi`) },
+                                },
+                                children: _(lt, {
+                                  cKc8R9lOZ: `EDUCATION & EXPERIENCE`,
+                                  height: `100%`,
+                                  id: `u4dJEUMGj`,
+                                  layoutId: `u4dJEUMGj`,
+                                  style: { width: `100%` },
+                                  variant: $(`KtTRODZnb`),
+                                  width: `100%`,
+                                }),
+                              }),
+                            }),
+                          }),
+                        }),
+                        y(`div`, {
+                          className: `framer-8322kp`,
+                          "data-framer-name": `Bottom`,
+                          children: [
+                            y(_a, {
+                              __framer__animate: { transition: Co },
+                              __framer__animateOnce: !0,
+                              __framer__enter: So,
+                              __framer__exit: wo,
+                              __framer__styleAppearEffectEnabled: !0,
+                              __framer__threshold: 0.5,
+                              __perspectiveFX: !1,
+                              __targetOpacity: 1,
+                              className: `framer-3dxlmx`,
+                              "data-framer-name": `1`,
+                              children: [
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(`p`, {
+                                      className: `framer-styles-preset-jgjr9n`,
+                                      "data-styles-preset": `KFiQRW9GJ`,
+                                      style: {
+                                        "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                      },
+                                      children: `2018`,
+                                    }),
+                                  }),
+                                  className: `framer-eslbh1`,
+                                  fonts: [`Inter`],
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                }),
+                                y(`div`, {
+                                  className: `framer-xqkq3d`,
+                                  "data-framer-name": `Content`,
+                                  children: [
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-1ljec5m-container`,
+                                          nodeId: `DDI6aYUwh`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `DDI6aYUwh`,
+                                            layoutId: `DDI6aYUwh`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `RMIT University`,
+                                            zDoiFPok8: `Bachelor Degree of Design `,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-bn8yop-container`,
+                                          nodeId: `HdPwKZQjV`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `HdPwKZQjV`,
+                                            layoutId: `HdPwKZQjV`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `Univerity of Melbourne, AU`,
+                                            zDoiFPok8: `UI/UX Design Certificated`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                  ],
+                                }),
+                              ],
+                            }),
+                            y(_a, {
+                              __framer__animate: { transition: Co },
+                              __framer__animateOnce: !0,
+                              __framer__enter: So,
+                              __framer__exit: wo,
+                              __framer__styleAppearEffectEnabled: !0,
+                              __framer__threshold: 0.5,
+                              __perspectiveFX: !1,
+                              __targetOpacity: 1,
+                              className: `framer-1agib30`,
+                              "data-framer-name": `2`,
+                              children: [
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(`p`, {
+                                      className: `framer-styles-preset-jgjr9n`,
+                                      "data-styles-preset": `KFiQRW9GJ`,
+                                      style: {
+                                        "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                      },
+                                      children: `2019 - 2022`,
+                                    }),
+                                  }),
+                                  className: `framer-ot5940`,
+                                  fonts: [`Inter`],
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                }),
+                                y(`div`, {
+                                  className: `framer-1lra03e`,
+                                  "data-framer-name": `Content`,
+                                  children: [
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-1p1whpp-container`,
+                                          nodeId: `AtSgMOw9z`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `AtSgMOw9z`,
+                                            layoutId: `AtSgMOw9z`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `Goddie Studio, CA`,
+                                            zDoiFPok8: `Designer Intership`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-1h6djpv-container`,
+                                          nodeId: `LJO_88IXw`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `LJO_88IXw`,
+                                            layoutId: `LJO_88IXw`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `POD Power LLC`,
+                                            zDoiFPok8: `Graphic Design Fresher`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-qs5jj9-container`,
+                                          nodeId: `iFXzk1n5g`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `iFXzk1n5g`,
+                                            layoutId: `iFXzk1n5g`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `Freelance`,
+                                            zDoiFPok8: `Web Designer`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-1vea6zj-container`,
+                                          nodeId: `tx3L1z7FE`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `tx3L1z7FE`,
+                                            layoutId: `tx3L1z7FE`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `Invision App Inc, France`,
+                                            zDoiFPok8: `UI/UX Designer`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-cdp9e1-container`,
+                                          nodeId: `vOZ3SMwYn`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `vOZ3SMwYn`,
+                                            layoutId: `vOZ3SMwYn`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `Invision App Inc, France`,
+                                            zDoiFPok8: `Senior UI/UX Designer`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                  ],
+                                }),
+                              ],
+                            }),
+                            y(_a, {
+                              __framer__animate: { transition: Co },
+                              __framer__animateOnce: !0,
+                              __framer__enter: So,
+                              __framer__exit: wo,
+                              __framer__styleAppearEffectEnabled: !0,
+                              __framer__threshold: 0.5,
+                              __perspectiveFX: !1,
+                              __targetOpacity: 1,
+                              className: `framer-6tslet`,
+                              "data-framer-name": `3`,
+                              children: [
+                                _(I, {
+                                  __fromCanvasComponent: !0,
+                                  children: _(a, {
+                                    children: _(`p`, {
+                                      className: `framer-styles-preset-jgjr9n`,
+                                      "data-styles-preset": `KFiQRW9GJ`,
+                                      style: {
+                                        "--framer-text-color": `var(--token-d4ca82da-9858-4dad-acd0-b334826e1013, rgb(255, 255, 255))`,
+                                      },
+                                      children: `2022 - NOW`,
+                                    }),
+                                  }),
+                                  className: `framer-lnxjxj`,
+                                  fonts: [`Inter`],
+                                  verticalAlignment: `top`,
+                                  withExternalLayout: !0,
+                                }),
+                                y(`div`, {
+                                  className: `framer-1c301nj`,
+                                  "data-framer-name": `Content`,
+                                  children: [
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-sqtfnn-container`,
+                                          nodeId: `M7FrsLHJ8`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `M7FrsLHJ8`,
+                                            layoutId: `M7FrsLHJ8`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `Adobe, San Francisco, CA`,
+                                            zDoiFPok8: `Product Design Management`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-1jueym3-container`,
+                                          nodeId: `KWjENizrb`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `KWjENizrb`,
+                                            layoutId: `KWjENizrb`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `Freelance`,
+                                            zDoiFPok8: `Framer Development`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                    _(L, {
+                                      breakpoint: x,
+                                      overrides: {
+                                        sugBnXNGk: {
+                                          width: `max((max(min(${d?.width || `100vw`}, 1920px) - 80px, 1px) - 48px) / 3, 1px)`,
+                                        },
+                                        UBAPecy2c: {
+                                          width: `calc(min(${d?.width || `100vw`}, 1920px) - 40px)`,
+                                        },
+                                      },
+                                      children: _(J, {
+                                        height: 48,
+                                        width: `max((max(min(${d?.width || `100vw`}, 1920px) - 144px, 1px) - 48px) / 3, 1px)`,
+                                        children: _(Y, {
+                                          className: `framer-dgh3z0-container`,
+                                          nodeId: `eBvuit0oe`,
+                                          scopeId: `augiA20Il`,
+                                          children: _(Vi, {
+                                            height: `100%`,
+                                            id: `eBvuit0oe`,
+                                            layoutId: `eBvuit0oe`,
+                                            style: { width: `100%` },
+                                            width: `100%`,
+                                            wuGM9oDFL: `Portx Studio`,
+                                            zDoiFPok8: `Solo Entrepreneur/CEO Founder`,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                  ],
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  _(J, {
+                    height: 2256,
+                    width: `min(${d?.width || `100vw`}, 1920px)`,
+                    children: _(Y, {
+                      className: `framer-1kknwoe-container`,
+                      layout: O,
+                      nodeId: `txRTi7pQx`,
+                      scopeId: `augiA20Il`,
+                      children: _(L, {
+                        breakpoint: x,
+                        overrides: {
+                          sugBnXNGk: { variant: $(`NdgSR6koA`) },
+                          UBAPecy2c: { variant: $(`Dj9ZvSWYd`) },
+                        },
+                        children: _(_t, {
+                          height: `100%`,
+                          id: `txRTi7pQx`,
+                          layoutId: `txRTi7pQx`,
+                          style: { maxWidth: `100%`, width: `100%` },
+                          variant: $(`sWMnULXlm`),
+                          width: `100%`,
+                        }),
+                      }),
+                    }),
+                  }),
+                  null,
+                  _(J, {
+                    height: 610,
+                    width: `min(${d?.width || `100vw`}, 1920px)`,
+                    children: _(Y, {
+                      className: `framer-8gnqj7-container`,
+                      layout: O,
+                      nodeId: `k2YzlwiUN`,
+                      scopeId: `augiA20Il`,
+                      children: _(L, {
+                        breakpoint: x,
+                        overrides: {
+                          sugBnXNGk: { variant: $(`N8XCbPY5h`) },
+                          UBAPecy2c: { variant: $(`uNflzTTxH`) },
+                        },
+                        children: _(tt, {
+                          height: `100%`,
+                          id: `k2YzlwiUN`,
+                          layoutId: `k2YzlwiUN`,
+                          style: { maxWidth: `100%`, width: `100%` },
+                          variant: $(`oytyAPKFI`),
+                          width: `100%`,
+                        }),
+                      }),
+                    }),
+                  }),
+                  _(J, {
+                    height: 1116,
+                    width: `min(${d?.width || `100vw`}, 1920px)`,
+                    children: _(Y, {
+                      className: `framer-mowyqc-container`,
+                      layout: O,
+                      nodeId: `zdLx3eEPK`,
+                      scopeId: `augiA20Il`,
+                      children: _(L, {
+                        breakpoint: x,
+                        overrides: {
+                          sugBnXNGk: { variant: $(`DkWsCcZ9t`) },
+                          UBAPecy2c: { variant: $(`DwFLM2ARz`) },
+                        },
+                        children: _(ot, {
+                          height: `100%`,
+                          id: `zdLx3eEPK`,
+                          layoutId: `zdLx3eEPK`,
+                          style: { maxWidth: `100%`, width: `100%` },
+                          variant: $(`T8lkxrSH0`),
+                          width: `100%`,
+                        }),
+                      }),
+                    }),
+                  }),
+                  _(J, {
+                    height: 603,
+                    width: `min(${d?.width || `100vw`}, 1920px)`,
+                    children: _(Y, {
+                      className: `framer-1rzycva-container`,
+                      layout: O,
+                      nodeId: `CxmQCYhQ4`,
+                      scopeId: `augiA20Il`,
+                      children: _(L, {
+                        breakpoint: x,
+                        overrides: {
+                          sugBnXNGk: { variant: $(`oQdfk8D5k`) },
+                          UBAPecy2c: { variant: $(`MuB0800uE`) },
+                        },
+                        children: _(Ye, {
+                          height: `100%`,
+                          id: `CxmQCYhQ4`,
+                          layoutId: `CxmQCYhQ4`,
+                          style: { maxWidth: `100%`, width: `100%` },
+                          variant: $(`R77BvqNVt`),
+                          width: `100%`,
+                        }),
+                      }),
+                    }),
+                  }),
+                  _(J, {
+                    children: _(Y, {
+                      className: `framer-1ba1t0k-container`,
+                      isAuthoredByUser: !0,
+                      isModuleExternal: !0,
+                      layout: O,
+                      nodeId: `DdnbyoogS`,
+                      scopeId: `augiA20Il`,
+                      children: _(Fe, {
+                        height: `100%`,
+                        id: `DdnbyoogS`,
+                        intensity: 15,
+                        layoutId: `DdnbyoogS`,
+                        width: `100%`,
+                      }),
+                    }),
+                  }),
+                  _(ko, {
+                    blockDocumentScrolling: !1,
+                    dismissWithEsc: !1,
+                    children: (e) =>
+                      _(p, {
+                        children: _(J, {
+                          height: 110,
+                          y: 829,
+                          children: y(La, {
+                            __perspectiveFX: !1,
+                            __targetOpacity: 1,
+                            className: `framer-5h7nbp-container`,
+                            id: `5h7nbp`,
+                            isModuleExternal: !0,
+                            layout: O,
+                            layoutScroll: !0,
+                            nodeId: `Z3zJx0uj7`,
+                            ref: se,
+                            rendersWithMotion: !0,
+                            scopeId: `augiA20Il`,
+                            children: [
+                              _(Zn, {
+                                e_PhRTgWu: w({ overlay: e }),
+                                height: `100%`,
+                                id: `Z3zJx0uj7`,
+                                layoutId: `Z3zJx0uj7`,
+                                us9R2YTHv: `https://www.framer.com/@nframe/?tab=marketplace`,
+                                width: `100%`,
+                              }),
+                              _(te, {
+                                children:
+                                  e.visible &&
+                                  _(_e, {
+                                    alignment: `center`,
+                                    anchorRef: se,
+                                    className: M(T),
+                                    collisionDetection: !0,
+                                    collisionDetectionPadding: 20,
+                                    "data-framer-portal-id": `5h7nbp`,
+                                    offsetX: 0,
+                                    offsetY: -10,
+                                    onDismiss: e.hide,
+                                    placement: `top`,
+                                    safeArea: !0,
+                                    zIndex: 11,
+                                    children: _(E.div, {
+                                      animate: Do,
+                                      className: `framer-i1lcto`,
+                                      exit: Eo,
+                                      initial: Oo,
+                                      ref: N,
+                                      role: `dialog`,
+                                      children: _(E.div, {
+                                        className: `framer-j3t35j`,
+                                        "data-border": !0,
+                                        "data-framer-name": `Hover Card`,
+                                        children: _(E.div, {
+                                          className: `framer-4jkalf`,
+                                          "data-framer-name": `Heading`,
+                                          children: _(I, {
+                                            __fromCanvasComponent: !0,
+                                            children: _(a, {
+                                              children: _(`p`, {
+                                                style: {
+                                                  "--font-selector": `RlI7SW50ZXJEaXNwbGF5LUJvbGQ=`,
+                                                  "--framer-font-family": `"Inter Display", "Inter Display Placeholder", sans-serif`,
+                                                  "--framer-font-size": `11.5px`,
+                                                  "--framer-font-weight": `700`,
+                                                  "--framer-line-height": `1em`,
+                                                  "--framer-text-color": `rgb(255, 255, 255)`,
+                                                },
+                                                children: `CLICK TO PREVIEW`,
+                                              }),
+                                            }),
+                                            className: `framer-o0uz45`,
+                                            "data-framer-name": `Text`,
+                                            fonts: [`FR;InterDisplay-Bold`],
+                                            verticalAlignment: `center`,
+                                            withExternalLayout: !0,
+                                          }),
+                                        }),
+                                      }),
+                                    }),
+                                  }),
+                              }),
+                            ],
+                          }),
+                        }),
+                      }),
+                  }),
+                ],
+              }),
+              _(`div`, { id: `overlay` }),
+            ],
+          }),
+        }));
+      }),
+      [
+        `@supports (aspect-ratio: 1) { body { --framer-aspect-ratio-supported: auto; } }`,
+        `.framer-Gw3Ml.framer-lux5qc, .framer-Gw3Ml .framer-lux5qc { display: block; }`,
+        `.framer-Gw3Ml.framer-72rtr7 { align-content: center; align-items: center; display: flex; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 1440px; }`,
+        `.framer-Gw3Ml .framer-32hs07 { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; max-width: 1920px; overflow: hidden; padding: 64px 72px 0px 72px; position: relative; width: 100%; z-index: 2; }`,
+        `.framer-Gw3Ml .framer-x9b4ny { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 209px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-1jfj32j { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-ggctko { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: none; height: auto; position: relative; white-space: pre-wrap; width: 100%; will-change: var(--framer-will-change-effect-override, transform); word-break: break-word; word-wrap: break-word; }`,
+        `.framer-Gw3Ml .framer-bk9237 { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-yp4aqy { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: 1 0 0px; height: auto; position: relative; white-space: pre-wrap; width: 1px; will-change: var(--framer-will-change-effect-override, transform); word-break: break-word; word-wrap: break-word; }`,
+        `.framer-Gw3Ml .framer-1x0ust { align-content: flex-start; align-items: flex-start; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 48px; height: min-content; justify-content: flex-start; max-width: 416px; overflow: hidden; padding: 40px 0px 0px 0px; position: relative; width: 1px; will-change: var(--framer-will-change-effect-override, transform); }`,
+        `.framer-Gw3Ml .framer-14iof0f { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: min-content; }`,
+        `.framer-Gw3Ml .framer-6xf3is { flex: none; height: 59px; overflow: hidden; position: relative; width: 86px; will-change: var(--framer-will-change-filter-override, filter); }`,
+        `.framer-Gw3Ml .framer-tai1f9 { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 20px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-im8xw, .framer-Gw3Ml .framer-hw9a8t, .framer-Gw3Ml .framer-1hi2u6j, .framer-Gw3Ml .framer-u8optx, .framer-Gw3Ml .framer-120luky, .framer-Gw3Ml .framer-eslbh1, .framer-Gw3Ml .framer-ot5940 { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: none; height: auto; position: relative; white-space: pre-wrap; width: 100%; word-break: break-word; word-wrap: break-word; }`,
+        `.framer-Gw3Ml .framer-lift1i { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 60px; height: min-content; justify-content: center; left: 46%; min-height: 344px; min-width: 344px; overflow: hidden; padding: 0px; position: absolute; top: 50%; transform: translate(-50%, -50%); width: min-content; z-index: 2; }`,
+        `.framer-Gw3Ml .framer-bg4vup { flex: none; height: 322px; left: 11px; overflow: hidden; position: absolute; top: 13px; width: 322px; will-change: var(--framer-will-change-filter-override, filter); z-index: 1; }`,
+        `.framer-Gw3Ml .framer-qw3wof { -webkit-backdrop-filter: blur(36px); backdrop-filter: blur(36px); background-color: var(--token-07825af0-885c-4b8f-9b01-29c015ddd469, rgba(255, 255, 255, 0.12)); border-bottom-left-radius: 100%; border-bottom-right-radius: 100%; border-top-left-radius: 100%; border-top-right-radius: 100%; bottom: 0px; flex: none; position: absolute; right: 0px; top: 0px; width: 344px; z-index: -1; }`,
+        `.framer-Gw3Ml .framer-13zag25 { align-content: flex-start; align-items: flex-start; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; border-top-left-radius: 20px; border-top-right-radius: 20px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: 610px; justify-content: center; overflow: hidden; padding: 0px; position: relative; scroll-margin-top: 1px; width: 100%; will-change: var(--framer-will-change-effect-override, transform); z-index: 1; }`,
+        `.framer-Gw3Ml .framer-1m8godw { align-content: center; align-items: center; display: flex; flex: 1 0 0px; flex-direction: row; flex-wrap: nowrap; gap: 10px; height: 100%; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 1px; z-index: 1; }`,
+        `.framer-Gw3Ml .framer-1w33l1k { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: 100%; justify-content: center; overflow: visible; padding: 0px; position: relative; width: 100%; z-index: 1; }`,
+        `.framer-Gw3Ml .framer-1vykq4p-container, .framer-Gw3Ml .framer-1kknwoe-container, .framer-Gw3Ml .framer-wjfetz-container, .framer-Gw3Ml .framer-8gnqj7-container, .framer-Gw3Ml .framer-mowyqc-container { flex: none; height: auto; max-width: 1920px; position: relative; width: 100%; z-index: 2; }`,
+        `.framer-Gw3Ml .framer-r0my2z { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; max-width: 1920px; overflow: hidden; padding: 120px 72px 120px 72px; position: relative; width: 100%; z-index: 2; }`,
+        `.framer-Gw3Ml .framer-p1a3fa { align-content: center; align-items: center; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 96px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-12mqmrv-container, .framer-Gw3Ml .framer-f1c83-container, .framer-Gw3Ml .framer-v1n13o-container, .framer-Gw3Ml .framer-dizcvh-container, .framer-Gw3Ml .framer-1mws1ns-container, .framer-Gw3Ml .framer-nu6yg0-container, .framer-Gw3Ml .framer-1ljec5m-container, .framer-Gw3Ml .framer-bn8yop-container, .framer-Gw3Ml .framer-1p1whpp-container, .framer-Gw3Ml .framer-1h6djpv-container, .framer-Gw3Ml .framer-qs5jj9-container, .framer-Gw3Ml .framer-1vea6zj-container, .framer-Gw3Ml .framer-cdp9e1-container, .framer-Gw3Ml .framer-sqtfnn-container, .framer-Gw3Ml .framer-1jueym3-container, .framer-Gw3Ml .framer-dgh3z0-container { flex: none; height: auto; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-1smi84w-container { flex: none; height: auto; max-width: 1920px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-irdoz6 { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; max-width: 1920px; overflow: hidden; padding: 0px 72px 0px 72px; position: relative; width: 100%; z-index: 2; }`,
+        `.framer-Gw3Ml .framer-1996b2y { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 96px; height: min-content; justify-content: center; overflow: hidden; padding: 0px 0px 120px 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-1jl4fbh { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; max-width: 392px; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-c1li06 { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 96px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-61rju8, .framer-Gw3Ml .framer-1x1ka0n { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; height: min-content; justify-content: space-between; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-guhrrv { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 50%; }`,
+        `.framer-Gw3Ml .framer-1ma7rug, .framer-Gw3Ml .framer-1n0vgrj, .framer-Gw3Ml .framer-wlg593 { align-content: flex-start; align-items: flex-start; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; padding: 0px; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-65d4cb, .framer-Gw3Ml .framer-ig5bx0, .framer-Gw3Ml .framer-19g4lqt, .framer-Gw3Ml .framer-4d6cj7, .framer-Gw3Ml .framer-11u144p, .framer-Gw3Ml .framer-gwdpuf, .framer-Gw3Ml .framer-14o163q { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; padding: 0px; position: relative; text-decoration: none; width: 100%; }`,
+        `.framer-Gw3Ml .framer-15ds1m1-container, .framer-Gw3Ml .framer-lnh6ph-container, .framer-Gw3Ml .framer-be9bgn-container { flex: 1 0 0px; height: auto; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-34m7w7 { align-content: flex-end; align-items: flex-end; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 24%; }`,
+        `.framer-Gw3Ml .framer-5jl52w { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-imgqmq-container, .framer-Gw3Ml .framer-15ca3jc-container { flex: 1 0 0px; height: 424px; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-1bdmyji { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-end; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-112lv0c, .framer-Gw3Ml .framer-1mmsvze { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; padding: 0px; position: relative; width: 75%; }`,
+        `.framer-Gw3Ml .framer-1rgd8n1-container, .framer-Gw3Ml .framer-58e29n-container { flex: 1 0 0px; height: 847px; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-448nku, .framer-Gw3Ml .framer-r0gejm { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-izbnm0 { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; padding: 0px; position: relative; width: 49%; }`,
+        `.framer-Gw3Ml .framer-1ykijiq { align-content: flex-end; align-items: flex-end; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 24%; }`,
+        `.framer-Gw3Ml .framer-17cl0yt { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 49%; }`,
+        `.framer-Gw3Ml .framer-1uupxxr { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-y33eap-container { flex: none; height: auto; position: relative; width: 306px; }`,
+        `.framer-Gw3Ml .framer-1pwcsen, .framer-Gw3Ml .framer-iu37fo, .framer-Gw3Ml .framer-pcmrsu { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; max-width: 1920px; overflow: hidden; padding: 0px 72px 120px 72px; position: relative; width: 100%; z-index: 2; }`,
+        `.framer-Gw3Ml .framer-1b529fd { align-content: flex-start; align-items: flex-start; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 120px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-awbma9 { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 227px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 72px 0px 0px 0px; position: relative; width: 100%; z-index: 0; }`,
+        `.framer-Gw3Ml .framer-8avvy7 { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 96px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; z-index: 1; }`,
+        `.framer-Gw3Ml .framer-15vlh4u { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 40px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-14mhs0e { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: none; height: auto; max-width: 875px; position: relative; white-space: pre-wrap; width: 100%; word-break: break-word; word-wrap: break-word; }`,
+        `.framer-Gw3Ml .framer-1urdknh { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: wrap; gap: 10px 10px; height: min-content; justify-content: flex-start; max-width: 525px; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-14rb5v6-container, .framer-Gw3Ml .framer-1542hyb-container, .framer-Gw3Ml .framer-ik2pzg-container, .framer-Gw3Ml .framer-1i8rsr0-container, .framer-Gw3Ml .framer-17cqcoa-container, .framer-Gw3Ml .framer-8ahafg-container, .framer-Gw3Ml .framer-o7qrbf-container, .framer-Gw3Ml .framer-8jyt7t-container, .framer-Gw3Ml .framer-497eb2-container { flex: none; height: auto; position: relative; width: auto; }`,
+        `.framer-Gw3Ml .framer-s2bml4 { flex: none; height: 86px; overflow: hidden; position: relative; width: 86px; will-change: var(--framer-will-change-filter-override, filter); }`,
+        `.framer-Gw3Ml .framer-burvho { align-content: flex-end; align-items: flex-end; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 32px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; z-index: 1; }`,
+        `.framer-Gw3Ml .framer-gsltxu { align-content: flex-end; align-items: flex-end; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; height: min-content; justify-content: space-between; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-1qjvvap { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: 1 0 0px; height: auto; max-width: 525px; position: relative; white-space: pre-wrap; width: 1px; word-break: break-word; word-wrap: break-word; }`,
+        `.framer-Gw3Ml .framer-ff9rs { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: 1 0 0px; height: auto; max-width: 416px; position: relative; white-space: pre-wrap; width: 1px; word-break: break-word; word-wrap: break-word; }`,
+        `.framer-Gw3Ml .framer-t64nvv { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; left: 0px; overflow: hidden; padding: 0px; position: absolute; right: 0px; top: -10px; }`,
+        `.framer-Gw3Ml .framer-1o2nni6 { aspect-ratio: 1.1279373368146215 / 1; flex: none; height: var(--framer-aspect-ratio-supported, 1149px); overflow: hidden; position: relative; width: 1296px; will-change: var(--framer-will-change-filter-override, filter); z-index: 0; }`,
+        `.framer-Gw3Ml .framer-1l1y4uy { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 160px; height: min-content; justify-content: center; max-width: 1920px; overflow: hidden; padding: 0px 72px 0px 72px; position: relative; width: 100%; z-index: 2; }`,
+        `.framer-Gw3Ml .framer-1b8u07s { display: grid; flex: none; gap: 24px; grid-auto-rows: minmax(0, 1fr); grid-template-columns: repeat(3, minmax(50px, 1fr)); grid-template-rows: repeat(1, minmax(0, 1fr)); height: min-content; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-1u6kk32, .framer-Gw3Ml .framer-44vkop, .framer-Gw3Ml .framer-17dlb2q { align-content: flex-start; align-items: flex-start; align-self: start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; height: 220px; justify-content: space-between; justify-self: start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-rhhoer, .framer-Gw3Ml .framer-1v9jraj, .framer-Gw3Ml .framer-1c984dy { --border-bottom-width: 0px; --border-color: var(--token-f393e2de-0073-4f27-a761-6dc00da1d9f2, #494949); --border-left-width: 0px; --border-right-width: 0px; --border-style: solid; --border-top-width: 1px; align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; height: min-content; justify-content: space-between; overflow: hidden; padding: 20px 0px 0px 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-1tyy0a4, .framer-Gw3Ml .framer-1l01bed, .framer-Gw3Ml .framer-s6oirf, .framer-Gw3Ml .framer-1prvhm8, .framer-Gw3Ml .framer-19wpvt8, .framer-Gw3Ml .framer-yor2nc { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: 1 0 0px; height: auto; position: relative; white-space: pre-wrap; width: 1px; word-break: break-word; word-wrap: break-word; }`,
+        `.framer-Gw3Ml .framer-o47gts { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; max-width: 1920px; overflow: hidden; padding: 160px 72px 120px 72px; position: relative; width: 100%; z-index: 2; }`,
+        `.framer-Gw3Ml .framer-w7jekq, .framer-Gw3Ml .framer-3imp8q { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 96px; height: min-content; justify-content: flex-start; overflow: visible; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-1b2n3ko { align-content: center; align-items: center; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 120px; height: min-content; justify-content: flex-start; overflow: visible; padding: 0px; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-fwjcwp { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 96px; height: min-content; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-12ecoke, .framer-Gw3Ml .framer-1ke3y9b { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: none; height: auto; max-width: 636px; position: relative; white-space: pre-wrap; width: 100%; word-break: break-word; word-wrap: break-word; }`,
+        `.framer-Gw3Ml .framer-1gpsboq { align-content: center; align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: flex-start; overflow: visible; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-1d9hg23-container, .framer-Gw3Ml .framer-us4qrw-container, .framer-Gw3Ml .framer-1xsnhxo-container, .framer-Gw3Ml .framer-1h6aljc-container, .framer-Gw3Ml .framer-1gjlvuy-container { flex: none; height: 96px; max-width: 1296px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-64okb9 { align-content: center; align-items: center; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 120px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-8322kp { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-3dxlmx, .framer-Gw3Ml .framer-1agib30, .framer-Gw3Ml .framer-6tslet { align-content: flex-start; align-items: flex-start; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 64px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 1px; }`,
+        `.framer-Gw3Ml .framer-xqkq3d, .framer-Gw3Ml .framer-1lra03e, .framer-Gw3Ml .framer-1c301nj { align-content: flex-start; align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 32px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: 100%; }`,
+        `.framer-Gw3Ml .framer-lnxjxj, .framer-Gw3Ml .framer-o0uz45 { --framer-link-text-color: #0099ff; --framer-link-text-decoration: underline; flex: none; height: auto; position: relative; white-space: pre; width: auto; }`,
+        `.framer-Gw3Ml .framer-1rzycva-container { flex: none; height: auto; max-width: 1920px; position: relative; width: 100%; z-index: 1; }`,
+        `.framer-Gw3Ml .framer-1ba1t0k-container { flex: none; height: auto; position: relative; width: auto; z-index: 0; }`,
+        `.framer-Gw3Ml .framer-5h7nbp-container { bottom: 61px; cursor: pointer; flex: none; height: auto; position: fixed; right: 20px; width: auto; z-index: 10; }`,
+        `.framer-Gw3Ml .framer-i1lcto { align-content: center; align-items: center; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; flex-wrap: nowrap; gap: 10px; height: min-content; justify-content: center; overflow: hidden; padding: 0px; position: relative; width: min-content; will-change: var(--framer-will-change-effect-override, transform); }`,
+        `.framer-Gw3Ml .framer-j3t35j { --border-bottom-width: 1px; --border-color: rgba(255, 255, 255, 0.07); --border-left-width: 1px; --border-right-width: 1px; --border-style: solid; --border-top-width: 1px; align-content: flex-start; align-items: flex-start; background-color: #0a0a0a; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 14px; height: min-content; justify-content: center; overflow: hidden; padding: 10px; position: relative; width: min-content; will-change: var(--framer-will-change-override, transform); z-index: 1; }`,
+        `.framer-Gw3Ml .framer-4jkalf { align-content: center; align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 10px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 0px; position: relative; width: min-content; }`,
+        ...kt,
+        ...ke,
+        ...Ae,
+        ...Je,
+        ...Ct,
+        ...Re,
+        ...He,
+        `.framer-Gw3Ml[data-border="true"]::after, .framer-Gw3Ml [data-border="true"]::after { content: ""; border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0); border-color: var(--border-color, none); border-style: var(--border-style, none); width: 100%; height: 100%; position: absolute; box-sizing: border-box; left: 0; top: 0; border-radius: inherit; corner-shape: inherit; pointer-events: none; }`,
+        `@media (min-width: 810px) and (max-width: 1439.98px) { .framer-Gw3Ml.framer-72rtr7 { width: 810px; } .framer-Gw3Ml .framer-32hs07 { padding: 64px 40px 0px 40px; } .framer-Gw3Ml .framer-bk9237 { flex-direction: column; } .framer-Gw3Ml .framer-yp4aqy, .framer-Gw3Ml .framer-1qjvvap, .framer-Gw3Ml .framer-ff9rs { flex: none; width: 100%; } .framer-Gw3Ml .framer-1x0ust { flex: none; padding: 60px 0px 0px 0px; width: 100%; } .framer-Gw3Ml .framer-lift1i { left: 41%; top: 65%; } .framer-Gw3Ml .framer-bg4vup { height: 220px; left: 109px; top: 15px; width: 220px; } .framer-Gw3Ml .framer-qw3wof { bottom: 94px; width: 250px; } .framer-Gw3Ml .framer-13zag25 { height: 510px; } .framer-Gw3Ml .framer-r0my2z { padding: 120px 40px 120px 40px; } .framer-Gw3Ml .framer-p1a3fa { gap: 50px; } .framer-Gw3Ml .framer-irdoz6 { padding: 0px 40px 0px 40px; } .framer-Gw3Ml .framer-61rju8, .framer-Gw3Ml .framer-1x1ka0n { flex-direction: column; gap: 30px; justify-content: flex-start; } .framer-Gw3Ml .framer-guhrrv, .framer-Gw3Ml .framer-34m7w7, .framer-Gw3Ml .framer-1ykijiq, .framer-Gw3Ml .framer-17cl0yt { width: 100%; } .framer-Gw3Ml .framer-15ds1m1-container, .framer-Gw3Ml .framer-imgqmq-container, .framer-Gw3Ml .framer-1rgd8n1-container, .framer-Gw3Ml .framer-lnh6ph-container, .framer-Gw3Ml .framer-15ca3jc-container, .framer-Gw3Ml .framer-be9bgn-container, .framer-Gw3Ml .framer-58e29n-container { height: 598px; } .framer-Gw3Ml .framer-112lv0c, .framer-Gw3Ml .framer-izbnm0, .framer-Gw3Ml .framer-1mmsvze { flex: 1 0 0px; width: 1px; } .framer-Gw3Ml .framer-1pwcsen, .framer-Gw3Ml .framer-iu37fo, .framer-Gw3Ml .framer-pcmrsu { padding: 0px 40px 120px 40px; } .framer-Gw3Ml .framer-awbma9 { gap: 24px; } .framer-Gw3Ml .framer-gsltxu { align-content: flex-start; align-items: flex-start; flex-direction: column; gap: 24px; justify-content: flex-start; } .framer-Gw3Ml .framer-1l1y4uy { gap: 80px; padding: 0px 40px 0px 40px; } .framer-Gw3Ml .framer-1b8u07s { gap: 48px 24px; grid-template-columns: repeat(2, minmax(50px, 1fr)); } .framer-Gw3Ml .framer-17dlb2q { grid-column: span 2; } .framer-Gw3Ml .framer-o47gts { padding: 160px 40px 120px 40px; }}`,
+        `@media (max-width: 809.98px) { .framer-Gw3Ml.framer-72rtr7 { width: 390px; } .framer-Gw3Ml .framer-32hs07 { padding: 64px 20px 0px 20px; } .framer-Gw3Ml .framer-x9b4ny { gap: 139px; } .framer-Gw3Ml .framer-bk9237 { flex-direction: column; } .framer-Gw3Ml .framer-yp4aqy, .framer-Gw3Ml .framer-1b529fd, .framer-Gw3Ml .framer-1qjvvap, .framer-Gw3Ml .framer-ff9rs, .framer-Gw3Ml .framer-1b2n3ko, .framer-Gw3Ml .framer-64okb9 { flex: none; width: 100%; } .framer-Gw3Ml .framer-1x0ust { flex: none; padding: 60px 0px 0px 0px; width: 100%; } .framer-Gw3Ml .framer-lift1i { left: 50%; top: 71%; } .framer-Gw3Ml .framer-bg4vup { height: 150px; left: 97px; top: 56px; width: 150px; } .framer-Gw3Ml .framer-qw3wof { bottom: unset; height: 170px; left: calc(50.00000000000002% - 170px / 2); right: unset; top: 44px; width: 170px; } .framer-Gw3Ml .framer-13zag25 { height: 300px; } .framer-Gw3Ml .framer-r0my2z { flex-direction: column; padding: 0px 20px 100px 20px; } .framer-Gw3Ml .framer-p1a3fa { flex: none; gap: 0px; width: 100%; } .framer-Gw3Ml .framer-irdoz6 { padding: 0px 20px 0px 20px; } .framer-Gw3Ml .framer-c1li06 { gap: 100px; } .framer-Gw3Ml .framer-61rju8, .framer-Gw3Ml .framer-1x1ka0n { flex-direction: column; gap: 100px; justify-content: flex-start; } .framer-Gw3Ml .framer-guhrrv, .framer-Gw3Ml .framer-34m7w7, .framer-Gw3Ml .framer-1ykijiq, .framer-Gw3Ml .framer-17cl0yt { width: 100%; } .framer-Gw3Ml .framer-15ds1m1-container, .framer-Gw3Ml .framer-imgqmq-container, .framer-Gw3Ml .framer-1rgd8n1-container, .framer-Gw3Ml .framer-lnh6ph-container, .framer-Gw3Ml .framer-15ca3jc-container, .framer-Gw3Ml .framer-be9bgn-container, .framer-Gw3Ml .framer-58e29n-container { height: 398px; } .framer-Gw3Ml .framer-112lv0c, .framer-Gw3Ml .framer-izbnm0, .framer-Gw3Ml .framer-1mmsvze { flex: 1 0 0px; width: 1px; } .framer-Gw3Ml .framer-1pwcsen, .framer-Gw3Ml .framer-iu37fo, .framer-Gw3Ml .framer-pcmrsu { flex-direction: column; padding: 0px 20px 120px 20px; } .framer-Gw3Ml .framer-awbma9 { gap: 24px; } .framer-Gw3Ml .framer-burvho { gap: 0px; } .framer-Gw3Ml .framer-gsltxu { align-content: flex-start; align-items: flex-start; flex-direction: column; gap: 24px; justify-content: flex-start; } .framer-Gw3Ml .framer-t64nvv { min-height: 1149px; } .framer-Gw3Ml .framer-1l1y4uy { gap: 80px; padding: 0px 20px 0px 20px; } .framer-Gw3Ml .framer-1b8u07s { align-content: flex-start; align-items: flex-start; display: flex; flex-direction: column; flex-wrap: nowrap; gap: 48px; justify-content: flex-start; } .framer-Gw3Ml .framer-1u6kk32, .framer-Gw3Ml .framer-44vkop, .framer-Gw3Ml .framer-17dlb2q { align-self: unset; } .framer-Gw3Ml .framer-o47gts { padding: 160px 20px 120px 20px; } .framer-Gw3Ml .framer-1d9hg23-container, .framer-Gw3Ml .framer-us4qrw-container, .framer-Gw3Ml .framer-1xsnhxo-container, .framer-Gw3Ml .framer-1h6aljc-container, .framer-Gw3Ml .framer-1gjlvuy-container { height: auto; max-width: unset; } .framer-Gw3Ml .framer-8322kp { flex-direction: column; gap: 64px; } .framer-Gw3Ml .framer-3dxlmx, .framer-Gw3Ml .framer-1agib30, .framer-Gw3Ml .framer-6tslet { flex: none; gap: 24px; width: 100%; }}`,
+      ],
+      `framer-Gw3Ml`,
+    )),
+    (Fo = Po),
+    (Po.displayName = `Home`),
+    (Po.defaultProps = { height: 18504, width: 1440 }),
+    he(
+      Po,
+      [
+        {
+          explicitInter: !0,
+          fonts: [
+            {
+              cssFamilyName: `Inter`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter`,
+              unicodeRange: `U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F`,
+              url: `https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2`,
+              weight: `400`,
+            },
+            {
+              cssFamilyName: `Inter`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter`,
+              unicodeRange: `U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116`,
+              url: `https://framerusercontent.com/assets/EOr0mi4hNtlgWNn9if640EZzXCo.woff2`,
+              weight: `400`,
+            },
+            {
+              cssFamilyName: `Inter`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter`,
+              unicodeRange: `U+1F00-1FFF`,
+              url: `https://framerusercontent.com/assets/Y9k9QrlZAqio88Klkmbd8VoMQc.woff2`,
+              weight: `400`,
+            },
+            {
+              cssFamilyName: `Inter`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter`,
+              unicodeRange: `U+0370-03FF`,
+              url: `https://framerusercontent.com/assets/OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2`,
+              weight: `400`,
+            },
+            {
+              cssFamilyName: `Inter`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter`,
+              unicodeRange: `U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF`,
+              url: `https://framerusercontent.com/assets/JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2`,
+              weight: `400`,
+            },
+            {
+              cssFamilyName: `Inter`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter`,
+              unicodeRange: `U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2070, U+2074-207E, U+2080-208E, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD`,
+              url: `https://framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2`,
+              weight: `400`,
+            },
+            {
+              cssFamilyName: `Inter`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter`,
+              unicodeRange: `U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB`,
+              url: `https://framerusercontent.com/assets/b6Y37FthZeALduNqHicBT6FutY.woff2`,
+              weight: `400`,
+            },
+            {
+              cssFamilyName: `Clash Display`,
+              source: `fontshare`,
+              style: `normal`,
+              uiFamilyName: `Clash Display`,
+              url: `https://framerusercontent.com/third-party-assets/fontshare/wf/FPDAZ2S6SW4QMSRIIKNNGTPM6VIXYMKO/5HNPQ453FRLIQWV2FNOBUU3FKTDZQVSG/Z3MGHFHX6DCTLQ55LJYRJ5MDCZPMFZU6.woff2`,
+              weight: `600`,
+            },
+            {
+              cssFamilyName: `Inter Display`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter Display`,
+              unicodeRange: `U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F`,
+              url: `https://framerusercontent.com/assets/I11LrmuBDQZweplJ62KkVsklU5Y.woff2`,
+              weight: `700`,
+            },
+            {
+              cssFamilyName: `Inter Display`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter Display`,
+              unicodeRange: `U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116`,
+              url: `https://framerusercontent.com/assets/UjFZPDy3qGuDktQM4q9CxhKfIa8.woff2`,
+              weight: `700`,
+            },
+            {
+              cssFamilyName: `Inter Display`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter Display`,
+              unicodeRange: `U+1F00-1FFF`,
+              url: `https://framerusercontent.com/assets/8exwVHJy2DhJ4N5prYlVMrEKmQ.woff2`,
+              weight: `700`,
+            },
+            {
+              cssFamilyName: `Inter Display`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter Display`,
+              unicodeRange: `U+0370-03FF`,
+              url: `https://framerusercontent.com/assets/UTeedEK21hO5jDxEUldzdScUqpg.woff2`,
+              weight: `700`,
+            },
+            {
+              cssFamilyName: `Inter Display`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter Display`,
+              unicodeRange: `U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF`,
+              url: `https://framerusercontent.com/assets/Ig8B8nzy11hzIWEIYnkg91sofjo.woff2`,
+              weight: `700`,
+            },
+            {
+              cssFamilyName: `Inter Display`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter Display`,
+              unicodeRange: `U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2070, U+2074-207E, U+2080-208E, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD`,
+              url: `https://framerusercontent.com/assets/qITWJ2WdG0wrgQPDb8lvnYnTXDg.woff2`,
+              weight: `700`,
+            },
+            {
+              cssFamilyName: `Inter Display`,
+              source: `framer`,
+              style: `normal`,
+              uiFamilyName: `Inter Display`,
+              unicodeRange: `U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB`,
+              url: `https://framerusercontent.com/assets/qctQFoJqJ9aIbRSIp0AhCQpFxn8.woff2`,
+              weight: `700`,
+            },
+          ],
+        },
+        ...ya,
+        ...ba,
+        ...xa,
+        ...Sa,
+        ...Ca,
+        ...wa,
+        ...Ta,
+        ...Ea,
+        ...Da,
+        ...Oa,
+        ...ka,
+        ...Aa,
+        ...ja,
+        ...Ma,
+        ...Na,
+        ...Pa,
+        ...Fa,
+        ...Ia,
+        ...Ra,
+        ...z(At),
+        ...z(X),
+        ...z(Ee),
+        ...z(qe),
+        ...z(wt),
+        ...z(ze),
+        ...z(Ve),
+      ],
+      { supportsExplicitInterCodegen: !0 },
+    ),
+    (Po.loader = {
+      load: (e, t) => {
+        let n = t.locale,
+          r = K.get(eo(), n),
+          i = K.get(no(), n),
+          a = K.get(io(), n),
+          o = K.get(oo(), n),
+          s = K.get(co(), n),
+          c = K.get(uo(), n),
+          l = K.get(po(), n);
+        return Promise.allSettled([
+          r.preload(),
+          i.preload(),
+          a.preload(),
+          o.preload(),
+          s.preload(),
+          c.preload(),
+          l.preload(),
+          P(ei, {}, t),
+          P(lt, {}, t),
+          P(fa, {}, t),
+          P(ji, {}, t),
+          P(Ke, {}, t),
+          P(Ie, {}, t),
+          P($i, {}, t),
+          P(vr, {}, t),
+          P(Vi, {}, t),
+          P(_t, {}, t),
+          P(nt, {}, t),
+          P(tt, {}, t),
+          P(ot, {}, t),
+          P(Ye, {}, t),
+          P(Zn, {}, t),
+          (async () => {
+            let e = (await r.readMaybeAsync()) ?? [];
+            return Promise.allSettled(e.flatMap((e) => P(Z, {}, t)));
+          })(),
+          (async () => {
+            let e = (await i.readMaybeAsync()) ?? [];
+            return Promise.allSettled(e.flatMap((e) => P(Z, {}, t)));
+          })(),
+          (async () => {
+            let e = (await a.readMaybeAsync()) ?? [];
+            return Promise.allSettled(e.flatMap((e) => P(Z, {}, t)));
+          })(),
+          (async () => {
+            let e = (await o.readMaybeAsync()) ?? [];
+            return Promise.allSettled(e.flatMap((e) => P(Z, {}, t)));
+          })(),
+          (async () => {
+            let e = (await s.readMaybeAsync()) ?? [];
+            return Promise.allSettled(e.flatMap((e) => P(Z, {}, t)));
+          })(),
+          (async () => {
+            let e = (await c.readMaybeAsync()) ?? [];
+            return Promise.allSettled(e.flatMap((e) => P(Z, {}, t)));
+          })(),
+          (async () => {
+            let e = (await l.readMaybeAsync()) ?? [];
+            return Promise.allSettled(e.flatMap((e) => P(Z, {}, t)));
+          })(),
+        ]);
+      },
+    }),
+    (Io = {
+      exports: {
+        default: {
+          type: `reactComponent`,
+          name: `FrameraugiA20Il`,
+          slots: [],
+          annotations: {
+            framerAcceptsLayoutTemplate: `true`,
+            framerImmutableVariables: `true`,
+            framerComponentViewportWidth: `true`,
+            framerDisplayContentsDiv: `false`,
+            framerLayoutTemplateFlowEffect: `true`,
+            framerContractVersion: `1`,
+            framerColorSyntax: `true`,
+            framerResponsiveScreen: `true`,
+            framerScrollSections: `{"NPY09YXqo":{"pattern":":NPY09YXqo","name":"hero"},"e1U7afjw5":{"pattern":":e1U7afjw5","name":"image-1"}}`,
+            framerAutoSizeImages: `true`,
+            framerIntrinsicWidth: `1440`,
+            framerIntrinsicHeight: `18504`,
+            framerCanvasComponentVariantDetails: `{"propertyName":"variant","data":{"default":{"layout":["fixed","auto"]},"sugBnXNGk":{"layout":["fixed","auto"]},"UBAPecy2c":{"layout":["fixed","auto"]}}}`,
+          },
+        },
+        Props: { type: `tsType`, annotations: { framerContractVersion: `1` } },
+        queryParamNames: {
+          type: `variable`,
+          annotations: { framerContractVersion: `1` },
+        },
+        __FramerMetadata__: { type: `variable` },
+      },
+    }));
+})();
+export { Io as __FramerMetadata__, Fo as default, Va as queryParamNames };
+//# sourceMappingURL=_51mCLq17fh62FGz3GN12X22riNW2rvaKed3z9W9U6g.DNa7rnMI.mjs.map

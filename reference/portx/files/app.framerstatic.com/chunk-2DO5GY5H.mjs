@@ -1,0 +1,2 @@
+import{a as n}from"https://app.framerstatic.com/chunk-QFU6OGL3.mjs";import{a as i}from"https://app.framerstatic.com/chunk-JTCAKYEM.mjs";import{a as m}from"https://app.framerstatic.com/chunk-W774OHJB.mjs";import{e}from"https://app.framerstatic.com/chunk-WLHSDIGQ.mjs";var r="c688seo";var t=e(m());var o=e(i()),k=t.default.forwardRef(function({children:l,className:c,...s},a){return(0,o.jsx)("div",{ref:a,...s,className:n(c,r),children:t.default.Children.only(l)})});export{r as a,k as b};
+//# sourceMappingURL=https://app.framerstatic.com/chunk-2DO5GY5H.mjs.map
