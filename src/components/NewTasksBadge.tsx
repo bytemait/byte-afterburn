@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 /** A Byte-native replacement for the fixed Framer template badge. */
 export default function NewTasksBadge() {
+  const [overFooter, setOverFooter] = useState(false);
+
+  useEffect(() => {
+    const footer = document.querySelector('.byte-footer');
+    if (!footer) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setOverFooter(entry.isIntersecting);
+    }, { rootMargin: '0px 0px 90px' });
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <a className="new-tasks-badge" href="#departments" aria-label="Browse new Byte tasks">
+    <a className={`new-tasks-badge${overFooter ? ' is-over-footer' : ''}`} href="#departments" aria-label="Browse new Byte tasks">
       <div className="new-tasks-preview">
         <svg aria-hidden="true" className="new-tasks-network" viewBox="0 0 144 104">
           <path d="M8 80 38 52 66 68 99 28 136 42M38 52 54 18 99 28M66 68 112 82 136 42" />
@@ -33,7 +45,10 @@ export default function NewTasksBadge() {
           color: #fff;
           text-decoration: none;
           transform: translateZ(0);
+          transition: bottom 420ms cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        .new-tasks-badge.is-over-footer { bottom: 88px; }
 
         .new-tasks-preview {
           height: 108px;
@@ -138,6 +153,7 @@ export default function NewTasksBadge() {
 
         @media (max-width: 809.98px) {
           .new-tasks-badge { right: 14px; bottom: 14px; width: 122px; }
+          .new-tasks-badge.is-over-footer { bottom: 82px; }
           .new-tasks-preview { height: 92px; }
           .new-tasks-preview img { top: 16px; width: 38px; height: 38px; }
           .new-tasks-preview > span { font-size: 11px; }
@@ -148,7 +164,8 @@ export default function NewTasksBadge() {
           .new-tasks-preview,
           .new-tasks-network,
           .new-tasks-preview img,
-          .new-tasks-action { transition: none; }
+          .new-tasks-action,
+          .new-tasks-badge { transition: none; }
           .new-tasks-badge:hover .new-tasks-preview,
           .new-tasks-badge:focus-visible .new-tasks-preview,
           .new-tasks-badge:hover .new-tasks-preview img,
