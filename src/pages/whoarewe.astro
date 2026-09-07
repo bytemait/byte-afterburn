@@ -1,0 +1,55 @@
+---
+import WhoAreWe from '../components/WhoAreWe';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Who Are We — B.Y.T.E.</title>
+  <style is:global>
+    @font-face {
+      font-family: 'Clash Display';
+      src: url('/portx/original/clash-600.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('/byte-assets/framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #101010; color: #fff; overflow-x: hidden; }
+    .whoarewe-mock-nav {
+      height: 96px;
+      width: 100%;
+      border-bottom: 1px solid #222;
+      padding: 0 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Clash Display', sans-serif;
+      font-size: 20px;
+    }
+    .whoarewe-stage-copy {
+      min-height: 110vh;
+      display: grid;
+      place-items: center;
+      color: #555;
+      font: 400 16px/1.5 Inter, sans-serif;
+    }
+    @media (max-width: 1439px) { .whoarewe-mock-nav { padding-inline: 40px; } }
+    @media (max-width: 809px) { .whoarewe-mock-nav { height: 80px; padding-inline: 20px; font-size: 16px; } }
+  </style>
+</head>
+<body>
+  <nav class="whoarewe-mock-nav"><span>BYTE ©</span><span style="font-family:Inter;font-size:14px;color:#888">WHO ARE WE PREVIEW</span></nav>
+  <div class="whoarewe-stage-copy">Scroll down to trigger the image reveal.</div>
+  <WhoAreWe client:load />
+  <div class="whoarewe-stage-copy">End of standalone section.</div>
+</body>
+</html>

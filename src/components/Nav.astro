@@ -1,8 +1,9 @@
 ---
 interface Props {
   active?: 'home' | 'events' | 'members';
+  immersive?: boolean;
 }
-const { active = 'home' } = Astro.props;
+const { active = 'home', immersive = false } = Astro.props;
 
 const links = [
   { href: '/', label: 'Home', key: 'home' },
@@ -14,9 +15,9 @@ const links = [
 ];
 ---
 
-<header class="site-nav">
+<header class:list={['site-nav', { 'is-immersive': immersive }]} data-byte-nav={immersive ? '' : undefined}>
   <div class="nav-inner">
-    <a href="/" class="brand"><span class="mark"><svg><use href="#i-cube"/></svg></span> Byte</a>
+    <a href="/" class="brand"><span class="mark"><img src="/icon.png" alt="" width="38" height="38" /></span> Byte</a>
     <nav class="links">
       {links.map((l) => (
         <a href={l.href} class:list={['nav-link', { active: l.key === active }]}>{l.label}</a>

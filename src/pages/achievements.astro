@@ -1,0 +1,66 @@
+---
+import Achievements from '../components/Achievements';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Achievements — B.Y.T.E.</title>
+  <style is:global>
+    @font-face {
+      font-family: 'Clash Display';
+      src: url('/portx/original/clash-600.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('/byte-assets/framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background: #101010;
+      color: #ffffff;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    .mock-nav {
+      height: 96px;
+      width: 100%;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 72px;
+      box-sizing: border-box;
+      font-family: 'Clash Display', sans-serif;
+      font-size: 20px;
+    }
+    @media (max-width: 1439px) { .mock-nav { padding: 0 40px; } }
+    @media (max-width: 809px) { .mock-nav { height: 80px; padding: 0 20px; font-size: 16px; } }
+  </style>
+</head>
+<body>
+  <nav class="mock-nav">
+    <span>BYTE ©</span>
+    <span style="font-family: 'Inter'; font-size: 14px; font-weight: 400; color: #888;">OUR ACHIEVEMENTS PREVIEW</span>
+  </nav>
+
+  <div style="height: 60px;"></div>
+
+  <Achievements client:load />
+
+  <div style="height: 100px;"></div>
+</body>
+</html>
