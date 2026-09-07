@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero';
+import WhoAreWe from '../components/WhoAreWe';
+import Achievements from '../components/Achievements';
+import Awards from '../components/Awards';
+import Departments from '../components/Departments';
+import Testimonials from '../components/Testimonials';
+import NodeMesh from '../components/NodeMesh';
+import MobileScrollHover from '../components/MobileScrollHover';
+import NavbarScrollFade from '../components/NavbarScrollFade';
+import NewTasksBadge from '../components/NewTasksBadge';
+import '../styles/recreation.css';
+---
+
+<Layout title="B.Y.T.E. — Recreation" active="home" immersiveNav>
+  <main class="recreation-page">
+    <NodeMesh client:load />
+    <MobileScrollHover client:load />
+    <NavbarScrollFade client:load />
+    <NewTasksBadge client:load />
+    <!-- 1. Hero -->
+    <Hero client:load />
+
+    <!-- 2. Who Are We -->
+    <WhoAreWe client:load />
+
+    <!-- 3. Our Achievements -->
+    <Achievements client:load />
+
+    <!-- 4. Events -->
+    <Awards client:load />
+
+    <!-- 5. Departments and stats -->
+    <Departments client:load />
+
+    <!-- 6. Testimonials -->
+    <Testimonials client:load />
+  </main>
+</Layout>

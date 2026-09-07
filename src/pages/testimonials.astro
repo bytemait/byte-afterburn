@@ -1,0 +1,33 @@
+---
+import Testimonials from '../components/Testimonials';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Member voices — B.Y.T.E.</title>
+    <style is:global>
+      @font-face {
+        font-family: 'Clash Display';
+        src: url('/portx/original/clash-600.woff2') format('woff2');
+        font-style: normal;
+        font-weight: 600;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Inter';
+        src: url('/byte-assets/framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2') format('woff2');
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; background: #111; }
+      body { color: #fff; }
+    </style>
+  </head>
+  <body>
+    <Testimonials client:load />
+  </body>
+</html>

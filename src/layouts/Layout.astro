@@ -7,8 +7,9 @@ import '../styles/global.css';
 interface Props {
   title: string;
   active?: 'home' | 'events' | 'members';
+  immersiveNav?: boolean;
 }
-const { title, active = 'home' } = Astro.props;
+const { title, active = 'home', immersiveNav = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,7 +26,7 @@ const { title, active = 'home' } = Astro.props;
   </head>
   <body>
     <Icons />
-    <Nav active={active} />
+    <Nav active={active} immersive={immersiveNav} />
     <slot />
     <Footer />
   </body>

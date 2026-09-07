@@ -1,0 +1,74 @@
+---
+import Hero from '../components/Hero';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Section Replica — B.Y.T.E.</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style is:global>
+    @font-face {
+      font-family: 'Clash Display';
+      src: url('/portx/original/clash-600.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('/byte-assets/framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background: #101010;
+      color: #ffffff;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    /* Simple nav placeholder to simulate real document header offset */
+    .hero-mock-nav {
+      height: 96px;
+      width: 100%;
+      border-bottom: 1px solid #222222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 72px;
+      box-sizing: border-box;
+      font-family: 'Clash Display', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    @media (max-width: 1439px) {
+      .hero-mock-nav { padding: 0 40px; }
+    }
+    @media (max-width: 809px) {
+      .hero-mock-nav { height: 80px; padding: 0 20px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="hero-mock-nav">
+    <span>BYTE ©</span>
+    <span style="font-family: 'Inter'; font-size: 14px; font-weight: 400; color: #888;">STANDALONE HERO PREVIEW</span>
+  </nav>
+
+  <Hero client:load />
+
+  {/* Extra content below so user can scroll down and observe the zoom-out image effect */}
+  <div style="height: 1200px; padding: 100px 72px; color: #666; font-family: 'Inter'; text-align: center;">
+    <p>Scroll down to see image zoom out from 1.25 to 1.0, and ticker infinite loop</p>
+  </div>
+</body>
+</html>

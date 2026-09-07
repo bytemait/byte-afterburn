@@ -1,0 +1,67 @@
+/* Let the recreated dark surface run uninterrupted behind the legacy shell. */
+  :root {
+    --byte-accent: #22c579;
+    --byte-accent-bright: #52e0a6;
+    --byte-accent-dim: #1a9c5f;
+  }
+
+  body {
+    background: #101010;
+  }
+
+  .recreation-page {
+    position: relative;
+    isolation: isolate;
+    --byte-accent: #22c579;
+    --byte-accent-bright: #52e0a6;
+    --byte-accent-dim: #1a9c5f;
+    background: #101010;
+  }
+
+  .recreation-page .hero-section,
+  .recreation-page .whoarewe-section {
+    background: transparent;
+  }
+
+  .node-mesh {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .site-nav.is-immersive {
+    --nav-progress: 0;
+    background: rgba(7, 10, 8, calc(var(--nav-progress) * 0.92));
+    border-bottom-color: rgba(34, 197, 121, calc(var(--nav-progress) * 0.22));
+    backdrop-filter: blur(calc(var(--nav-progress) * 16px));
+    box-shadow: 0 16px 42px -28px rgba(0, 0, 0, calc(var(--nav-progress) * 0.8));
+  }
+
+  .title-network {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .recreation-page [data-mesh-title] {
+    /* Preserve the real, selectable heading; only its local surface is revealed. */
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .title-network { display: none; }
+    .recreation-page [data-mesh-title] { mask-image: none !important; }
+    .recreation-page .hero-h1,
+    .recreation-page .hero-h2 {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
