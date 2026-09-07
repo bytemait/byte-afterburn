@@ -61,6 +61,48 @@ export default function WhoAreWe() {
     };
   }, []);
 
+  useEffect(() => {
+    const labStage = labStageRef.current;
+    if (!labStage) return;
+
+    const mobileQuery = window.matchMedia('(max-width: 809.98px)');
+    let frameId = 0;
+
+    const update = () => {
+      const isMobile = mobileQuery.matches;
+      if (!isMobile) {
+        labStage.style.removeProperty('--mobile-reveal');
+        return;
+      }
+
+      const rect = labStage.getBoundingClientRect();
+      const revealDistance = Math.min(rect.height, window.innerHeight) * 0.9;
+      const progress = Math.min(1, Math.max(0, (window.innerHeight * 0.7 - rect.top) / revealDistance));
+      labStage.style.setProperty('--mobile-reveal', `${(progress * 100).toFixed(2)}%`);
+    };
+
+    const requestUpdate = () => {
+      if (!frameId) {
+        frameId = requestAnimationFrame(() => {
+          frameId = 0;
+          update();
+        });
+      }
+    };
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate, { passive: true });
+    mobileQuery.addEventListener('change', requestUpdate);
+    requestUpdate();
+
+    return () => {
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+      mobileQuery.removeEventListener('change', requestUpdate);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, []);
+
   return (
     <section ref={sectionRef} className="whoarewe-section" aria-labelledby="whoarewe-heading">
       <div className="whoarewe-inner">
@@ -369,6 +411,13 @@ export default function WhoAreWe() {
           .whoarewe-description p { width: 100%; font-size: 16px; line-height: 24px; }
           .whoarewe-portrait-stage { top: -10px; min-height: 1149px; }
           .whoarewe-lab-art { width: 1296px; }
+          .whoarewe-lab-outer {
+            opacity: 0.9;
+            filter: saturate(0.84) contrast(1.1) brightness(0.7);
+            clip-path: inset(0 0 calc(100% - var(--mobile-reveal, 0%)) 0);
+            transition: opacity 320ms ease, filter 320ms ease;
+          }
+          .whoarewe-lab-reveal { display: none; }
         }
 
 

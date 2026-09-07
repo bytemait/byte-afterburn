@@ -107,7 +107,8 @@ export function createTitleNetwork(root: HTMLElement, overlay: HTMLCanvasElement
     const boxes = surfaces.map(s => s.element.getBoundingClientRect());
     if (boxes.every(b => b.bottom < 0 || b.top > innerHeight)) { reset(); return; }
     const proximity = boxes.some(b => pointer.x > b.left - 80 && pointer.x < b.right + 80 && pointer.y > b.top - 60 && pointer.y < b.bottom + 60);
-    const active = mobile ? Math.min(1, Math.abs(scrollEnergy) / 3) : Number(pointer.active && proximity);
+    const desktopHover = pointer.active && proximity;
+    const active = mobile ? Math.min(1, Math.abs(scrollEnergy) / 3) : Number(desktopHover);
     reveal += (active - reveal) * (1 - Math.exp(-step * 0.18));
     const first = boxes[0];
     const last = boxes[boxes.length - 1];
@@ -116,9 +117,15 @@ export function createTitleNetwork(root: HTMLElement, overlay: HTMLCanvasElement
       y: first.top + (last.bottom - first.top) * Math.min(0.9, 0.2 + window.scrollY / 350),
     } : pointer;
     if (focus.x === -1000) focus = { x: target.x, y: target.y };
-    const follow = 1 - Math.exp(-step * 0.22);
-    focus.x += (target.x - focus.x) * follow;
-    focus.y += (target.y - focus.y) * follow;
+    if (mobile) {
+      const follow = 1 - Math.exp(-step * 0.22);
+      focus.x += (target.x - focus.x) * follow;
+      focus.y += (target.y - focus.y) * follow;
+    } else if (desktopHover) {
+      // Desktop takes over instantly: the active lens stays exactly under the cursor.
+      focus.x = target.x;
+      focus.y = target.y;
+    }
     if (dot) {
       const box = dot.getBoundingClientRect();
       origin = { x: box.left + box.width / 2, y: box.bottom - box.height * 0.2 };
@@ -134,18 +141,23 @@ export function createTitleNetwork(root: HTMLElement, overlay: HTMLCanvasElement
     surfaces.forEach((surface, index) => {
       const box = boxes[index];
       if (box.bottom < 0 || box.top > innerHeight) { surface.element.style.removeProperty('mask-image'); return; }
-      // Use the same lens for the live text and the glyph-clipped interior drawing.
-      // Each line gets a small, staggered idle window on touch devices. Scroll
-      // smoothly takes over the same lens, then returns it to its quiet drift.
+      // Each line keeps a small, staggered idle window. Scroll on touch and the
+      // cursor on desktop take over the same lens without changing its geometry.
       const phase = time * 0.65 + index * 2.4;
       const idleStrength = 0.12 + 0.78 * ((Math.sin(phase) + 1) / 2);
-      const idleX = surface.width * (0.48 + Math.sin(time * 0.19 + index * 2.1) * 0.27);
-      const idleY = surface.height * (0.52 + Math.cos(time * 0.27 + index) * 0.08);
-      const strength = mobile ? idleStrength * (1 - reveal) + reveal : reveal;
-      const idleRadius = Math.min(34, Math.max(24, surface.width * 0.14));
-      const radius = mobile ? idleRadius + (65 - idleRadius) * reveal : 115;
-      const x = mobile ? idleX * (1 - reveal) + (focus.x - box.left) * reveal : focus.x - box.left;
-      const y = mobile ? idleY * (1 - reveal) + (focus.y - box.top) * reveal : focus.y - box.top;
+      const idleX = surface.width * (0.5 + Math.sin(time * 0.19 + index * 2.1) * 0.42);
+      const idleY = surface.height * (0.5 + Math.cos(time * 0.27 + index) * 0.28);
+      const strength = idleStrength * (1 - reveal) + reveal;
+      const idleRadius = Math.min(58, Math.max(42, surface.width * 0.23));
+      const radius = mobile
+        ? idleRadius + (85 - idleRadius) * reveal
+        : idleRadius + (130 - idleRadius) * reveal;
+      const x = mobile
+        ? idleX * (1 - reveal) + (focus.x - box.left) * reveal
+        : desktopHover ? focus.x - box.left : idleX;
+      const y = mobile
+        ? idleY * (1 - reveal) + (focus.y - box.top) * reveal
+        : desktopHover ? focus.y - box.top : idleY;
       const tensionStrength = mobile ? strength * (0.3 + reveal * 0.7) : strength;
       if (strength > 0.01) {
         surface.element.style.maskImage = `radial-gradient(circle ${radius}px at ${x}px ${y}px, rgba(0,0,0,${1 - strength}) 0%, rgba(0,0,0,${1 - strength * 0.96}) 40%, #000 100%)`;
