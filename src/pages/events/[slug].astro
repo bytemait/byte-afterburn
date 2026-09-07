@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EventDetail from '../../components/EventDetail.astro';
+import { events, getEventBySlug } from '../../data/events';
+
+export function getStaticPaths() {
+  return events.map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
+}
+
+const { slug } = Astro.params;
+const event = Astro.props.event || (slug ? getEventBySlug(slug) : undefined);
+
+if (!event) {
+  return Astro.redirect('/events');
+}
+---
+
+<Layout title={`${event.name} — B.Y.T.E.`} active="events">
+  <EventDetail
+    name={event.name}
+    type={event.type}
+    date={event.date}
+    time={event.time}
+    venue={event.venue}
+    description={event.description}
+    agenda={event.agenda}
+    whoCanAttend={event.whoCanAttend}
+    ctaLabel={event.ctaLabel}
+  />
+</Layout>
