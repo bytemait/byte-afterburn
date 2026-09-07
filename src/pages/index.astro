@@ -1,88 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HomeHero from '../components/HomeHero.astro';
-import Testimonials from '../components/testimonials.astro';
+import Hero from '../components/Hero';
+import WhoAreWe from '../components/WhoAreWe';
+import Achievements from '../components/Achievements';
+import Awards from '../components/Awards';
+import Departments from '../components/Departments';
+import Testimonials from '../components/Testimonials';
+import NodeMesh from '../components/NodeMesh';
+import MobileScrollHover from '../components/MobileScrollHover';
+import NavbarScrollFade from '../components/NavbarScrollFade';
+import NewTasksBadge from '../components/NewTasksBadge';
+import Footer from '../components/Footer.astro';
+import '../styles/recreation.css';
 ---
 
-<Layout title="B.Y.T.E. — Build. Connect. Create Impact." active="home">
-  <HomeHero />
-
-  <div class="stats-bar">
-    <div class="wrap stats-grid">
-      <div class="stat"><div class="stat-icon"><svg><use href="#i-user"/></svg></div><div><b>150+</b><span>Members</span></div></div>
-      <div class="stat"><div class="stat-icon"><svg><use href="#i-sun"/></svg></div><div><b>25+</b><span>Events</span></div></div>
-      <div class="stat"><div class="stat-icon"><svg><use href="#i-folder"/></svg></div><div><b>10+</b><span>Projects</span></div></div>
-      <div class="stat"><div class="stat-icon"><svg><use href="#i-award"/></svg></div><div><b>4+</b><span>Years</span></div></div>
+<Layout title="B.Y.T.E. — Build. Connect. Create Impact." active="home" immersiveNav footerInSlot>
+  <main class="recreation-page">
+    <div class="mesh-layer">
+      <NodeMesh client:load />
     </div>
-  </div>
+    <MobileScrollHover client:load />
+    <NavbarScrollFade client:load />
+    <!-- 1. Hero -->
+    <Hero client:load />
 
-  <section id="about">
-    <div class="wrap who-grid">
-      <div class="who-copy">
-        <div class="eyebrow">WHO WE ARE</div>
-        <h2>We don't just attend college.<br>We <span class="hi">build</span> what comes next.</h2>
-        <p>B.Y.T.E. is a community of innovators, thinkers and doers. We organize events, build projects and collaborate to create meaningful impact.</p>
-        <button class="btn btn-outline">Learn More</button>
-      </div>
-      <div class="ph who-visual" data-ratio="1600 × 1100"><span class="ph-tag">Image</span><svg><use href="#i-image"/></svg></div>
-    </div>
-  </section>
+    <!-- 2. Who Are We -->
+    <WhoAreWe client:load />
 
-  <section>
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Upcoming Events</h2>
-        <a href="/events" class="view-all">View all events</a>
-      </div>
-      <div class="upcoming-mini">
-        <div class="mini-card">
-          <div class="date-chip"><b>12</b><span>Sep</span></div>
-          <div>
-            <h4>Web Dev Workshop 2026</h4>
-            <div class="meta-row">
-              <span><svg><use href="#i-pin"/></svg>Seminar Hall, CSE Block</span>
-              <span><svg><use href="#i-clock"/></svg>06:00 PM – 08:00 PM</span>
-            </div>
-            <a href="/events/web-dev-workshop-2026" class="view">View Details</a>
-          </div>
-        </div>
-        <div class="mini-card">
-          <div class="date-chip"><b>20</b><span>Sep</span></div>
-          <div>
-            <h4>Hack The Future Hackathon</h4>
-            <div class="meta-row">
-              <span><svg><use href="#i-pin"/></svg>Auditorium, Main Block</span>
-              <span><svg><use href="#i-clock"/></svg>09:00 AM – 06:00 PM</span>
-            </div>
-            <a href="/events/hack-the-future-hackathon" class="view">View Details</a>
-          </div>
-        </div>
-        <div class="mini-card">
-          <div class="date-chip"><b>04</b><span>Oct</span></div>
-          <div>
-            <h4>AI/ML Hands-on Session</h4>
-            <div class="meta-row">
-              <span><svg><use href="#i-pin"/></svg>Lab 3, CSE Block</span>
-              <span><svg><use href="#i-clock"/></svg>04:00 PM – 07:00 PM</span>
-            </div>
-            <a href="/events/ai-ml-hands-on-session" class="view">View Details</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- 3. Our Achievements -->
+    <Achievements client:load />
 
-  <Testimonials />
+    <!-- 4. Events -->
+    <Awards client:load />
 
-  <section>
-    <div class="wrap">
-      <div class="cta-band">
-        <div>
-          <h3>Ready to be part of it?</h3>
-          <p>Great things happen when we build together.</p>
-        </div>
-        <button class="btn btn-primary">Join The Society</button>
-      </div>
-    </div>
-  </section>
+    <!-- 5. Departments and stats -->
+    <Departments client:load />
+
+    <!-- 6. Testimonials -->
+    <Testimonials client:load />
+    <Footer immersive />
+    <NewTasksBadge client:load />
+  </main>
 </Layout>

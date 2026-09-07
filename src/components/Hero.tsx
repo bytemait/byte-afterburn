@@ -25,9 +25,23 @@ export default function Hero({
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Mount appearance animation
-    const raf = requestAnimationFrame(() => setIsLoaded(true));
-    return () => cancelAnimationFrame(raf);
+    let raf = 0;
+    let fallback = 0;
+    let revealed = false;
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      window.clearTimeout(fallback);
+      raf = requestAnimationFrame(() => setIsLoaded(true));
+    };
+    fallback = window.setTimeout(reveal, 1500);
+    if (document.documentElement.classList.contains('byte-page-ready') || !document.querySelector('.node-mesh')) reveal();
+    else window.addEventListener('byte:page-ready', reveal, { once: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(fallback);
+      window.removeEventListener('byte:page-ready', reveal);
+    };
   }, []);
 
   useEffect(() => {
@@ -315,6 +329,17 @@ export default function Hero({
           position: relative;
           z-index: 1;
           --zoom-scale: 1.25;
+          opacity: 0.001;
+          transform: translateY(32px);
+          clip-path: inset(6% 0 6% 0 round 20px);
+          transition: opacity 850ms ease 140ms, transform 950ms cubic-bezier(0.16, 1, 0.3, 1) 140ms, clip-path 950ms cubic-bezier(0.16, 1, 0.3, 1) 140ms;
+          will-change: opacity, transform, clip-path;
+        }
+
+        .is-mounted .hero-zoom-frame {
+          opacity: 1;
+          transform: translateY(0);
+          clip-path: inset(0 round 20px);
         }
 
         .hero-zoom-scaler {
@@ -460,6 +485,12 @@ export default function Hero({
           }
           .hero-zoom-scaler {
             transform: scale(1) !important;
+          }
+          .hero-zoom-frame {
+            opacity: 1 !important;
+            transform: none !important;
+            clip-path: none !important;
+            transition: none !important;
           }
           .hero-ticker-track {
             transform: none !important;

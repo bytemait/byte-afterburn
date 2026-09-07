@@ -10,15 +10,17 @@ import NodeMesh from '../components/NodeMesh';
 import MobileScrollHover from '../components/MobileScrollHover';
 import NavbarScrollFade from '../components/NavbarScrollFade';
 import NewTasksBadge from '../components/NewTasksBadge';
+import Footer from '../components/Footer.astro';
 import '../styles/recreation.css';
 ---
 
-<Layout title="B.Y.T.E. — Recreation" active="home" immersiveNav>
+<Layout title="B.Y.T.E. — Recreation" active="home" immersiveNav footerInSlot>
   <main class="recreation-page">
-    <NodeMesh client:load />
+    <div class="mesh-layer">
+      <NodeMesh client:load />
+    </div>
     <MobileScrollHover client:load />
     <NavbarScrollFade client:load />
-    <NewTasksBadge client:load />
     <!-- 1. Hero -->
     <Hero client:load />
 
@@ -36,5 +38,7 @@ import '../styles/recreation.css';
 
     <!-- 6. Testimonials -->
     <Testimonials client:load />
+    <Footer immersive />
+    <NewTasksBadge client:load />
   </main>
 </Layout>

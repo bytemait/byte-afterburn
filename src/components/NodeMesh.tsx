@@ -31,6 +31,11 @@ export default function NodeMesh() {
     let frameTargets: Point[] = [];
     let frameAssignments: FrameAssignment[] = [];
     let frameReveal = 0;
+    const loaderStartedAt = performance.now();
+    const loaderDuration = 900;
+    const previousOverflow = document.body.style.overflow;
+    let loaderComplete = false;
+    let readyTimer = 0;
     const pointer = { x: -1000, y: -1000, active: false };
     const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
@@ -128,6 +133,9 @@ export default function NodeMesh() {
 
     function draw(step: number) {
       ctx!.clearRect(0, 0, width, height);
+      const loaderProgress = loaderComplete
+        ? 1
+        : clamp((performance.now() - loaderStartedAt) / loaderDuration, 0, 1);
       const reach = width < 700 ? 155 : 190;
       const radius = width < 700 ? 160 : 240;
       elapsed += step * 0.008;
@@ -174,6 +182,7 @@ export default function NodeMesh() {
 
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i];
+        const nodeReveal = clamp(loaderProgress * 1.55 - (i / Math.max(1, nodes.length - 1)) * 0.55, 0, 1);
         const activity = pointer.active ? Math.max(0, 1 - Math.hypot(a.x - pointer.x, a.y - pointer.y) / radius) : 0;
         // Keep the center calm while giving the margins a more visible web.
         const edge = 0.5 + Math.abs(a.x / width - 0.5);
@@ -182,14 +191,18 @@ export default function NodeMesh() {
           const distance = Math.hypot(a.x - b.x, a.y - b.y);
           if (distance > reach) continue;
           const strength = 1 - distance / reach;
-          ctx!.strokeStyle = `rgba(68, 185, 132, ${strength * (0.32 * edge + activity * 0.36)})`;
+          const edgeOrder = ((i * 17 + j * 13) % Math.max(1, nodes.length)) / Math.max(1, nodes.length);
+          const connectionReveal = clamp((loaderProgress - 0.2 - edgeOrder * 0.28) / 0.48, 0, 1);
+          if (connectionReveal <= 0) continue;
+          const easedConnection = 1 - Math.pow(1 - connectionReveal, 3);
+          ctx!.strokeStyle = `rgba(68, 185, 132, ${strength * (0.32 * edge + activity * 0.36) * easedConnection})`;
           ctx!.lineWidth = 0.7;
           ctx!.beginPath();
           ctx!.moveTo(a.x, a.y);
-          ctx!.lineTo(b.x, b.y);
+          ctx!.lineTo(a.x + (b.x - a.x) * easedConnection, a.y + (b.y - a.y) * easedConnection);
           ctx!.stroke();
           // A few travelling signals reveal the graph's connectivity.
-          if (i % 11 === 0 && j % 3 === 0 && distance > 55) {
+          if (loaderProgress >= 1 && i % 11 === 0 && j % 3 === 0 && distance > 55) {
             const progress = (elapsed * 0.15 + a.phase / (Math.PI * 2)) % 1;
             ctx!.fillStyle = `rgba(125, 234, 187, ${strength * 0.65})`;
             ctx!.beginPath();
@@ -197,12 +210,12 @@ export default function NodeMesh() {
             ctx!.fill();
           }
         }
-        ctx!.fillStyle = `rgba(105, 220, 168, ${(0.28 + a.depth * 0.34 + activity * 0.35) * edge})`;
+        ctx!.fillStyle = `rgba(105, 220, 168, ${(0.28 + a.depth * 0.34 + activity * 0.35) * edge * nodeReveal})`;
         ctx!.beginPath();
         ctx!.arc(a.x, a.y, 0.8 + a.depth * 1.25 + activity, 0, Math.PI * 2);
         ctx!.fill();
-        if (i % 9 === 0) {
-          ctx!.strokeStyle = `rgba(82, 224, 166, ${0.15 * edge + activity * 0.25})`;
+        if (i % 9 === 0 && nodeReveal > 0) {
+          ctx!.strokeStyle = `rgba(82, 224, 166, ${(0.15 * edge + activity * 0.25) * nodeReveal})`;
           ctx!.beginPath();
           ctx!.arc(a.x, a.y, 5 + a.depth * 2, 0, Math.PI * 2);
           ctx!.stroke();
@@ -227,7 +240,18 @@ export default function NodeMesh() {
           ctx!.fill();
         });
       }
-      titleNetwork.draw(ctx!, nodes, step, pointer, scrollEnergy, !finePointer.matches, !motion.matches);
+      if (loaderProgress >= 1) {
+        if (!loaderComplete) {
+          loaderComplete = true;
+          titleNetwork.triggerPulse(26);
+          readyTimer = window.setTimeout(() => {
+            document.documentElement.classList.add('byte-page-ready');
+            window.dispatchEvent(new CustomEvent('byte:page-ready'));
+            document.body.style.overflow = previousOverflow;
+          }, 180);
+        }
+        titleNetwork.draw(ctx!, nodes, step, pointer, scrollEnergy, !finePointer.matches, !motion.matches);
+      }
     }
 
     function tick(time: number) {
@@ -244,7 +268,13 @@ export default function NodeMesh() {
       }
     }
     function preference() {
-      if (motion.matches) titleNetwork.reset();
+      if (motion.matches) {
+        titleNetwork.reset();
+        loaderComplete = true;
+        document.documentElement.classList.add('byte-page-ready');
+        window.dispatchEvent(new CustomEvent('byte:page-ready'));
+        document.body.style.overflow = previousOverflow;
+      }
       sync();
     }
     function move(event: PointerEvent) {
@@ -265,6 +295,8 @@ export default function NodeMesh() {
       sync();
     });
     observer.observe(surface);
+    document.documentElement.classList.remove('byte-page-ready');
+    document.body.style.overflow = 'hidden';
     resize();
     preference();
     window.addEventListener('resize', resize);
@@ -276,6 +308,8 @@ export default function NodeMesh() {
     motion.addEventListener('change', preference);
     return () => {
       cancelAnimationFrame(frame);
+      window.clearTimeout(readyTimer);
+      document.body.style.overflow = previousOverflow;
       observer.disconnect();
       titleNetwork.dispose();
       window.removeEventListener('resize', resize);

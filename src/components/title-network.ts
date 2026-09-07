@@ -18,6 +18,7 @@ export function createTitleNetwork(root: HTMLElement, overlay: HTMLCanvasElement
   let focus = { x: -1000, y: -1000 };
   let time = 0;
   let pulse = -1;
+  let pulseSpeed = 7;
   let dotInside = false;
   let origin = { x: 0, y: 0 };
   let needsMeasure = true;
@@ -134,8 +135,8 @@ export function createTitleNetwork(root: HTMLElement, overlay: HTMLCanvasElement
       dotInside = over;
     }
     if (pulse >= 0) {
-      pulse += step * 7;
-      if (pulse > 1100) pulse = -1;
+      pulse += step * pulseSpeed;
+      if (pulse > Math.hypot(innerWidth, innerHeight) + 120) pulse = -1;
     }
 
     surfaces.forEach((surface, index) => {
@@ -260,6 +261,16 @@ export function createTitleNetwork(root: HTMLElement, overlay: HTMLCanvasElement
     draw,
     reset,
     resize: () => { needsMeasure = true; },
+    triggerPulse: (speed = 7) => {
+      if (dot) {
+        const box = dot.getBoundingClientRect();
+        origin = { x: box.left + box.width / 2, y: box.bottom - box.height * 0.2 };
+      } else {
+        origin = { x: innerWidth / 2, y: innerHeight / 2 };
+      }
+      pulseSpeed = speed;
+      pulse = 0;
+    },
     dispose: () => {
       disposed = true;
       observer.disconnect();
