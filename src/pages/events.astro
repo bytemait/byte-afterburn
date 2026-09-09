@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { events } from '../data/events';
 ---
 
 <Layout title="Events — B.Y.T.E." active="events">
@@ -21,69 +22,32 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="events-list">
-        <div class="event-card">
-          <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
-          <div class="event-body">
-            <div class="date-chip"><b>12</b><span>Sep</span></div>
-            <div class="event-content">
-              <h3>Web Dev Workshop 2026</h3>
-              <p>Hands-on workshop on modern web development technologies and best practices.</p>
-              <div class="meta-row">
-                <span><svg><use href="#i-clock"/></svg>06:00 PM – 08:00 PM</span>
-                <span><svg><use href="#i-pin"/></svg>Seminar Hall, CSE Block</span>
+        {events.map((event, index) => {
+          const isFlip = index % 2 === 1;
+          const [day, month] = event.date.split(' ');
+          return (
+            <div class={`event-card ${isFlip ? 'flip' : ''}`}>
+              {!isFlip && (
+                <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
+              )}
+              <div class="event-body">
+                <div class="date-chip"><b>{day}</b><span>{month}</span></div>
+                <div class="event-content">
+                  <h3>{event.name}</h3>
+                  <p>{event.shortDescription}</p>
+                  <div class="meta-row">
+                    <span><svg><use href="#i-clock"/></svg>{event.time}</span>
+                    <span><svg><use href="#i-pin"/></svg>{event.venue}</span>
+                  </div>
+                  <a href={`/events/${event.slug}`} class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+                </div>
               </div>
-              <a href="/events/web-dev-workshop-2026" class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+              {isFlip && (
+                <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
+              )}
             </div>
-          </div>
-        </div>
-
-        <div class="event-card flip">
-          <div class="event-body">
-            <div class="date-chip"><b>20</b><span>Sep</span></div>
-            <div class="event-content">
-              <h3>Hack The Future Hackathon</h3>
-              <p>24-hour hackathon to build innovative solutions for real-world problems.</p>
-              <div class="meta-row">
-                <span><svg><use href="#i-clock"/></svg>09:00 AM – 06:00 PM</span>
-                <span><svg><use href="#i-pin"/></svg>Auditorium, Main Block</span>
-              </div>
-              <a href="/events/hack-the-future-hackathon" class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
-            </div>
-          </div>
-          <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
-        </div>
-
-        <div class="event-card">
-          <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
-          <div class="event-body">
-            <div class="date-chip"><b>04</b><span>Oct</span></div>
-            <div class="event-content">
-              <h3>AI/ML Hands-on Session</h3>
-              <p>Practical session to get started with AI/ML models and real-world applications.</p>
-              <div class="meta-row">
-                <span><svg><use href="#i-clock"/></svg>04:00 PM – 07:00 PM</span>
-                <span><svg><use href="#i-pin"/></svg>Lab 3, CSE Block</span>
-              </div>
-              <a href="/events/ai-ml-hands-on-session" class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="event-card flip">
-          <div class="event-body">
-            <div class="date-chip"><b>18</b><span>Oct</span></div>
-            <div class="event-content">
-              <h3>Tech Talk: Future of Technology</h3>
-              <p>Expert talk and discussion on upcoming technologies and career opportunities.</p>
-              <div class="meta-row">
-                <span><svg><use href="#i-clock"/></svg>11:00 AM – 01:00 PM</span>
-                <span><svg><use href="#i-pin"/></svg>Seminar Hall, CSE Block</span>
-              </div>
-              <a href="/events/tech-talk-future-of-technology" class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
-            </div>
-          </div>
-          <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
-        </div>
+          );
+        })}
       </div>
     </div>
   </section>
