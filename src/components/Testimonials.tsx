@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useId } from 'react';
 
 interface TestimonialCardData {
   id: string;
@@ -9,7 +9,6 @@ interface TestimonialCardData {
   logoSrc: string;
   logoWidth?: string;
   border?: string;
-  height: string;
 }
 
 interface TestimonialsProps {
@@ -24,8 +23,7 @@ const CARDS: TestimonialCardData[] = [
     role: 'MEMBER, DEVELOPMENT',
     avatarSrc: '/portx/original/avatar-1.svg',
     logoSrc: '/portx/original/logo-antony.svg',
-    logoWidth: '24px',
-    height: '280px'
+    logoWidth: '24px'
   },
   {
     id: 'card-2',
@@ -34,8 +32,7 @@ const CARDS: TestimonialCardData[] = [
     role: 'MEMBER, AI/ML',
     avatarSrc: '/portx/original/avatar-0.svg',
     logoSrc: '/portx/original/logo-agencify.svg',
-    logoWidth: '84px',
-    height: '292px'
+    logoWidth: '84px'
   },
   {
     id: 'card-3',
@@ -44,8 +41,7 @@ const CARDS: TestimonialCardData[] = [
     role: 'MEMBER, MECHATRONICS',
     avatarSrc: '/portx/original/avatar-2.svg',
     logoSrc: '/portx/original/logo-bruno.svg',
-    logoWidth: '80px',
-    height: '220px'
+    logoWidth: '80px'
   },
   {
     id: 'card-4',
@@ -55,8 +51,7 @@ const CARDS: TestimonialCardData[] = [
     avatarSrc: '/portx/original/avatar-3.svg',
     logoSrc: '/portx/original/logo-axior.svg',
     logoWidth: '84px',
-    border: '1px solid rgb(51, 51, 51)',
-    height: '196px'
+    border: '1px solid rgb(51, 51, 51)'
   },
   {
     id: 'card-5',
@@ -65,93 +60,14 @@ const CARDS: TestimonialCardData[] = [
     role: 'MEMBER, OUTREACH',
     avatarSrc: '/portx/original/avatar-4.svg',
     logoSrc: '/portx/original/logo-oglivy.svg',
-    logoWidth: '84px',
-    height: '268px'
+    logoWidth: '84px'
   }
 ];
 
 export default function Testimonials({
-  spinningText = 'BYTE STORIES • BUILT TOGETHER'
+  spinningText = 'BYTE STORIES • BUILT TOGETHER • '
 }: TestimonialsProps) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const orbitRef = useRef<HTMLDivElement>(null);
-  const textElRef = useRef<SVGTextElement>(null);
-  const textPathRef = useRef<SVGTextPathElement>(null);
-  const [pinMode, setPinMode] = useState<'before' | 'pinned' | 'after'>('before');
-
-  // Dynamically calculate repetitions and exact spacing to form a complete, continuous 360deg circle
-  useEffect(() => {
-    const textPath = textPathRef.current;
-    const textEl = textElRef.current;
-    if (!textPath || !textEl) return;
-
-    const circumference = 1162.55; // 2 * Math.PI * 185
-
-    let clean = spinningText.trim();
-    if (!clean.endsWith('•') && !clean.endsWith('-')) {
-      clean = '• ' + clean + ' ';
-    } else {
-      clean = clean + ' ';
-    }
-
-    // Measure single unit without extra spacing
-    textEl.style.letterSpacing = '0px';
-    textPath.textContent = clean;
-    const singleLen = textPath.getComputedTextLength() || 380;
-
-    // Ensure the circle is always completely closed (no gaps, no overlaps)
-    let count = Math.ceil(circumference / singleLen);
-    if (count < 1) count = 1;
-    let repeated = clean.repeat(count);
-    textPath.textContent = repeated;
-
-    // Distribute remaining length into exact per-character spacing
-    let currentLen = textPath.getComputedTextLength() || singleLen * count;
-    let remaining = circumference - currentLen;
-    let spacing = remaining / repeated.length;
-
-    textEl.style.letterSpacing = `${spacing.toFixed(4)}px`;
-  }, [spinningText]);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    const orbit = orbitRef.current;
-    if (!track || !orbit) return;
-
-    let frameId = 0;
-
-    const update = () => {
-      const rect = track.getBoundingClientRect();
-      const circleSize = 464;
-      const pinTop = 100;
-      const releaseAt = -(rect.height - circleSize - pinTop);
-      const nextMode: 'before' | 'pinned' | 'after' = rect.top > pinTop
-        ? 'before'
-        : rect.top < releaseAt
-          ? 'after'
-          : 'pinned';
-
-      // Framer's recovered effect scales 1 -> .7 and fades 1 -> .6 while cards pass.
-      const progress = Math.min(1, Math.max(0, (pinTop - rect.top) / Math.max(1, rect.height - circleSize)));
-      orbit.style.transform = `scale(${(1 - progress * 0.3).toFixed(4)})`;
-      orbit.style.opacity = (1 - progress * 0.4).toFixed(4);
-      setPinMode(current => current === nextMode ? current : nextMode);
-      frameId = 0;
-    };
-
-    const requestUpdate = () => {
-      if (!frameId) frameId = requestAnimationFrame(update);
-    };
-
-    window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate, { passive: true });
-    requestUpdate();
-    return () => {
-      window.removeEventListener('scroll', requestUpdate);
-      window.removeEventListener('resize', requestUpdate);
-      if (frameId) cancelAnimationFrame(frameId);
-    };
-  }, []);
+  const arcPathId = `testimonial-arc-${useId().replace(/:/g, '')}`;
 
   return (
     <section className="framer-testimonials-section" aria-labelledby="testimonials-heading">
@@ -169,25 +85,23 @@ export default function Testimonials({
           </p>
         </div>
 
-        {/* Scroll Track & Sticky Center Circle */}
-        <div ref={trackRef} className="framer-testimonials-track">
-          {/* Sticky Center Quote Circle */}
-          <div className={`framer-sticky-center-circle pin-${pinMode}`} aria-hidden="true">
-            <div ref={orbitRef} className="framer-arc-wrapper">
-              <svg className="framer-arc-svg" viewBox="0 0 464 464">
+        {/* Sticky quote and the cards are siblings so CSS sticky can use the section as its scroll range. */}
+        <div className="framer-sticky-center-circle" aria-hidden="true">
+          <div className="framer-arc-wrapper">
+              <svg className="framer-arc-svg" viewBox="0 0 100 100" overflow="visible">
                 <defs>
                   <path
-                    id="framer-arc-circle"
-                    d="M 232, 232 m -185, 0 a 185,185 0 1,1 370,0 a 185,185 0 1,1 -370,0"
+                    id={arcPathId}
+                    d="M 0 50 A 50 50 0 0 1 100 50 A 50 50 0 0 1 0 50"
                   />
                 </defs>
-                <text ref={textElRef} className="framer-arc-text">
+                <text className="framer-arc-text">
                   <textPath
-                    ref={textPathRef}
-                    href="#framer-arc-circle"
-                    startOffset="0%"
+                    href={`#${arcPathId}`}
+                    startOffset="0"
+                    dominantBaseline="hanging"
                   >
-                    • TESTIMONIALS • TRUSTED BY CLIENTS • TESTIMONIALS • TRUSTED BY CLIENTS • TESTIMONIALS • TRUSTED BY CLIENTS •
+                    {spinningText}
                   </textPath>
                 </text>
               </svg>
@@ -208,34 +122,35 @@ export default function Testimonials({
             </div>
           </div>
 
-          {/* Cards Vertical Stream flowing past sticky center */}
-          <div className="framer-testimonials-cards-stream" style={{ paddingTop: '464px' }}>
+        {/* Cards flow over the sticky quote, matching the original Framer composition. */}
+        <div className="framer-testimonials-content">
+          <div className="framer-testimonials-cards-stream">
             {/* Slot 1: Card 1 (Right, max-width: 1100px) */}
             <div className="framer-slot-row framer-slot-1-2">
-              <div className="framer-card-wrapper align-right" style={{ minHeight: CARDS[0].height }}>
+              <div className="framer-card-wrapper align-right">
                 <CardComponent card={CARDS[0]} />
               </div>
 
               {/* Slot 2: Card 2 (Left, max-width: 100%) */}
-              <div className="framer-card-wrapper align-left" style={{ minHeight: CARDS[1].height, marginTop: '28px' }}>
+              <div className="framer-card-wrapper align-left">
                 <CardComponent card={CARDS[1]} />
               </div>
             </div>
 
             {/* Slot 3: Card 3 (Right, max-width: 100%) */}
             <div className="framer-slot-row framer-slot-3">
-              <div className="framer-card-wrapper align-right" style={{ minHeight: CARDS[2].height, marginTop: '28px' }}>
+              <div className="framer-card-wrapper align-right">
                 <CardComponent card={CARDS[2]} />
               </div>
             </div>
 
             {/* Slot 4 & 5: Card 4 (Left, max-width: 990px) and Card 5 (Right) */}
             <div className="framer-slot-row framer-slot-4-5">
-              <div className="framer-card-wrapper align-left" style={{ minHeight: CARDS[3].height, marginTop: '28px' }}>
+              <div className="framer-card-wrapper align-left">
                 <CardComponent card={CARDS[3]} />
               </div>
 
-              <div className="framer-card-wrapper align-right" style={{ minHeight: CARDS[4].height, marginTop: '28px' }}>
+              <div className="framer-card-wrapper align-right">
                 <CardComponent card={CARDS[4]} />
               </div>
             </div>
@@ -349,40 +264,19 @@ export default function Testimonials({
           word-break: break-word;
         }
 
-        /* Track */
-        .framer-testimonials-track {
-          width: 100%;
-          position: relative;
-          min-height: 2280px;
-          overflow: visible;
-        }
-
-        /* The circle begins in the track, pins at 100px, then returns to the track end.
-           Explicit mode switching avoids the browser sticky failure caused by the surrounding island layout. */
+        /* Sticky center quote */
         .framer-sticky-center-circle {
-          position: absolute;
-          top: 0;
-          left: 50%;
+          position: sticky;
+          top: 100px;
           width: 464px;
           height: 464px;
-          margin-left: -232px;
+          flex: none;
           display: flex;
           align-items: center;
           justify-content: center;
           overflow: visible;
           pointer-events: none;
           z-index: 1;
-        }
-
-        .framer-sticky-center-circle.pin-pinned {
-          position: fixed;
-          top: 100px;
-          z-index: 5;
-        }
-
-        .framer-sticky-center-circle.pin-after {
-          top: auto;
-          bottom: 0;
         }
 
         .framer-arc-wrapper {
@@ -393,7 +287,6 @@ export default function Testimonials({
           align-items: center;
           justify-content: center;
           transform-origin: center;
-          will-change: transform, opacity;
         }
 
         .framer-arc-svg {
@@ -401,14 +294,15 @@ export default function Testimonials({
           inset: 0;
           width: 100%;
           height: 100%;
-          animation: framer-spin 25s linear infinite;
+          transform-origin: center;
+          animation: framer-spin 10s linear infinite;
         }
 
         .framer-arc-text {
           font-family: 'Clash Display', 'Clash Display Placeholder', sans-serif;
-          font-size: 21px;
-          font-weight: 600;
-          line-height: 26px;
+          font-size: 8px;
+          font-weight: 400;
+          letter-spacing: 4.8px;
           fill: var(--byte-accent, #22c579);
           text-transform: uppercase;
         }
@@ -429,8 +323,14 @@ export default function Testimonials({
         }
 
         /* Cards Stream */
+        .framer-testimonials-content {
+          width: 100%;
+          position: sticky;
+          top: 0;
+          z-index: 1;
+        }
+
         .framer-testimonials-cards-stream {
-          padding-top: 464px;
           align-content: center;
           align-items: center;
           display: flex;
@@ -441,7 +341,7 @@ export default function Testimonials({
           height: min-content;
           justify-content: center;
           overflow: hidden;
-          padding: 0px;
+          padding: 0;
           position: relative;
           width: 100%;
           z-index: 2;
@@ -653,18 +553,10 @@ export default function Testimonials({
           .framer-testimonials-section {
             padding: 0px 40px 160px 40px;
           }
-          .framer-slot-1-2, .framer-slot-4-5 {
+          .framer-testimonials-cards-stream,
+          .framer-slot-1-2,
+          .framer-slot-4-5 {
             gap: 30px;
-          }
-        }
-
-        @media (max-width: 1024px) {
-          .framer-testimonials-track {
-            min-height: 2000px;
-          }
-          .framer-sticky-center-circle {
-            width: 380px;
-            height: 380px;
           }
         }
 
@@ -677,22 +569,15 @@ export default function Testimonials({
             flex: none;
             width: 100%;
           }
-          .framer-testimonials-track {
-            min-height: auto;
+          .framer-sticky-center-circle {
+            display: none;
           }
-          .framer-sticky-center-circle,
-          .framer-sticky-center-circle.pin-pinned,
-          .framer-sticky-center-circle.pin-after {
+          .framer-testimonials-content {
             position: relative;
             top: auto;
-            bottom: auto;
-            left: auto;
-            margin: 40px auto;
-            width: 280px;
-            height: 280px;
           }
           .framer-testimonials-cards-stream {
-            padding-top: 0 !important;
+            padding-top: 0;
           }
           .framer-card-wrapper {
             width: 100% !important;
@@ -701,6 +586,15 @@ export default function Testimonials({
           .framer-card-box {
             width: 100% !important;
             max-width: 100% !important;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .framer-arc-svg {
+            animation: none;
+          }
+          .framer-card-box {
+            transition-duration: 0.01ms;
           }
         }
       `}</style>
