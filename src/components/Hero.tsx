@@ -138,7 +138,7 @@ export default function Hero({
             <div className="hero-intro-column">
               <div className="hero-globe-wrapper">
                 <img
-                  src="/portx/original/globe.svg"
+                  src="/assets/globe.svg"
                   alt=""
                   width="88"
                   height="61"
@@ -157,7 +157,7 @@ export default function Hero({
         <div ref={zoomFrameRef} className="hero-zoom-frame">
           <div className="hero-zoom-scaler">
             <img
-              src="/portx/original/hero.webp"
+              src="/assets/hero.webp"
               alt="Byte member projects collage"
               width="1944"
               height="915"
@@ -186,7 +186,7 @@ export default function Hero({
       <style>{`
         @font-face {
           font-family: 'Clash Display';
-          src: url('/portx/original/clash-600.woff2') format('woff2');
+          src: url('/assets/clash-600.woff2') format('woff2');
           font-weight: 600;
           font-style: normal;
           font-display: swap;
@@ -194,7 +194,7 @@ export default function Hero({
 
         @font-face {
           font-family: 'Clash Display';
-          src: url('/portx/original/clash-700.woff2') format('woff2');
+          src: url('/assets/clash-700.woff2') format('woff2');
           font-weight: 700;
           font-style: normal;
           font-display: swap;
@@ -414,7 +414,7 @@ export default function Hero({
           text-transform: uppercase;
         }
 
-        /* Breakpoints matching portx.framer.ai exactly */
+        /* Tablet breakpoint */
         @media (min-width: 810px) and (max-width: 1439.98px) {
           .hero-section {
             padding: 64px 40px 0;

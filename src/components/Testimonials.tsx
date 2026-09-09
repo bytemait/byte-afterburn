@@ -22,8 +22,8 @@ const CARDS: TestimonialCardData[] = [
     quote: '"BYTE gave me the space to turn a rough idea into something I could actually demo."',
     name: 'Aarav Menon',
     role: 'MEMBER, DEVELOPMENT',
-    avatarSrc: '/portx/original/avatar-1.svg',
-    logoSrc: '/portx/original/logo-antony.svg',
+    avatarSrc: '/assets/avatar-1.svg',
+    logoSrc: '/assets/logo-antony.svg',
     logoWidth: '24px',
     height: '280px'
   },
@@ -32,8 +32,8 @@ const CARDS: TestimonialCardData[] = [
     quote: '"The best part is finding people who are as excited to learn as they are to build."',
     name: 'Riya Shah',
     role: 'MEMBER, AI/ML',
-    avatarSrc: '/portx/original/avatar-0.svg',
-    logoSrc: '/portx/original/logo-agencify.svg',
+    avatarSrc: '/assets/avatar-0.svg',
+    logoSrc: '/assets/logo-agencify.svg',
     logoWidth: '84px',
     height: '292px'
   },
@@ -42,8 +42,8 @@ const CARDS: TestimonialCardData[] = [
     quote: '"Every event leaves me with a new tool, a new question, and a new reason to keep experimenting."',
     name: 'Kabir Rao',
     role: 'MEMBER, MECHATRONICS',
-    avatarSrc: '/portx/original/avatar-2.svg',
-    logoSrc: '/portx/original/logo-bruno.svg',
+    avatarSrc: '/assets/avatar-2.svg',
+    logoSrc: '/assets/logo-bruno.svg',
     logoWidth: '80px',
     height: '220px'
   },
@@ -52,8 +52,8 @@ const CARDS: TestimonialCardData[] = [
     quote: '"Byte makes technical work feel collaborative, practical, and genuinely fun."',
     name: 'Ishita Nair',
     role: 'MEMBER, CYBERSECURITY',
-    avatarSrc: '/portx/original/avatar-3.svg',
-    logoSrc: '/portx/original/logo-axior.svg',
+    avatarSrc: '/assets/avatar-3.svg',
+    logoSrc: '/assets/logo-axior.svg',
     logoWidth: '84px',
     border: '1px solid rgb(51, 51, 51)',
     height: '196px'
@@ -63,8 +63,8 @@ const CARDS: TestimonialCardData[] = [
     quote: '"I came for the projects and stayed for the people who keep pushing each other forward."',
     name: 'Neel Kapoor',
     role: 'MEMBER, OUTREACH',
-    avatarSrc: '/portx/original/avatar-4.svg',
-    logoSrc: '/portx/original/logo-oglivy.svg',
+    avatarSrc: '/assets/avatar-4.svg',
+    logoSrc: '/assets/logo-oglivy.svg',
     logoWidth: '84px',
     height: '268px'
   }
@@ -247,14 +247,14 @@ export default function Testimonials({
         /* Embedded Local Fonts */
         @font-face {
           font-family: 'Clash Display';
-          src: url('/portx/original/clash-600.woff2') format('woff2');
+          src: url('/assets/clash-600.woff2') format('woff2');
           font-weight: 600;
           font-style: normal;
           font-display: swap;
         }
         @font-face {
           font-family: 'Clash Display';
-          src: url('/portx/original/clash-400.woff2') format('woff2');
+          src: url('/assets/clash-400.woff2') format('woff2');
           font-weight: 400;
           font-style: normal;
           font-display: swap;
