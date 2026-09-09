@@ -7,12 +7,12 @@ interface Props {
 const { active = 'home', immersive = false } = Astro.props;
 
 const links = [
-  { href: '/', label: 'Home', key: 'home' },
-  { href: '/#about', label: 'About', key: 'home' },
-  { href: '/events', label: 'Events', key: 'events' },
-  { href: '/members', label: 'Members', key: 'members' },
-  { href: '/', label: 'Projects', key: 'home' },
-  { href: '/contact', label: 'Contact', key: 'contact' },
+  { href: '/', label: 'Home', activeWhen: 'home' },
+  { href: '/#about', label: 'About' },
+  { href: '/events', label: 'Events', activeWhen: 'events' },
+  { href: '/members', label: 'Members', activeWhen: 'members' },
+  { href: '/#achievements', label: 'Projects' },
+  { href: '/contact', label: 'Contact', activeWhen: 'contact' },
 ];
 ---
 
@@ -21,67 +21,337 @@ const links = [
   data-byte-nav={immersive ? '' : undefined}
 >
   <div class="nav-inner">
-
-    <a href="/" class="brand">
-      <span class="mark">
-        <svg>
-          <use href="#i-cube" />
-        </svg>
-      </span>
-      Byte
-    </a>
-
-    <nav class="links">
-      {links.map((l) => (
-        <a
-          href={l.href}
-          class:list={[
-            'nav-link',
-            { active: l.key === active }
-          ]}
-        >
-          {l.label}
-        </a>
+    <a href="/" class="brand"><span class="mark"><img src="/icon.png" alt="" width="38" height="38" /></span> Byte</a>
+    <nav class="links" aria-label="Primary navigation">
+      {links.map((link) => (
+        <a href={link.href} class:list={['nav-link', { active: link.activeWhen === active }]}>{link.label}</a>
       ))}
     </nav>
 
     <div class="nav-right">
-      <button class="btn btn-primary">
-        Join Us
-      </button>
-
-      <button class="burger" id="burgerBtn">
-        <svg>
-          <use href="#i-menu" />
-        </svg>
+      <a class="btn btn-primary" href="/contact">Join Us</a>
+      <button class="burger" id="burgerBtn" type="button" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+        <span></span><span></span>
       </button>
     </div>
 
   </div>
 
-  <div class="mobile-menu" id="mobileMenu">
-
-    {links.map((l) => (
-      <a
-        href={l.href}
-        class:list={[
-          'nav-link',
-          { active: l.key === active }
-        ]}
-      >
-        {l.label}
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true" tabindex="-1">
+    <div class="mobile-menu-top">
+      <a href="/" class="mobile-wordmark" data-mobile-menu-link>
+        <img src="/icon.png" alt="" width="42" height="42" />
+        <span>BYTE<sup>©</sup></span>
       </a>
-    ))}
+      <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
+      </button>
+    </div>
 
-    <button class="btn btn-primary">
-      Join Us
-    </button>
+    <nav class="mobile-menu-links" aria-label="Mobile navigation">
+      {links.map((link, index) => (
+        <a
+          href={link.href}
+          class:list={['mobile-menu-link', { active: link.activeWhen === active }]}
+          style={`--menu-index:${index}`}
+          data-mobile-menu-link
+        >
+          <span class="mobile-link-node" aria-hidden="true"></span>
+          <span>{link.label}</span>
+        </a>
+      ))}
+    </nav>
 
+    <div class="mobile-menu-bottom">
+      <p>©2026 BYTE.DEVS</p>
+      <div class="mobile-menu-meta">
+        <a href="https://github.com/bytemait" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="/contact" data-mobile-menu-link>Join Byte</a>
+      </div>
+      <p class="mobile-menu-signal"><span></span> Network online</p>
+    </div>
   </div>
 </header>
 
 <script>
-  document.getElementById('burgerBtn')?.addEventListener('click', () => {
-    document.getElementById('mobileMenu')?.classList.toggle('open');
+  const menuButton = document.getElementById('burgerBtn');
+  const menu = document.getElementById('mobileMenu');
+  const closeButton = document.getElementById('mobileMenuClose');
+  let previousFocus: HTMLElement | null = null;
+  let closeTimer = 0;
+
+  const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  function openMenu() {
+    if (!menu || !menuButton) return;
+    window.clearTimeout(closeTimer);
+    previousFocus = document.activeElement as HTMLElement;
+    menu.classList.remove('is-closing');
+    menu.classList.add('open');
+    menu.setAttribute('aria-hidden', 'false');
+    menuButton.setAttribute('aria-expanded', 'true');
+    menuButton.setAttribute('aria-label', 'Close menu');
+    document.documentElement.classList.add('mobile-nav-open');
+    window.dispatchEvent(new CustomEvent('byte:nav-state', { detail: { open: true } }));
+    requestAnimationFrame(() => menu.focus({ preventScroll: true }));
+  }
+
+  function closeMenu({ restoreFocus = true } = {}) {
+    if (!menu || !menuButton || !menu.classList.contains('open')) return;
+    menu.classList.add('is-closing');
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.setAttribute('aria-label', 'Open menu');
+    document.documentElement.classList.remove('mobile-nav-open');
+    window.dispatchEvent(new CustomEvent('byte:nav-state', { detail: { open: false } }));
+    closeTimer = window.setTimeout(() => {
+      menu.classList.remove('open', 'is-closing');
+      menu.setAttribute('aria-hidden', 'true');
+      if (restoreFocus) previousFocus?.focus({ preventScroll: true });
+    }, 300);
+  }
+
+  menuButton?.addEventListener('click', () => {
+    if (menu?.classList.contains('open')) closeMenu();
+    else openMenu();
   });
+  closeButton?.addEventListener('click', () => closeMenu());
+  menu?.querySelectorAll('[data-mobile-menu-link]').forEach((link) => {
+    link.addEventListener('click', () => closeMenu({ restoreFocus: false }));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!menu?.classList.contains('open')) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeMenu();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...menu.querySelectorAll<HTMLElement>(focusableSelector)].filter((element) => element.offsetParent !== null);
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (!first || !last) return;
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 980 && menu?.classList.contains('open')) closeMenu({ restoreFocus: false });
+  }, { passive: true });
 </script>
+
+<style>
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/portx/original/clash-600.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .burger {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 50%;
+  }
+  .burger span {
+    position: absolute;
+    width: 19px;
+    height: 1.5px;
+    border-radius: 2px;
+    background: currentColor;
+  }
+  .burger span:first-child { transform: translateY(-4px); }
+  .burger span:last-child { transform: translateY(4px); }
+
+  .mobile-menu { display: none; }
+
+  @media (max-width: 980px) {
+    :global(html.mobile-nav-open),
+    :global(html.mobile-nav-open body) { overflow: hidden; overscroll-behavior: none; }
+    :global(html.mobile-nav-open .site-nav) { z-index: 10000; }
+    :global(html.mobile-nav-open .new-tasks-badge) { opacity: 0 !important; pointer-events: none; }
+    :global(html.mobile-nav-open .recreation-page > :not(.mesh-layer)) { opacity: 0 !important; visibility: hidden; }
+    :global(html.mobile-nav-open .title-network) { opacity: 0; }
+
+    .nav-inner { padding-block: 12px; }
+    .nav-right > .btn-primary { display: none; }
+    .burger { display: flex; z-index: 1; }
+
+    .mobile-menu {
+      --menu-accent: #52e0a6;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      width: 100%;
+      height: 100dvh;
+      min-height: 520px;
+      padding: max(18px, env(safe-area-inset-top)) 20px max(22px, env(safe-area-inset-bottom));
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      color: #f2f6f2;
+      background: #0b0e0c;
+      transform: translate3d(0, 100%, 0);
+      transition:
+        transform 460ms cubic-bezier(.16, 1, .3, 1),
+        opacity 260ms ease,
+        visibility 0s linear 460ms;
+      isolation: isolate;
+    }
+    :global(html.has-node-mesh) .mobile-menu { background: rgba(7, 10, 8, .72); }
+    .mobile-menu:focus { outline: none; }
+    .mobile-menu.open {
+      visibility: visible;
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      transition-delay: 0s;
+    }
+    .mobile-menu.is-closing {
+      opacity: 0;
+      transform: translate3d(0, 18%, 0);
+      transition-duration: 280ms, 220ms, 0s;
+    }
+
+    .mobile-menu-top {
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 58px;
+      opacity: 0;
+      transform: translateY(-64px);
+    }
+    .open .mobile-menu-top { animation: menu-group-in 520ms 180ms cubic-bezier(.16, 1, .3, 1) forwards; }
+    .mobile-wordmark { display: flex; align-items: center; gap: 10px; color: #f6faf6; text-decoration: none; }
+    .mobile-wordmark img { width: 38px; height: 38px; object-fit: contain; }
+    .mobile-wordmark span { font-family: 'Clash Display', sans-serif; font-size: 28px; font-weight: 600; line-height: 1; letter-spacing: -.03em; }
+    .mobile-wordmark sup { margin-left: 5px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; vertical-align: top; }
+    .mobile-menu-close {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(151, 179, 162, .14);
+      border-radius: 50%;
+      background: rgba(4, 7, 5, .72);
+      box-shadow: 0 18px 42px -20px rgba(0, 0, 0, .9);
+      color: #f4f7f4;
+    }
+    .mobile-menu-close svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+    .mobile-menu-close:active { color: var(--menu-accent); transform: scale(.94); }
+
+    .mobile-menu-links {
+      align-self: center;
+      width: 100%;
+      padding: clamp(18px, 4vh, 44px) 0 clamp(12px, 2.5vh, 28px);
+    }
+    .mobile-menu-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: clamp(48px, 7.2vh, 66px);
+      padding-left: clamp(28px, 11vw, 52px);
+      overflow: hidden;
+      color: #657068;
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(42px, 13vw, 72px);
+      font-weight: 600;
+      line-height: .9;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 0;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: color 140ms ease;
+    }
+    .open .mobile-menu-link {
+      animation: menu-link-in 560ms calc(150ms + var(--menu-index) * 54ms) cubic-bezier(.16, 1, .3, 1) forwards;
+    }
+    .mobile-menu-link.active:first-child,
+    .mobile-menu-link:focus-visible,
+    .mobile-menu-link:active { color: #f0f5f1; }
+    .mobile-link-node {
+      position: absolute;
+      left: 8px;
+      width: 8px;
+      height: 8px;
+      border: 1px solid var(--menu-accent);
+      border-radius: 50%;
+      background: #0b0e0c;
+      box-shadow: 0 0 0 0 rgba(82, 224, 166, .28);
+      transition: background 140ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+    .mobile-menu-link.active:first-child .mobile-link-node,
+    .mobile-menu-link:focus-visible .mobile-link-node,
+    .mobile-menu-link:active .mobile-link-node {
+      background: var(--menu-accent);
+      box-shadow: 0 0 0 7px rgba(82, 224, 166, .11);
+      transform: scale(1.2);
+    }
+
+    .mobile-menu-bottom {
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 13px 18px;
+      align-items: end;
+      padding-top: 14px;
+      border-top: 1px solid rgba(146, 175, 157, .14);
+      color: #d9e2dc;
+      font-family: 'Clash Display', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(54px);
+    }
+    .open .mobile-menu-bottom { animation: menu-group-in 520ms 430ms cubic-bezier(.16, 1, .3, 1) forwards; }
+    .mobile-menu-bottom p { margin: 0; }
+    .mobile-menu-meta { display: flex; gap: 20px; }
+    .mobile-menu-meta a { color: inherit; text-decoration: none; }
+    .mobile-menu-meta a:focus-visible, .mobile-menu-meta a:active { color: var(--menu-accent); }
+    .mobile-menu-signal { grid-column: 1 / -1; display: flex; align-items: center; gap: 7px; color: #718078; font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: .12em; }
+    .mobile-menu-signal span { width: 6px; height: 6px; border-radius: 50%; background: var(--menu-accent); box-shadow: 0 0 12px rgba(82, 224, 166, .6); }
+
+    .mobile-menu :is(a, button):focus-visible { outline: 1px solid var(--menu-accent); outline-offset: 4px; }
+  }
+
+  @media (max-width: 360px), (max-height: 680px) {
+    .mobile-menu { padding-inline: 16px; }
+    .mobile-menu-top { min-height: 50px; }
+    .mobile-menu-close { width: 48px; height: 48px; }
+    .mobile-wordmark img { width: 32px; height: 32px; }
+    .mobile-wordmark span { font-size: 24px; }
+    .mobile-menu-links { padding-block: 8px; }
+    .mobile-menu-link { min-height: 43px; font-size: clamp(36px, 11.8vw, 46px); }
+    .mobile-menu-bottom { padding-top: 10px; font-size: 11px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu { transition: opacity 160ms ease, visibility 0s linear 160ms; transform: none; }
+    .mobile-menu.open { transition-delay: 0s; }
+    .mobile-menu.is-closing { transform: none; }
+    .open .mobile-menu-top,
+    .open .mobile-menu-link,
+    .open .mobile-menu-bottom { animation: menu-fade-in 180ms ease forwards; }
+  }
+
+  @keyframes menu-link-in { to { opacity: 1; transform: translateY(0); } }
+  @keyframes menu-group-in { to { opacity: 1; transform: translateY(0); } }
+  @keyframes menu-fade-in { to { opacity: 1; transform: none; } }
+</style>
