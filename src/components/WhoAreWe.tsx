@@ -104,7 +104,7 @@ export default function WhoAreWe() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="whoarewe-section" aria-labelledby="whoarewe-heading">
+    <section ref={sectionRef} className="whoarewe-section" id="about" aria-labelledby="whoarewe-heading">
       <div className="whoarewe-inner">
         <div className="whoarewe-heading-bar">
           <span aria-hidden="true">//</span>

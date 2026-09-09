@@ -10,6 +10,7 @@ export default function NodeMesh() {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d', { alpha: true });
     if (!canvas || !ctx) return;
+    document.documentElement.classList.add('has-node-mesh');
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
     const surface = canvas.closest('main')!;
@@ -31,6 +32,8 @@ export default function NodeMesh() {
     let frameTargets: Point[] = [];
     let frameAssignments: FrameAssignment[] = [];
     let frameReveal = 0;
+    let navOpen = document.documentElement.classList.contains('mobile-nav-open');
+    let navReveal = navOpen ? 1 : 0;
     const loaderStartedAt = performance.now();
     const loaderDuration = 900;
     const previousOverflow = document.body.style.overflow;
@@ -136,7 +139,9 @@ export default function NodeMesh() {
       const loaderProgress = loaderComplete
         ? 1
         : clamp((performance.now() - loaderStartedAt) / loaderDuration, 0, 1);
-      const reach = width < 700 ? 155 : 190;
+      const navGoal = navOpen ? 1 : 0;
+      navReveal += (navGoal - navReveal) * (step ? 1 - Math.exp(-step * 0.14) : 1);
+      const reach = (width < 700 ? 155 : 190) + navReveal * 34;
       const radius = width < 700 ? 160 : 240;
       elapsed += step * 0.008;
       scrollEnergy *= Math.pow(0.92, step);
@@ -195,8 +200,8 @@ export default function NodeMesh() {
           const connectionReveal = clamp((loaderProgress - 0.2 - edgeOrder * 0.28) / 0.48, 0, 1);
           if (connectionReveal <= 0) continue;
           const easedConnection = 1 - Math.pow(1 - connectionReveal, 3);
-          ctx!.strokeStyle = `rgba(68, 185, 132, ${strength * (0.32 * edge + activity * 0.36) * easedConnection})`;
-          ctx!.lineWidth = 0.7;
+          ctx!.strokeStyle = `rgba(${68 + navReveal * 18}, ${185 + navReveal * 35}, ${132 + navReveal * 25}, ${strength * (0.32 * edge + activity * 0.36 + navReveal * 0.42) * easedConnection})`;
+          ctx!.lineWidth = 0.7 + navReveal * 0.24;
           ctx!.beginPath();
           ctx!.moveTo(a.x, a.y);
           ctx!.lineTo(a.x + (b.x - a.x) * easedConnection, a.y + (b.y - a.y) * easedConnection);
@@ -204,18 +209,18 @@ export default function NodeMesh() {
           // A few travelling signals reveal the graph's connectivity.
           if (loaderProgress >= 1 && i % 11 === 0 && j % 3 === 0 && distance > 55) {
             const progress = (elapsed * 0.15 + a.phase / (Math.PI * 2)) % 1;
-            ctx!.fillStyle = `rgba(125, 234, 187, ${strength * 0.65})`;
+            ctx!.fillStyle = `rgba(125, 234, 187, ${strength * (0.65 + navReveal * 0.3)})`;
             ctx!.beginPath();
-            ctx!.arc(a.x + (b.x - a.x) * progress, a.y + (b.y - a.y) * progress, 1.25, 0, Math.PI * 2);
+            ctx!.arc(a.x + (b.x - a.x) * progress, a.y + (b.y - a.y) * progress, 1.25 + navReveal * 0.65, 0, Math.PI * 2);
             ctx!.fill();
           }
         }
-        ctx!.fillStyle = `rgba(105, 220, 168, ${(0.28 + a.depth * 0.34 + activity * 0.35) * edge * nodeReveal})`;
+        ctx!.fillStyle = `rgba(105, 220, 168, ${(0.28 + a.depth * 0.34 + activity * 0.35 + navReveal * 0.45) * edge * nodeReveal})`;
         ctx!.beginPath();
-        ctx!.arc(a.x, a.y, 0.8 + a.depth * 1.25 + activity, 0, Math.PI * 2);
+        ctx!.arc(a.x, a.y, 0.8 + a.depth * 1.25 + activity + navReveal * 0.55, 0, Math.PI * 2);
         ctx!.fill();
         if (i % 9 === 0 && nodeReveal > 0) {
-          ctx!.strokeStyle = `rgba(82, 224, 166, ${(0.15 * edge + activity * 0.25) * nodeReveal})`;
+          ctx!.strokeStyle = `rgba(82, 224, 166, ${(0.15 * edge + activity * 0.25 + navReveal * 0.2) * nodeReveal})`;
           ctx!.beginPath();
           ctx!.arc(a.x, a.y, 5 + a.depth * 2, 0, Math.PI * 2);
           ctx!.stroke();
@@ -290,6 +295,10 @@ export default function NodeMesh() {
       }
       scrollY = window.scrollY;
     }
+    function navState(event: Event) {
+      navOpen = Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open);
+      if (motion.matches) draw(0);
+    }
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
       sync();
@@ -304,6 +313,7 @@ export default function NodeMesh() {
     document.addEventListener('pointerleave', leave);
     window.addEventListener('blur', leave);
     window.addEventListener('scroll', scroll, { passive: true });
+    window.addEventListener('byte:nav-state', navState);
     document.addEventListener('visibilitychange', sync);
     motion.addEventListener('change', preference);
     return () => {
@@ -317,8 +327,10 @@ export default function NodeMesh() {
       document.removeEventListener('pointerleave', leave);
       window.removeEventListener('blur', leave);
       window.removeEventListener('scroll', scroll);
+      window.removeEventListener('byte:nav-state', navState);
       document.removeEventListener('visibilitychange', sync);
       motion.removeEventListener('change', preference);
+      document.documentElement.classList.remove('has-node-mesh');
     };
   }, []);
 

@@ -107,7 +107,7 @@ const PROJECTS: ProjectItem[] = [
 
 export default function Achievements() {
   return (
-    <section className="achievements-section" aria-labelledby="achievements-title">
+    <section className="achievements-section" id="achievements" aria-labelledby="achievements-title">
       <div className="achievements-container">
         {/* Top Header Bar */}
         <div className="achievements-header-bar">
