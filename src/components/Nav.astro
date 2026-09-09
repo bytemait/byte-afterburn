@@ -24,7 +24,7 @@ const links = [
     <a href="/" class="brand"><span class="mark"><img src="/icon.png" alt="" width="38" height="38" /></span> Byte</a>
     <nav class="links" aria-label="Primary navigation">
       {links.map((link) => (
-        <a href={link.href} class:list={['nav-link', { active: link.activeWhen === active }]}>{link.label}</a>
+        <a href={link.href} data-home-link={link.label === 'Home' ? '' : undefined} class:list={['nav-link', { active: link.activeWhen === active }]}>{link.label}</a>
       ))}
     </nav>
 
@@ -54,6 +54,7 @@ const links = [
           href={link.href}
           class:list={['mobile-menu-link', { active: link.activeWhen === active }]}
           style={`--menu-index:${index}`}
+          data-home-link={link.label === 'Home' ? '' : undefined}
           data-mobile-menu-link
         >
           <span class="mobile-link-node" aria-hidden="true"></span>
@@ -113,6 +114,14 @@ const links = [
   menuButton?.addEventListener('click', () => {
     if (menu?.classList.contains('open')) closeMenu();
     else openMenu();
+  });
+  document.querySelectorAll<HTMLAnchorElement>('[data-home-link]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      if (window.location.pathname !== '/') return;
+      event.preventDefault();
+      closeMenu({ restoreFocus: false });
+      window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
   });
   closeButton?.addEventListener('click', () => closeMenu());
   menu?.querySelectorAll('[data-mobile-menu-link]').forEach((link) => {

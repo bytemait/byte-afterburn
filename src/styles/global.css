@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root{
-  --bg: #060907;
-  --bg-soft: #0a0f0b;
-  --panel: #10160f;
-  --panel-2: #151d14;
-  --line: #202b1f;
+  --bg: #101010;
+  --bg-soft: #141414;
+  --panel: #171717;
+  --panel-2: #1c1c1c;
+  --line: #292929;
   --lime: #22c579;
   --lime-dim: #1a9c5f;
   --lime-bright: #52e0a6;

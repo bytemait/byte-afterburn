@@ -2,6 +2,9 @@
 import Icons from '../components/Icons.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import PageTransitions from '../components/PageTransitions.astro';
+import NodeMesh from '../components/NodeMesh';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
@@ -9,18 +12,20 @@ interface Props {
   active?: 'home' | 'events' | 'members' | 'contact';
   immersiveNav?: boolean;
   footerInSlot?: boolean;
+  contentTransition?: boolean;
 }
 
 const {
   title,
   active = 'home',
   immersiveNav = false,
-  footerInSlot = false
+  footerInSlot = false,
+  contentTransition = Astro.url.pathname !== '/'
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,6 +37,8 @@ const {
 
     <title>{title}</title>
 
+    <ClientRouter fallback="swap" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
     <link
@@ -42,11 +49,64 @@ const {
 
   <body>
     <Icons />
+    <PageTransitions />
+
+    <div class="global-mesh-layer" transition:persist="byte-node-mesh" aria-hidden="true">
+      <NodeMesh client:load />
+    </div>
 
     <Nav active={active} immersive={immersiveNav} />
 
-    <slot />
+    {contentTransition ? (
+      <div class="page-transition-content" data-page-transition-content data-page-enter>
+        <slot />
+      </div>
+    ) : (
+      <slot />
+    )}
 
     {!footerInSlot && <Footer immersive={immersiveNav} />}
   </body>
 </html>
+
+<style is:global>
+  .global-mesh-layer {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .global-mesh-layer .node-mesh {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .global-mesh-layer .title-network {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .site-nav,
+  .page-transition-content,
+  body > main,
+  body > footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(byte-node-mesh),
+  ::view-transition-new(byte-node-mesh) {
+    animation: none;
+  }
+</style>

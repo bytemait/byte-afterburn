@@ -1,0 +1,13 @@
+---
+import ShowcaseDetail from '../../components/ShowcaseDetail.astro';
+import { servicePages } from '../../data/showcase-pages';
+
+export function getStaticPaths() {
+  return servicePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+---
+
+<ShowcaseDetail page={page} />
+
