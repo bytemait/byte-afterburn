@@ -13,9 +13,10 @@ export default function NodeMesh() {
     document.documentElement.classList.add('has-node-mesh');
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
-    const surface = canvas.closest('main')!;
     const titleCanvas = titleCanvasRef.current!;
-    const titleNetwork = createTitleNetwork(surface, titleCanvas);
+    const findSurface = () => document.querySelector<HTMLElement>('.recreation-page, .showcase-page, main') ?? document.body;
+    let surface = findSurface();
+    let titleNetwork = createTitleNetwork(surface, titleCanvas);
     type Node = { x: number; y: number; vx: number; vy: number; phase: number; depth: number };
     type Point = { x: number; y: number };
     type FrameAssignment = { node: number; target: number };
@@ -299,11 +300,26 @@ export default function NodeMesh() {
       navOpen = Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open);
       if (motion.matches) draw(0);
     }
+    function refreshRouteSurface() {
+      // Astro replaces the route content while preserving this canvas. Rebind
+      // the title/achievement integrations to the newly swapped page DOM.
+      document.documentElement.classList.add('has-node-mesh');
+      if (loaderComplete) document.documentElement.classList.add('byte-page-ready');
+      titleNetwork.dispose();
+      surface = findSurface();
+      titleNetwork = createTitleNetwork(surface, titleCanvas);
+      frameElement = null;
+      frameTargets = [];
+      frameAssignments = [];
+      frameReveal = 0;
+      titleNetwork.resize();
+      if (motion.matches) draw(0);
+    }
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
       sync();
     });
-    observer.observe(surface);
+    observer.observe(canvas);
     document.documentElement.classList.remove('byte-page-ready');
     document.body.style.overflow = 'hidden';
     resize();
@@ -315,6 +331,7 @@ export default function NodeMesh() {
     window.addEventListener('scroll', scroll, { passive: true });
     window.addEventListener('byte:nav-state', navState);
     document.addEventListener('visibilitychange', sync);
+    document.addEventListener('astro:after-swap', refreshRouteSurface);
     motion.addEventListener('change', preference);
     return () => {
       cancelAnimationFrame(frame);
@@ -329,6 +346,7 @@ export default function NodeMesh() {
       window.removeEventListener('scroll', scroll);
       window.removeEventListener('byte:nav-state', navState);
       document.removeEventListener('visibilitychange', sync);
+      document.removeEventListener('astro:after-swap', refreshRouteSurface);
       motion.removeEventListener('change', preference);
       document.documentElement.classList.remove('has-node-mesh');
     };

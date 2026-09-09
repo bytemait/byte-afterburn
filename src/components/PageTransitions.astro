@@ -1,0 +1,251 @@
+---
+// The content layer is deliberately separate from navigation and the node mesh.
+---
+
+<script>
+  const TRANSITION_MS = 560;
+  const ENTER_MS = 700;
+  const contentSelector = '[data-page-transition-content]';
+  let enterTimer = 0;
+
+  const playExit = () => new Promise<void>((resolve) => {
+    const content = document.querySelector<HTMLElement>(contentSelector);
+    if (!content || content.classList.contains('is-glitching-out')) {
+      resolve();
+      return;
+    }
+
+    content.classList.add('is-glitching-out');
+    content.setAttribute('aria-busy', 'true');
+    document.documentElement.classList.add('is-page-leaving');
+
+    const delay = matchMedia('(prefers-reduced-motion: reduce)').matches ? 160 : TRANSITION_MS;
+    window.setTimeout(resolve, delay);
+  });
+
+  const clearExit = () => {
+    document.documentElement.classList.remove('is-page-leaving');
+    document.querySelectorAll<HTMLElement>(contentSelector).forEach((content) => {
+      content.classList.remove('is-glitching-out');
+      content.removeAttribute('aria-busy');
+    });
+  };
+
+  const playEnter = (force = false) => {
+    const content = document.querySelector<HTMLElement>(contentSelector);
+    if (!content || (!force && !content.hasAttribute('data-page-enter'))) return;
+
+    window.clearTimeout(enterTimer);
+    content.classList.add('is-glitching-in');
+    document.documentElement.classList.add('is-page-entering');
+    const delay = matchMedia('(prefers-reduced-motion: reduce)').matches ? 180 : ENTER_MS;
+    enterTimer = window.setTimeout(() => {
+      content.classList.remove('is-glitching-in');
+      content.removeAttribute('data-page-enter');
+      document.documentElement.classList.remove('is-page-entering');
+    }, delay);
+  };
+
+  document.addEventListener('astro:before-preparation', (event) => {
+    const transition = event as Event & { loader: () => Promise<void> };
+    if (typeof transition.loader !== 'function') return;
+    const load = transition.loader;
+    transition.loader = async () => {
+      try {
+        await Promise.all([load(), playExit()]);
+      } catch (error) {
+        clearExit();
+        throw error;
+      }
+    };
+  });
+
+  window.addEventListener('pageshow', () => {
+    clearExit();
+    playEnter();
+  });
+  document.addEventListener('astro:after-swap', () => {
+    clearExit();
+    playEnter(true);
+  });
+
+  playEnter();
+</script>
+
+<style is:global>
+  [data-page-transition-content] {
+    position: relative;
+    isolation: isolate;
+    transform-origin: 50% 20%;
+  }
+
+  [data-page-transition-content][data-page-enter],
+  [data-page-transition-content].is-glitching-in {
+    animation: byte-glitch-in 700ms steps(1, end) both;
+  }
+
+  [data-page-transition-content].is-glitching-out {
+    pointer-events: none;
+    will-change: transform, opacity, filter;
+    animation: byte-glitch-out 560ms steps(1, end) both;
+  }
+
+  html.is-page-leaving,
+  html.is-page-entering,
+  html.is-page-leaving body,
+  html.is-page-entering body {
+    overflow-x: clip;
+  }
+
+  html.is-page-leaving { cursor: wait; }
+
+  @keyframes byte-glitch-out {
+    0% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: none;
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+    10% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: drop-shadow(7px 0 rgba(82, 224, 166, .82)) drop-shadow(-5px 0 rgba(117, 89, 255, .52));
+      transform: translate3d(-4px, 0, 0);
+    }
+    18% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 8px, transparent 8px 15px);
+      mask-image: repeating-linear-gradient(to bottom, #000 0 8px, transparent 8px 15px);
+      filter: drop-shadow(-8px 0 rgba(82, 224, 166, .9));
+      transform: translate3d(9px, 0, 0);
+    }
+    27% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: none;
+      transform: translate3d(0, 0, 0);
+    }
+    38% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, transparent 0 4px, #000 4px 17px, transparent 17px 23px);
+      mask-image: repeating-linear-gradient(to bottom, transparent 0 4px, #000 4px 17px, transparent 17px 23px);
+      filter: drop-shadow(10px 0 rgba(82, 224, 166, .78)) drop-shadow(-7px 0 rgba(117, 89, 255, .48));
+      transform: translate3d(-7px, 0, 0) skewX(-.35deg);
+    }
+    48% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: none;
+      opacity: .94;
+      transform: translate3d(3px, 0, 0);
+    }
+    61% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 3px, transparent 3px 11px);
+      mask-image: repeating-linear-gradient(to bottom, #000 0 3px, transparent 3px 11px);
+      filter: drop-shadow(-11px 0 rgba(82, 224, 166, .9));
+      transform: translate3d(11px, 0, 0);
+    }
+    70% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: drop-shadow(4px 0 rgba(82, 224, 166, .48));
+      opacity: .78;
+      transform: translate3d(-3px, 0, 0) scaleX(.996);
+    }
+    81% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, transparent 0 7px, #000 7px 19px, transparent 19px 25px);
+      mask-image: repeating-linear-gradient(to bottom, transparent 0 7px, #000 7px 19px, transparent 19px 25px);
+      filter: drop-shadow(13px 0 rgba(82, 224, 166, .95)) drop-shadow(-9px 0 rgba(117, 89, 255, .55));
+      opacity: .68;
+      transform: translate3d(-12px, 0, 0);
+    }
+    90% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: none;
+      opacity: .32;
+      transform: translate3d(6px, 0, 0) scaleX(.985);
+    }
+    100% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 1px, transparent 1px 12px);
+      mask-image: repeating-linear-gradient(to bottom, #000 0 1px, transparent 1px 12px);
+      filter: drop-shadow(-14px 0 rgba(82, 224, 166, .9));
+      opacity: 0;
+      transform: translate3d(14px, 0, 0) scaleX(.97);
+    }
+  }
+
+  @keyframes byte-glitch-in {
+    0% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 1px, transparent 1px 12px);
+      mask-image: repeating-linear-gradient(to bottom, #000 0 1px, transparent 1px 12px);
+      filter: drop-shadow(14px 0 rgba(82, 224, 166, .9));
+      opacity: 0;
+      transform: translate3d(-14px, 0, 0) scaleX(.97);
+    }
+    12% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, transparent 0 6px, #000 6px 17px, transparent 17px 24px);
+      mask-image: repeating-linear-gradient(to bottom, transparent 0 6px, #000 6px 17px, transparent 17px 24px);
+      filter: drop-shadow(-11px 0 rgba(82, 224, 166, .9)) drop-shadow(7px 0 rgba(117, 89, 255, .5));
+      opacity: .62;
+      transform: translate3d(10px, 0, 0);
+    }
+    22% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: none;
+      opacity: .72;
+      transform: translate3d(-3px, 0, 0);
+    }
+    34% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 4px, transparent 4px 12px);
+      mask-image: repeating-linear-gradient(to bottom, #000 0 4px, transparent 4px 12px);
+      filter: drop-shadow(9px 0 rgba(82, 224, 166, .82));
+      opacity: .8;
+      transform: translate3d(-8px, 0, 0);
+    }
+    46% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: drop-shadow(-3px 0 rgba(82, 224, 166, .45));
+      opacity: .9;
+      transform: translate3d(2px, 0, 0) scaleX(.994);
+    }
+    58% {
+      -webkit-mask-image: repeating-linear-gradient(to bottom, transparent 0 3px, #000 3px 14px, transparent 14px 20px);
+      mask-image: repeating-linear-gradient(to bottom, transparent 0 3px, #000 3px 14px, transparent 14px 20px);
+      filter: drop-shadow(-7px 0 rgba(82, 224, 166, .7));
+      opacity: .94;
+      transform: translate3d(6px, 0, 0);
+    }
+    70% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: none;
+      opacity: 1;
+      transform: translate3d(-1px, 0, 0);
+    }
+    82% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: drop-shadow(2px 0 rgba(82, 224, 166, .28));
+      transform: translate3d(1px, 0, 0);
+    }
+    100% {
+      -webkit-mask-image: none;
+      mask-image: none;
+      filter: none;
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-page-transition-content][data-page-enter],
+    [data-page-transition-content].is-glitching-in { animation: byte-page-fade-in 180ms ease-out both; }
+    [data-page-transition-content].is-glitching-out {
+      animation: byte-page-fade-out 140ms ease-out both;
+    }
+    @keyframes byte-page-fade-in { from { opacity: 0; } }
+    @keyframes byte-page-fade-out { to { opacity: 0; } }
+  }
+</style>

@@ -15,7 +15,7 @@
     --byte-accent: #22c579;
     --byte-accent-bright: #52e0a6;
     --byte-accent-dim: #1a9c5f;
-    background: #101010;
+    background: transparent;
   }
 
   .recreation-page .hero-section,
@@ -42,7 +42,7 @@
     visibility: hidden;
   }
 
-  html.byte-page-ready .recreation-page > :not(.mesh-layer),
+  html.byte-page-ready:not(.is-page-leaving) .recreation-page > :not(.mesh-layer):not(.is-glitching-in),
   html.byte-page-ready .site-nav.is-immersive {
     animation: byte-content-in 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }

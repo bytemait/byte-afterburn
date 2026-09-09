@@ -6,7 +6,6 @@ import Achievements from '../components/Achievements';
 import Awards from '../components/Awards';
 import Departments from '../components/Departments';
 import Testimonials from '../components/Testimonials';
-import NodeMesh from '../components/NodeMesh';
 import MobileScrollHover from '../components/MobileScrollHover';
 import NavbarScrollFade from '../components/NavbarScrollFade';
 import NewTasksBadge from '../components/NewTasksBadge';
@@ -14,31 +13,30 @@ import Footer from '../components/Footer.astro';
 import '../styles/recreation.css';
 ---
 
-<Layout title="B.Y.T.E. — Build. Connect. Create Impact." active="home" immersiveNav footerInSlot>
+<Layout title="B.Y.T.E. — Build. Connect. Create Impact." active="home" immersiveNav footerInSlot contentTransition={false}>
   <main class="recreation-page">
-    <div class="mesh-layer">
-      <NodeMesh client:load />
-    </div>
     <MobileScrollHover client:load />
     <NavbarScrollFade client:load />
-    <!-- 1. Hero -->
-    <Hero client:load />
+    <div class="page-transition-content" data-page-transition-content>
+      <!-- 1. Hero -->
+      <Hero client:load />
 
-    <!-- 2. Who Are We -->
-    <WhoAreWe client:load />
+      <!-- 2. Who Are We -->
+      <WhoAreWe client:load />
 
-    <!-- 3. Our Achievements -->
-    <Achievements client:load />
+      <!-- 3. Our Achievements -->
+      <Achievements client:load />
 
-    <!-- 4. Events -->
-    <Awards client:load />
+      <!-- 4. Events -->
+      <Awards client:load />
 
-    <!-- 5. Departments and stats -->
-    <Departments client:load />
+      <!-- 5. Departments and stats -->
+      <Departments client:load />
 
-    <!-- 6. Testimonials -->
-    <Testimonials client:load />
-    <Footer immersive />
+      <!-- 6. Testimonials -->
+      <Testimonials client:load />
+      <Footer immersive />
+    </div>
     <NewTasksBadge client:load />
   </main>
 </Layout>

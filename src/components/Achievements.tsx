@@ -25,7 +25,7 @@ const PROJECTS: ProjectItem[] = [
     cardWidth: 648,
     cardHeight: 598,
     mediaHeight: 480,
-    link: '/members'
+    link: '/works/agencify'
   },
   {
     id: 'ezcrack',
@@ -37,7 +37,7 @@ const PROJECTS: ProjectItem[] = [
     cardWidth: 311,
     cardHeight: 424,
     mediaHeight: 306,
-    link: '/members'
+    link: '/works/antony'
   },
   // Row 2
   {
@@ -50,7 +50,7 @@ const PROJECTS: ProjectItem[] = [
     cardWidth: 972,
     cardHeight: 847,
     mediaHeight: 729,
-    link: '/members'
+    link: '/works/zcf'
   },
   // Row 3
   {
@@ -63,7 +63,7 @@ const PROJECTS: ProjectItem[] = [
     cardWidth: 635,
     cardHeight: 598,
     mediaHeight: 480,
-    link: '/members'
+    link: '/works/candreva'
   },
   // Row 4
   {
@@ -76,7 +76,7 @@ const PROJECTS: ProjectItem[] = [
     cardWidth: 311,
     cardHeight: 424,
     mediaHeight: 306,
-    link: '/members'
+    link: '/works/sotto'
   },
   {
     id: 'scrape2sim',
@@ -88,7 +88,7 @@ const PROJECTS: ProjectItem[] = [
     cardWidth: 635,
     cardHeight: 598,
     mediaHeight: 480,
-    link: '/members'
+    link: '/works/tesla'
   },
   // Row 5
   {
@@ -101,7 +101,7 @@ const PROJECTS: ProjectItem[] = [
     cardWidth: 972,
     cardHeight: 847,
     mediaHeight: 729,
-    link: '/members'
+    link: '/works/bruno'
   }
 ];
 
@@ -368,6 +368,9 @@ export default function Achievements() {
         }
 
         .framer-card-title {
+          position: relative;
+          display: inline-block;
+          width: fit-content;
           margin: 0;
           font-family: 'Clash Display', 'Clash Display Placeholder', sans-serif;
           font-size: 24px;
@@ -375,6 +378,73 @@ export default function Achievements() {
           line-height: 1.2;
           color: #ffffff;
           text-transform: uppercase;
+          transform: translateY(0) scale(1);
+          transform-origin: left bottom;
+          transition:
+            color 160ms ease,
+            transform 480ms cubic-bezier(0.16, 1.32, 0.3, 1);
+          will-change: transform;
+        }
+
+        .framer-card-title::before,
+        .framer-card-title::after {
+          content: attr(data-text);
+          position: absolute;
+          inset: 0;
+          width: max-content;
+          max-width: 100%;
+          color: var(--byte-accent, #22c579);
+          pointer-events: none;
+          opacity: 0;
+        }
+
+        .framer-card-title::before {
+          clip-path: inset(0 0 55% 0);
+          text-shadow: -2px 0 #b9ffdc;
+        }
+
+        .framer-card-title::after {
+          clip-path: inset(52% 0 0 0);
+          text-shadow: 2px 0 #087a46;
+        }
+
+        .framer-work-card:hover .framer-card-title,
+        .framer-work-card:focus-visible .framer-card-title,
+        .framer-work-card.is-scroll-hover .framer-card-title {
+          color: var(--byte-accent, #22c579);
+          transform: translateY(-6px) scale(1.14);
+        }
+
+        .framer-work-card:hover .framer-card-title::before,
+        .framer-work-card:focus-visible .framer-card-title::before,
+        .framer-work-card.is-scroll-hover .framer-card-title::before {
+          animation: achievement-glitch-top 360ms steps(1, end) both;
+        }
+
+        .framer-work-card:hover .framer-card-title::after,
+        .framer-work-card:focus-visible .framer-card-title::after,
+        .framer-work-card.is-scroll-hover .framer-card-title::after {
+          animation: achievement-glitch-bottom 360ms 28ms steps(1, end) both;
+        }
+
+        @keyframes achievement-glitch-top {
+          0% { opacity: 0; transform: translate(0); clip-path: inset(0 0 55% 0); }
+          12% { opacity: .9; transform: translate(-5px, -1px); clip-path: inset(8% 0 68% 0); }
+          26% { opacity: .7; transform: translate(4px, 1px); clip-path: inset(30% 0 47% 0); }
+          42% { opacity: .85; transform: translate(-3px, 0); clip-path: inset(3% 0 76% 0); }
+          58% { opacity: .45; transform: translate(2px, -1px); clip-path: inset(38% 0 43% 0); }
+          76% { opacity: .72; transform: translate(-1px, 0); clip-path: inset(14% 0 65% 0); }
+          100% { opacity: 0; transform: translate(0); clip-path: inset(0 0 55% 0); }
+        }
+
+        @keyframes achievement-glitch-bottom {
+          0% { opacity: 0; transform: translate(0); clip-path: inset(52% 0 0 0); }
+          14% { opacity: .8; transform: translate(5px, 1px); clip-path: inset(62% 0 13% 0); }
+          31% { opacity: .65; transform: translate(-4px, 0); clip-path: inset(47% 0 35% 0); }
+          48% { opacity: .9; transform: translate(3px, 1px); clip-path: inset(78% 0 4% 0); }
+          64% { opacity: .48; transform: translate(-2px, 0); clip-path: inset(55% 0 23% 0); }
+          82% { opacity: .7; transform: translate(1px, 1px); clip-path: inset(69% 0 12% 0); }
+          100% { opacity: 0; transform: translate(0); clip-path: inset(52% 0 0 0); }
         }
 
         .framer-card-tags {
@@ -540,6 +610,21 @@ export default function Achievements() {
             transition: none !important;
           }
 
+          .framer-card-title {
+            transition: color 120ms linear !important;
+          }
+
+          .framer-work-card:hover .framer-card-title,
+          .framer-work-card:focus-visible .framer-card-title,
+          .framer-work-card.is-scroll-hover .framer-card-title {
+            transform: none;
+          }
+
+          .framer-card-title::before,
+          .framer-card-title::after {
+            animation: none !important;
+          }
+
           .achievement-description {
             filter: none !important;
             transition: opacity 120ms linear !important;
@@ -575,7 +660,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
       {/* Bottom Info Row with exact gap: 40px from media */}
       <div className="framer-card-bottom-row">
         <div className="framer-card-left-info">
-          <h4 className="framer-card-title">{project.name}</h4>
+          <h4 className="framer-card-title" data-text={project.name}>{project.name}</h4>
           <div className="framer-card-tags">
             {project.tags.map((tag) => (
               <span key={tag} className="framer-tag-pill">
