@@ -21,7 +21,7 @@ const PROJECTS: ProjectItem[] = [
     tags: ['Hackathon', 'AI'],
     description: 'A first-place AI hackathon project built with Codex.',
     descriptionSide: 'right',
-    imageSrc: '/portx/original/agencify.webp',
+    imageSrc: '/assets/agencify.webp',
     cardWidth: 648,
     cardHeight: 598,
     mediaHeight: 480,
@@ -33,7 +33,7 @@ const PROJECTS: ProjectItem[] = [
     tags: ['Project', 'Development'],
     description: 'A development project shaped around a clear, useful product experience.',
     descriptionSide: 'left',
-    imageSrc: '/portx/original/antony.webp',
+    imageSrc: '/assets/antony.webp',
     cardWidth: 311,
     cardHeight: 424,
     mediaHeight: 306,
@@ -46,7 +46,7 @@ const PROJECTS: ProjectItem[] = [
     tags: ['Hackathon', 'Mechatronics'],
     description: 'A first-place mechatronics hackathon project for LAM Research.',
     descriptionSide: 'left',
-    imageSrc: '/portx/original/zcf.webp',
+    imageSrc: '/assets/zcf.webp',
     cardWidth: 972,
     cardHeight: 847,
     mediaHeight: 729,
@@ -59,7 +59,7 @@ const PROJECTS: ProjectItem[] = [
     tags: ['Project', 'Development'],
     description: 'A development project exploring image-first interaction and product flow.',
     descriptionSide: 'right',
-    imageSrc: '/portx/original/candreva.webp',
+    imageSrc: '/assets/candreva.webp',
     cardWidth: 635,
     cardHeight: 598,
     mediaHeight: 480,
@@ -72,7 +72,7 @@ const PROJECTS: ProjectItem[] = [
     tags: ['Project', 'Development'],
     description: 'A development project built for the BunkMAIT initiative.',
     descriptionSide: 'right',
-    imageSrc: '/portx/original/sotto.webp',
+    imageSrc: '/assets/sotto.webp',
     cardWidth: 311,
     cardHeight: 424,
     mediaHeight: 306,
@@ -84,7 +84,7 @@ const PROJECTS: ProjectItem[] = [
     tags: ['Machine Learning', 'Project'],
     description: 'A machine learning project built around turning data into useful simulation workflows.',
     descriptionSide: 'left',
-    imageSrc: '/portx/original/tesla.webp',
+    imageSrc: '/assets/tesla.webp',
     cardWidth: 635,
     cardHeight: 598,
     mediaHeight: 480,
@@ -97,7 +97,7 @@ const PROJECTS: ProjectItem[] = [
     tags: ['Project', 'Mechatronics'],
     description: 'A mechatronics project built around a drone-focused physical system.',
     descriptionSide: 'right',
-    imageSrc: '/portx/original/bruno.webp',
+    imageSrc: '/assets/bruno.webp',
     cardWidth: 972,
     cardHeight: 847,
     mediaHeight: 729,
@@ -170,7 +170,7 @@ export default function Achievements() {
       <style>{`
         @font-face {
           font-family: 'Clash Display';
-          src: url('/portx/original/clash-600.woff2') format('woff2');
+          src: url('/assets/clash-600.woff2') format('woff2');
           font-weight: 600;
           font-style: normal;
           font-display: swap;

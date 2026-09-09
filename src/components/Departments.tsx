@@ -252,7 +252,7 @@ export default function DepartmentsSection() {
       <style>{`
         @font-face {
           font-family: 'Clash Display';
-          src: url('/portx/original/clash-600.woff2') format('woff2');
+          src: url('/assets/clash-600.woff2') format('woff2');
           font-style: normal;
           font-weight: 600;
           font-display: swap;

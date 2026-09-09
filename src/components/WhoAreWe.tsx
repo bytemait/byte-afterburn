@@ -125,7 +125,7 @@ export default function WhoAreWe() {
                 {TAGS.map((tag) => <span key={tag}>{tag}</span>)}
               </div>
             </div>
-            <img className="whoarewe-globe" src="/portx/original/about-globe.svg" alt="" width="88" height="88" />
+            <img className="whoarewe-globe" src="/assets/about-globe.svg" alt="" width="88" height="88" />
           </div>
 
           <div className="whoarewe-bottom">
@@ -141,9 +141,9 @@ export default function WhoAreWe() {
               ref={labStageRef}
               className="whoarewe-lab-art"
             >
-              <img className="whoarewe-lab-frame" src="/byte-assets/lab_frame.png" alt="" width="2380" height="1792" />
-              <img className="whoarewe-lab-outer" src="/byte-assets/lab_outer.png" alt="Byte Tech Society laboratory" width="2380" height="1792" />
-              <img className="whoarewe-lab-reveal" src="/byte-assets/lab_frame.png" alt="" width="2380" height="1792" />
+              <img className="whoarewe-lab-frame" src="/assets/lab_frame.png" alt="" width="2380" height="1792" />
+              <img className="whoarewe-lab-outer" src="/assets/lab_outer.png" alt="Byte Tech Society laboratory" width="2380" height="1792" />
+              <img className="whoarewe-lab-reveal" src="/assets/lab_frame.png" alt="" width="2380" height="1792" />
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ export default function WhoAreWe() {
       <style>{`
         @font-face {
           font-family: 'Clash Display';
-          src: url('/portx/original/clash-600.woff2') format('woff2');
+          src: url('/assets/clash-600.woff2') format('woff2');
           font-weight: 600;
           font-style: normal;
           font-display: swap;

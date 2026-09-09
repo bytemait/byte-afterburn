@@ -34,7 +34,7 @@ export interface ShowcasePageData {
 }
 
 const workImage = (name: string, alt: string, position = 'center'): ShowcaseImage => ({
-  src: `/portx/original/${name}.webp`,
+  src: `/assets/${name}.webp`,
   alt,
   position,
 });
@@ -186,4 +186,3 @@ export const defaultFaqs: ShowcaseFaq[] = [
   { question: 'Can I propose my own idea?', answer: 'Yes. Bring the problem, the people it matters to, and the smallest version worth testing. Byte can help shape the idea and find collaborators.' },
   { question: 'How can an organization collaborate with Byte?', answer: 'Use the contact page to share the challenge, timeline, and kind of support you need. The team will reply with a practical next step.' },
 ];
-
