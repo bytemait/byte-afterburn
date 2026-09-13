@@ -1,5 +1,5 @@
 ---
-import ShowcaseDetail from '../../components/ShowcaseDetail.astro';
+import ShowcaseDetail from '../../components/common/ShowcaseDetail.astro';
 import { workPages } from '../../data/showcase-pages';
 
 export function getStaticPaths() {
@@ -10,4 +10,3 @@ const { page } = Astro.props;
 ---
 
 <ShowcaseDetail page={page} />
-
