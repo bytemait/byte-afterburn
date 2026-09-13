@@ -7,26 +7,27 @@ type Member = {
   role: string;
   group: 'leadership' | 'development' | 'cybersecurity' | 'creative' | 'aiml' | 'mechatronics';
   photo?: string;
+  quote?: string;
 };
 
 const members: Member[] = [
-  { name: 'Swayam Bansal', short: 'SB', role: 'President', group: 'leadership', photo: '/team_pics/optimized/swayam_bansal_alpha.webp' },
-  { name: 'Aniket Yadav', short: 'AY', role: 'Vice President', group: 'leadership', photo: '/team_pics/optimized/aniket_yadav_alpha.webp' },
-  { name: 'Vansh', short: 'VA', role: 'Vice President', group: 'leadership', photo: '/team_pics/optimized/vansh_alpha.webp' },
-  { name: 'Sanyam', short: 'SA', role: 'General Secretary', group: 'leadership', photo: '/team_pics/optimized/sanyam_alpha.webp' },
-  { name: 'Krish Malik', short: 'KM', role: 'General Secretary', group: 'leadership', photo: '/team_pics/optimized/krish_malik_alpha.webp' },
-  { name: 'Arpan', short: 'AR', role: 'Project Manager', group: 'leadership' },
-  { name: 'Mohit Madan', short: 'MM', role: 'Project Manager', group: 'leadership' },
-  { name: 'Aditya Gupta', short: 'AG', role: 'Development', group: 'development', photo: '/team_pics/optimized/aditya_gupta_alpha.webp' },
-  { name: 'Khushi Dhankar', short: 'KD', role: 'Development', group: 'development', photo: '/team_pics/optimized/khushi_dhankar_alpha.webp' },
-  { name: 'Shruti', short: 'SH', role: 'Cybersecurity', group: 'cybersecurity', photo: '/team_pics/optimized/shruti_alpha.webp' },
-  { name: 'Tejas', short: 'TE', role: 'Cybersecurity', group: 'cybersecurity', photo: '/team_pics/optimized/tejas_alpha.webp' },
-  { name: 'Punya', short: 'PA', role: 'Creative & Outreach', group: 'creative', photo: '/team_pics/optimized/punya_arora_alpha.webp' },
-  { name: 'Chidroopa', short: 'CH', role: 'Creative & Outreach', group: 'creative', photo: '/team_pics/optimized/chidroopa_alpha.webp' },
-  { name: 'Snow', short: 'SN', role: 'AIML', group: 'aiml', photo: '/team_pics/optimized/snow_alpha.webp' },
-  { name: 'Krishna', short: 'KR', role: 'AIML', group: 'aiml', photo: '/team_pics/optimized/krishna_mudgal_alpha.webp' },
-  { name: 'Aditya Maurya', short: 'AM', role: 'Mechatronics', group: 'mechatronics', photo: '/team_pics/optimized/aditya_maurya_alpha.webp' },
-  { name: 'Devesh', short: 'DD', role: 'Mechatronics', group: 'mechatronics', photo: '/team_pics/optimized/devesh_dev_alpha.webp' },
+  { name: 'Swayam Bansal', short: 'SB', role: 'President', group: 'leadership', photo: '/team_pics/optimized/swayam_bansal_alpha.webp', quote: 'With great power comes great responsibility… and a lot of WhatsApp messages.' },
+  { name: 'Aniket Yadav', short: 'AY', role: 'Vice President', group: 'leadership', photo: '/team_pics/optimized/aniket_yadav_alpha.webp', quote: 'probably an edge case.' },
+  { name: 'Vansh', short: 'VA', role: 'Vice President', group: 'leadership', photo: '/team_pics/optimized/vansh_alpha.webp', quote: 'deadline chali gayi quote nhi soch paya' },
+  { name: 'Sanyam Chhabra', short: 'SA', role: 'General Secretary', group: 'leadership', photo: '/team_pics/optimized/sanyam_alpha.webp', quote: 'Idk man I just got here' },
+  { name: 'Krish Malik', short: 'KM', role: 'General Secretary', group: 'leadership', photo: '/team_pics/optimized/krish_malik_alpha.webp', quote: 'Asymptote of Success never meets for me' },
+  { name: 'Arpan Taneja', short: 'AR', role: 'Project Manager', group: 'leadership', quote: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+  { name: 'Mohit Madan', short: 'MM', role: 'Project Manager', group: 'leadership', quote: 'Cat of all trades, meowchine learning certified' },
+  { name: 'Aditya Gupta', short: 'AG', role: 'Coordinator', group: 'development', photo: '/team_pics/optimized/aditya_gupta_alpha.webp', quote: 'Bafton Ciplax Den Marker' },
+  { name: 'Khushi Dhankar', short: 'KD', role: 'Coordinator', group: 'development', photo: '/team_pics/optimized/khushi_dhankar_alpha.webp', quote: 'professionally winging it…' },
+  { name: 'Shruti', short: 'SH', role: 'Coordinator', group: 'cybersecurity', photo: '/team_pics/optimized/shruti_alpha.webp', quote: 'Amidst the destruction' },
+  { name: 'Tejas Singh Kapur', short: 'TE', role: 'Coordinator', group: 'cybersecurity', photo: '/team_pics/optimized/tejas_alpha.webp', quote: 'The weakest link in security lies between the computer and the chair' },
+  { name: 'Punya Arora', short: 'PA', role: 'Coordinator', group: 'creative', photo: '/team_pics/optimized/punya_arora_alpha.webp', quote: 'Rendering ideas... please wait.' },
+  { name: 'Chidroopa Kanaparthy', short: 'CH', role: 'Coordinator', group: 'creative', photo: '/team_pics/optimized/chidroopa_alpha.webp', quote: "They say I don't know when to quit. Like that's a weakness." },
+  { name: 'Snow Sadh', short: 'SN', role: 'Coordinator', group: 'aiml', photo: '/team_pics/optimized/snow_alpha.webp', quote: 'i am gitler' },
+  { name: 'Krishna Mudgal', short: 'KR', role: 'Coordinator', group: 'aiml', photo: '/team_pics/optimized/krishna_mudgal_alpha.webp', quote: 'Byte members are gonna work at DeepMind and Anthropic in the future.' },
+  { name: 'Aditya Kumar Maurya', short: 'AM', role: 'Coordinator', group: 'mechatronics', photo: '/team_pics/optimized/aditya_maurya_alpha.webp', quote: 'Part-time engineer, part-time electrician, part-time programmer… fully confused.' },
+  { name: 'Devesh Dev', short: 'DD', role: 'Coordinator', group: 'mechatronics', photo: '/team_pics/optimized/devesh_dev_alpha.webp', quote: "We're here to live l. We're here to do. We're here to be" },
 ];
 
 const departmentMembers = {
@@ -73,16 +74,16 @@ const alumni2024: AlumniMember[] = [
 ];
 
 const founderPositions = [
-  { x: 50, y: 47 },
-  { x: 28, y: 24 },
-  { x: 72, y: 24 },
-  { x: 15, y: 49 },
-  { x: 85, y: 49 },
-  { x: 24, y: 76 },
-  { x: 36, y: 88 },
-  { x: 64, y: 88 },
-  { x: 76, y: 76 },
-  { x: 50, y: 12 },
+  { x: 50, y: 30 },
+  { x: 28, y: 27 },
+  { x: 72, y: 27 },
+  { x: 8, y: 44 },
+  { x: 92, y: 44 },
+  { x: 16, y: 77 },
+  { x: 33, y: 86 },
+  { x: 50, y: 90 },
+  { x: 67, y: 86 },
+  { x: 84, y: 77 },
 ] as const;
 
 const chapters = [
@@ -155,13 +156,13 @@ const chapters = [
             <div class:list={['member-field', `field-${chapter.key}`]}>
               {chapterMembers.map((member, index) => (
                 <article
-                  class="member-node"
+                  class:list={['member-node', { 'has-member-quote': member.quote }]}
                   data-mesh-member
                   data-mesh-shape="silhouette"
                   data-achievement-card
                   data-member-index={index}
                   tabindex="0"
-                  aria-label={`${member.name}, ${member.role}`}
+                  aria-label={`${member.name}, ${member.role}${member.quote ? `. Quote: ${member.quote}` : ''}`}
                 >
                   <div class="portrait-stage" data-mesh-frame>
                     {member.photo ? (
@@ -175,8 +176,15 @@ const chapters = [
                     <span class="node-coordinate" aria-hidden="true">N{String(members.indexOf(member) + 1).padStart(2, '0')}</span>
                   </div>
                   <div class="member-label">
-                    <h3>{member.name}</h3>
-                    <p>{member.role}</p>
+                    <div class="member-identity">
+                      <h3 data-member-name={member.name}>{member.name}</h3>
+                      <p class="member-role">{member.role}</p>
+                    </div>
+                    {member.quote && (
+                      <p class="member-quote">
+                        <span aria-hidden="true">“</span>{member.quote}<span aria-hidden="true">”</span>
+                      </p>
+                    )}
                     <span class="member-pulse" aria-hidden="true"></span>
                   </div>
                 </article>
@@ -222,43 +230,27 @@ const chapters = [
 
     <section class="alumni-era alumni-era--2024" id="alumni-2024" data-alumni-era="2024" aria-labelledby="alumni-2024-title">
       <div class="era-stage era-stage--founders">
-        <div class="era-year" aria-hidden="true">2024</div>
-        <div class="founder-tunnel" aria-hidden="true">
-          <div class="origin-flare"></div>
-          {Array.from({ length: 8 }, (_, index) => <i style={`--tunnel-ring:${index}`}></i>)}
-          <span class="tunnel-axis tunnel-axis--x"></span>
-          <span class="tunnel-axis tunnel-axis--y"></span>
+        <div class="era-year" data-alumni-mesh-target data-founder-year-outline data-mesh-reveal="0" aria-hidden="true">2024</div>
+        <div class="era-copy era-copy--founders">
+          <h2 id="alumni-2024-title">The first spark.</h2>
+          <p>Ten people made the leap from an idea to a society. Every connection, project and generation after them expands from this origin.</p>
         </div>
-        <div class="founder-constellation" data-alumni-mesh-target data-mesh-reveal="0" aria-label="2024 founding alumni">
-          <span class="origin-ring origin-ring--outer" aria-hidden="true"></span>
-          <span class="origin-ring origin-ring--inner" aria-hidden="true"></span>
+        <div class="founder-constellation" aria-label="2024 founding alumni">
           {alumni2024.map((person, index) => (
             <article
               class:list={['alumni-person', 'founder-person', `alumni-person--${person.tier}`]}
               data-alumni-person
               data-alumni-year="2024"
               tabindex="0"
-              style={`--person-index:${index};--founder-x:${founderPositions[index].x}%;--founder-y:${founderPositions[index].y}%;--burst-x:${(50 - founderPositions[index].x) * 0.72}vw;--burst-y:${(48 - founderPositions[index].y) * 0.6}vh`}
+              style={`--person-index:${index};--founder-x:${founderPositions[index].x}%;--founder-y:${founderPositions[index].y}%`}
               aria-label={`${person.name}, ${person.role}`}
             >
-              <div class="alumni-placeholder" aria-hidden="true">
-                <i></i><i></i><span>{avatarInitials(person.name)}</span>
+              <div class="alumni-placeholder" data-founder-collapse-center={index === 0 ? '' : undefined} aria-hidden="true">
+                <span>{avatarInitials(person.name)}</span>
               </div>
               <div class="alumni-person-copy"><h3>{person.name}</h3><p>{person.role}</p></div>
             </article>
           ))}
-          <div class="origin-caption" aria-hidden="true">
-            <span>Origin point</span><strong>10 founders · one first spark</strong>
-          </div>
-        </div>
-        <div class="era-copy era-copy--founders">
-          <p class="era-generation">Generation 01 · 2024</p>
-          <h2 id="alumni-2024-title">The first<br />spark.</h2>
-          <p>Ten people made the leap from an idea to a society. Every connection, project and generation after them expands from this origin.</p>
-        </div>
-        <div class="era-record era-record--founders">
-          <span>Founding generation · 2024</span>
-          <strong>The origin of Byte</strong>
         </div>
       </div>
     </section>
@@ -332,7 +324,10 @@ const chapters = [
         const rect = era.getBoundingClientRect();
         const distance = Math.max(1, rect.height - innerHeight);
         const progress = Math.min(1, Math.max(0, -rect.top / distance));
-        era.style.setProperty('--era-progress', reducedMotion.matches ? '1' : progress.toFixed(4));
+        // Reserve the final third of each pinned scene as a resolved end state.
+        // The tunnel completes, then the visitor gets a moment with the full generation in view.
+        const animationProgress = Math.min(1, progress / 0.68);
+        era.style.setProperty('--era-progress', reducedMotion.matches ? '1' : animationProgress.toFixed(4));
         era.classList.toggle('is-era-active', rect.top < innerHeight * 0.55 && rect.bottom > innerHeight * 0.45);
 
         const alumniPeople = [...era.querySelectorAll<HTMLElement>('[data-alumni-person]')];
@@ -341,15 +336,15 @@ const chapters = [
             ? (person.classList.contains('alumni-person--lead') ? 0 : person.classList.contains('alumni-person--inner') ? 0.08 : 0.14 + index * 0.012)
             : index * 0.018;
           const duration = era.dataset.alumniEra === '2024' ? 0.48 : 0.58;
-          const rawReveal = Math.min(1, Math.max(0, (progress - stagger) / duration));
+          const rawReveal = Math.min(1, Math.max(0, (animationProgress - stagger) / duration));
           const reveal = reducedMotion.matches ? 1 : 1 - Math.pow(1 - rawReveal, 3);
           person.style.setProperty('--person-reveal', reveal.toFixed(4));
         });
 
         if (era.dataset.alumniEra === '2024' && founderTarget) {
-          const reveal = Math.min(1, Math.max(0, (progress - 0.04) / 0.54));
+          const entrance = Math.min(1, Math.max(0, (innerHeight * 0.6 - rect.top) / (innerHeight * 0.6)));
+          const reveal = Math.max(entrance, Math.min(1, Math.max(0, (animationProgress - 0.04) / 0.54)));
           founderTarget.dataset.meshReveal = String(reducedMotion.matches ? 0 : reveal);
-          root.style.setProperty('--founder-reveal', String(reducedMotion.matches ? 1 : reveal));
         }
       });
     };
@@ -761,7 +756,9 @@ const chapters = [
   .portrait-stage::before {
     inset: 0;
     opacity: 0;
-    background: linear-gradient(180deg, transparent 63%, rgba(82, 224, 166, 0.08));
+    background:
+      linear-gradient(180deg, transparent 48%, rgba(5, 8, 6, 0.18) 66%, rgba(4, 7, 5, 0.88) 100%),
+      linear-gradient(180deg, transparent 58%, rgba(82, 224, 166, 0.09));
     transition: opacity 360ms ease;
   }
 
@@ -843,22 +840,74 @@ const chapters = [
 
   .member-label {
     position: relative;
+    min-height: 7.6rem;
     padding: 1.1rem 2.5rem 0 0;
   }
 
+  .member-identity {
+    position: relative;
+    z-index: 4;
+    width: max-content;
+    max-width: 100%;
+    transform-origin: left bottom;
+    transition: opacity 180ms ease, transform 500ms cubic-bezier(.16, 1, .3, 1);
+  }
+
   .member-label h3 {
+    position: relative;
+    max-width: 13ch;
     margin: 0;
     font: 600 clamp(1.55rem, 2.6vw, 2.8rem)/0.98 'Clash Display', Sora, sans-serif;
     letter-spacing: -0.025em;
-    transition: color 360ms ease, transform 500ms cubic-bezier(.16, 1, .3, 1);
+    text-wrap: balance;
+    transform-origin: left bottom;
+    transition: color 360ms ease, opacity 220ms ease, text-shadow 360ms ease, transform 500ms cubic-bezier(.16, 1, .3, 1);
   }
 
-  .member-label p {
-    margin: 0.55rem 0 0;
+  .member-label h3::before,
+  .member-label h3::after {
+    position: absolute;
+    inset: 0;
+    color: inherit;
+    opacity: 0;
+    content: attr(data-member-name);
+    pointer-events: none;
+  }
+
+  .member-role {
+    width: max-content;
+    margin: 0.5rem 0 0 -0.42rem;
+    padding: 0.3rem 0.42rem 0.24rem;
+    background: transparent;
     color: var(--muted);
     font: 600 0.66rem/1.3 Inter, sans-serif;
     letter-spacing: 0.13em;
+    white-space: nowrap;
     text-transform: uppercase;
+    transition: background-color 220ms ease, color 220ms ease, transform 320ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .member-quote {
+    position: absolute;
+    z-index: 3;
+    top: 1.1rem;
+    right: 2.5rem;
+    left: 0;
+    margin: 0;
+    color: #dce8e0;
+    font: 600 clamp(1rem, 1.35vw, 1.24rem)/1.24 'Clash Display', Sora, sans-serif;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+    opacity: 0;
+    transform: translateY(0.8rem);
+    transition: opacity 220ms ease, transform 380ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .member-quote span {
+    color: var(--green);
+    font-size: 1.42em;
+    line-height: 0;
+    vertical-align: -0.08em;
   }
 
   .member-pulse {
@@ -876,6 +925,48 @@ const chapters = [
   .member-node:hover .member-label h3,
   .member-node:focus-visible .member-label h3,
   .member-node.is-mesh-active .member-label h3 { color: var(--green); transform: translateX(0.35rem); }
+
+  .member-node.has-member-quote:hover .member-identity,
+  .member-node.has-member-quote:focus-visible .member-identity,
+  .member-node.has-member-quote.is-mesh-active .member-identity {
+    transform: translateY(calc(-100% - 1.15rem));
+  }
+
+  .member-node.has-member-quote:hover .member-label h3,
+  .member-node.has-member-quote:focus-visible .member-label h3,
+  .member-node.has-member-quote.is-mesh-active .member-label h3 {
+    text-shadow: 0 0.65rem 1.6rem rgba(0, 0, 0, 0.72);
+    transform: scale(1.22);
+  }
+
+  .member-node.has-member-quote:hover .member-label h3::before,
+  .member-node.has-member-quote:focus-visible .member-label h3::before,
+  .member-node.has-member-quote.is-mesh-active .member-label h3::before {
+    animation: member-name-glitch-a 500ms steps(1, end) both;
+  }
+
+  .member-node.has-member-quote:hover .member-label h3::after,
+  .member-node.has-member-quote:focus-visible .member-label h3::after,
+  .member-node.has-member-quote.is-mesh-active .member-label h3::after {
+    animation: member-name-glitch-b 500ms steps(1, end) 35ms both;
+  }
+
+  .member-node.has-member-quote:hover .member-quote,
+  .member-node.has-member-quote:focus-visible .member-quote,
+  .member-node.has-member-quote.is-mesh-active .member-quote {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 90ms;
+  }
+
+  .member-node.has-member-quote:hover .member-role,
+  .member-node.has-member-quote:focus-visible .member-role,
+  .member-node.has-member-quote.is-mesh-active .member-role {
+    background: var(--green);
+    color: #07110b;
+    transform: translateX(0.35rem);
+  }
+
   .member-node:hover .member-pulse,
   .member-node:focus-visible .member-pulse,
   .member-node.is-mesh-active .member-pulse { opacity: 1; animation: signal 1.4s ease-out infinite; }
@@ -883,6 +974,24 @@ const chapters = [
   @keyframes signal {
     0% { box-shadow: 0 0 0 0 rgba(82, 224, 166, 0.56); }
     100% { box-shadow: 0 0 0 13px rgba(82, 224, 166, 0); }
+  }
+
+  @keyframes member-name-glitch-a {
+    0%, 8%, 100% { opacity: 0; transform: translate(0); clip-path: inset(0); }
+    9% { opacity: 0.78; transform: translate(0.12em, -0.03em); clip-path: inset(8% 0 62% 0); }
+    18% { opacity: 0.42; transform: translate(-0.06em, 0); clip-path: inset(58% 0 17% 0); }
+    27%, 43% { opacity: 0; }
+    44% { opacity: 0.62; transform: translate(0.08em, 0.02em); clip-path: inset(34% 0 43% 0); }
+    56% { opacity: 0; }
+  }
+
+  @keyframes member-name-glitch-b {
+    0%, 16%, 100% { opacity: 0; transform: translate(0); clip-path: inset(0); }
+    17% { opacity: 0.55; transform: translate(-0.11em, 0.03em); clip-path: inset(66% 0 8% 0); }
+    29% { opacity: 0; }
+    38% { opacity: 0.72; transform: translate(0.07em, -0.02em); clip-path: inset(22% 0 55% 0); }
+    51% { opacity: 0.28; transform: translate(-0.04em, 0); clip-path: inset(48% 0 28% 0); }
+    62% { opacity: 0; }
   }
 
   .portrait-fallback {
@@ -916,15 +1025,12 @@ const chapters = [
     --origin: #ffbd66;
     --origin-bright: #fff1d2;
     position: relative;
-    height: 180svh;
+    height: 250svh;
     border-top: 1px solid var(--line);
   }
 
   .alumni-era--2024 {
-    height: 215svh;
-    background:
-      radial-gradient(circle at 69% 48%, rgba(255, 189, 102, calc(var(--era-progress) * 0.075)), transparent 32%),
-      linear-gradient(180deg, transparent, rgba(29, 20, 11, calc(var(--era-progress) * 0.22)) 45%, transparent);
+    height: 300svh;
   }
 
   .era-stage {
@@ -953,10 +1059,11 @@ const chapters = [
   }
 
   .alumni-era--2024 .era-year {
-    color: rgba(255, 189, 102, 0.012);
+    top: 57%;
+    color: #11100e;
     font-size: clamp(17rem, 43vw, 42rem);
     -webkit-text-stroke-color: rgba(255, 205, 139, calc(0.18 + var(--era-progress) * 0.28));
-    filter: drop-shadow(0 0 calc(var(--era-progress) * 22px) rgba(255, 185, 92, 0.15));
+    paint-order: stroke fill;
     transform: translate3d(-50%, -50%, calc((1 - var(--era-progress)) * -440px)) scale(calc(0.72 + var(--era-progress) * 0.28));
   }
 
@@ -991,12 +1098,15 @@ const chapters = [
   }
 
   .era-copy--founders {
-    top: auto;
-    bottom: clamp(5rem, 10vh, 8rem);
-    width: min(34rem, 39vw);
+    top: max(7rem, 12svh);
+    bottom: auto;
+    left: 15%;
+    width: 70%;
+    text-align: center;
   }
 
-  .era-copy--founders h2 { font-size: clamp(5rem, 9.4vw, 9rem); }
+  .era-copy--founders h2 { font-size: clamp(3.8rem, 6.4vw, 6rem); line-height: 0.95; }
+  .era-copy--founders > p:last-child { max-width: 58ch; margin: 1.4rem auto 0; font-size: 1rem; color: #c9bbab; }
 
   .alumni-roster--2025::before {
     position: absolute;
@@ -1128,133 +1238,38 @@ const chapters = [
   .tunnel-cue span { width: 4.5rem; height: 1px; background: var(--green); }
   .tunnel-cue p { margin: 0; color: #819087; font: 600 0.56rem/1 Inter, sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
 
-  .founder-tunnel {
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    transform-style: preserve-3d;
-  }
-
-  .origin-flare {
-    position: absolute;
-    top: 48%;
-    left: 69%;
-    width: min(76vw, 70rem);
-    aspect-ratio: 1;
-    background:
-      repeating-conic-gradient(from 18deg, rgba(255, 205, 139, 0) 0 7deg, rgba(255, 205, 139, 0.16) 7.4deg 7.7deg, transparent 8deg 17deg),
-      radial-gradient(circle, rgba(255, 242, 210, calc(var(--era-progress) * 0.2)) 0 1%, rgba(255, 189, 102, calc(var(--era-progress) * 0.13)) 4%, transparent 36%);
-    opacity: calc(var(--era-progress) * 0.82);
-    mask-image: radial-gradient(circle, #000 0 7%, rgba(0,0,0,.8) 20%, transparent 67%);
-    transform: translate(-50%, -50%) rotate(calc(var(--era-progress) * 18deg)) scale(calc(0.2 + var(--era-progress) * 0.8));
-    pointer-events: none;
-  }
-
-  .founder-tunnel i {
-    position: absolute;
-    top: 48%;
-    left: 69%;
-    width: clamp(10rem, 17vw, 18rem);
-    aspect-ratio: 1;
-    border: 1px solid rgba(255, 196, 115, calc(0.1 + (8 - var(--tunnel-ring)) * 0.03));
-    box-shadow: 0 0 calc(var(--era-progress) * 20px) rgba(255, 189, 102, 0.05);
-    transform: translate(-50%, -50%) translateZ(calc(var(--tunnel-ring) * -155px + var(--era-progress) * 680px)) rotate(calc(45deg + var(--tunnel-ring) * 5deg));
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-
-  .tunnel-axis {
-    position: absolute;
-    top: 48%;
-    left: 69%;
-    background: linear-gradient(90deg, transparent, rgba(255, 194, 111, 0.34), transparent);
-    opacity: calc(0.3 + var(--era-progress) * 0.5);
-  }
-  .tunnel-axis--x { width: 76vw; height: 1px; transform: translate(-50%, -50%); }
-  .tunnel-axis--y { width: 1px; height: 82vh; transform: translate(-50%, -50%); }
-
   .founder-constellation {
     position: absolute;
     z-index: 4;
-    top: 9vh;
-    right: 2vw;
-    width: min(61vw, 58rem);
-    height: 80vh;
-    transform: scale(calc(0.88 + var(--era-progress) * 0.12));
-    transform-origin: 69% 48%;
+    top: 34svh;
+    left: 7%;
+    width: 86%;
+    height: 56svh;
   }
-
-  .founder-constellation::before {
-    position: absolute;
-    top: 47%;
-    left: 50%;
-    width: clamp(3rem, 5vw, 5rem);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    content: '';
-    background: var(--origin-bright);
-    filter: blur(calc(12px + var(--era-progress) * 18px));
-    opacity: calc(var(--era-progress) * 0.22);
-    transform: translate(-50%, -50%) scale(calc(0.2 + var(--era-progress) * 1.5));
-  }
-
-  .origin-ring {
-    position: absolute;
-    top: 47%;
-    left: 50%;
-    aspect-ratio: 1;
-    border: 1px solid rgba(255, 207, 145, 0.34);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%) scale(calc(0.2 + var(--era-progress) * 0.8));
-  }
-  .origin-ring--outer { width: 72%; }
-  .origin-ring--inner { width: 39%; border-style: dashed; animation: origin-spin 24s linear infinite; }
-
-  @keyframes origin-spin { to { transform: translate(-50%, -50%) scale(calc(0.2 + var(--era-progress) * 0.8)) rotate(360deg); } }
 
   .founder-person {
     position: absolute;
     z-index: 2;
     top: var(--founder-y);
     left: var(--founder-x);
-    width: clamp(7rem, 9vw, 9rem);
+    width: clamp(7rem, 12vw, 12rem);
     text-align: center;
-    opacity: calc(0.08 + var(--person-reveal) * 0.92);
-    transform: translate(-50%, -50%) translate3d(calc((1 - var(--person-reveal)) * var(--burst-x)), calc((1 - var(--person-reveal)) * var(--burst-y)), 0) scale(calc(0.2 + var(--person-reveal) * 0.8));
+    opacity: calc(0.6 + var(--person-reveal) * 0.4);
+    transform: translate(-50%, -50%) translateY(calc((1 - var(--person-reveal)) * 20px));
   }
 
-  .founder-person .alumni-placeholder { margin-inline: auto; width: clamp(3.6rem, 4.8vw, 4.8rem); border-color: rgba(255, 195, 114, 0.6); background: radial-gradient(circle at 38% 30%, rgba(255, 210, 147, 0.22), rgba(25, 18, 11, 0.95) 66%); color: var(--origin-bright); }
+  .founder-person .alumni-placeholder { margin-inline: auto; width: clamp(3.6rem, 4.8vw, 4.8rem); border-color: rgba(255, 195, 114, 0.4); background: #191610; color: var(--origin-bright); }
   .founder-person.alumni-person--inner .alumni-placeholder { width: clamp(4.2rem, 5.6vw, 5.8rem); }
   .founder-person.alumni-person--lead { z-index: 5; width: clamp(11rem, 15vw, 15rem); }
   .founder-person.alumni-person--lead .alumni-placeholder { width: clamp(7rem, 9vw, 9rem); border-color: var(--origin-bright); box-shadow: 0 0 0 8px rgba(255, 189, 102, 0.07), 0 0 64px rgba(255, 189, 102, 0.24); }
   .founder-person .alumni-person-copy { margin-top: 0.55rem; }
-  .founder-person .alumni-person-copy h3 { color: #fff7e9; font-size: clamp(0.78rem, 1vw, 1.02rem); }
+  .founder-person .alumni-person-copy h3 { color: #fff7e9; font-size: clamp(0.85rem, 1.2vw, 1.2rem); line-height: 1.15; }
   .founder-person.alumni-person--lead .alumni-person-copy h3 { font-size: clamp(1.15rem, 1.7vw, 1.6rem); }
-  .founder-person .alumni-person-copy p { color: #bc9870; font-size: clamp(0.42rem, 0.48vw, 0.54rem); }
+  .founder-person .alumni-person-copy p { color: #bc9870; font-size: clamp(0.55rem, 0.65vw, 0.65rem); }
   .founder-person:hover .alumni-placeholder,
   .founder-person:focus-visible .alumni-placeholder { border-color: #fff7e9; background: radial-gradient(circle at 38% 30%, rgba(255, 221, 173, 0.42), rgba(34, 22, 10, 0.97) 68%); box-shadow: 0 0 0 8px rgba(255, 189, 102, 0.08), 0 0 44px rgba(255, 189, 102, 0.28); }
   .founder-person:hover .alumni-person-copy h3,
   .founder-person:focus-visible .alumni-person-copy h3 { color: var(--origin-bright); }
-
-  .origin-caption {
-    position: absolute;
-    z-index: 1;
-    top: 47%;
-    left: 50%;
-    width: 13rem;
-    text-align: center;
-    transform: translate(-50%, 7.2rem);
-  }
-  .origin-caption span,
-  .origin-caption strong { display: block; }
-  .origin-caption span { color: var(--origin); font: 700 0.52rem/1 Inter, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; }
-  .origin-caption strong { margin-top: 0.5rem; color: #dac6aa; font: 600 0.72rem/1.2 Inter, sans-serif; }
-
-  .era-record--founders { top: clamp(8rem, 14vh, 10rem); right: auto; bottom: auto; left: clamp(1.25rem, 7vw, 8rem); border-top-color: rgba(255, 189, 102, 0.52); text-align: left; }
-  .era-record--founders span { color: #a88967; }
-  .era-record--founders strong { color: #f5e6ce; }
-  .era-copy--founders .era-generation { color: var(--origin); }
 
   .constellation-close {
     min-height: 76svh;
@@ -1336,7 +1351,19 @@ const chapters = [
     .field-leadership .member-node:nth-child(n).is-mesh-active { transform: translateY(-0.35rem) scale(1.018); }
     .has-active-member .member-node:not(.is-mesh-active) { opacity: 0.55; }
     .portrait-stage { aspect-ratio: 4 / 5; }
+    .member-label { min-height: 8.8rem; }
     .member-label h3 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+    .member-quote { right: 1rem; font-size: 1.05rem; }
+    .member-node.has-member-quote:hover .member-identity,
+    .member-node.has-member-quote:focus-visible .member-identity,
+    .member-node.has-member-quote.is-mesh-active .member-identity {
+      transform: translateY(calc(-100% - 0.85rem));
+    }
+    .member-node.has-member-quote:hover .member-label h3,
+    .member-node.has-member-quote:focus-visible .member-label h3,
+    .member-node.has-member-quote.is-mesh-active .member-label h3 {
+      transform: scale(1.14);
+    }
 
     .alumni-era { height: auto; }
     .alumni-era--2024 { height: auto; }
@@ -1403,37 +1430,39 @@ const chapters = [
     .alumni-person--lead .alumni-person-copy h3 { font-size: 1.12rem; }
     .alumni-person-copy p { font-size: 0.5rem; }
 
-    .era-stage--founders { min-height: 79rem; padding-bottom: 5rem; }
-    .founder-tunnel { top: 19rem; height: 53rem; }
-    .origin-flare,
-    .founder-tunnel i,
-    .tunnel-axis { top: 44%; left: 50%; }
-    .origin-flare { width: 170vw; }
-    .founder-tunnel i { width: 37vw; }
-    .tunnel-axis--x { width: 150vw; }
-    .tunnel-axis--y { height: 56rem; }
+    .era-stage--founders { min-height: 0; padding-bottom: 5rem; }
+    .era-copy--founders { position: relative; top: auto; bottom: auto; left: auto; width: calc(100% - 2rem); }
+    .era-copy--founders h2 { font-size: clamp(3rem, 14vw, 5rem); }
+    .era-copy--founders > p:last-child { max-width: 34ch; font-size: 0.95rem; }
+    .alumni-era--2024 .era-year { top: 30rem; font-size: 43vw; }
     .founder-constellation {
       position: relative;
       top: auto;
-      right: auto;
-      width: 100%;
-      height: 52rem;
-      margin-top: 4rem;
-      transform: none;
+      left: auto;
+      width: calc(100% - 2rem);
+      height: auto;
+      margin: 3.5rem 1rem 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: 2.5rem 1rem;
     }
-    .founder-person { width: 6.4rem; opacity: 1; transform: translate(-50%, -50%) !important; }
-    .founder-person .alumni-placeholder { width: 3.8rem; }
-    .founder-person.alumni-person--inner .alumni-placeholder { width: 4.6rem; }
-    .founder-person.alumni-person--lead { width: 10rem; }
-    .founder-person.alumni-person--lead .alumni-placeholder { width: 7rem; }
-    .founder-person .alumni-person-copy h3 { font-size: 0.74rem; }
-    .founder-person.alumni-person--lead .alumni-person-copy h3 { font-size: 1.2rem; }
-    .founder-person .alumni-person-copy p { font-size: 0.4rem; }
-    .origin-caption { transform: translate(-50%, 6rem); }
-    .era-copy--founders { position: relative; top: auto; bottom: auto; width: calc(100% - 2rem); }
-    .era-copy--founders h2 { font-size: clamp(3.8rem, 18vw, 5.2rem); }
-    .era-copy--founders > p:last-child { max-width: 35ch; }
-    .era-record--founders { position: relative; top: auto; bottom: auto; left: auto; width: calc(100% - 2rem); }
+    .founder-person {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: 100%;
+      opacity: 1;
+      transform: none !important;
+    }
+    .founder-person.alumni-person--lead { grid-column: 1 / -1; width: 100%; padding-bottom: 1rem; }
+    .founder-person:last-child { grid-column: 1 / -1; }
+    .founder-person .alumni-placeholder { width: 4.5rem; }
+    .founder-person.alumni-person--inner .alumni-placeholder { width: 5rem; }
+    .founder-person.alumni-person--lead .alumni-placeholder { width: 7.5rem; }
+    .founder-person .alumni-person-copy h3 { font-size: 1.03rem; line-height: 1.15; }
+    .founder-person.alumni-person--lead .alumni-person-copy h3 { font-size: 1.6rem; }
+    .founder-person .alumni-person-copy p { font-size: 0.6rem; }
     .constellation-close { min-height: 70svh; padding: 7rem 1rem; }
     .constellation-close p { font-size: clamp(3.5rem, 17vw, 6rem); }
   }
@@ -1444,17 +1473,35 @@ const chapters = [
     .portrait-stage::before,
     .portrait-stage::after,
     .portrait-stage img,
+    .member-identity,
     .member-label h3,
+    .member-quote,
+    .member-role,
     .member-cluster li { transition: none; }
+
+    .member-node.has-member-quote:hover .member-identity,
+    .member-node.has-member-quote:focus-visible .member-identity,
+    .member-node.has-member-quote.is-mesh-active .member-identity {
+      opacity: 0;
+      transform: none;
+    }
+
+    .member-node.has-member-quote:hover .member-label h3,
+    .member-node.has-member-quote:focus-visible .member-label h3,
+    .member-node.has-member-quote.is-mesh-active .member-label h3 {
+      text-shadow: none;
+      transform: none;
+    }
+
+    .member-label h3::before,
+    .member-label h3::after { animation: none !important; }
+
     .member-pulse { animation: none !important; }
     .era-year,
-    .founder-tunnel i,
     .alumni-person,
     .founder-constellation { will-change: auto; }
     .era-year { transform: translate(-50%, -50%); }
-    .founder-tunnel i { transform: translate(-50%, -50%) rotate(45deg); }
     .alumni-roster--2025 .alumni-person { opacity: 1; transform: none; }
     .founder-person { opacity: 1; transform: translate(-50%, -50%); }
-    .origin-ring--inner { animation: none; }
   }
 </style>

@@ -17,7 +17,7 @@ export default function NodeMesh() {
     const findSurface = () => document.querySelector<HTMLElement>('.recreation-page, .showcase-page, main') ?? document.body;
     let surface = findSurface();
     let titleNetwork = createTitleNetwork(surface, titleCanvas);
-    type Node = { x: number; y: number; vx: number; vy: number; phase: number; depth: number };
+    type Node = { x: number; y: number; vx: number; vy: number; phase: number; depth: number; spawn: number };
     type Point = { x: number; y: number };
     type FrameAssignment = { node: number; target: number };
     type TargetGroup = { start: number; count: number; closed: boolean };
@@ -40,6 +40,12 @@ export default function NodeMesh() {
     let founderThemeGoal = 0;
     let founderBurst = 0;
     let founderCenter: Point = { x: 0, y: 0 };
+    let founderWasActive = false;
+    let redistribution = 0;
+    let fieldHomes: Point[] = [];
+    const outlineCanvas = document.createElement('canvas');
+    const outlineCtx = outlineCanvas.getContext('2d', { willReadFrequently: true });
+    let outlineCache = { key: '', points: [] as Point[] };
     let navOpen = document.documentElement.classList.contains('mobile-nav-open');
     let navReveal = navOpen ? 1 : 0;
     const loaderStartedAt = performance.now();
@@ -49,6 +55,19 @@ export default function NodeMesh() {
     let readyTimer = 0;
     const pointer = { x: -1000, y: -1000, active: false };
     const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+    function releaseFounderNodes() {
+      // Give each existing particle a separate destination across the viewport.
+      // Animate the release before restoring connections; never reseed the canvas.
+      redistribution = 1;
+      nodes.forEach(node => { node.vx *= 0.12; node.vy *= 0.12; node.spawn = 1; });
+      frameAssignments = [];
+      frameTargets = [];
+      frameGroups = [];
+      frameReveal = 0;
+      frameElement = null;
+      frameMode = '';
+    }
 
     function pointsAround(element: HTMLElement, pad = 14) {
       const rect = element.getBoundingClientRect();
@@ -79,6 +98,48 @@ export default function NodeMesh() {
           y: clamp(centerY + Math.sin(angle) * radiusY, 8, height - 8),
         };
       });
+    }
+
+    function pointsOnTextOutline(element: HTMLElement, count = 78) {
+      const rect = element.getBoundingClientRect();
+      if (!outlineCtx || rect.width < 8 || rect.height < 8) return [];
+      const styles = getComputedStyle(element);
+      const text = element.textContent?.trim() || '2024';
+      // Rasterize in local CSS coordinates once, then map normalized samples through
+      // the live DOM bounds. Scrolling and growing text never require another scan.
+      const localWidth = element.offsetWidth;
+      const localHeight = element.offsetHeight;
+      const scale = Math.min(0.5, 650 / localWidth);
+      const key = [text, localWidth, localHeight, styles.font, styles.letterSpacing, document.fonts.status, count].join(':');
+      if (outlineCache.key !== key) {
+        outlineCanvas.width = Math.ceil(localWidth * scale);
+        outlineCanvas.height = Math.ceil(localHeight * scale);
+        outlineCtx.font = `${styles.fontWeight} ${parseFloat(styles.fontSize) * scale}px ${styles.fontFamily}`;
+        outlineCtx.letterSpacing = `${(parseFloat(styles.letterSpacing) || 0) * scale}px`;
+        const metrics = outlineCtx.measureText(text);
+        const ascent = metrics.fontBoundingBoxAscent;
+        const descent = metrics.fontBoundingBoxDescent;
+        const baseline = (localHeight * scale - ascent - descent) / 2 + ascent;
+        outlineCtx.lineWidth = 1.3;
+        outlineCtx.strokeStyle = '#fff';
+        outlineCtx.strokeText(text, 0, baseline);
+        const w = outlineCanvas.width;
+        const h = outlineCanvas.height;
+        const pixels = outlineCtx.getImageData(0, 0, w, h).data;
+        const candidates: Point[] = [];
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            if (pixels[(y * w + x) * 4 + 3] > 90) candidates.push({ x: x / w, y: y / h });
+          }
+        }
+        const points = Array.from({ length: Math.min(count, candidates.length) }, (_, i) =>
+          candidates[Math.floor(i / count * candidates.length)]);
+        outlineCache = { key, points };
+      }
+      return outlineCache.points.map(point => ({
+        x: rect.left + point.x * rect.width,
+        y: rect.top + point.y * rect.height,
+      })).filter(point => point.x > 6 && point.x < width - 6 && point.y > 6 && point.y < height - 6);
     }
 
     function pointsBetween(from: HTMLElement, to: HTMLElement, count = 12) {
@@ -139,8 +200,9 @@ export default function NodeMesh() {
       };
 
       if (mode === 'founders' && member) {
-        addGroup(pointsOnEllipse(member, width < 700 ? 18 : 30, width < 700 ? 26 : 46), true);
-        addGroup(pointsAround(member, width < 700 ? 14 : 24), true);
+        if (member.matches('[data-founder-year-outline]')) {
+          targets.push(...pointsOnTextOutline(member, width < 700 ? 24 : 54));
+        }
       } else if (mode === 'index' && member) {
         const anchor = root.querySelector<HTMLElement>('[data-mesh-anchor]');
         if (anchor) {
@@ -180,21 +242,27 @@ export default function NodeMesh() {
         const orbitRect = orbit?.getBoundingClientRect();
         const orbitVisible = Boolean(orbitRect && orbitRect.bottom > 0 && orbitRect.top < height);
         const founder = mode === 'constellation' ? conceptRoot.querySelector<HTMLElement>('[data-alumni-mesh-target]') : null;
-        const founderRect = founder?.getBoundingClientRect();
+        const founderStage = founder?.closest('[data-alumni-era]')?.getBoundingClientRect();
+        const centerRect = conceptRoot.querySelector('[data-founder-collapse-center]')?.getBoundingClientRect();
         const founderReveal = Number(founder?.dataset.meshReveal ?? 0);
-        const founderVisible = Boolean(founderRect && founderRect.bottom > 0 && founderRect.top < height && founderReveal > 0.01);
-        if (founderRect) {
+        const founderVisible = Boolean(founderStage && founderStage.top < height * 0.45 && founderStage.bottom > height * 0.3 && founderReveal > 0.01);
+        if (centerRect) {
           founderCenter = {
-            x: clamp(founderRect.left + founderRect.width / 2, 0, width),
-            y: clamp(founderRect.top + founderRect.height / 2, 0, height),
+            x: centerRect.left + centerRect.width / 2,
+            y: clamp(centerRect.top + centerRect.height / 2, height * 0.15, height * 0.85),
           };
         }
         founderThemeGoal = founderVisible && !motion.matches ? founderReveal : 0;
-        target = active ?? (orbitVisible ? orbit : founderVisible ? founder : null);
+        if (founderWasActive && !founderVisible) releaseFounderNodes();
+        founderWasActive = founderVisible;
+        if (founderVisible) redistribution = 0;
+        target = founderVisible ? founder : active ?? (orbitVisible ? orbit : null);
         interactionMode = target === founder ? 'founders' : mode;
-        targetReveal = active ? 1 : orbitVisible ? 0.72 : founderVisible ? founderReveal : 0;
+        targetReveal = founderVisible ? founderReveal : active ? 1 : orbitVisible ? 0.72 : 0;
         if (target) ({ targets: nextTargets, groups: nextGroups } = targetsForMembers(conceptRoot, target, interactionMode));
       } else {
+        if (founderWasActive) releaseFounderNodes();
+        founderWasActive = false;
         active = width >= 1440 && finePointer.matches
           ? surface.querySelector<HTMLElement>('[data-achievement-card]:hover [data-mesh-frame], [data-achievement-card]:focus-visible [data-mesh-frame]')
           : null;
@@ -247,6 +315,7 @@ export default function NodeMesh() {
       founderTheme = 0;
       founderThemeGoal = 0;
       founderBurst = 0;
+      outlineCache = { key: '', points: [] };
       const oldWidth = width;
       const oldHeight = height;
       width = window.innerWidth;
@@ -264,6 +333,12 @@ export default function NodeMesh() {
       const cols = Math.ceil(width / spacing) + 1;
       const rows = Math.ceil(height / spacing) + 1;
       const count = Math.min(150, cols * rows);
+      const homeCols = Math.ceil(Math.sqrt(count * width / height));
+      const homeRows = Math.ceil(count / homeCols);
+      fieldHomes = Array.from({ length: count }, (_, i) => ({
+        x: ((i % homeCols) + 0.25 + Math.random() * 0.5) / homeCols * width,
+        y: (Math.floor(i / homeCols) + 0.25 + Math.random() * 0.5) / homeRows * height,
+      }));
       if (nodes.length !== count) {
         nodes = Array.from({ length: count }, (_, i) => ({
           x: ((i % cols) + (Math.random() - 0.5) * 0.85) * width / (cols - 1),
@@ -272,6 +347,7 @@ export default function NodeMesh() {
           vy: (Math.random() - 0.5) * 0.3,
           phase: Math.random() * Math.PI * 2,
           depth: 0.35 + Math.random() * 0.65,
+          spawn: 1,
         }));
       } else if (oldWidth && oldHeight) {
         nodes.forEach(node => { node.x *= width / oldWidth; node.y *= height / oldHeight; });
@@ -294,6 +370,7 @@ export default function NodeMesh() {
       const signalColor = [mixChannel(125, 255), mixChannel(234, 240), mixChannel(187, 202)];
       const frameColor = [mixChannel(82, 255), mixChannel(224, 196), mixChannel(166, 116)];
       const frameNodeColor = [mixChannel(145, 255), mixChannel(249, 236), mixChannel(196, 193)];
+      const connectionVisibility = (1 - clamp(founderTheme * 4, 0, 1)) * (1 - redistribution);
       const reach = (width < 700 ? 155 : 190) + navReveal * 34 + originMix * 52;
       const radius = width < 700 ? 160 : 240;
       elapsed += step * 0.008;
@@ -315,28 +392,55 @@ export default function NodeMesh() {
               node.vy += dy / distance * force * step;
             }
           }
-          if (founderBurst > 0.002) {
-            const dx = node.x - founderCenter.x;
-            const dy = node.y - founderCenter.y;
-            const distance = Math.hypot(dx, dy);
-            const burstReach = Math.max(width, height) * 0.72;
-            if (distance > 4 && distance < burstReach) {
-              const force = (1 - distance / burstReach) * founderBurst * (0.035 + node.depth * 0.035);
-              node.vx += dx / distance * force * step;
-              node.vy += dy / distance * force * step;
+          const fixedToFounder = frameTargetByNode.has(nodeIndex);
+          if (founderWasActive && founderTheme > 0.015 && !fixedToFounder) {
+            let dx = founderCenter.x - node.x;
+            let dy = founderCenter.y - node.y;
+            let distance = Math.max(1, Math.hypot(dx, dy));
+            const collapseRadius = width < 700 ? 18 : 26;
+            if (distance < collapseRadius) {
+              const angle = Math.random() * Math.PI * 2;
+              node.x = width / 2 + Math.cos(angle) * width * 0.7;
+              node.y = height / 2 + Math.sin(angle) * height * 0.7;
+              const ingressAngle = Math.atan2(founderCenter.y - node.y, founderCenter.x - node.x);
+              const ingress = 2.2 + Math.random() * 2.8;
+              node.vx = Math.cos(ingressAngle) * ingress;
+              node.vy = Math.sin(ingressAngle) * ingress;
+              node.spawn = 0;
+              node.phase = Math.random() * Math.PI * 2;
+              dx = founderCenter.x - node.x;
+              dy = founderCenter.y - node.y;
+              distance = Math.max(1, Math.hypot(dx, dy));
             }
+            node.spawn = Math.min(1, node.spawn + step * 0.055);
+            const pull = founderTheme * (0.15 + founderBurst * 0.2) * (0.62 + node.depth * 0.5);
+            const turbulence = Math.sin(elapsed * 15 + node.phase * 3.1) * founderTheme * 0.052;
+            node.vx += (dx / distance * pull - dy / distance * turbulence) * step;
+            node.vy += (dy / distance * pull + dx / distance * turbulence) * step;
+          } else if (founderTheme < 0.015) {
+            node.spawn = 1;
           }
           node.vx *= Math.pow(0.985, step);
           node.vy *= Math.pow(0.985, step);
-          node.x += clamp(node.vx, -1.5, 1.5) * step;
-          node.y += (clamp(node.vy, -1.5, 1.5) - scrollEnergy * node.depth * 0.13) * step;
+          const maxVelocity = 1.5 + founderTheme * 6;
+          node.x += clamp(node.vx, -maxVelocity, maxVelocity) * step;
+          node.y += (clamp(node.vy, -maxVelocity, maxVelocity) - scrollEnergy * node.depth * 0.13) * step;
           const frameTarget = frameTargetByNode.get(nodeIndex);
           if (frameTarget) {
-            const settle = (1 - Math.exp(-step * 0.14)) * frameReveal;
+            const settleRate = frameMode === 'founders' ? 0.34 : 0.14;
+            const settle = (1 - Math.exp(-step * settleRate)) * frameReveal;
             node.x += (frameTarget.x - node.x) * settle;
             node.y += (frameTarget.y - node.y) * settle;
             node.vx *= 1 - settle * 0.72;
             node.vy *= 1 - settle * 0.72;
+          }
+          if (redistribution > 0.002 && !frameTarget) {
+            const home = fieldHomes[nodeIndex];
+            const spread = (1 - Math.exp(-step * 0.075)) * Math.min(1, redistribution * 4);
+            node.x += (home.x - node.x) * spread;
+            node.y += (home.y - node.y) * spread;
+            node.vx *= 1 - spread;
+            node.vy *= 1 - spread;
           }
           // Soft boundary forces preserve continuity; no teleporting edge connections.
           if (node.x < 0) node.vx += 0.025 * step;
@@ -348,13 +452,19 @@ export default function NodeMesh() {
         }
       }
 
+      redistribution *= Math.exp(-step * 0.035);
+
       for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i];
         const nodeReveal = clamp(loaderProgress * 1.55 - (i / Math.max(1, nodes.length - 1)) * 0.55, 0, 1);
         const activity = pointer.active ? Math.max(0, 1 - Math.hypot(a.x - pointer.x, a.y - pointer.y) / radius) : 0;
+        const aCollapsing = founderWasActive && founderTheme > 0.015 && !frameTargetByNode.has(i);
+        const aOriginDistance = Math.hypot(a.x - founderCenter.x, a.y - founderCenter.y);
+        const aCollapseAlpha = aCollapsing ? a.spawn * clamp(aOriginDistance / (width < 700 ? 62 : 88), 0, 1) : 1;
         // Keep the center calm while giving the margins a more visible web.
         const edge = 0.5 + Math.abs(a.x / width - 0.5);
         for (let j = i + 1; j < nodes.length; j++) {
+          if (connectionVisibility < 0.005) break;
           const b = nodes[j];
           const distance = Math.hypot(a.x - b.x, a.y - b.y);
           if (distance > reach) continue;
@@ -363,7 +473,12 @@ export default function NodeMesh() {
           const connectionReveal = clamp((loaderProgress - 0.2 - edgeOrder * 0.28) / 0.48, 0, 1);
           if (connectionReveal <= 0) continue;
           const easedConnection = 1 - Math.pow(1 - connectionReveal, 3);
-          ctx!.strokeStyle = `rgba(${Math.min(255, lineColor[0] + navReveal * 18)}, ${Math.min(255, lineColor[1] + navReveal * 35)}, ${Math.min(255, lineColor[2] + navReveal * 25)}, ${strength * (0.32 * edge + activity * 0.36 + navReveal * 0.42 + originMix * 0.22) * easedConnection})`;
+          const bCollapsing = founderWasActive && founderTheme > 0.015 && !frameTargetByNode.has(j);
+          const bCollapseAlpha = bCollapsing
+            ? b.spawn * clamp(Math.hypot(b.x - founderCenter.x, b.y - founderCenter.y) / (width < 700 ? 62 : 88), 0, 1)
+            : 1;
+          const collapseAlpha = Math.min(aCollapseAlpha, bCollapseAlpha);
+          ctx!.strokeStyle = `rgba(${Math.min(255, lineColor[0] + navReveal * 18)}, ${Math.min(255, lineColor[1] + navReveal * 35)}, ${Math.min(255, lineColor[2] + navReveal * 25)}, ${strength * (0.32 * edge + activity * 0.36 + navReveal * 0.42 + originMix * 0.22) * easedConnection * collapseAlpha * connectionVisibility})`;
           ctx!.lineWidth = 0.7 + navReveal * 0.24 + originMix * 0.18;
           ctx!.beginPath();
           ctx!.moveTo(a.x, a.y);
@@ -372,18 +487,27 @@ export default function NodeMesh() {
           // A few travelling signals reveal the graph's connectivity.
           if (loaderProgress >= 1 && i % 11 === 0 && j % 3 === 0 && distance > 55) {
             const progress = (elapsed * 0.15 + a.phase / (Math.PI * 2)) % 1;
-            ctx!.fillStyle = `rgba(${signalColor[0]}, ${signalColor[1]}, ${signalColor[2]}, ${strength * (0.65 + navReveal * 0.3 + originMix * 0.2)})`;
+            ctx!.fillStyle = `rgba(${signalColor[0]}, ${signalColor[1]}, ${signalColor[2]}, ${strength * (0.65 + navReveal * 0.3 + originMix * 0.2) * collapseAlpha * connectionVisibility})`;
             ctx!.beginPath();
             ctx!.arc(a.x + (b.x - a.x) * progress, a.y + (b.y - a.y) * progress, 1.25 + navReveal * 0.65, 0, Math.PI * 2);
             ctx!.fill();
           }
         }
-        ctx!.fillStyle = `rgba(${nodeColor[0]}, ${nodeColor[1]}, ${nodeColor[2]}, ${(0.28 + a.depth * 0.34 + activity * 0.35 + navReveal * 0.45 + originMix * 0.2) * edge * nodeReveal})`;
+        if (aCollapsing && aCollapseAlpha > 0.02) {
+          ctx!.strokeStyle = `rgba(${signalColor[0]}, ${signalColor[1]}, ${signalColor[2]}, ${founderTheme * aCollapseAlpha * 0.2})`;
+          ctx!.lineWidth = 0.45 + a.depth * 0.3;
+          ctx!.lineCap = 'round';
+          ctx!.beginPath();
+          ctx!.moveTo(a.x - a.vx * 5.5, a.y - a.vy * 5.5);
+          ctx!.lineTo(a.x, a.y);
+          ctx!.stroke();
+        }
+        ctx!.fillStyle = `rgba(${nodeColor[0]}, ${nodeColor[1]}, ${nodeColor[2]}, ${(0.28 + a.depth * 0.34 + activity * 0.35 + navReveal * 0.45 + originMix * 0.2) * edge * nodeReveal * aCollapseAlpha})`;
         ctx!.beginPath();
         ctx!.arc(a.x, a.y, 0.8 + a.depth * 1.25 + activity + navReveal * 0.55, 0, Math.PI * 2);
         ctx!.fill();
         if (i % 9 === 0 && nodeReveal > 0) {
-          ctx!.strokeStyle = `rgba(${frameColor[0]}, ${frameColor[1]}, ${frameColor[2]}, ${(0.15 * edge + activity * 0.25 + navReveal * 0.2 + originMix * 0.18) * nodeReveal})`;
+          ctx!.strokeStyle = `rgba(${frameColor[0]}, ${frameColor[1]}, ${frameColor[2]}, ${(0.15 * edge + activity * 0.25 + navReveal * 0.2 + originMix * 0.18) * nodeReveal * aCollapseAlpha * connectionVisibility})`;
           ctx!.beginPath();
           ctx!.arc(a.x, a.y, 5 + a.depth * 2, 0, Math.PI * 2);
           ctx!.stroke();
@@ -486,6 +610,7 @@ export default function NodeMesh() {
       frameAssignments = [];
       frameGroups = [];
       frameReveal = 0;
+      outlineCache = { key: '', points: [] };
       delete canvas.dataset.meshResponse;
       titleNetwork.resize();
       if (motion.matches) draw(0);
