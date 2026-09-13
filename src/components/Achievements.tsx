@@ -84,7 +84,7 @@ const PROJECTS: ProjectItem[] = [
     tags: ['Machine Learning', 'Project'],
     description: 'A machine learning project built around turning data into useful simulation workflows.',
     descriptionSide: 'left',
-    imageSrc: '/assets/tesla.webp',
+    imageSrc: '/assets/works/scrape-2-sim/scrape-2-sim.jpeg',
     cardWidth: 635,
     cardHeight: 598,
     mediaHeight: 480,

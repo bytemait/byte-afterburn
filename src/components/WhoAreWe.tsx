@@ -125,7 +125,6 @@ export default function WhoAreWe() {
                 {TAGS.map((tag) => <span key={tag}>{tag}</span>)}
               </div>
             </div>
-            <img className="whoarewe-globe" src="/assets/about-globe.svg" alt="" width="88" height="88" />
           </div>
 
           <div className="whoarewe-bottom">

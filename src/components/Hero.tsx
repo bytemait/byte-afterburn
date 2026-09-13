@@ -136,15 +136,6 @@ export default function Hero({
 
             {/* Intro column */}
             <div className="hero-intro-column">
-              <div className="hero-globe-wrapper">
-                <img
-                  src="/assets/globe.svg"
-                  alt=""
-                  width="88"
-                  height="61"
-                  className="hero-globe-icon"
-                />
-              </div>
               <div className="hero-intro-text">
                 <p className="hero-intro-heading">{introTitle}</p>
                 <p className="hero-intro-desc">{introBody}</p>

@@ -6,8 +6,6 @@ interface TestimonialCardData {
   name: string;
   role: string;
   avatarSrc: string;
-  logoSrc: string;
-  logoWidth?: string;
   border?: string;
 }
 
@@ -22,8 +20,6 @@ const CARDS: TestimonialCardData[] = [
     name: 'Aarav Menon',
     role: 'MEMBER, DEVELOPMENT',
     avatarSrc: '/assets/avatar-1.svg',
-    logoSrc: '/assets/logo-antony.svg',
-    logoWidth: '24px'
   },
   {
     id: 'card-2',
@@ -31,8 +27,6 @@ const CARDS: TestimonialCardData[] = [
     name: 'Riya Shah',
     role: 'MEMBER, AI/ML',
     avatarSrc: '/assets/avatar-0.svg',
-    logoSrc: '/assets/logo-agencify.svg',
-    logoWidth: '84px'
   },
   {
     id: 'card-3',
@@ -40,8 +34,6 @@ const CARDS: TestimonialCardData[] = [
     name: 'Kabir Rao',
     role: 'MEMBER, MECHATRONICS',
     avatarSrc: '/assets/avatar-2.svg',
-    logoSrc: '/assets/logo-bruno.svg',
-    logoWidth: '80px'
   },
   {
     id: 'card-4',
@@ -49,8 +41,6 @@ const CARDS: TestimonialCardData[] = [
     name: 'Ishita Nair',
     role: 'MEMBER, CYBERSECURITY',
     avatarSrc: '/assets/avatar-3.svg',
-    logoSrc: '/assets/logo-axior.svg',
-    logoWidth: '84px',
     border: '1px solid rgb(51, 51, 51)'
   },
   {
@@ -59,8 +49,6 @@ const CARDS: TestimonialCardData[] = [
     name: 'Neel Kapoor',
     role: 'MEMBER, OUTREACH',
     avatarSrc: '/assets/avatar-4.svg',
-    logoSrc: '/assets/logo-oglivy.svg',
-    logoWidth: '84px'
   }
 ];
 
@@ -525,24 +513,6 @@ export default function Testimonials({
           text-transform: none;
         }
 
-        .framer-brand-logo-frame {
-          flex: none;
-          gap: 10px;
-          height: 24px;
-          overflow: hidden;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-        }
-
-        .framer-brand-logo-img {
-          display: block;
-          max-height: 100%;
-          width: auto;
-          object-fit: contain;
-        }
-
         @keyframes framer-spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
@@ -621,9 +591,6 @@ function CardComponent({ card }: { card: TestimonialCardData }) {
             <p className="framer-name-text">{card.name}</p>
             <p className="framer-role-text">{card.role}</p>
           </div>
-        </div>
-        <div className="framer-brand-logo-frame" style={{ width: card.logoWidth || '84px' }}>
-          <img className="framer-brand-logo-img" src={card.logoSrc} alt="brand logo" loading="lazy" />
         </div>
       </div>
     </div>
