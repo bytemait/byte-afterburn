@@ -235,7 +235,11 @@ const chapters = [
 
     <section class="alumni-era alumni-era--2025" id="alumni-2025" data-alumni-era="2025" aria-labelledby="alumni-2025-title">
       <div class="era-stage">
-        <div class="era-year" aria-hidden="true">2025</div>
+        <div class="era-year era-year--trace" aria-hidden="true">
+          <span class="era-year-base">2025</span>
+          <span class="era-year-progress">2025</span>
+          <span class="era-year-head">2025</span>
+        </div>
         <div class="era-copy">
           <p class="era-generation">Generation 02 · 2025</p>
           <h2 id="alumni-2025-title">The signal<br />before us.</h2>
@@ -519,6 +523,9 @@ const chapters = [
         // The tunnel completes, then the visitor gets a moment with the full generation in view.
         const animationProgress = Math.min(1, progress / 0.68);
         era.style.setProperty('--era-progress', reducedMotion.matches ? '1' : animationProgress.toFixed(4));
+        if (era.dataset.alumniEra === '2025') {
+          era.style.setProperty('--era-trace', `${(reducedMotion.matches ? 100 : progress * 100).toFixed(2)}%`);
+        }
         era.classList.toggle('is-era-active', rect.top < innerHeight * 0.55 && rect.bottom > innerHeight * 0.45);
 
         const alumniPeople = [...era.querySelectorAll<HTMLElement>('[data-alumni-person]')];
@@ -1490,6 +1497,7 @@ const chapters = [
 
   .alumni-era {
     --era-progress: 0;
+    --era-trace: 0%;
     --origin: #ffbd66;
     --origin-bright: #fff1d2;
     position: relative;
@@ -1524,6 +1532,35 @@ const chapters = [
     transform: translate3d(calc(-50% - var(--era-progress) * 9vw), calc(-50% - var(--era-progress) * 5vh), calc(var(--era-progress) * -260px)) scale(calc(1 - var(--era-progress) * 0.12));
     transform-style: preserve-3d;
     will-change: transform;
+  }
+
+  .era-year--trace {
+    -webkit-text-stroke: 0;
+  }
+
+  .era-year--trace > span {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(154, 188, 169, 0.2);
+  }
+
+  .era-year--trace > span:not(.era-year-base) {
+    position: absolute;
+    inset: 0;
+  }
+
+  .era-year-progress {
+    -webkit-text-stroke-color: rgba(82, 224, 166, 0.78) !important;
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 var(--era-trace), transparent calc(var(--era-trace) + 0.12%));
+    mask-image: linear-gradient(90deg, #000 0, #000 var(--era-trace), transparent calc(var(--era-trace) + 0.12%));
+  }
+
+  .era-year-head {
+    opacity: 0.92;
+    -webkit-text-stroke-color: #83f4c2 !important;
+    filter: drop-shadow(0 0 5px rgba(82, 224, 166, 0.72));
+    -webkit-mask-image: linear-gradient(90deg, transparent calc(var(--era-trace) - 1.1%), #000 calc(var(--era-trace) - 0.35%), #000 var(--era-trace), transparent calc(var(--era-trace) + 0.25%));
+    mask-image: linear-gradient(90deg, transparent calc(var(--era-trace) - 1.1%), #000 calc(var(--era-trace) - 0.35%), #000 var(--era-trace), transparent calc(var(--era-trace) + 0.25%));
   }
 
   .alumni-era--2024 .era-year {
@@ -1980,6 +2017,7 @@ const chapters = [
     .alumni-person,
     .founder-constellation { will-change: auto; }
     .era-year { transform: translate(-50%, -50%); }
+    .era-year-head { display: none; }
     .alumni-roster--2025 .alumni-person { opacity: 1; transform: none; }
     .founder-person { opacity: 1; transform: translate(-50%, -50%); }
   }
