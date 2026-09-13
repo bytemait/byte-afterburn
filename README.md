@@ -1,46 +1,52 @@
-# Astro Starter Kit: Basics
+# Byte Afterburn
 
-```sh
-npm create astro@latest -- --template basics
-```
+Byte Afterburn is the website for BYTE, a student-led technology society. It presents the society’s work, events, departments, members, testimonials, and ways to get involved through an interactive visual experience built around an animated node mesh.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+- [Astro](https://astro.build/) for the site and static route generation
+- React for interactive sections and client-side motion
+- Tailwind CSS through Vite
+- Cloudflare adapter for production deployment
 
-Inside of your Astro project, you'll see the following folders and files:
+## Project structure
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+├── components/
+│   ├── common/       Shared navigation, footer, transitions, mesh, and showcase UI
+│   ├── events/       Event detail components
+│   └── home/         Home page sections and interactions
+├── data/             Event and work/service content
+├── layouts/          Shared document layout
+├── pages/            Home, members, events, works, services, and contact routes
+└── styles/           Global and page-specific styles
+public/               Images, portraits, fonts, and other static assets
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+The home page is [`src/pages/index.astro`](src/pages/index.astro). Work and service detail pages use the reusable showcase template and data in [`src/data/showcase-pages.ts`](src/data/showcase-pages.ts). Shared components live in [`src/components/common`](src/components/common), while home-only components live in [`src/components/home`](src/components/home).
 
-## 🧞 Commands
+## Development
 
-All commands are run from the root of the project, from a terminal:
+Use Node.js 22.12 or newer.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```sh
+npm ci
+npm run dev
+```
 
-## 👀 Want to learn more?
+The development server is configured to listen on `0.0.0.0`. To choose a port, pass Astro’s usual flags, for example `npm run dev -- --port 4321`.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Generate the production build in `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run generate-types` | Generate Cloudflare types with Wrangler |
+| `npm run astro ...` | Run an Astro CLI command |
+
+## Deployment
+
+The site uses `@astrojs/cloudflare` and is configured for Cloudflare deployment. Run `npm run build` before publishing to verify that all routes and assets generate correctly.
