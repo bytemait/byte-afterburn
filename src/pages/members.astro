@@ -583,6 +583,7 @@ const chapters = [
           chapter.style.removeProperty('--mobile-scroll-distance');
           chapter.style.removeProperty('--mobile-track-hold');
           chapter.style.removeProperty('--mobile-heading-height');
+          chapter.style.removeProperty('--mobile-card-height');
           chapter.classList.remove('is-mobile-track-active', 'is-mobile-track-complete');
           delete chapter.dataset.mobileTrackState;
           field.style.removeProperty('transform');
@@ -591,6 +592,9 @@ const chapters = [
 
         const headingHeight = heading.offsetHeight;
         chapter.style.setProperty('--mobile-heading-height', `${headingHeight}px`);
+        const cards = [...field.querySelectorAll<HTMLElement>(':scope > [data-mesh-member]')];
+        const tallestCard = cards.reduce((height, card) => Math.max(height, card.offsetHeight), 0);
+        chapter.style.setProperty('--mobile-card-height', `${tallestCard}px`);
         const distance = Math.max(0, field.scrollWidth - viewport.clientWidth);
         const hold = Math.min(140, window.innerHeight * 0.18);
         chapter.style.setProperty('--mobile-scroll-distance', `${distance}px`);
@@ -617,7 +621,6 @@ const chapters = [
         chapter.style.setProperty('--mobile-track-progress', progress.toFixed(4));
 
         if (!isActive) return;
-        const cards = [...field.querySelectorAll<HTMLElement>(':scope > [data-mesh-member]')];
         if (!cards.length) return;
         const candidate = state === 'holding'
           ? cards.at(-1) ?? null
@@ -1936,7 +1939,7 @@ const chapters = [
 
     .member-chapter {
       min-height: auto;
-      padding: 6rem 0 8rem;
+      padding: 3.5rem 0 1.5rem;
       display: block;
     }
     .chapter-heading-slot {
@@ -1949,7 +1952,7 @@ const chapters = [
       position: relative;
       display: block;
       width: 100%;
-      height: calc(100svh - 72px);
+      height: min(calc(100svh - 72px), calc(var(--mobile-card-height, 34rem) + 4rem));
       margin-bottom: calc(var(--mobile-scroll-distance, 0px) + var(--mobile-track-hold, 0px));
     }
     .member-field-window {
@@ -2027,7 +2030,7 @@ const chapters = [
       display: block;
       width: fit-content;
       max-width: calc(100% - 2rem);
-      margin: 3.5rem auto 0;
+      margin: 2rem auto 0;
     }
     .member-node[data-member-active="true"],
     .member-node:nth-child(n)[data-member-active="true"],
