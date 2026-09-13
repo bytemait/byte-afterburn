@@ -217,6 +217,7 @@ const chapters = [
                   data-mesh-shape="silhouette"
                   data-achievement-card
                   data-member-index={index}
+                  data-member-key={`${chapter.key}:${index}`}
                   tabindex="0"
                   aria-label={`${member.name}, ${member.role}${member.quote ? `. Quote: ${member.quote}` : ''}`}
                 >
@@ -359,9 +360,8 @@ const chapters = [
     const intro = root.querySelector<HTMLElement>('[data-members-intro]');
     const introMeshTarget = root.querySelector<HTMLElement>('[data-intro-mesh-target]');
     const council = root.querySelector<HTMLElement>('#leadership');
-    const mobile = window.matchMedia('(max-width: 760px), (hover: none)');
+    const mobile = window.matchMedia('(max-width: 760px)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let mobileFrame = 0;
     let alumniFrame = 0;
     let introFrame = 0;
     let horizontalFrame = 0;
@@ -481,9 +481,34 @@ const chapters = [
       addSlowScroll(delta, 0.78);
     };
 
-    const activate = (node: HTMLElement | null) => {
-      memberNodes.forEach((item) => item.classList.toggle('is-mesh-active', item === node));
+    type ActiveMemberSource = 'pointer' | 'keyboard' | 'mobile-scroll' | 'none';
+    let activeMemberNode: HTMLElement | null = null;
+    let activeMemberSource: ActiveMemberSource = 'none';
+
+    const setActiveMember = (node: HTMLElement | null, source: ActiveMemberSource) => {
+      if (node && !memberNodes.includes(node)) return;
+      if (activeMemberNode === node) {
+        activeMemberSource = node ? source : 'none';
+        root.dataset.activeMemberSource = activeMemberSource;
+        return;
+      }
+
+      memberNodes.forEach((item) => {
+        if (item === node) item.dataset.memberActive = 'true';
+        else delete item.dataset.memberActive;
+      });
+      activeMemberNode = node;
+      activeMemberSource = node ? source : 'none';
       root.classList.toggle('has-active-member', Boolean(node));
+      root.dataset.activeMemberSource = activeMemberSource;
+      if (node?.dataset.memberKey) root.dataset.activeMemberKey = node.dataset.memberKey;
+      else delete root.dataset.activeMemberKey;
+      window.dispatchEvent(new CustomEvent('byte:member-active', {
+        detail: {
+          key: node?.dataset.memberKey ?? null,
+          source: activeMemberSource,
+        },
+      }));
     };
 
     memberNodes.forEach((node) => {
@@ -521,42 +546,33 @@ const chapters = [
           .forEach((property) => node.style.removeProperty(property));
       };
 
-      node.addEventListener('pointerenter', () => { if (!mobile.matches) activate(node); });
+      node.addEventListener('pointerenter', () => {
+        if (!mobile.matches) setActiveMember(node, 'pointer');
+      });
       node.addEventListener('pointerleave', () => {
         resetDepth();
-        if (!mobile.matches && !node.matches(':focus-visible')) activate(null);
+        if (mobile.matches || activeMemberNode !== node) return;
+        if (document.activeElement === node && node.matches(':focus-visible')) {
+          setActiveMember(node, 'keyboard');
+        } else {
+          setActiveMember(null, 'none');
+        }
       });
-      node.addEventListener('focus', () => activate(node));
+      node.addEventListener('focus', () => {
+        if (!mobile.matches) setActiveMember(node, 'keyboard');
+      });
       node.addEventListener('blur', () => {
         resetDepth();
-        if (!mobile.matches) activate(null);
+        if (mobile.matches || activeMemberNode !== node) return;
+        if (node.matches(':hover')) setActiveMember(node, 'pointer');
+        else setActiveMember(null, 'none');
       });
     });
 
-    const updateMobileFocus = () => {
-      mobileFrame = 0;
-      if (!mobile.matches) return;
-      const center = window.innerHeight * 0.53;
-      let nearest: HTMLElement | null = null;
-      let distance = Infinity;
-      memberNodes.forEach((node) => {
-        const box = node.getBoundingClientRect();
-        if (box.bottom < 80 || box.top > window.innerHeight - 40) return;
-        const nextDistance = Math.abs(box.top + box.height * 0.5 - center);
-        if (nextDistance < distance) {
-          nearest = node;
-          distance = nextDistance;
-        }
-      });
-      activate(nearest);
-    };
-
-    const queueMobileFocus = () => {
-      if (!mobileFrame) mobileFrame = requestAnimationFrame(updateMobileFocus);
-    };
-
     const updateHorizontalChapters = () => {
       horizontalFrame = 0;
+      let mobileActiveCandidate: HTMLElement | null = null;
+      let candidateDistance = Infinity;
       chapters.forEach((chapter) => {
         const viewport = chapter.querySelector<HTMLElement>('[data-member-field-viewport]');
         const field = viewport?.querySelector<HTMLElement>('.member-field');
@@ -568,6 +584,7 @@ const chapters = [
           chapter.style.removeProperty('--mobile-track-hold');
           chapter.style.removeProperty('--mobile-heading-height');
           chapter.classList.remove('is-mobile-track-active', 'is-mobile-track-complete');
+          delete chapter.dataset.mobileTrackState;
           field.style.removeProperty('transform');
           return;
         }
@@ -580,12 +597,46 @@ const chapters = [
         chapter.style.setProperty('--mobile-track-hold', `${hold}px`);
         const top = headingSlot.getBoundingClientRect().top + window.scrollY;
         const navHeight = document.querySelector<HTMLElement>('.site-nav')?.offsetHeight ?? 72;
-        const progress = distance > 0 ? clamp((window.scrollY - (top - navHeight)) / distance) : 0;
-        chapter.classList.toggle('is-mobile-track-active', distance > 0 && window.scrollY >= top - navHeight && window.scrollY <= top - navHeight + distance + hold);
-        chapter.classList.toggle('is-mobile-track-complete', distance > 0 && window.scrollY > top - navHeight + distance + hold);
-        field.style.transform = `translate3d(${-progress * distance}px, 0, 0)`;
+        const start = top - navHeight;
+        const trackEnd = start + distance;
+        const releaseEnd = trackEnd + hold;
+        const progress = distance > 0 ? clamp((window.scrollY - start) / distance) : 0;
+        const offset = progress * distance;
+        const state = window.scrollY < start
+          ? 'before'
+          : window.scrollY <= trackEnd
+            ? 'tracking'
+            : window.scrollY <= releaseEnd
+              ? 'holding'
+              : 'released';
+        const isActive = distance > 0 && (state === 'tracking' || state === 'holding');
+        chapter.dataset.mobileTrackState = state;
+        chapter.classList.toggle('is-mobile-track-active', isActive);
+        chapter.classList.toggle('is-mobile-track-complete', distance > 0 && state === 'released');
+        field.style.transform = `translate3d(${-offset}px, 0, 0)`;
         chapter.style.setProperty('--mobile-track-progress', progress.toFixed(4));
+
+        if (!isActive) return;
+        const cards = [...field.querySelectorAll<HTMLElement>(':scope > [data-mesh-member]')];
+        if (!cards.length) return;
+        const candidate = state === 'holding'
+          ? cards.at(-1) ?? null
+          : cards.reduce((nearest, card) => {
+              const target = offset + viewport.clientWidth / 2;
+              const nearestDistance = Math.abs(nearest.offsetLeft + nearest.offsetWidth / 2 - target);
+              const cardDistance = Math.abs(card.offsetLeft + card.offsetWidth / 2 - target);
+              return cardDistance < nearestDistance ? card : nearest;
+            });
+        const distanceFromTrackCenter = Math.abs(window.scrollY - (start + (distance + hold) / 2));
+        if (candidate && distanceFromTrackCenter < candidateDistance) {
+          mobileActiveCandidate = candidate;
+          candidateDistance = distanceFromTrackCenter;
+        }
       });
+
+      if (mobile.matches && !reducedMotion.matches) {
+        setActiveMember(mobileActiveCandidate, mobileActiveCandidate ? 'mobile-scroll' : 'none');
+      }
     };
 
     const queueHorizontalChapters = () => {
@@ -652,8 +703,6 @@ const chapters = [
       }, { rootMargin: '0px 0px -18% 0px', threshold: 0.08 });
       councilObserver.observe(council);
     }
-    window.addEventListener('scroll', queueMobileFocus, { passive: true });
-    window.addEventListener('resize', queueMobileFocus, { passive: true });
     window.addEventListener('scroll', queueHorizontalChapters, { passive: true });
     window.addEventListener('resize', queueHorizontalChapters, { passive: true });
     window.addEventListener('scroll', queueAlumniTunnel, { passive: true });
@@ -670,11 +719,9 @@ const chapters = [
       document.documentElement.classList.remove('is-members-intro-scrolling');
     });
     mobile.addEventListener('change', () => {
-      if (mobile.matches) queueMobileFocus();
-      else activate(null);
+      setActiveMember(null, 'none');
       queueHorizontalChapters();
     });
-    queueMobileFocus();
     updateHorizontalChapters();
     queueAlumniTunnel();
     updateIntro();
@@ -1257,7 +1304,7 @@ const chapters = [
     }
   }
 
-  .has-active-member .member-node:not(.is-mesh-active) { opacity: 0.36; }
+  .has-active-member .member-node:not([data-member-active="true"]) { opacity: 0.36; }
 
   .portrait-stage {
     position: relative;
@@ -1339,75 +1386,54 @@ const chapters = [
     letter-spacing: 0.14em;
   }
 
-  .member-node:hover,
-  .member-node:focus-visible,
-  .member-node.is-mesh-active {
+  .member-node:focus-visible .portrait-stage {
+    outline: 2px solid var(--green);
+    outline-offset: 4px;
+  }
+
+  .member-node[data-member-active="true"] {
     z-index: 2;
     transform: translateY(-0.7rem) scale(1.035);
   }
 
-  .member-node:nth-child(3n + 2):hover,
-  .member-node:nth-child(3n + 2):focus-visible,
-  .member-node:nth-child(3n + 2).is-mesh-active { transform: translateY(4.3rem) scale(1.035); }
+  .member-node:nth-child(3n + 2)[data-member-active="true"] { transform: translateY(4.3rem) scale(1.035); }
 
-  .field-leadership .member-node:nth-child(3):hover,
-  .field-leadership .member-node:nth-child(3):focus-visible,
-  .field-leadership .member-node:nth-child(3).is-mesh-active { transform: translateY(6.3rem) scale(1.035); }
+  .field-leadership .member-node:nth-child(3)[data-member-active="true"] { transform: translateY(6.3rem) scale(1.035); }
 
-  .field-leadership .member-node:nth-child(5):hover,
-  .field-leadership .member-node:nth-child(5):focus-visible,
-  .field-leadership .member-node:nth-child(5).is-mesh-active { transform: translateY(3.3rem) scale(1.035); }
+  .field-leadership .member-node:nth-child(5)[data-member-active="true"] { transform: translateY(3.3rem) scale(1.035); }
 
-  .field-leadership .member-node:nth-child(6):hover,
-  .field-leadership .member-node:nth-child(6):focus-visible,
-  .field-leadership .member-node:nth-child(6).is-mesh-active { transform: translateY(0.8rem) scale(1.035); }
+  .field-leadership .member-node:nth-child(6)[data-member-active="true"] { transform: translateY(0.8rem) scale(1.035); }
 
-  .field-leadership .member-node:nth-child(7):hover,
-  .field-leadership .member-node:nth-child(7):focus-visible,
-  .field-leadership .member-node:nth-child(7).is-mesh-active { transform: translateY(4.3rem) scale(1.035); }
+  .field-leadership .member-node:nth-child(7)[data-member-active="true"] { transform: translateY(4.3rem) scale(1.035); }
 
-  .member-node:hover .portrait-stage::before,
-  .member-node:focus-visible .portrait-stage::before,
-  .member-node.is-mesh-active .portrait-stage::before { opacity: 1; }
+  .member-node[data-member-active="true"] .portrait-stage::before { opacity: 1; }
 
-  .member-node:hover .portrait-stage::after,
-  .member-node:focus-visible .portrait-stage::after,
-  .member-node.is-mesh-active .portrait-stage::after { right: 0; }
+  .member-node[data-member-active="true"] .portrait-stage::after { right: 0; }
 
-  .member-node:hover .portrait-base,
-  .member-node:focus-visible .portrait-base,
-  .member-node.is-mesh-active .portrait-base {
+  .member-node[data-member-active="true"] .portrait-base {
     opacity: 0.16;
     filter: grayscale(1) contrast(1.04) brightness(0.5);
     transform: translate3d(-50%, 0, 0) scale(1.04);
   }
 
-  .member-node:hover .portrait-channel,
-  .member-node:focus-visible .portrait-channel,
-  .member-node.is-mesh-active .portrait-channel {
+  .member-node[data-member-active="true"] .portrait-channel {
     visibility: visible;
     opacity: 0.9;
     transition: opacity 220ms ease, visibility 0s linear 0s;
     will-change: transform, opacity;
   }
 
-  .member-node:hover .portrait-channel--red,
-  .member-node:focus-visible .portrait-channel--red,
-  .member-node.is-mesh-active .portrait-channel--red {
+  .member-node[data-member-active="true"] .portrait-channel--red {
     opacity: 0.84;
     transform: translate3d(-50%, 0, 0) scale(1.04);
   }
 
-  .member-node:hover .portrait-channel--green,
-  .member-node:focus-visible .portrait-channel--green,
-  .member-node.is-mesh-active .portrait-channel--green {
+  .member-node[data-member-active="true"] .portrait-channel--green {
     opacity: 0.94;
     transform: translate3d(calc(-50% + var(--rgb-g-x)), var(--rgb-g-y), 0) scale(1.04);
   }
 
-  .member-node:hover .portrait-channel--blue,
-  .member-node:focus-visible .portrait-channel--blue,
-  .member-node.is-mesh-active .portrait-channel--blue {
+  .member-node[data-member-active="true"] .portrait-channel--blue {
     opacity: 0.88;
     transform: translate3d(-50%, 0, 0) scale(1.04);
   }
@@ -1496,54 +1522,38 @@ const chapters = [
     transition: opacity 260ms ease;
   }
 
-  .member-node:hover .member-label h3,
-  .member-node:focus-visible .member-label h3,
-  .member-node.is-mesh-active .member-label h3 { color: var(--green); transform: translateX(0.35rem); }
+  .member-node[data-member-active="true"] .member-label h3 { color: var(--green); transform: translateX(0.35rem); }
 
-  .member-node.has-member-quote:hover .member-identity,
-  .member-node.has-member-quote:focus-visible .member-identity,
-  .member-node.has-member-quote.is-mesh-active .member-identity {
+  .member-node.has-member-quote[data-member-active="true"] .member-identity {
     transform: translateY(calc(-100% - 1.15rem));
   }
 
-  .member-node.has-member-quote:hover .member-label h3,
-  .member-node.has-member-quote:focus-visible .member-label h3,
-  .member-node.has-member-quote.is-mesh-active .member-label h3 {
+  .member-node.has-member-quote[data-member-active="true"] .member-label h3 {
     text-shadow: 0 0.65rem 1.6rem rgba(0, 0, 0, 0.72);
     transform: scale(1.22);
   }
 
-  .member-node.has-member-quote:hover .member-label h3::before,
-  .member-node.has-member-quote:focus-visible .member-label h3::before,
-  .member-node.has-member-quote.is-mesh-active .member-label h3::before {
+  .member-node.has-member-quote[data-member-active="true"] .member-label h3::before {
     animation: member-name-glitch-a 500ms steps(1, end) both;
   }
 
-  .member-node.has-member-quote:hover .member-label h3::after,
-  .member-node.has-member-quote:focus-visible .member-label h3::after,
-  .member-node.has-member-quote.is-mesh-active .member-label h3::after {
+  .member-node.has-member-quote[data-member-active="true"] .member-label h3::after {
     animation: member-name-glitch-b 500ms steps(1, end) 35ms both;
   }
 
-  .member-node.has-member-quote:hover .member-quote,
-  .member-node.has-member-quote:focus-visible .member-quote,
-  .member-node.has-member-quote.is-mesh-active .member-quote {
+  .member-node.has-member-quote[data-member-active="true"] .member-quote {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 90ms;
   }
 
-  .member-node.has-member-quote:hover .member-role,
-  .member-node.has-member-quote:focus-visible .member-role,
-  .member-node.has-member-quote.is-mesh-active .member-role {
+  .member-node.has-member-quote[data-member-active="true"] .member-role {
     background: var(--green);
     color: #07110b;
     transform: translateX(0.35rem);
   }
 
-  .member-node:hover .member-pulse,
-  .member-node:focus-visible .member-pulse,
-  .member-node.is-mesh-active .member-pulse { opacity: 1; animation: signal 1.4s ease-out infinite; }
+  .member-node[data-member-active="true"] .member-pulse { opacity: 1; animation: signal 1.4s ease-out infinite; }
 
   @keyframes signal {
     0% { box-shadow: 0 0 0 0 rgba(82, 224, 166, 0.56); }
@@ -1896,7 +1906,7 @@ const chapters = [
   }
 
   @media (hover: none) {
-    .member-node.is-mesh-active .portrait-channel--green {
+    .member-node[data-member-active="true"] .portrait-channel--green {
       animation: member-green-glitch 3.4s steps(1, end) infinite;
     }
   }
@@ -2019,28 +2029,18 @@ const chapters = [
       max-width: calc(100% - 2rem);
       margin: 3.5rem auto 0;
     }
-    .member-node:hover,
-    .member-node:focus-visible,
-    .member-node.is-mesh-active,
-    .member-node:nth-child(n):hover,
-    .member-node:nth-child(n):focus-visible,
-    .member-node:nth-child(n).is-mesh-active,
-    .field-leadership .member-node:nth-child(n):hover,
-    .field-leadership .member-node:nth-child(n):focus-visible,
-    .field-leadership .member-node:nth-child(n).is-mesh-active { transform: translateY(-0.35rem) scale(1.018); }
-    .has-active-member .member-node:not(.is-mesh-active) { opacity: 0.55; }
+    .member-node[data-member-active="true"],
+    .member-node:nth-child(n)[data-member-active="true"],
+    .field-leadership .member-node:nth-child(n)[data-member-active="true"] { transform: translateY(-0.35rem) scale(1.018); }
+    .has-active-member .member-node:not([data-member-active="true"]) { opacity: 0.55; }
     .portrait-stage { aspect-ratio: 4 / 5; }
     .member-label { min-height: 8.8rem; }
     .member-label h3 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
     .member-quote { right: 1rem; font-size: 1.05rem; }
-    .member-node.has-member-quote:hover .member-identity,
-    .member-node.has-member-quote:focus-visible .member-identity,
-    .member-node.has-member-quote.is-mesh-active .member-identity {
+    .member-node.has-member-quote[data-member-active="true"] .member-identity {
       transform: translateY(calc(-100% - 0.85rem));
     }
-    .member-node.has-member-quote:hover .member-label h3,
-    .member-node.has-member-quote:focus-visible .member-label h3,
-    .member-node.has-member-quote.is-mesh-active .member-label h3 {
+    .member-node.has-member-quote[data-member-active="true"] .member-label h3 {
       transform: scale(1.14);
     }
 
@@ -2170,16 +2170,12 @@ const chapters = [
     .member-role,
     .member-cluster li { transition: none; }
 
-    .member-node.has-member-quote:hover .member-identity,
-    .member-node.has-member-quote:focus-visible .member-identity,
-    .member-node.has-member-quote.is-mesh-active .member-identity {
+    .member-node.has-member-quote[data-member-active="true"] .member-identity {
       opacity: 0;
       transform: none;
     }
 
-    .member-node.has-member-quote:hover .member-label h3,
-    .member-node.has-member-quote:focus-visible .member-label h3,
-    .member-node.has-member-quote.is-mesh-active .member-label h3 {
+    .member-node.has-member-quote[data-member-active="true"] .member-label h3 {
       text-shadow: none;
       transform: none;
     }

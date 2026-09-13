@@ -71,6 +71,9 @@ export default function NodeMesh() {
 
     function pointsAround(element: HTMLElement, pad = 14) {
       const rect = element.getBoundingClientRect();
+      const visibleWidth = Math.min(rect.right, width) - Math.max(rect.left, 0);
+      const visibleHeight = Math.min(rect.bottom, height) - Math.max(rect.top, 0);
+      if (visibleWidth < 24 || visibleHeight < 24) return [];
       const left = clamp(rect.left - pad, 8, width - 8);
       const right = clamp(rect.right + pad, 8, width - 8);
       const top = clamp(rect.top - pad, 8, height - 8);
@@ -181,14 +184,7 @@ export default function NodeMesh() {
     }
 
     function activeMember(root: HTMLElement) {
-      if (finePointer.matches) {
-        const hovered = root.querySelector<HTMLElement>('[data-mesh-member]:hover');
-        if (hovered) return hovered;
-      }
-      const focused = document.activeElement instanceof HTMLElement
-        ? document.activeElement.closest<HTMLElement>('[data-mesh-member]')
-        : null;
-      return focused ?? root.querySelector<HTMLElement>('[data-mesh-member].is-mesh-active');
+      return root.querySelector<HTMLElement>('[data-mesh-member][data-member-active="true"]');
     }
 
     function targetsForMembers(root: HTMLElement, member: HTMLElement | null, mode: string) {
@@ -240,6 +236,7 @@ export default function NodeMesh() {
       if (conceptRoot) {
         mode = conceptRoot.dataset.membersConcept || 'constellation';
         active = activeMember(conceptRoot);
+        const activeFrame = active?.querySelector<HTMLElement>('[data-mesh-frame]') ?? active;
         const orbit = mode === 'orbit' ? conceptRoot.querySelector<HTMLElement>('[data-mesh-orbit]') : null;
         const orbitRect = orbit?.getBoundingClientRect();
         const orbitVisible = Boolean(orbitRect && orbitRect.bottom > 0 && orbitRect.top < height);
@@ -262,10 +259,12 @@ export default function NodeMesh() {
         if (founderWasActive && !founderVisible) releaseFounderNodes();
         founderWasActive = founderVisible;
         if (founderVisible) redistribution = 0;
-        target = founderVisible ? founder : introVisible ? intro : active ?? (orbitVisible ? orbit : null);
+        target = founderVisible ? founder : introVisible ? intro : activeFrame ?? (orbitVisible ? orbit : null);
         interactionMode = target === founder ? 'founders' : target === intro ? 'intro' : mode;
-        targetReveal = founderVisible ? founderReveal : introVisible ? introReveal : active ? 1 : orbitVisible ? 0.72 : 0;
+        targetReveal = founderVisible ? founderReveal : introVisible ? introReveal : activeFrame ? 1 : orbitVisible ? 0.72 : 0;
         if (target) ({ targets: nextTargets, groups: nextGroups } = targetsForMembers(conceptRoot, target, interactionMode));
+        if (target === activeFrame && active?.dataset.memberKey) canvas.dataset.meshMemberKey = active.dataset.memberKey;
+        else delete canvas.dataset.meshMemberKey;
       } else {
         if (founderWasActive) releaseFounderNodes();
         founderWasActive = false;
@@ -273,6 +272,7 @@ export default function NodeMesh() {
           ? surface.querySelector<HTMLElement>('[data-achievement-card]:hover [data-mesh-frame], [data-achievement-card]:focus-visible [data-mesh-frame]')
           : null;
         target = active;
+        delete canvas.dataset.meshMemberKey;
         targetReveal = active ? 1 : 0;
         if (active) {
           nextTargets = pointsAround(active);
@@ -602,6 +602,11 @@ export default function NodeMesh() {
       navOpen = Boolean((event as CustomEvent<{ open?: boolean }>).detail?.open);
       if (motion.matches) draw(0);
     }
+    function memberStateChange() {
+      frameElement = null;
+      frameMode = '';
+      draw(0);
+    }
     function refreshRouteSurface() {
       // Astro replaces the route content while preserving this canvas. Rebind
       // the title/achievement integrations to the newly swapped page DOM.
@@ -636,6 +641,7 @@ export default function NodeMesh() {
     window.addEventListener('blur', leave);
     window.addEventListener('scroll', scroll, { passive: true });
     window.addEventListener('byte:nav-state', navState);
+    window.addEventListener('byte:member-active', memberStateChange);
     document.addEventListener('visibilitychange', sync);
     document.addEventListener('astro:after-swap', refreshRouteSurface);
     motion.addEventListener('change', preference);
@@ -651,6 +657,7 @@ export default function NodeMesh() {
       window.removeEventListener('blur', leave);
       window.removeEventListener('scroll', scroll);
       window.removeEventListener('byte:nav-state', navState);
+      window.removeEventListener('byte:member-active', memberStateChange);
       document.removeEventListener('visibilitychange', sync);
       document.removeEventListener('astro:after-swap', refreshRouteSurface);
       motion.removeEventListener('change', preference);
