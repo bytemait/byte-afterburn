@@ -175,8 +175,7 @@ const chapters = [
           </div>
         </div>
         <div class="intro-resolution" aria-hidden="true">
-          <p><span>Every connection</span><span>starts with</span></p>
-          <strong>someone<span>.</span></strong>
+          <p>Every connection starts with</p>
           <small>Meet the people behind Byte.</small>
         </div>
         <div class="intro-fragments" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -403,13 +402,14 @@ const chapters = [
       const distance = Math.max(1, rect.height - innerHeight);
       const progress = reducedMotion.matches ? 0.74 : clamp(-rect.top / distance);
       const connection = 1 - smooth(0.12, 0.27, progress);
-      const starts = smooth(0.12, 0.22, progress) * (1 - smooth(0.39, 0.49, progress));
-      const someone = smooth(0.34, 0.45, progress) * (1 - smooth(0.65, 0.73, progress));
-      const resolution = smooth(0.63, 0.72, progress) * (1 - smooth(0.91, 1, progress));
+      const starts = smooth(0.12, 0.22, progress) * (1 - smooth(0.28, 0.36, progress));
+      const someone = smooth(0.34, 0.44, progress) * (1 - smooth(0.91, 1, progress));
+      const someoneArrival = smooth(0.34, 0.44, progress) * (1 - smooth(0.54, 0.62, progress));
+      const resolution = smooth(0.58, 0.7, progress) * (1 - smooth(0.91, 1, progress));
       const exit = smooth(0.82, 0.98, progress);
       const glitchWindow = Math.max(
         starts * (0.28 + Math.abs(Math.sin(progress * 118)) * 0.72),
-        someone * (0.18 + Math.abs(Math.sin(progress * 151)) * 0.82),
+        someoneArrival * (0.18 + Math.abs(Math.sin(progress * 151)) * 0.82),
       );
       const glitchX = Math.round(Math.sin(progress * 307) * glitchWindow * (mobile.matches ? 7 : 13));
 
@@ -421,10 +421,10 @@ const chapters = [
       intro.style.setProperty('--intro-exit', exit.toFixed(4));
       intro.style.setProperty('--intro-glitch', glitchWindow.toFixed(4));
       intro.style.setProperty('--intro-glitch-x', `${glitchX}px`);
-      intro.dataset.introPhase = progress < 0.15 ? 'connection' : progress < 0.42 ? 'starts' : progress < 0.68 ? 'someone' : progress < 0.91 ? 'resolved' : 'exit';
+      intro.dataset.introPhase = progress < 0.15 ? 'connection' : progress < 0.58 ? 'starts-someone' : progress < 0.91 ? 'resolved' : 'exit';
       root.classList.toggle('intro-complete', reducedMotion.matches || progress > 0.94);
       if (introMeshTarget) {
-        const meshReveal = reducedMotion.matches ? 0 : smooth(0.38, 0.5, progress) * (1 - smooth(0.68, 0.79, progress));
+        const meshReveal = reducedMotion.matches ? 0 : smooth(0.38, 0.5, progress) * (1 - smooth(0.88, 0.96, progress));
         introMeshTarget.dataset.meshReveal = meshReveal.toFixed(4);
       }
     };
@@ -858,7 +858,7 @@ const chapters = [
     --intro-nav-height: 74px;
     position: relative;
     z-index: 2;
-    height: 360svh;
+    height: 320svh;
     padding: 0;
     border-bottom: 1px solid var(--line);
     pointer-events: none;
@@ -1039,8 +1039,7 @@ const chapters = [
   }
 
   .intro-word-core { position: relative; z-index: 2; display: block; }
-  .intro-word--someone .intro-word-core > span,
-  .intro-resolution strong span { color: var(--green); }
+  .intro-word--someone .intro-word-core > span { color: var(--green); }
 
   .intro-word-echo {
     position: absolute;
@@ -1064,34 +1063,35 @@ const chapters = [
   }
 
   .intro-resolution {
-    align-content: center;
-    justify-items: center;
     opacity: var(--intro-resolution);
-    transform: translateY(calc(var(--intro-exit) * -3rem)) scale(calc(0.96 + var(--intro-resolution) * 0.04));
+    transform: translateY(calc(var(--intro-exit) * -3rem));
   }
 
   .intro-resolution p,
-  .intro-resolution strong,
-  .intro-resolution small { display: block; margin: 0; text-align: center; }
+  .intro-resolution small {
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    margin: 0;
+    text-align: center;
+  }
   .intro-resolution p {
+    top: calc(50% - clamp(5rem, 9vw, 9rem));
     color: rgba(216, 229, 220, 0.72);
     font: 600 clamp(1rem, 1.65vw, 1.5rem)/1.15 Inter, sans-serif;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-  }
-  .intro-resolution p span + span::before { content: ' / '; color: var(--green); }
-  .intro-resolution strong {
-    margin-top: 0.3rem;
-    font: 700 clamp(5rem, 15.6vw, 15rem)/0.8 'Clash Display', Sora, sans-serif;
-    letter-spacing: -0.065em;
-    text-transform: uppercase;
+    transform: translate3d(-50%, calc((1 - var(--intro-resolution)) * 5rem), 0);
   }
   .intro-resolution small {
-    margin-top: clamp(2rem, 5vh, 4rem);
+    top: calc(50% + clamp(5rem, 9vw, 9rem));
     color: var(--green);
     font: 600 clamp(0.72rem, 0.9vw, 0.9rem)/1.3 Inter, sans-serif;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+    transform: translate3d(-50%, calc((1 - var(--intro-resolution)) * -5rem), 0);
   }
 
   .intro-fragments { position: absolute; inset: 0; opacity: var(--intro-exit); pointer-events: none; }
@@ -1242,13 +1242,13 @@ const chapters = [
     transition: opacity 900ms cubic-bezier(.16, 1, .3, 1), transform 1100ms cubic-bezier(.16, 1, .3, 1);
   }
 
-  .constellation-page[data-enhanced="true"] #leadership.is-intro-visible .chapter-heading,
-  .constellation-page[data-enhanced="true"] #leadership.is-intro-visible .member-field {
+  .constellation-page[data-enhanced="true"].intro-complete #leadership.is-intro-visible .chapter-heading,
+  .constellation-page[data-enhanced="true"].intro-complete #leadership.is-intro-visible .member-field {
     opacity: 1;
     transform: none;
   }
 
-  .constellation-page[data-enhanced="true"] #leadership.is-intro-visible .member-field {
+  .constellation-page[data-enhanced="true"].intro-complete #leadership.is-intro-visible .member-field {
     transition-delay: 150ms;
   }
 
@@ -2044,7 +2044,7 @@ const chapters = [
   @media (max-width: 760px) {
     .constellation-page::before { display: none; }
     .chapter-rail { display: none; }
-    .members-intro { height: 330svh; }
+    .members-intro { height: 300svh; }
     .intro-shot--connection p {
       max-width: calc(100vw - 2rem);
       font-size: clamp(1.3rem, 6vw, 2rem);
@@ -2069,10 +2069,18 @@ const chapters = [
     .intro-shot--starts .intro-word-echo { width: 5ch; }
     .intro-word--someone { font-size: clamp(3.5rem, 16vw, 4.8rem); }
     .intro-resolution { padding: 0 0.7rem; }
-    .intro-resolution p span { display: block; }
-    .intro-resolution p span + span::before { content: ''; }
-    .intro-resolution strong { font-size: clamp(3.5rem, 16vw, 4.8rem); }
-    .intro-resolution small { margin-top: 2rem; }
+    .intro-resolution p {
+      top: calc(50% - 5.2rem);
+      width: min(19rem, calc(100vw - 2rem));
+      line-height: 1.35;
+      transform: translate3d(-50%, calc((1 - var(--intro-resolution)) * 3.2rem), 0);
+    }
+    .intro-resolution small {
+      top: calc(50% + 4.5rem);
+      width: min(19rem, calc(100vw - 2rem));
+      line-height: 1.45;
+      transform: translate3d(-50%, calc((1 - var(--intro-resolution)) * -3.2rem), 0);
+    }
     .intro-progress { width: 4rem; }
     .intro-skip { font-size: 0.58rem; }
 
@@ -2300,10 +2308,13 @@ const chapters = [
     .members-intro { height: 100svh; }
     .members-intro-stage { opacity: 1; }
     .chapters { margin-top: 0; }
-    .intro-shot,
+    .intro-shot--connection,
+    .intro-shot--starts,
     .intro-fragments,
     .intro-progress,
     .intro-scroll-cue { display: none; }
+    .intro-shot--someone { display: grid; opacity: 1; transform: none; }
+    .intro-shot--someone .intro-word { transform: none; }
     .intro-resolution { opacity: 1; transform: none; }
     .intro-scroll-cue circle { animation: none; }
     .intro-typewriter i { opacity: 1; transform: none; animation: none !important; }
