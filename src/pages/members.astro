@@ -119,6 +119,16 @@ const chapters = [
 ---
 
 <Layout title="Living Constellation — B.Y.T.E." active="members">
+  <script is:inline data-astro-rerun>
+    try {
+      document.documentElement.classList.toggle(
+        'members-intro-seen',
+        localStorage.getItem('byte:members-intro:v1') === 'seen',
+      );
+    } catch {
+      document.documentElement.classList.remove('members-intro-seen');
+    }
+  </script>
   <main class="constellation-page" data-members-concept="constellation">
     <svg class="member-channel-filters" aria-hidden="true" focusable="false">
       <defs>
@@ -386,6 +396,7 @@ const chapters = [
     let slowScrollFrame = 0;
     let slowScrollTarget = window.scrollY;
     let touchY = 0;
+    let introDismissed = document.documentElement.classList.contains('members-intro-seen');
 
     const clamp = (value: number) => Math.min(1, Math.max(0, value));
     const smooth = (start: number, end: number, value: number) => {
@@ -393,9 +404,37 @@ const chapters = [
       return t * t * (3 - 2 * t);
     };
 
+    const dismissIntro = () => {
+      if (introDismissed) return;
+      introDismissed = true;
+      try {
+        localStorage.setItem('byte:members-intro:v1', 'seen');
+      } catch {
+        // Storage can be unavailable in private contexts; the current visit still dismisses cleanly.
+      }
+      if (slowScrollFrame) cancelAnimationFrame(slowScrollFrame);
+      slowScrollFrame = 0;
+      document.documentElement.classList.add('is-members-intro-scrolling');
+      document.documentElement.classList.add('members-intro-seen');
+      root.classList.add('intro-complete');
+      council?.classList.add('is-intro-visible');
+      window.scrollTo(0, 0);
+      slowScrollTarget = 0;
+      queueHorizontalChapters();
+      requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.classList.remove('is-members-intro-scrolling');
+      });
+    };
+
+    if (introDismissed) {
+      root.classList.add('intro-complete');
+      council?.classList.add('is-intro-visible');
+    }
+
     const updateIntro = () => {
       introFrame = 0;
-      if (!intro) return;
+      if (!intro || introDismissed) return;
       const rect = intro.getBoundingClientRect();
       const navHeight = document.querySelector<HTMLElement>('.site-nav')?.offsetHeight ?? 74;
       intro.style.setProperty('--intro-nav-height', `${navHeight}px`);
@@ -427,6 +466,9 @@ const chapters = [
         const meshReveal = reducedMotion.matches ? 0 : smooth(0.38, 0.5, progress) * (1 - smooth(0.88, 0.96, progress));
         introMeshTarget.dataset.meshReveal = meshReveal.toFixed(4);
       }
+      if ((!reducedMotion.matches && progress >= 0.995) || (reducedMotion.matches && rect.bottom <= navHeight + 1)) {
+        dismissIntro();
+      }
     };
 
     const queueIntro = () => {
@@ -434,7 +476,7 @@ const chapters = [
     };
 
     const introScrollBounds = () => {
-      if (!intro) return null;
+      if (!intro || introDismissed) return null;
       const rect = intro.getBoundingClientRect();
       const top = rect.top + window.scrollY;
       return {
@@ -766,11 +808,9 @@ const chapters = [
     window.addEventListener('wheel', slowWheel, { passive: false });
     window.addEventListener('touchstart', rememberTouch, { passive: true });
     window.addEventListener('touchmove', slowTouch, { passive: false });
-    root.querySelector('.intro-skip')?.addEventListener('click', () => {
-      if (slowScrollFrame) cancelAnimationFrame(slowScrollFrame);
-      slowScrollFrame = 0;
-      slowScrollTarget = window.scrollY;
-      document.documentElement.classList.remove('is-members-intro-scrolling');
+    root.querySelector('.intro-skip')?.addEventListener('click', (event) => {
+      event.preventDefault();
+      dismissIntro();
     });
     mobile.addEventListener('change', () => {
       setActiveMember(null, 'none');
@@ -862,6 +902,10 @@ const chapters = [
     padding: 0;
     border-bottom: 1px solid var(--line);
     pointer-events: none;
+  }
+
+  :global(html.members-intro-seen) .members-intro {
+    display: none;
   }
 
   .members-intro-stage {
@@ -1225,6 +1269,10 @@ const chapters = [
     margin-top: -100svh;
   }
 
+  :global(html.members-intro-seen) .chapters {
+    margin-top: 0;
+  }
+
   .member-chapter {
     min-height: max(900px, 118svh);
     padding: 7rem clamp(1.25rem, 7vw, 8rem) 9rem;
@@ -1250,6 +1298,13 @@ const chapters = [
 
   .constellation-page[data-enhanced="true"].intro-complete #leadership.is-intro-visible .member-field {
     transition-delay: 150ms;
+  }
+
+  :global(html.members-intro-seen) .constellation-page[data-enhanced="true"] #leadership .chapter-heading,
+  :global(html.members-intro-seen) .constellation-page[data-enhanced="true"] #leadership .member-field {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   .chapter-heading {
