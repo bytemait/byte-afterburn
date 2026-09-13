@@ -25,5 +25,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# High-resolution source portraits; optimized WebP versions are committed instead.
+public/team_pics/core_team_alpha/
+
 # jetbrains setting folder
 .idea/

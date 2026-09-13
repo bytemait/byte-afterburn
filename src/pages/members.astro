@@ -98,6 +98,20 @@ const chapters = [
 
 <Layout title="Living Constellation — B.Y.T.E." active="members">
   <main class="constellation-page" data-members-concept="constellation">
+    <svg class="member-channel-filters" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="member-channel-red" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" />
+        </filter>
+        <filter id="member-channel-green" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" />
+        </filter>
+        <filter id="member-channel-blue" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+        </filter>
+      </defs>
+    </svg>
+
     <div class="chapter-rail" aria-label="Member groups">
       <span class="rail-signal" aria-hidden="true"></span>
       {chapters.map((chapter, index) => (
@@ -166,7 +180,12 @@ const chapters = [
                 >
                   <div class="portrait-stage" data-mesh-frame>
                     {member.photo ? (
-                      <img src={member.photo} alt="" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                      <>
+                        <img class="portrait-base" src={member.photo} alt="" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                        <img class="portrait-channel portrait-channel--red" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                        <img class="portrait-channel portrait-channel--green" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                        <img class="portrait-channel portrait-channel--blue" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                      </>
                     ) : (
                       <div class="portrait-fallback" aria-hidden="true">
                         <span>{member.short}</span>
@@ -284,16 +303,50 @@ const chapters = [
     };
 
     memberNodes.forEach((node) => {
-      node.addEventListener('pointermove', (event) => {
-        if (mobile.matches) return;
-        const box = node.getBoundingClientRect();
-        node.style.setProperty('--pointer-x', `${event.clientX - box.left}px`);
-        node.style.setProperty('--pointer-y', `${event.clientY - box.top}px`);
+      const portrait = node.querySelector<HTMLElement>('.portrait-stage');
+      const hasChannels = Boolean(node.querySelector('.portrait-channel'));
+      let depthFrame = 0;
+      let depthX = 0;
+      let depthY = 0;
+
+      portrait?.addEventListener('pointermove', (event) => {
+        if (mobile.matches || reducedMotion.matches) return;
+        const box = portrait.getBoundingClientRect();
+        const x = Math.min(box.width, Math.max(0, event.clientX - box.left));
+        const y = Math.min(box.height, Math.max(0, event.clientY - box.top));
+        node.style.setProperty('--pointer-x', `${x}px`);
+        node.style.setProperty('--pointer-y', `${y}px`);
+        if (!hasChannels) return;
+
+        depthX = (x / box.width - 0.5) * 2;
+        depthY = (y / box.height - 0.5) * 2;
+        if (depthFrame) return;
+        depthFrame = requestAnimationFrame(() => {
+          depthFrame = 0;
+          node.style.setProperty('--rgb-g-x', `${(depthX * 4).toFixed(2)}px`);
+          node.style.setProperty('--rgb-g-y', `${(depthY * 3).toFixed(2)}px`);
+        });
       }, { passive: true });
+
+      const resetDepth = () => {
+        if (depthFrame) cancelAnimationFrame(depthFrame);
+        depthFrame = 0;
+        node.style.setProperty('--pointer-x', '50%');
+        node.style.setProperty('--pointer-y', '50%');
+        ['--rgb-g-x', '--rgb-g-y']
+          .forEach((property) => node.style.removeProperty(property));
+      };
+
       node.addEventListener('pointerenter', () => { if (!mobile.matches) activate(node); });
-      node.addEventListener('pointerleave', () => { if (!mobile.matches && !node.matches(':focus-visible')) activate(null); });
+      node.addEventListener('pointerleave', () => {
+        resetDepth();
+        if (!mobile.matches && !node.matches(':focus-visible')) activate(null);
+      });
       node.addEventListener('focus', () => activate(node));
-      node.addEventListener('blur', () => { if (!mobile.matches) activate(null); });
+      node.addEventListener('blur', () => {
+        resetDepth();
+        if (!mobile.matches) activate(null);
+      });
     });
 
     const updateMobileFocus = () => {
@@ -420,6 +473,14 @@ const chapters = [
     overflow: clip;
     background: rgba(16, 16, 16, 0.18);
     color: var(--ink);
+  }
+
+  .member-channel-filters {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
   }
 
   .constellation-page::before {
@@ -713,6 +774,8 @@ const chapters = [
   .member-node {
     --pointer-x: 50%;
     --pointer-y: 50%;
+    --rgb-g-x: 0px;
+    --rgb-g-y: 0px;
     position: relative;
     grid-column: span 6;
     min-width: 0;
@@ -772,15 +835,36 @@ const chapters = [
   }
 
   .portrait-stage img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
     width: 112%;
     height: 98%;
     object-fit: contain;
     object-position: center bottom;
-    filter: grayscale(1) contrast(0.9) brightness(0.69);
-    transform: translateY(1.8%) scale(0.97);
+    transform: translate3d(-50%, 1.8%, 0) scale(0.97);
     transform-origin: center bottom;
-    transition: filter 540ms ease, transform 720ms cubic-bezier(.16, 1, .3, 1);
   }
+
+  .portrait-base {
+    z-index: 0;
+    opacity: 1;
+    filter: grayscale(1) contrast(0.9) brightness(0.69);
+    transition: filter 540ms ease, opacity 220ms ease, transform 720ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .portrait-channel {
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    transition: opacity 180ms ease, visibility 0s linear 180ms;
+  }
+
+  .portrait-channel--red { filter: url(#member-channel-red) contrast(1.04) brightness(0.96); }
+  .portrait-channel--green { filter: url(#member-channel-green) contrast(1.04) brightness(0.94); }
+  .portrait-channel--blue { filter: url(#member-channel-blue) contrast(1.04) brightness(1.02); }
 
   .node-coordinate {
     position: absolute;
@@ -831,11 +915,42 @@ const chapters = [
   .member-node:focus-visible .portrait-stage::after,
   .member-node.is-mesh-active .portrait-stage::after { right: 0; }
 
-  .member-node:hover img,
-  .member-node:focus-visible img,
-  .member-node.is-mesh-active img {
-    filter: grayscale(0) contrast(1.02) brightness(0.98);
-    transform: translateY(0) scale(1.04);
+  .member-node:hover .portrait-base,
+  .member-node:focus-visible .portrait-base,
+  .member-node.is-mesh-active .portrait-base {
+    opacity: 0.16;
+    filter: grayscale(1) contrast(1.04) brightness(0.5);
+    transform: translate3d(-50%, 0, 0) scale(1.04);
+  }
+
+  .member-node:hover .portrait-channel,
+  .member-node:focus-visible .portrait-channel,
+  .member-node.is-mesh-active .portrait-channel {
+    visibility: visible;
+    opacity: 0.9;
+    transition: opacity 220ms ease, visibility 0s linear 0s;
+    will-change: transform, opacity;
+  }
+
+  .member-node:hover .portrait-channel--red,
+  .member-node:focus-visible .portrait-channel--red,
+  .member-node.is-mesh-active .portrait-channel--red {
+    opacity: 0.84;
+    transform: translate3d(-50%, 0, 0) scale(1.04);
+  }
+
+  .member-node:hover .portrait-channel--green,
+  .member-node:focus-visible .portrait-channel--green,
+  .member-node.is-mesh-active .portrait-channel--green {
+    opacity: 0.94;
+    transform: translate3d(calc(-50% + var(--rgb-g-x)), var(--rgb-g-y), 0) scale(1.04);
+  }
+
+  .member-node:hover .portrait-channel--blue,
+  .member-node:focus-visible .portrait-channel--blue,
+  .member-node.is-mesh-active .portrait-channel--blue {
+    opacity: 0.88;
+    transform: translate3d(-50%, 0, 0) scale(1.04);
   }
 
   .member-label {
@@ -1283,6 +1398,20 @@ const chapters = [
   .constellation-close p { max-width: 12ch; margin: 0 0 3rem; font: 600 clamp(3.8rem, 9vw, 9rem)/0.84 'Clash Display', sans-serif; letter-spacing: -0.04em; }
   .constellation-close a { padding-bottom: 0.55rem; border-bottom: 1px solid var(--green); color: var(--green); font-weight: 700; }
 
+  @keyframes member-green-glitch {
+    0%, 5%, 100% { transform: translate3d(-50%, 0, 0) scale(1.04); }
+    1% { transform: translate3d(calc(-50% - 8px), 3px, 0) scale(1.04); }
+    2% { transform: translate3d(calc(-50% + 7px), -3px, 0) scale(1.04); }
+    3% { transform: translate3d(calc(-50% - 5px), 2px, 0) scale(1.04); }
+    4% { transform: translate3d(calc(-50% + 3px), -1px, 0) scale(1.04); }
+  }
+
+  @media (hover: none) {
+    .member-node.is-mesh-active .portrait-channel--green {
+      animation: member-green-glitch 3.4s steps(1, end) infinite;
+    }
+  }
+
   @media (max-width: 900px) {
     .constellation-hero { grid-template-columns: 1fr; }
     .constellation-hero h1 { font-size: clamp(5rem, 19vw, 10rem); }
@@ -1495,6 +1624,8 @@ const chapters = [
 
     .member-label h3::before,
     .member-label h3::after { animation: none !important; }
+
+    .portrait-channel--green { animation: none !important; }
 
     .member-pulse { animation: none !important; }
     .era-year,
