@@ -58,6 +58,13 @@ const memberAvatarPhotos: Record<string, string> = {
 
 const avatarInitials = (name: string) => name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 
+const councilRoleLabels: Record<string, string> = {
+  President: 'The President',
+  'Vice President': 'Vice Presidents',
+  'General Secretary': 'Gen Secretaries',
+  'Project Manager': 'Project Managers',
+};
+
 type AlumniMember = { name: string; role: string; tier: 'lead' | 'inner' | 'outer' };
 
 const alumni2025: AlumniMember[] = [
@@ -102,12 +109,12 @@ const founderPositions = [
 ] as const;
 
 const chapters = [
-  { key: 'leadership', title: 'The Council', heading: 'The Council', note: 'Seven people keeping every part of Byte in motion.', listedMembers: [] },
-  { key: 'development', title: 'Development', heading: 'Develop\nment', note: 'Builders turning ambitious ideas into things people can use.', listedMembers: departmentMembers.development },
-  { key: 'aiml', title: 'AI / ML', heading: 'AI / ML', note: 'Learning systems, practical experiments and a healthy appetite for the unknown.', listedMembers: departmentMembers.aiml },
-  { key: 'creative', title: 'Creative Outreach', heading: 'Creative\nOutreach', note: 'The voice, image and connective tissue of the society.', listedMembers: departmentMembers.creative },
-  { key: 'mechatronics', title: 'Mechatronics', heading: 'Mecha\ntronics', note: 'Code that leaves the screen and moves through the physical world.', listedMembers: departmentMembers.mechatronics },
-  { key: 'cybersecurity', title: 'Cybersecurity', heading: 'Cyber\nSecurity', note: 'Break it, understand it, secure it, teach it.', listedMembers: departmentMembers.cybersecurity },
+  { key: 'leadership', title: 'Byte Core', heading: 'Byte Core', eyebrow: '01 THE UNCS', note: 'Seven people keeping every part of Byte in motion.', listedMembers: [] },
+  { key: 'development', title: 'Development', heading: 'Develop\nment', eyebrow: '02 THE TOKENMAXXERS', note: 'Builders turning ambitious ideas into things people can use.', listedMembers: departmentMembers.development },
+  { key: 'aiml', title: 'AI / ML', heading: 'AI / ML', eyebrow: '03 THE RESEARCH LARPERS', note: 'Learning systems, practical experiments and a healthy appetite for the unknown.', listedMembers: departmentMembers.aiml },
+  { key: 'creative', title: 'Creative Outreach', heading: 'Creative\nOutreach', eyebrow: '04 THE INTROVERTS', note: 'The voice, image and connective tissue of the society.', listedMembers: departmentMembers.creative },
+  { key: 'mechatronics', title: 'Mechatronics', heading: 'Mecha\ntronics', eyebrow: '05 THE SIMULATORS', note: 'Code that leaves the screen and moves through the physical world.', listedMembers: departmentMembers.mechatronics },
+  { key: 'cybersecurity', title: 'Cybersecurity', heading: 'Cyber\nSecurity', eyebrow: '06 THE RAINBOW HAT HACKERS', note: 'Break it, understand it, secure it, teach it.', listedMembers: departmentMembers.cybersecurity },
 ] as const;
 ---
 
@@ -142,8 +149,12 @@ const chapters = [
         <div class="intro-shot intro-shot--connection" aria-hidden="true">
           <p>
             <span class="intro-typewriter">
-              {Array.from('EVERY CONNECTION').map((character, index) => (
-                <i style={`--character-index:${index}`}>{character === ' ' ? '\u00a0' : character}</i>
+              {['EVERY', 'CONNECTION'].map((word, wordIndex) => (
+                <span class="intro-typewriter-word">
+                  {Array.from(word).map((character, characterIndex) => (
+                    <i style={`--character-index:${characterIndex + (wordIndex === 0 ? 0 : 6)}`}>{character}</i>
+                  ))}
+                </span>
               ))}
               <b></b>
             </span>
@@ -185,8 +196,13 @@ const chapters = [
           <section class="member-chapter" id={chapter.key} data-member-chapter={chapter.key}>
             <div class="chapter-heading-slot" data-chapter-heading-slot>
               <header class="chapter-heading">
-                <p class="chapter-count">{String(chapterMembers.length).padStart(2, '0')} core coordinators</p>
+                <p class="chapter-count">{chapter.eyebrow}</p>
                 <h2>{chapter.heading}</h2>
+                {chapter.key === 'leadership' && (
+                  <div class="council-role-status" data-council-role-status aria-hidden="true">
+                    <span data-council-role-text>The President</span>
+                  </div>
+                )}
                 <p>{chapter.note}</p>
                 {chapter.listedMembers.length > 0 && (
                   <div class="member-cluster member-cluster--desktop" aria-label={`${chapter.listedMembers.length} members in ${chapter.title}`}>
@@ -218,6 +234,7 @@ const chapters = [
                   data-achievement-card
                   data-member-index={index}
                   data-member-key={`${chapter.key}:${index}`}
+                  data-council-role-label={chapter.key === 'leadership' ? councilRoleLabels[member.role] : undefined}
                   tabindex="0"
                   aria-label={`${member.name}, ${member.role}${member.quote ? `. Quote: ${member.quote}` : ''}`}
                 >
@@ -360,6 +377,8 @@ const chapters = [
     const intro = root.querySelector<HTMLElement>('[data-members-intro]');
     const introMeshTarget = root.querySelector<HTMLElement>('[data-intro-mesh-target]');
     const council = root.querySelector<HTMLElement>('#leadership');
+    const councilRoleStatus = root.querySelector<HTMLElement>('[data-council-role-status]');
+    const councilRoleLabel = councilRoleStatus?.querySelector<HTMLElement>('[data-council-role-text]');
     const mobile = window.matchMedia('(max-width: 760px)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let alumniFrame = 0;
@@ -485,6 +504,36 @@ const chapters = [
     let activeMemberNode: HTMLElement | null = null;
     let activeMemberSource: ActiveMemberSource = 'none';
 
+    const updateCouncilRole = (node: HTMLElement | null) => {
+      const nextLabel = node?.dataset.councilRoleLabel;
+      if (!nextLabel || !councilRoleStatus || !councilRoleLabel || councilRoleLabel.textContent === nextLabel) return;
+      councilRoleLabel.textContent = nextLabel;
+      councilRoleStatus.classList.remove('is-changing');
+      void councilRoleStatus.offsetWidth;
+      councilRoleStatus.classList.add('is-changing');
+    };
+
+    const updateCouncilRoleFromViewport = () => {
+      if (mobile.matches || activeMemberNode?.dataset.councilRoleLabel || !council) return;
+      const councilRect = council.getBoundingClientRect();
+      if (councilRect.bottom < 96 || councilRect.top > window.innerHeight) return;
+      const viewportTarget = window.innerHeight * 0.52;
+      const visibleCouncilMembers = [...council.querySelectorAll<HTMLElement>('[data-council-role-label]')]
+        .filter((node) => {
+          const rect = node.getBoundingClientRect();
+          return rect.bottom > 96 && rect.top < window.innerHeight;
+        });
+      const nearest = visibleCouncilMembers.reduce<HTMLElement | null>((current, node) => {
+        if (!current) return node;
+        const currentRect = current.getBoundingClientRect();
+        const nodeRect = node.getBoundingClientRect();
+        const currentDistance = Math.abs(currentRect.top + currentRect.height / 2 - viewportTarget);
+        const nodeDistance = Math.abs(nodeRect.top + nodeRect.height / 2 - viewportTarget);
+        return nodeDistance < currentDistance ? node : current;
+      }, null);
+      updateCouncilRole(nearest);
+    };
+
     const setActiveMember = (node: HTMLElement | null, source: ActiveMemberSource) => {
       if (node && !memberNodes.includes(node)) return;
       if (activeMemberNode === node) {
@@ -499,6 +548,7 @@ const chapters = [
       });
       activeMemberNode = node;
       activeMemberSource = node ? source : 'none';
+      updateCouncilRole(node);
       root.classList.toggle('has-active-member', Boolean(node));
       root.dataset.activeMemberSource = activeMemberSource;
       if (node?.dataset.memberKey) root.dataset.activeMemberKey = node.dataset.memberKey;
@@ -637,6 +687,7 @@ const chapters = [
         }
       });
 
+      if (!mobile.matches) updateCouncilRoleFromViewport();
       if (mobile.matches && !reducedMotion.matches) {
         setActiveMember(mobileActiveCandidate, mobileActiveCandidate ? 'mobile-scroll' : 'none');
       }
@@ -860,6 +911,9 @@ const chapters = [
 
   .intro-shot--connection p {
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: rgba(223, 235, 226, 0.74);
     font: 600 clamp(1rem, 1.7vw, 1.55rem)/1 'Clash Display', Sora, sans-serif;
     letter-spacing: 0.28em;
@@ -868,6 +922,8 @@ const chapters = [
   }
 
   .intro-typewriter { position: relative; display: inline-flex; }
+  .intro-typewriter-word { display: inline-flex; }
+  .intro-typewriter-word + .intro-typewriter-word::before { content: '\00a0'; }
   .intro-typewriter i {
     display: inline-block;
     font-style: normal;
@@ -911,17 +967,58 @@ const chapters = [
     100% { left: calc(100% + 0.12em); opacity: 0; }
   }
 
+  @keyframes intro-type-cursor-mobile {
+    0%, 16% { top: -0.08em; left: 25%; opacity: 1; }
+    20% { top: -0.08em; left: 35%; opacity: 1; }
+    24% { top: -0.08em; left: 45%; opacity: 1; }
+    28% { top: -0.08em; left: 55%; opacity: 1; }
+    32% { top: -0.08em; left: 65%; opacity: 1; }
+    36% { top: -0.08em; left: 75%; opacity: 1; }
+    38% { top: -0.08em; left: 75%; opacity: 0; }
+    39% { top: calc(50% - 0.08em); left: 0; opacity: 1; }
+    43% { top: calc(50% - 0.08em); left: 10%; opacity: 1; }
+    47% { top: calc(50% - 0.08em); left: 20%; opacity: 1; }
+    51% { top: calc(50% - 0.08em); left: 30%; opacity: 1; }
+    55% { top: calc(50% - 0.08em); left: 40%; opacity: 1; }
+    59% { top: calc(50% - 0.08em); left: 50%; opacity: 1; }
+    63% { top: calc(50% - 0.08em); left: 60%; opacity: 1; }
+    67% { top: calc(50% - 0.08em); left: 70%; opacity: 1; }
+    71% { top: calc(50% - 0.08em); left: 80%; opacity: 1; }
+    75% { top: calc(50% - 0.08em); left: 90%; opacity: 1; }
+    79%, 88% { top: calc(50% - 0.08em); left: calc(100% + 0.08em); opacity: 1; }
+    92% { top: calc(50% - 0.08em); left: calc(100% + 0.08em); opacity: 0; }
+    96% { top: calc(50% - 0.08em); left: calc(100% + 0.08em); opacity: 1; }
+    100% { top: calc(50% - 0.08em); left: calc(100% + 0.08em); opacity: 0; }
+  }
+
   .intro-shot--connection p::before,
   .intro-shot--connection p::after {
     display: inline-block;
+    flex: 0 0 auto;
     width: clamp(2rem, 7vw, 7rem);
     height: 1px;
     margin: 0 1.4rem 0.32em;
     background: linear-gradient(90deg, transparent, rgba(82, 224, 166, 0.7));
+    opacity: 0;
+    transform: scaleX(0);
     content: '';
   }
 
-  .intro-shot--connection p::after { transform: scaleX(-1); }
+  .intro-shot--connection p::before { transform-origin: right center; }
+  .intro-shot--connection p::after {
+    background: linear-gradient(90deg, rgba(82, 224, 166, 0.7), transparent);
+    transform-origin: left center;
+  }
+
+  :global(html.byte-page-ready) .intro-shot--connection p::before,
+  :global(html.byte-page-ready) .intro-shot--connection p::after {
+    animation: intro-connection-line-reveal 440ms cubic-bezier(.16, 1, .3, 1) 1.45s forwards;
+  }
+
+  @keyframes intro-connection-line-reveal {
+    from { opacity: 0; transform: scaleX(0); }
+    to { opacity: 1; transform: scaleX(1); }
+  }
 
   .intro-shot--starts { opacity: var(--intro-starts); }
   .intro-shot--someone { opacity: var(--intro-someone); }
@@ -1174,6 +1271,32 @@ const chapters = [
     margin: 0;
     color: var(--muted);
     font: 500 0.95rem/1.55 Inter, sans-serif;
+  }
+
+  .council-role-status {
+    width: min(100%, 28rem);
+    min-height: 4.2rem;
+    margin-top: 0;
+    padding: 0.9rem 1rem 0.78rem;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--green);
+    color: #07110b;
+    font: 700 clamp(1.7rem, 3.3vw, 3.5rem)/0.88 'Clash Display', Sora, sans-serif;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+  }
+
+  .council-role-status.is-changing span { animation: council-role-swap 360ms steps(4, end) both; }
+  .chapter-heading > .council-role-status + p:not(.chapter-count) { margin-top: 1.1rem; }
+  #leadership .member-role { display: none; }
+
+  @keyframes council-role-swap {
+    0% { opacity: 0.25; clip-path: inset(0 100% 0 0); transform: translateX(-0.45rem); }
+    38% { opacity: 0.72; clip-path: inset(42% 0 27% 0); transform: translateX(0.18rem); }
+    62% { opacity: 0.48; clip-path: inset(9% 0 58% 0); transform: translateX(-0.08rem); }
+    100% { opacity: 1; clip-path: inset(0); transform: none; }
   }
 
   .member-cluster {
@@ -1922,7 +2045,23 @@ const chapters = [
     .constellation-page::before { display: none; }
     .chapter-rail { display: none; }
     .members-intro { height: 330svh; }
-    .intro-shot--connection p { max-width: 16rem; font-size: 0.78rem; line-height: 1.4; text-align: center; }
+    .intro-shot--connection p {
+      max-width: calc(100vw - 2rem);
+      font-size: clamp(1.3rem, 6vw, 2rem);
+      line-height: 0.95;
+      letter-spacing: 0.16em;
+      text-align: center;
+      white-space: normal;
+    }
+    .intro-typewriter { max-width: 100%; flex-direction: column; align-items: center; }
+    .intro-typewriter-word + .intro-typewriter-word::before { display: none; }
+    .intro-typewriter b {
+      bottom: auto;
+      height: 1.12em;
+    }
+    :global(html.byte-page-ready) .intro-typewriter b {
+      animation: intro-type-cursor-mobile 1.35s steps(1, end) 70ms forwards;
+    }
     .intro-shot--connection p::before,
     .intro-shot--connection p::after { width: 2rem; margin: 0 0.6rem 0.28em; }
     .intro-word { max-width: 100vw; font-size: clamp(3.4rem, 20vw, 6rem); line-height: 0.82; text-align: center; }
@@ -1948,6 +2087,13 @@ const chapters = [
     }
     .chapter-heading { position: relative; top: auto; padding: 0 1rem 1.25rem; }
     .chapter-heading h2 { margin-top: 1.1rem; font-size: clamp(3.2rem, 16vw, 5rem); }
+    .council-role-status {
+      width: 100%;
+      min-height: 3.8rem;
+      margin-top: 0;
+      padding: 0.8rem 0.9rem 0.7rem;
+      font-size: clamp(1.6rem, 8vw, 2.5rem);
+    }
     .member-field-viewport {
       position: relative;
       display: block;
@@ -2009,6 +2155,7 @@ const chapters = [
       min-width: 100%;
       height: 100%;
       padding: 1rem;
+      padding-left: clamp(2.75rem, 14vw, 4.5rem);
       will-change: transform;
       transition: none !important;
     }
@@ -2161,6 +2308,9 @@ const chapters = [
     .intro-scroll-cue circle { animation: none; }
     .intro-typewriter i { opacity: 1; transform: none; animation: none !important; }
     .intro-typewriter b { display: none; }
+    .intro-shot--connection p::before,
+    .intro-shot--connection p::after { opacity: 1; transform: scaleX(1); animation: none !important; }
+    .council-role-status.is-changing span { animation: none; }
     .constellation-page[data-enhanced="true"] #leadership .chapter-heading,
     .constellation-page[data-enhanced="true"] #leadership .member-field { transition: none; }
     .member-node,
