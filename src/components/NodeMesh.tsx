@@ -203,6 +203,8 @@ export default function NodeMesh() {
         if (member.matches('[data-founder-year-outline]')) {
           targets.push(...pointsOnTextOutline(member, width < 700 ? 24 : 54));
         }
+      } else if (mode === 'intro' && member) {
+        targets.push(...pointsOnTextOutline(member, width < 700 ? 28 : 68));
       } else if (mode === 'index' && member) {
         const anchor = root.querySelector<HTMLElement>('[data-mesh-anchor]');
         if (anchor) {
@@ -245,6 +247,10 @@ export default function NodeMesh() {
         const founderStage = founder?.closest('[data-alumni-era]')?.getBoundingClientRect();
         const centerRect = conceptRoot.querySelector('[data-founder-collapse-center]')?.getBoundingClientRect();
         const founderReveal = Number(founder?.dataset.meshReveal ?? 0);
+        const intro = mode === 'constellation' ? conceptRoot.querySelector<HTMLElement>('[data-intro-mesh-target]') : null;
+        const introRect = intro?.getBoundingClientRect();
+        const introReveal = Number(intro?.dataset.meshReveal ?? 0);
+        const introVisible = Boolean(introRect && introRect.bottom > 0 && introRect.top < height && introReveal > 0.01);
         const founderVisible = Boolean(founderStage && founderStage.top < height * 0.45 && founderStage.bottom > height * 0.3 && founderReveal > 0.01);
         if (centerRect) {
           founderCenter = {
@@ -256,9 +262,9 @@ export default function NodeMesh() {
         if (founderWasActive && !founderVisible) releaseFounderNodes();
         founderWasActive = founderVisible;
         if (founderVisible) redistribution = 0;
-        target = founderVisible ? founder : active ?? (orbitVisible ? orbit : null);
-        interactionMode = target === founder ? 'founders' : mode;
-        targetReveal = founderVisible ? founderReveal : active ? 1 : orbitVisible ? 0.72 : 0;
+        target = founderVisible ? founder : introVisible ? intro : active ?? (orbitVisible ? orbit : null);
+        interactionMode = target === founder ? 'founders' : target === intro ? 'intro' : mode;
+        targetReveal = founderVisible ? founderReveal : introVisible ? introReveal : active ? 1 : orbitVisible ? 0.72 : 0;
         if (target) ({ targets: nextTargets, groups: nextGroups } = targetsForMembers(conceptRoot, target, interactionMode));
       } else {
         if (founderWasActive) releaseFounderNodes();
@@ -427,7 +433,7 @@ export default function NodeMesh() {
           node.y += (clamp(node.vy, -maxVelocity, maxVelocity) - scrollEnergy * node.depth * 0.13) * step;
           const frameTarget = frameTargetByNode.get(nodeIndex);
           if (frameTarget) {
-            const settleRate = frameMode === 'founders' ? 0.34 : 0.14;
+            const settleRate = frameMode === 'founders' ? 0.34 : frameMode === 'intro' ? 0.24 : 0.14;
             const settle = (1 - Math.exp(-step * settleRate)) * frameReveal;
             node.x += (frameTarget.x - node.x) * settle;
             node.y += (frameTarget.y - node.y) * settle;

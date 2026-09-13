@@ -17,7 +17,7 @@ const members: Member[] = [
   { name: 'Sanyam Chhabra', short: 'SA', role: 'General Secretary', group: 'leadership', photo: '/team_pics/optimized/sanyam_alpha.webp', quote: 'Idk man I just got here' },
   { name: 'Krish Malik', short: 'KM', role: 'General Secretary', group: 'leadership', photo: '/team_pics/optimized/krish_malik_alpha.webp', quote: 'Asymptote of Success never meets for me' },
   { name: 'Arpan Taneja', short: 'AR', role: 'Project Manager', group: 'leadership', quote: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-  { name: 'Mohit Madan', short: 'MM', role: 'Project Manager', group: 'leadership', quote: 'Cat of all trades, meowchine learning certified' },
+  { name: 'Mohit Madan', short: 'MM', role: 'Project Manager', group: 'leadership', photo: '/team_pics/optimized/mohit_madan_alpha.webp', quote: 'Cat of all trades, meowchine learning certified' },
   { name: 'Aditya Gupta', short: 'AG', role: 'Coordinator', group: 'development', photo: '/team_pics/optimized/aditya_gupta_alpha.webp', quote: 'Bafton Ciplax Den Marker' },
   { name: 'Khushi Dhankar', short: 'KD', role: 'Coordinator', group: 'development', photo: '/team_pics/optimized/khushi_dhankar_alpha.webp', quote: 'professionally winging it…' },
   { name: 'Shruti', short: 'SH', role: 'Coordinator', group: 'cybersecurity', photo: '/team_pics/optimized/shruti_alpha.webp', quote: 'Amidst the destruction' },
@@ -89,10 +89,10 @@ const founderPositions = [
 const chapters = [
   { key: 'leadership', title: 'The Council', heading: 'The Council', note: 'Seven people keeping every part of Byte in motion.', listedMembers: [] },
   { key: 'development', title: 'Development', heading: 'Develop\nment', note: 'Builders turning ambitious ideas into things people can use.', listedMembers: departmentMembers.development },
-  { key: 'cybersecurity', title: 'Cybersecurity', heading: 'Cyber\nSecurity', note: 'Break it, understand it, secure it, teach it.', listedMembers: departmentMembers.cybersecurity },
-  { key: 'creative', title: 'Creative Outreach', heading: 'Creative\nOutreach', note: 'The voice, image and connective tissue of the society.', listedMembers: departmentMembers.creative },
   { key: 'aiml', title: 'AI / ML', heading: 'AI / ML', note: 'Learning systems, practical experiments and a healthy appetite for the unknown.', listedMembers: departmentMembers.aiml },
+  { key: 'creative', title: 'Creative Outreach', heading: 'Creative\nOutreach', note: 'The voice, image and connective tissue of the society.', listedMembers: departmentMembers.creative },
   { key: 'mechatronics', title: 'Mechatronics', heading: 'Mecha\ntronics', note: 'Code that leaves the screen and moves through the physical world.', listedMembers: departmentMembers.mechatronics },
+  { key: 'cybersecurity', title: 'Cybersecurity', heading: 'Cyber\nSecurity', note: 'Break it, understand it, secure it, teach it.', listedMembers: departmentMembers.cybersecurity },
 ] as const;
 ---
 
@@ -121,27 +121,46 @@ const chapters = [
       ))}
     </div>
 
-    <section class="constellation-hero" aria-labelledby="constellation-title">
-      <div class="hero-meta">
-        <p>Byte Tech Society · Core Team 2026</p>
-        <p>~50 members · one signal</p>
+    <section class="members-intro" data-members-intro aria-labelledby="constellation-title">
+      <div class="members-intro-stage">
+        <h1 id="constellation-title" class="sr-only">Every connection starts with someone.</h1>
+        <div class="intro-shot intro-shot--connection" aria-hidden="true">
+          <p>
+            <span class="intro-typewriter">
+              {Array.from('EVERY CONNECTION').map((character, index) => (
+                <i style={`--character-index:${index}`}>{character === ' ' ? '\u00a0' : character}</i>
+              ))}
+              <b></b>
+            </span>
+          </p>
+        </div>
+        <div class="intro-shot intro-shot--starts" aria-hidden="true">
+          <div class="intro-word" data-copy="STARTS WITH">
+            <span class="intro-word-core">STARTS WITH</span>
+            <span class="intro-word-echo intro-word-echo--a">STARTS WITH</span>
+            <span class="intro-word-echo intro-word-echo--b">STARTS WITH</span>
+          </div>
+        </div>
+        <div class="intro-shot intro-shot--someone" aria-hidden="true">
+          <div class="intro-word intro-word--someone" data-copy="SOMEONE.">
+            <span class="intro-word-core" data-intro-mesh-target data-mesh-reveal="0">SOMEONE<span>.</span></span>
+            <span class="intro-word-echo intro-word-echo--a">SOMEONE.</span>
+            <span class="intro-word-echo intro-word-echo--b">SOMEONE.</span>
+          </div>
+        </div>
+        <div class="intro-resolution" aria-hidden="true">
+          <p><span>Every connection</span><span>starts with</span></p>
+          <strong>someone<span>.</span></strong>
+          <small>Meet the people behind Byte.</small>
+        </div>
+        <div class="intro-fragments" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <a class="intro-skip" href="#leadership">Skip intro <span>↓</span></a>
+        <div class="intro-progress" aria-hidden="true"><span></span></div>
+        <div class="intro-scroll-cue" aria-hidden="true">
+          <svg viewBox="0 0 28 42"><rect x="1" y="1" width="26" height="40" rx="13" /><circle cx="14" cy="11" r="2" /></svg>
+          <span></span>
+        </div>
       </div>
-      <h1 id="constellation-title">
-        <span data-mesh-title>WE ARE</span>
-        <span data-mesh-title>BYTE<span data-mesh-dot>.</span></span>
-      </h1>
-      <p class="hero-thesis">A living network of builders, breakers, designers and experimenters. Move through the constellation to meet the people behind the signal.</p>
-      <a class="hero-enter" href="#leadership">
-        <span>Enter the network</span>
-        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v14M4.5 10.5 10 16l5.5-5.5" /></svg>
-      </a>
-      <div class="hero-orbit orbit-a" aria-hidden="true"><i></i><i></i><i></i></div>
-      <div class="hero-orbit orbit-b" aria-hidden="true"><i></i><i></i></div>
-    </section>
-
-    <section class="network-intro" aria-label="Council introduction">
-      <p class="intro-index">CORE TEAM / 26</p>
-      <p class="intro-copy">Meet the 17 coordinators at the center of a society nearly 50 members strong. Every project starts when one connection becomes a team.</p>
     </section>
 
     <div class="chapters">
@@ -292,10 +311,129 @@ const chapters = [
     const railLinks = [...root.querySelectorAll<HTMLAnchorElement>('[data-rail-link]')];
     const alumniEras = [...root.querySelectorAll<HTMLElement>('[data-alumni-era]')];
     const founderTarget = root.querySelector<HTMLElement>('[data-alumni-mesh-target]');
+    const intro = root.querySelector<HTMLElement>('[data-members-intro]');
+    const introMeshTarget = root.querySelector<HTMLElement>('[data-intro-mesh-target]');
+    const council = root.querySelector<HTMLElement>('#leadership');
     const mobile = window.matchMedia('(max-width: 760px), (hover: none)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let mobileFrame = 0;
     let alumniFrame = 0;
+    let introFrame = 0;
+    let slowScrollFrame = 0;
+    let slowScrollTarget = window.scrollY;
+    let touchY = 0;
+
+    const clamp = (value: number) => Math.min(1, Math.max(0, value));
+    const smooth = (start: number, end: number, value: number) => {
+      const t = clamp((value - start) / (end - start));
+      return t * t * (3 - 2 * t);
+    };
+
+    const updateIntro = () => {
+      introFrame = 0;
+      if (!intro) return;
+      const rect = intro.getBoundingClientRect();
+      const navHeight = document.querySelector<HTMLElement>('.site-nav')?.offsetHeight ?? 74;
+      intro.style.setProperty('--intro-nav-height', `${navHeight}px`);
+      const distance = Math.max(1, rect.height - innerHeight);
+      const progress = reducedMotion.matches ? 0.74 : clamp(-rect.top / distance);
+      const connection = 1 - smooth(0.12, 0.27, progress);
+      const starts = smooth(0.12, 0.22, progress) * (1 - smooth(0.39, 0.49, progress));
+      const someone = smooth(0.34, 0.45, progress) * (1 - smooth(0.65, 0.73, progress));
+      const resolution = smooth(0.63, 0.72, progress) * (1 - smooth(0.91, 1, progress));
+      const exit = smooth(0.82, 0.98, progress);
+      const glitchWindow = Math.max(
+        starts * (0.28 + Math.abs(Math.sin(progress * 118)) * 0.72),
+        someone * (0.18 + Math.abs(Math.sin(progress * 151)) * 0.82),
+      );
+      const glitchX = Math.round(Math.sin(progress * 307) * glitchWindow * (mobile.matches ? 7 : 13));
+
+      intro.style.setProperty('--intro-progress', progress.toFixed(4));
+      intro.style.setProperty('--intro-connection', connection.toFixed(4));
+      intro.style.setProperty('--intro-starts', starts.toFixed(4));
+      intro.style.setProperty('--intro-someone', someone.toFixed(4));
+      intro.style.setProperty('--intro-resolution', resolution.toFixed(4));
+      intro.style.setProperty('--intro-exit', exit.toFixed(4));
+      intro.style.setProperty('--intro-glitch', glitchWindow.toFixed(4));
+      intro.style.setProperty('--intro-glitch-x', `${glitchX}px`);
+      intro.dataset.introPhase = progress < 0.15 ? 'connection' : progress < 0.42 ? 'starts' : progress < 0.68 ? 'someone' : progress < 0.91 ? 'resolved' : 'exit';
+      root.classList.toggle('intro-complete', reducedMotion.matches || progress > 0.94);
+      if (introMeshTarget) {
+        const meshReveal = reducedMotion.matches ? 0 : smooth(0.38, 0.5, progress) * (1 - smooth(0.68, 0.79, progress));
+        introMeshTarget.dataset.meshReveal = meshReveal.toFixed(4);
+      }
+    };
+
+    const queueIntro = () => {
+      if (!introFrame) introFrame = requestAnimationFrame(updateIntro);
+    };
+
+    const introScrollBounds = () => {
+      if (!intro) return null;
+      const rect = intro.getBoundingClientRect();
+      const top = rect.top + window.scrollY;
+      return {
+        start: Math.max(0, top - (document.querySelector<HTMLElement>('.site-nav')?.offsetHeight ?? 74)),
+        end: top + intro.offsetHeight - innerHeight,
+      };
+    };
+
+    const introAcceptsScroll = (delta: number) => {
+      const bounds = introScrollBounds();
+      if (!bounds || reducedMotion.matches) return false;
+      if (delta < 0) return window.scrollY > bounds.start && window.scrollY <= bounds.end + 1;
+      return window.scrollY >= bounds.start - 1 && window.scrollY < bounds.end;
+    };
+
+    const runSlowScroll = () => {
+      slowScrollFrame = 0;
+      const bounds = introScrollBounds();
+      if (!bounds || window.scrollY < bounds.start - 2 || window.scrollY > bounds.end + 2) {
+        slowScrollTarget = window.scrollY;
+        document.documentElement.classList.remove('is-members-intro-scrolling');
+        return;
+      }
+      const distance = slowScrollTarget - window.scrollY;
+      if (Math.abs(distance) < 0.5) {
+        window.scrollTo(0, slowScrollTarget);
+        document.documentElement.classList.remove('is-members-intro-scrolling');
+        return;
+      }
+      const ease = mobile.matches ? 0.3 : 0.23;
+      window.scrollTo(0, window.scrollY + distance * ease);
+      slowScrollFrame = requestAnimationFrame(runSlowScroll);
+    };
+
+    const addSlowScroll = (delta: number, multiplier: number) => {
+      const maxScroll = document.documentElement.scrollHeight - innerHeight;
+      if (!slowScrollFrame) slowScrollTarget = window.scrollY;
+      slowScrollTarget = Math.min(maxScroll, Math.max(0, slowScrollTarget + Math.max(-420, Math.min(420, delta)) * multiplier));
+      document.documentElement.classList.add('is-members-intro-scrolling');
+      if (!slowScrollFrame) slowScrollFrame = requestAnimationFrame(runSlowScroll);
+    };
+
+    const slowWheel = (event: WheelEvent) => {
+      if (event.ctrlKey) return;
+      const scale = event.deltaMode === WheelEvent.DOM_DELTA_LINE ? 16 : event.deltaMode === WheelEvent.DOM_DELTA_PAGE ? innerHeight : 1;
+      const delta = event.deltaY * scale;
+      if (!delta || !introAcceptsScroll(delta)) return;
+      event.preventDefault();
+      addSlowScroll(delta, 0.62);
+    };
+
+    const rememberTouch = (event: TouchEvent) => {
+      touchY = event.touches[0]?.clientY ?? 0;
+    };
+
+    const slowTouch = (event: TouchEvent) => {
+      const nextY = event.touches[0]?.clientY;
+      if (nextY === undefined) return;
+      const delta = touchY - nextY;
+      touchY = nextY;
+      if (!delta || !introAcceptsScroll(delta)) return;
+      event.preventDefault();
+      addSlowScroll(delta, 0.78);
+    };
 
     const activate = (node: HTMLElement | null) => {
       memberNodes.forEach((item) => item.classList.toggle('is-mesh-active', item === node));
@@ -422,13 +560,31 @@ const chapters = [
     }, { rootMargin: '-18% 0px -58% 0px', threshold: 0 });
 
     chapters.forEach((chapter) => chapterObserver.observe(chapter));
+    if (council) {
+      const councilObserver = new IntersectionObserver(([entry]) => {
+        council.classList.toggle('is-intro-visible', entry.isIntersecting);
+      }, { rootMargin: '0px 0px -18% 0px', threshold: 0.08 });
+      councilObserver.observe(council);
+    }
     window.addEventListener('scroll', queueMobileFocus, { passive: true });
     window.addEventListener('resize', queueMobileFocus, { passive: true });
     window.addEventListener('scroll', queueAlumniTunnel, { passive: true });
     window.addEventListener('resize', queueAlumniTunnel, { passive: true });
+    window.addEventListener('scroll', queueIntro, { passive: true });
+    window.addEventListener('resize', queueIntro, { passive: true });
+    window.addEventListener('wheel', slowWheel, { passive: false });
+    window.addEventListener('touchstart', rememberTouch, { passive: true });
+    window.addEventListener('touchmove', slowTouch, { passive: false });
+    root.querySelector('.intro-skip')?.addEventListener('click', () => {
+      if (slowScrollFrame) cancelAnimationFrame(slowScrollFrame);
+      slowScrollFrame = 0;
+      slowScrollTarget = window.scrollY;
+      document.documentElement.classList.remove('is-members-intro-scrolling');
+    });
     mobile.addEventListener('change', () => mobile.matches ? queueMobileFocus() : activate(null));
     queueMobileFocus();
     queueAlumniTunnel();
+    updateIntro();
   };
 
   setupConstellation();
@@ -452,6 +608,10 @@ const chapters = [
 
   :global(html) {
     background: #101010;
+  }
+
+  :global(html.is-members-intro-scrolling) {
+    scroll-behavior: auto !important;
   }
 
   :global(body) {
@@ -492,115 +652,272 @@ const chapters = [
     pointer-events: none;
   }
 
-  .constellation-hero {
+  .members-intro {
+    --intro-progress: 0;
+    --intro-connection: 1;
+    --intro-starts: 0;
+    --intro-someone: 0;
+    --intro-resolution: 0;
+    --intro-exit: 0;
+    --intro-glitch: 0;
+    --intro-glitch-x: 0px;
+    --intro-nav-height: 74px;
     position: relative;
-    min-height: 100svh;
-    padding: clamp(7rem, 14vh, 10rem) clamp(1.25rem, 4.6vw, 5rem) 3rem;
-    display: grid;
-    grid-template-columns: 1fr minmax(16rem, 27rem);
-    grid-template-rows: auto 1fr auto;
-    align-items: end;
+    z-index: 2;
+    height: 360svh;
+    padding: 0;
     border-bottom: 1px solid var(--line);
-  }
-
-  .hero-meta {
-    grid-column: 1 / -1;
-    align-self: start;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    font: 500 clamp(0.66rem, 0.75vw, 0.78rem)/1.2 Inter, sans-serif;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .hero-meta p { margin: 0; }
-
-  .constellation-hero h1 {
-    position: relative;
-    z-index: 1;
-    grid-column: 1 / -1;
-    margin: 0;
-    width: 100%;
-    align-self: center;
-    font-family: 'Clash Display', Sora, sans-serif;
-    font-size: clamp(5rem, 15.7vw, 14rem);
-    font-weight: 700;
-    line-height: 0.69;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-  }
-
-  .constellation-hero h1 > span {
-    display: block;
-    width: max-content;
-  }
-
-  .constellation-hero h1 > span:first-child {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(238, 244, 239, 0.48);
-  }
-
-  .constellation-hero h1 > span:last-child { margin-left: auto; }
-  .constellation-hero h1 [data-mesh-dot] { color: var(--green); }
-
-  .hero-thesis {
-    grid-column: 1;
-    max-width: 41ch;
-    margin: 0;
-    font: 500 clamp(1.05rem, 1.45vw, 1.35rem)/1.46 Inter, sans-serif;
-    text-wrap: balance;
-  }
-
-  .hero-enter {
-    justify-self: end;
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    min-height: 44px;
-    border-bottom: 1px solid var(--green);
-    color: var(--green);
-    font: 600 0.75rem/1 Inter, sans-serif;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .hero-enter svg { width: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.5; }
-
-  .hero-orbit {
-    position: absolute;
-    border: 1px solid rgba(82, 224, 166, 0.12);
-    border-radius: 50%;
     pointer-events: none;
   }
 
-  .hero-orbit i {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 5px 16px rgba(82, 224, 166, 0.44);
+  .members-intro-stage {
+    position: sticky;
+    z-index: 2;
+    top: var(--intro-nav-height);
+    height: calc(100svh - var(--intro-nav-height));
+    overflow: hidden;
+    isolation: isolate;
+    opacity: calc(1 - var(--intro-exit));
+    pointer-events: none;
   }
 
-  .orbit-a { width: 36vw; aspect-ratio: 1; top: 17%; left: 14%; animation: orbit 28s linear infinite; }
-  .orbit-a i:nth-child(1) { left: 13%; top: 12%; }
-  .orbit-a i:nth-child(2) { right: 0; top: 52%; }
-  .orbit-a i:nth-child(3) { bottom: 3%; left: 30%; }
-  .orbit-b { width: 22vw; aspect-ratio: 1; right: 9%; bottom: 13%; animation: orbit 20s linear infinite reverse; }
-  .orbit-b i:first-child { left: 0; top: 46%; }
-  .orbit-b i:last-child { right: 17%; bottom: 8%; }
+  .members-intro-stage::before,
+  .members-intro-stage::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    pointer-events: none;
+  }
 
-  @keyframes orbit { to { transform: rotate(360deg); } }
+  .members-intro-stage::before {
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(16, 26, 21, 0.04), rgba(8, 10, 9, 0.32) 84%);
+  }
 
-  .network-intro {
-    min-height: 70svh;
-    padding: clamp(7rem, 13vw, 12rem) clamp(1.25rem, 7vw, 8rem);
+  .members-intro-stage::after {
+    inset: 0;
+    opacity: calc(var(--intro-glitch) * 0.11);
+    background: repeating-linear-gradient(180deg, transparent 0 5px, rgba(122, 255, 191, 0.28) 6px);
+    transform: translateY(calc(var(--intro-glitch-x) * 0.2));
+  }
+
+  .intro-shot,
+  .intro-resolution {
+    position: absolute;
+    inset: 0;
     display: grid;
-    grid-template-columns: 1fr 2.5fr;
-    gap: 4rem;
-    align-items: start;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .intro-shot--connection {
+    opacity: var(--intro-connection);
+    transform: translateY(calc((1 - var(--intro-connection)) * -2rem)) scale(calc(0.96 + var(--intro-connection) * 0.04));
+  }
+
+  .intro-shot--connection p {
+    margin: 0;
+    color: rgba(223, 235, 226, 0.74);
+    font: 600 clamp(1rem, 1.7vw, 1.55rem)/1 'Clash Display', Sora, sans-serif;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .intro-typewriter { position: relative; display: inline-flex; }
+  .intro-typewriter i {
+    display: inline-block;
+    font-style: normal;
+    opacity: 0;
+    transform: translateX(-0.22em) skewX(-12deg);
+  }
+
+  .intro-typewriter b {
+    position: absolute;
+    top: -0.18em;
+    bottom: -0.18em;
+    left: 0;
+    width: 2px;
+    background: var(--green);
+    box-shadow: 0 0 12px rgba(82, 224, 166, 0.72);
+    opacity: 0;
+  }
+
+  :global(html.byte-page-ready) .intro-typewriter i {
+    animation: intro-character-lock 360ms steps(1, end) forwards;
+    animation-delay: calc(90ms + var(--character-index) * 58ms);
+  }
+
+  :global(html.byte-page-ready) .intro-typewriter b {
+    animation: intro-type-cursor 1.25s steps(15, end) 70ms forwards;
+  }
+
+  @keyframes intro-character-lock {
+    0%, 18% { opacity: 0; transform: translateX(-0.22em) skewX(-12deg); }
+    19% { opacity: 0.35; color: #f1fff7; transform: translateX(0.18em) skewX(14deg); text-shadow: -6px 0 #52e0a6, 5px 0 rgba(224, 239, 231, 0.35); }
+    36% { opacity: 1; transform: translateX(-0.09em) skewX(-5deg); text-shadow: 4px 0 rgba(82, 224, 166, 0.85); }
+    55% { opacity: 0.62; transform: translateX(0.04em) skewX(2deg); text-shadow: -2px 0 #52e0a6; }
+    72%, 100% { opacity: 1; color: inherit; transform: none; text-shadow: none; }
+  }
+
+  @keyframes intro-type-cursor {
+    0% { left: 0; opacity: 1; }
+    82% { left: calc(100% + 0.12em); opacity: 1; }
+    90% { left: calc(100% + 0.12em); opacity: 0; }
+    94% { left: calc(100% + 0.12em); opacity: 1; }
+    100% { left: calc(100% + 0.12em); opacity: 0; }
+  }
+
+  .intro-shot--connection p::before,
+  .intro-shot--connection p::after {
+    display: inline-block;
+    width: clamp(2rem, 7vw, 7rem);
+    height: 1px;
+    margin: 0 1.4rem 0.32em;
+    background: linear-gradient(90deg, transparent, rgba(82, 224, 166, 0.7));
+    content: '';
+  }
+
+  .intro-shot--connection p::after { transform: scaleX(-1); }
+
+  .intro-shot--starts { opacity: var(--intro-starts); }
+  .intro-shot--someone { opacity: var(--intro-someone); }
+
+  .intro-word {
+    position: relative;
+    width: max-content;
+    color: var(--ink);
+    font: 700 clamp(4rem, 13.6vw, 13rem)/0.78 'Clash Display', Sora, sans-serif;
+    letter-spacing: -0.065em;
+    text-transform: uppercase;
+    transform: translate3d(calc(var(--intro-glitch-x) * 0.3), calc((1 - var(--intro-starts)) * 2.5rem), 0) scale(calc(0.88 + var(--intro-starts) * 0.12));
+  }
+
+  .intro-word--someone {
+    font-size: clamp(4.7rem, 16.4vw, 15.8rem);
+    transform: translate3d(calc(var(--intro-glitch-x) * 0.22), calc((1 - var(--intro-someone)) * 2.5rem), 0) scale(calc(0.84 + var(--intro-someone) * 0.16));
+  }
+
+  .intro-word-core { position: relative; z-index: 2; display: block; }
+  .intro-word--someone .intro-word-core > span,
+  .intro-resolution strong span { color: var(--green); }
+
+  .intro-word-echo {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    display: block;
+    opacity: calc(var(--intro-glitch) * 0.72);
+    pointer-events: none;
+  }
+
+  .intro-word-echo--a {
+    color: #52e0a6;
+    clip-path: polygon(0 14%, 100% 14%, 100% 37%, 0 37%);
+    transform: translateX(var(--intro-glitch-x));
+  }
+
+  .intro-word-echo--b {
+    color: rgba(226, 242, 233, 0.9);
+    clip-path: polygon(0 58%, 100% 58%, 100% 79%, 0 79%);
+    transform: translateX(calc(var(--intro-glitch-x) * -0.7));
+  }
+
+  .intro-resolution {
+    align-content: center;
+    justify-items: center;
+    opacity: var(--intro-resolution);
+    transform: translateY(calc(var(--intro-exit) * -3rem)) scale(calc(0.96 + var(--intro-resolution) * 0.04));
+  }
+
+  .intro-resolution p,
+  .intro-resolution strong,
+  .intro-resolution small { display: block; margin: 0; text-align: center; }
+  .intro-resolution p {
+    color: rgba(216, 229, 220, 0.72);
+    font: 600 clamp(1rem, 1.65vw, 1.5rem)/1.15 Inter, sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .intro-resolution p span + span::before { content: ' / '; color: var(--green); }
+  .intro-resolution strong {
+    margin-top: 0.3rem;
+    font: 700 clamp(5rem, 15.6vw, 15rem)/0.8 'Clash Display', Sora, sans-serif;
+    letter-spacing: -0.065em;
+    text-transform: uppercase;
+  }
+  .intro-resolution small {
+    margin-top: clamp(2rem, 5vh, 4rem);
+    color: var(--green);
+    font: 600 clamp(0.72rem, 0.9vw, 0.9rem)/1.3 Inter, sans-serif;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .intro-fragments { position: absolute; inset: 0; opacity: var(--intro-exit); pointer-events: none; }
+  .intro-fragments i {
+    position: absolute;
+    left: 8%;
+    top: 35%;
+    width: 18vw;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(82, 224, 166, 0.85), transparent);
+    transform: translate3d(calc((var(--fragment) - 1.5) * 6vw), calc(var(--intro-exit) * (var(--fragment) - 1.5) * 5rem), 0);
+  }
+  .intro-fragments i:nth-child(1) { --fragment: 0; }
+  .intro-fragments i:nth-child(2) { --fragment: 1; left: 29%; top: 43%; width: 17vw; }
+  .intro-fragments i:nth-child(3) { --fragment: 2; left: 50%; top: 51%; width: 16vw; }
+  .intro-fragments i:nth-child(4) { --fragment: 3; left: 71%; top: 59%; width: 15vw; }
+
+  .intro-skip,
+  .intro-scroll-cue,
+  .intro-progress { position: absolute; bottom: clamp(1.2rem, 4vh, 2.5rem); }
+  .intro-skip {
+    z-index: 3;
+    left: clamp(1rem, 4.5vw, 5rem);
+    padding: 0.7rem 0;
+    color: rgba(226, 238, 230, 0.68);
+    font: 600 0.65rem/1 Inter, sans-serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    pointer-events: auto;
+  }
+  .intro-skip span { margin-left: 0.5rem; color: var(--green); }
+  .intro-skip:hover,
+  .intro-skip:focus-visible { color: var(--green); outline: none; }
+  .intro-scroll-cue {
+    left: 50%;
+    color: rgba(190, 205, 195, 0.42);
+    display: grid;
+    justify-items: center;
+    gap: 0.45rem;
+    transform: translateX(-50%);
+    opacity: calc(1 - var(--intro-progress) * 4);
+  }
+  .intro-scroll-cue svg { width: 1.05rem; height: 1.55rem; fill: none; stroke: currentColor; stroke-width: 1.2; }
+  .intro-scroll-cue circle { fill: var(--green); stroke: none; animation: intro-scroll-dot 1.5s cubic-bezier(.65, 0, .35, 1) infinite; }
+  .intro-scroll-cue span { width: 1px; height: 1.2rem; background: linear-gradient(var(--green), transparent); }
+
+  @keyframes intro-scroll-dot {
+    0% { opacity: 0; transform: translateY(0); }
+    22% { opacity: 1; }
+    78% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(13px); }
+  }
+  .intro-progress {
+    right: clamp(1rem, 4.5vw, 5rem);
+    width: clamp(4rem, 8vw, 8rem);
+    height: 1px;
+    overflow: hidden;
+    background: rgba(219, 234, 224, 0.16);
+  }
+  .intro-progress span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--green);
+    transform: scaleX(var(--intro-progress));
+    transform-origin: left;
   }
 
   .intro-index,
@@ -613,14 +930,6 @@ const chapters = [
     text-transform: uppercase;
   }
 
-  .intro-copy {
-    max-width: 24ch;
-    margin: 0 0 0 auto;
-    font: 600 clamp(2.3rem, 5.3vw, 5rem)/0.98 'Clash Display', Sora, sans-serif;
-    letter-spacing: -0.035em;
-    text-wrap: balance;
-  }
-
   .chapter-rail {
     position: fixed;
     z-index: 12;
@@ -631,6 +940,20 @@ const chapters = [
     align-items: center;
     gap: 0.55rem;
     transform: translateY(-50%);
+    transition: opacity 420ms ease, visibility 0s linear 420ms;
+  }
+
+  .constellation-page[data-enhanced="true"] .chapter-rail {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .constellation-page[data-enhanced="true"].intro-complete .chapter-rail {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
   }
 
   .rail-signal { width: 1px; height: 2.7rem; background: linear-gradient(transparent, var(--green)); }
@@ -656,6 +979,12 @@ const chapters = [
     outline: none;
   }
 
+  .chapters {
+    position: relative;
+    z-index: 1;
+    margin-top: -100svh;
+  }
+
   .member-chapter {
     min-height: max(900px, 118svh);
     padding: 7rem clamp(1.25rem, 7vw, 8rem) 9rem;
@@ -664,6 +993,23 @@ const chapters = [
     gap: clamp(3rem, 8vw, 10rem);
     align-items: start;
     border-top: 1px solid var(--line);
+  }
+
+  .constellation-page[data-enhanced="true"] #leadership .chapter-heading,
+  .constellation-page[data-enhanced="true"] #leadership .member-field {
+    opacity: 0;
+    transform: translateY(3rem);
+    transition: opacity 900ms cubic-bezier(.16, 1, .3, 1), transform 1100ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .constellation-page[data-enhanced="true"] #leadership.is-intro-visible .chapter-heading,
+  .constellation-page[data-enhanced="true"] #leadership.is-intro-visible .member-field {
+    opacity: 1;
+    transform: none;
+  }
+
+  .constellation-page[data-enhanced="true"] #leadership.is-intro-visible .member-field {
+    transition-delay: 150ms;
   }
 
   .chapter-heading {
@@ -792,6 +1138,13 @@ const chapters = [
   .field-leadership .member-node:nth-child(5) { grid-column: 7 / span 5; transform: translateY(4rem); }
   .field-leadership .member-node:nth-child(6) { grid-column: 1 / span 5; transform: translateY(1.5rem); }
   .field-leadership .member-node:nth-child(7) { grid-column: 8 / span 5; transform: translateY(5rem); }
+
+  @media (min-width: 761px) {
+    .field-leadership .member-node:first-child .portrait-stage {
+      height: min(46rem, max(18rem, calc(100svh - 20rem)));
+      aspect-ratio: auto;
+    }
+  }
 
   .has-active-member .member-node:not(.is-mesh-active) { opacity: 0.36; }
 
@@ -1413,44 +1766,27 @@ const chapters = [
   }
 
   @media (max-width: 900px) {
-    .constellation-hero { grid-template-columns: 1fr; }
-    .constellation-hero h1 { font-size: clamp(5rem, 19vw, 10rem); }
-    .hero-thesis { grid-column: 1; }
-    .hero-enter { justify-self: start; margin-top: 2rem; }
-    .network-intro { grid-template-columns: 1fr; }
-    .intro-copy { margin-left: 0; }
     .member-chapter { grid-template-columns: minmax(13rem, 0.65fr) 1.35fr; gap: 3rem; }
   }
 
   @media (max-width: 760px) {
     .constellation-page::before { display: none; }
     .chapter-rail { display: none; }
-    .constellation-hero {
-      min-height: 94svh;
-      padding: 7rem 1rem 2rem;
-      grid-template-rows: auto 1fr auto auto;
-      gap: 1.7rem;
-    }
-    .hero-meta { font-size: 0.58rem; }
-    .hero-meta p:last-child { text-align: right; }
-    .constellation-hero h1 {
-      align-self: center;
-      font-size: clamp(4.4rem, 25vw, 7.4rem);
-      line-height: 0.75;
-    }
-    .constellation-hero h1 > span:last-child { margin-left: 0; }
-    .hero-thesis { max-width: 30ch; font-size: 1rem; }
-    .hero-enter { margin-top: 0; }
-    .hero-orbit { opacity: 0.7; }
-    .orbit-a { width: 92vw; left: -34%; top: 24%; }
-    .orbit-b { width: 70vw; right: -34%; bottom: 12%; }
-
-    .network-intro {
-      min-height: 66svh;
-      padding: 7rem 1rem;
-      gap: 3rem;
-    }
-    .intro-copy { font-size: clamp(2.25rem, 11vw, 3.4rem); }
+    .members-intro { height: 330svh; }
+    .intro-shot--connection p { max-width: 16rem; font-size: 0.78rem; line-height: 1.4; text-align: center; }
+    .intro-shot--connection p::before,
+    .intro-shot--connection p::after { width: 2rem; margin: 0 0.6rem 0.28em; }
+    .intro-word { max-width: 100vw; font-size: clamp(3.4rem, 20vw, 6rem); line-height: 0.82; text-align: center; }
+    .intro-shot--starts .intro-word-core,
+    .intro-shot--starts .intro-word-echo { width: 5ch; }
+    .intro-word--someone { font-size: clamp(3.5rem, 16vw, 4.8rem); }
+    .intro-resolution { padding: 0 0.7rem; }
+    .intro-resolution p span { display: block; }
+    .intro-resolution p span + span::before { content: ''; }
+    .intro-resolution strong { font-size: clamp(3.5rem, 16vw, 4.8rem); }
+    .intro-resolution small { margin-top: 2rem; }
+    .intro-progress { width: 4rem; }
+    .intro-skip { font-size: 0.58rem; }
 
     .member-chapter {
       min-height: auto;
@@ -1597,7 +1933,19 @@ const chapters = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-orbit { animation: none; }
+    .members-intro { height: 100svh; }
+    .members-intro-stage { opacity: 1; }
+    .chapters { margin-top: 0; }
+    .intro-shot,
+    .intro-fragments,
+    .intro-progress,
+    .intro-scroll-cue { display: none; }
+    .intro-resolution { opacity: 1; transform: none; }
+    .intro-scroll-cue circle { animation: none; }
+    .intro-typewriter i { opacity: 1; transform: none; animation: none !important; }
+    .intro-typewriter b { display: none; }
+    .constellation-page[data-enhanced="true"] #leadership .chapter-heading,
+    .constellation-page[data-enhanced="true"] #leadership .member-field { transition: none; }
     .member-node,
     .portrait-stage::before,
     .portrait-stage::after,
