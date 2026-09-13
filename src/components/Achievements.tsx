@@ -17,66 +17,66 @@ const PROJECTS: ProjectItem[] = [
   // Row 1
   {
     id: 'openai-codex-hackathon',
-    name: 'OpenAI Codex Hackathon, 1st Place',
+    name: 'Winners, OpenAI Hackathon 2026',
     tags: ['Hackathon', 'AI'],
-    description: 'A first-place AI hackathon project built with Codex.',
+    description: 'Team Byte took first place in the Codex Hackathon organized by OpenAI and won $4,000 in prize credits.',
     descriptionSide: 'right',
-    imageSrc: '/assets/agencify.webp',
+    imageSrc: '/assets/works/openai_hack/openai_hack_win_1.webp',
     cardWidth: 648,
     cardHeight: 598,
     mediaHeight: 480,
-    link: '/works/agencify'
+    link: '/works/codex_26'
   },
   {
     id: 'ezcrack',
     name: 'EZCrack',
     tags: ['Project', 'Development'],
-    description: 'A development project shaped around a clear, useful product experience.',
+    description: 'EZCrack streamlines exam prep with high-impact study material, topic weightage, and frequently repeated questions.',
     descriptionSide: 'left',
-    imageSrc: '/assets/antony.webp',
+    imageSrc: '/assets/works/ezcrack/ezcrack-1.jpeg',
     cardWidth: 311,
     cardHeight: 424,
     mediaHeight: 306,
-    link: '/works/antony'
+    link: '/works/ezcrack'
   },
   // Row 2
   {
     id: 'lam-research-hackathon',
-    name: 'LAM Research Hackathon, 1st Place',
+    name: 'Winners, LAM Research Hackathon 2026',
     tags: ['Hackathon', 'Mechatronics'],
-    description: 'A first-place mechatronics hackathon project for LAM Research.',
+    description: 'Team Byte took first place at the LAM Research Challenge, a national systems engineering competition, winning ₹5 lakh in prize money.',
     descriptionSide: 'left',
-    imageSrc: '/assets/zcf.webp',
+    imageSrc: '/assets/works/lam_research_hack/lam_research_1.webp',
     cardWidth: 972,
     cardHeight: 847,
     mediaHeight: 729,
-    link: '/works/zcf'
+    link: '/works/lam_research_26'
   },
   // Row 3
   {
     id: 'clickpic',
-    name: 'ClickPic',
+    name: 'HopOff',
     tags: ['Project', 'Development'],
-    description: 'A development project exploring image-first interaction and product flow.',
+    description: 'HopOff! alerts Delhi Metro riders before their stop with customizable notifications, sound, and haptics.',
     descriptionSide: 'right',
-    imageSrc: '/assets/candreva.webp',
+    imageSrc: '/assets/works/hopoff/WhatsApp Image 2026-09-13 at 19.49.10.jpeg',
     cardWidth: 635,
     cardHeight: 598,
     mediaHeight: 480,
-    link: '/works/candreva'
+    link: '/works/hopoff'
   },
   // Row 4
   {
     id: 'bunkmait',
     name: 'BunkMAIT',
     tags: ['Project', 'Development'],
-    description: 'A development project built for the BunkMAIT initiative.',
+    description: 'BunkMAIT is a free attendance calculator that loads your timetable, tracks classes, and helps you plan safe bunks.',
     descriptionSide: 'right',
-    imageSrc: '/assets/sotto.webp',
+    imageSrc: '/assets/works/bunkmait/bunkmait-1.jpeg',
     cardWidth: 311,
     cardHeight: 424,
     mediaHeight: 306,
-    link: '/works/sotto'
+    link: '/works/bunkmait'
   },
   {
     id: 'scrape2sim',
@@ -88,20 +88,20 @@ const PROJECTS: ProjectItem[] = [
     cardWidth: 635,
     cardHeight: 598,
     mediaHeight: 480,
-    link: '/works/tesla'
+    link: '/works/scrape2sim'
   },
   // Row 5
   {
     id: 'drone-ahh',
-    name: 'Drone ahh',
-    tags: ['Project', 'Mechatronics'],
-    description: 'A mechatronics project built around a drone-focused physical system.',
+    name: 'Winners, Hack IIT Kanpur 2025',
+    tags: ['Hackathon', 'Cybersecurity'],
+    description: 'Team Byte won first place in the cybersecurity solution track at HACK IITK 2025, held at IIT Kanpur.',
     descriptionSide: 'right',
-    imageSrc: '/assets/bruno.webp',
+    imageSrc: '/assets/works/hack_iitk/hack-iitk-1.webp',
     cardWidth: 972,
     cardHeight: 847,
     mediaHeight: 729,
-    link: '/works/bruno'
+    link: '/works/hack-iitk'
   }
 ];
 
@@ -579,11 +579,11 @@ export default function Achievements() {
             gap: 60px;
           }
           .achievements-cards-stream {
-            gap: 60px;
+            gap: 72px;
           }
           .achievements-row {
             flex-direction: column;
-            gap: 60px;
+            gap: 72px;
           }
           .slot-agencify,
           .slot-antony,
@@ -596,6 +596,29 @@ export default function Achievements() {
           }
           .framer-card-top-media {
             height: 340px !important;
+          }
+          .framer-work-card {
+            height: auto !important;
+            gap: 0;
+          }
+          .framer-card-bottom-row {
+            margin-top: 28px;
+          }
+          .achievement-description {
+            display: block;
+            position: static;
+            width: min(100%, 38rem);
+            margin: 18px 0 0;
+            color: #c6d4cd;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            opacity: 1;
+            filter: none;
+            transform: none !important;
+            pointer-events: none;
           }
           .framer-card-title {
             font-size: 20px;
@@ -629,6 +652,12 @@ export default function Achievements() {
             filter: none !important;
             transition: opacity 120ms linear !important;
             transform: translate(0, -50%) !important;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) and (max-width: 809.98px) {
+          .achievement-description {
+            transform: none !important;
           }
         }
       `}</style>

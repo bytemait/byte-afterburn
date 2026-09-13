@@ -73,7 +73,7 @@ const work = (
 
 export const workPages: ShowcasePageData[] = [
   work(
-    'agencify',
+    'codex_26',
     'OPENAI CODEX HACKATHON',
     'Hackathon, Artificial Intelligence',
     'First place',
@@ -82,7 +82,7 @@ export const workPages: ShowcasePageData[] = [
     'The project earned first place and gave the team a repeatable way to move from an ambitious prompt to a convincing, tested prototype under pressure.',
   ),
   work(
-    'antony',
+    'ezcrack',
     'EZCRACK',
     'Project, Development',
     'Member project',
@@ -91,7 +91,7 @@ export const workPages: ShowcasePageData[] = [
     'The result is a focused product foundation that can grow without losing the clarity of its original flow.',
   ),
   work(
-    'zcf',
+    'lam_research_26',
     'LAM RESEARCH HACKATHON',
     'Hackathon, Mechatronics',
     'First place',
@@ -100,16 +100,16 @@ export const workPages: ShowcasePageData[] = [
     'The finished prototype won first place and showed how Byte teams connect disciplines when the deadline is short and the build has to work in the real world.',
   ),
   work(
-    'candreva',
-    'CLICKPIC',
+    'hopoff',
+    'HOPOFF',
     'Project, Development',
     'Member project',
-    'ClickPic explores an image-first product flow where capture, selection, and action stay quick and visually clear.',
-    'The team reduced the experience to a small set of confident interactions, then refined feedback, responsive behavior, and the transitions between each step.',
-    'The project became a compact example of how thoughtful interface work can make a familiar action feel faster and more deliberate.',
+    'HopOff! helps Delhi Metro riders avoid missing their stops with customizable location alerts, sound, and haptics.',
+    'The team focused on a dependable cross-platform experience, clear destination setup, and timely notifications that stay useful during a commute.',
+    'The project turns a familiar commuter worry into a focused tool that helps people arrive at the right stop.',
   ),
   work(
-    'sotto',
+    'bunkmait',
     'BUNKMAIT',
     'Project, Development',
     'Member project',
@@ -118,7 +118,7 @@ export const workPages: ShowcasePageData[] = [
     'It demonstrates Byte’s preference for useful software: specific, understandable, and close to the people it is made for.',
   ),
   work(
-    'tesla',
+    'scrape2sim',
     'SCRAPE2SIM',
     'Machine Learning, Project',
     'Member project',
@@ -127,13 +127,13 @@ export const workPages: ShowcasePageData[] = [
     'The project provides a practical base for experiments that connect web data, machine learning, and simulation.',
   ),
   work(
-    'bruno',
-    'DRONE AHH',
-    'Project, Mechatronics',
-    'Member project',
-    'Drone ahh is a hands-on mechatronics build that brings together a physical airframe, electronics, control logic, and repeated flight testing.',
-    'The team developed the system through short build-and-test cycles, using each run to isolate instability and improve the next mechanical or software decision.',
-    'The result captures the practical side of Byte: learning happens through a machine that has to leave the desk and perform.',
+    'hack-iitk',
+    'HACK IIT KANPUR',
+    'Hackathon, Cybersecurity',
+    'First place',
+    'Team Byte won first place in the cybersecurity solution track at HACK IITK 2025, held at IIT Kanpur.',
+    'The team shaped a security-focused solution under the hackathon deadline, combining investigation, rapid prototyping, and a clear final demonstration.',
+    'The win reflects Byte’s ability to turn a hard security brief into a practical solution under pressure.',
   ),
 ];
 

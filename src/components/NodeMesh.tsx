@@ -268,9 +268,10 @@ export default function NodeMesh() {
       } else {
         if (founderWasActive) releaseFounderNodes();
         founderWasActive = false;
-        active = width >= 1440 && finePointer.matches
-          ? surface.querySelector<HTMLElement>('[data-achievement-card]:hover [data-mesh-frame], [data-achievement-card]:focus-visible [data-mesh-frame]')
-          : null;
+        active = surface.querySelector<HTMLElement>('[data-achievement-card].is-scroll-hover [data-mesh-frame]');
+        if (!active && width >= 1440 && finePointer.matches) {
+          active = surface.querySelector<HTMLElement>('[data-achievement-card]:hover [data-mesh-frame], [data-achievement-card]:focus-visible [data-mesh-frame]');
+        }
         target = active;
         delete canvas.dataset.meshMemberKey;
         targetReveal = active ? 1 : 0;

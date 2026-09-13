@@ -76,12 +76,12 @@ export default function Testimonials({
         <div className="framer-testimonials-header">
           <div className="framer-header-top-bar">
             <span className="framer-slash">//</span>
-            <h6 id="testimonials-heading">MEMBER STORIES</h6>
+            <h6 id="testimonials-heading">TESTIMONIALS</h6>
             <span className="framer-slash">//</span>
           </div>
 
           <p className="framer-subheading-text">
-            Ideas grow faster when we build together.<br />hear from the people making Byte what it is
+            We don't need it, but just in case you're looking for a second opinion
           </p>
         </div>
 
