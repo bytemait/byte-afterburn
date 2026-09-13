@@ -19,6 +19,7 @@ const links = [
 <header
   class:list={['site-nav', { 'is-immersive': immersive }]}
   data-byte-nav={immersive ? '' : undefined}
+  data-mobile-nav-root
 >
   <div class="nav-inner">
     <a href="/" class="brand"><span class="mark"><img src="/icon.png" alt="" width="38" height="38" /></span> Byte</a>
@@ -41,7 +42,7 @@ const links = [
     <div class="mobile-menu-top">
       <a href="/" class="mobile-wordmark" data-mobile-menu-link>
         <img src="/icon.png" alt="" width="42" height="42" />
-        <span>BYTE<sup>©</sup></span>
+        <span>Byte</span>
       </a>
       <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" /></svg>
@@ -63,95 +64,121 @@ const links = [
       ))}
     </nav>
 
-    <div class="mobile-menu-bottom">
-      <p>©2026 BYTE.DEVS</p>
-      <div class="mobile-menu-meta">
-        <a href="https://github.com/bytemait" target="_blank" rel="noreferrer">GitHub</a>
-        <a href="/contact" data-mobile-menu-link>Join Byte</a>
-      </div>
-      <p class="mobile-menu-signal"><span></span> Network online</p>
-    </div>
   </div>
 </header>
 
 <script>
-  const menuButton = document.getElementById('burgerBtn');
-  const menu = document.getElementById('mobileMenu');
-  const closeButton = document.getElementById('mobileMenuClose');
-  let previousFocus: HTMLElement | null = null;
-  let closeTimer = 0;
-
   const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  type ByteWindow = Window & typeof globalThis & { __byteNavCleanup?: () => void };
 
-  function openMenu() {
-    if (!menu || !menuButton) return;
-    window.clearTimeout(closeTimer);
-    previousFocus = document.activeElement as HTMLElement;
-    menu.classList.remove('is-closing');
-    menu.classList.add('open');
-    menu.setAttribute('aria-hidden', 'false');
-    menuButton.setAttribute('aria-expanded', 'true');
-    menuButton.setAttribute('aria-label', 'Close menu');
-    document.documentElement.classList.add('mobile-nav-open');
-    window.dispatchEvent(new CustomEvent('byte:nav-state', { detail: { open: true } }));
-    requestAnimationFrame(() => menu.focus({ preventScroll: true }));
-  }
+  function setupMobileNav() {
+    const byteWindow = window as ByteWindow;
+    byteWindow.__byteNavCleanup?.();
 
-  function closeMenu({ restoreFocus = true } = {}) {
-    if (!menu || !menuButton || !menu.classList.contains('open')) return;
-    menu.classList.add('is-closing');
-    menuButton.setAttribute('aria-expanded', 'false');
-    menuButton.setAttribute('aria-label', 'Open menu');
-    document.documentElement.classList.remove('mobile-nav-open');
-    window.dispatchEvent(new CustomEvent('byte:nav-state', { detail: { open: false } }));
-    closeTimer = window.setTimeout(() => {
+    const root = document.querySelector<HTMLElement>('[data-mobile-nav-root]');
+    const menuButton = root?.querySelector<HTMLButtonElement>('#burgerBtn');
+    const menu = root?.querySelector<HTMLElement>('#mobileMenu');
+    const closeButton = root?.querySelector<HTMLButtonElement>('#mobileMenuClose');
+    if (!root || !menuButton || !menu || !closeButton) return;
+
+    let previousFocus: HTMLElement | null = null;
+    let closeTimer = 0;
+    const abortController = new AbortController();
+    const listenerOptions = { signal: abortController.signal };
+
+    const publishState = (open: boolean) => {
+      window.dispatchEvent(new CustomEvent('byte:nav-state', { detail: { open } }));
+    };
+
+    const resetMenu = () => {
+      window.clearTimeout(closeTimer);
       menu.classList.remove('open', 'is-closing');
       menu.setAttribute('aria-hidden', 'true');
-      if (restoreFocus) previousFocus?.focus({ preventScroll: true });
-    }, 300);
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open menu');
+      document.documentElement.classList.remove('mobile-nav-open');
+      publishState(false);
+    };
+
+    const openMenu = () => {
+      window.clearTimeout(closeTimer);
+      previousFocus = document.activeElement as HTMLElement;
+      menu.classList.remove('is-closing');
+      menu.classList.add('open');
+      menu.setAttribute('aria-hidden', 'false');
+      menuButton.setAttribute('aria-expanded', 'true');
+      menuButton.setAttribute('aria-label', 'Close menu');
+      document.documentElement.classList.add('mobile-nav-open');
+      publishState(true);
+      requestAnimationFrame(() => closeButton.focus({ preventScroll: true }));
+    };
+
+    const closeMenu = ({ restoreFocus = true, immediate = false } = {}) => {
+      if (!menu.classList.contains('open')) return;
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open menu');
+      publishState(false);
+      if (immediate) {
+        resetMenu();
+        return;
+      }
+      menu.classList.add('is-closing');
+      closeTimer = window.setTimeout(() => {
+        resetMenu();
+        if (restoreFocus && previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
+      }, 360);
+    };
+
+    menuButton.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu(), listenerOptions);
+    closeButton.addEventListener('click', () => closeMenu(), listenerOptions);
+    root.querySelectorAll<HTMLAnchorElement>('[data-home-link]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (window.location.pathname !== '/') return;
+        event.preventDefault();
+        closeMenu({ restoreFocus: false });
+        window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }, listenerOptions);
+    });
+    menu.querySelectorAll('[data-mobile-menu-link]').forEach((link) => {
+      link.addEventListener('click', () => closeMenu({ restoreFocus: false }), listenerOptions);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!menu.classList.contains('open')) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const focusable = [...menu.querySelectorAll<HTMLElement>(focusableSelector)].filter((element) => element.offsetParent !== null);
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }, listenerOptions);
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 980) closeMenu({ restoreFocus: false, immediate: true });
+    }, { passive: true, signal: abortController.signal });
+
+    byteWindow.__byteNavCleanup = () => {
+      abortController.abort();
+      resetMenu();
+      delete byteWindow.__byteNavCleanup;
+    };
   }
 
-  menuButton?.addEventListener('click', () => {
-    if (menu?.classList.contains('open')) closeMenu();
-    else openMenu();
-  });
-  document.querySelectorAll<HTMLAnchorElement>('[data-home-link]').forEach((link) => {
-    link.addEventListener('click', (event) => {
-      if (window.location.pathname !== '/') return;
-      event.preventDefault();
-      closeMenu({ restoreFocus: false });
-      window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    });
-  });
-  closeButton?.addEventListener('click', () => closeMenu());
-  menu?.querySelectorAll('[data-mobile-menu-link]').forEach((link) => {
-    link.addEventListener('click', () => closeMenu({ restoreFocus: false }));
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (!menu?.classList.contains('open')) return;
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closeMenu();
-      return;
-    }
-    if (event.key !== 'Tab') return;
-    const focusable = [...menu.querySelectorAll<HTMLElement>(focusableSelector)].filter((element) => element.offsetParent !== null);
-    const first = focusable[0];
-    const last = focusable.at(-1);
-    if (!first || !last) return;
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 980 && menu?.classList.contains('open')) closeMenu({ restoreFocus: false });
-  }, { passive: true });
+  setupMobileNav();
+  document.addEventListener('astro:after-swap', setupMobileNav);
+  document.addEventListener('astro:page-load', setupMobileNav);
+  document.addEventListener('astro:before-swap', () => (window as ByteWindow).__byteNavCleanup?.());
 </script>
 
 <style>
@@ -187,9 +214,25 @@ const links = [
   @media (max-width: 980px) {
     :global(html.mobile-nav-open),
     :global(html.mobile-nav-open body) { overflow: hidden; overscroll-behavior: none; }
-    :global(html.mobile-nav-open .site-nav) { z-index: 10000; }
+    :global(html.mobile-nav-open .site-nav) {
+      z-index: 10000;
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    :global(html.mobile-nav-open .nav-inner) {
+      visibility: hidden;
+      opacity: 0;
+    }
     :global(html.mobile-nav-open .new-tasks-badge) { opacity: 0 !important; pointer-events: none; }
-    :global(html.mobile-nav-open .recreation-page > :not(.mesh-layer)) { opacity: 0 !important; visibility: hidden; }
+    :global(html.mobile-nav-open .page-transition-content),
+    :global(html.mobile-nav-open body > main),
+    :global(html.mobile-nav-open body > footer) {
+      opacity: 0 !important;
+      visibility: hidden;
+      pointer-events: none;
+    }
     :global(html.mobile-nav-open .title-network) { opacity: 0; }
 
     .nav-inner { padding-block: 12px; }
@@ -202,35 +245,34 @@ const links = [
       z-index: 1000;
       inset: 0;
       display: grid;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: auto 1fr;
       width: 100%;
       height: 100dvh;
-      min-height: 520px;
-      padding: max(18px, env(safe-area-inset-top)) 20px max(22px, env(safe-area-inset-bottom));
-      overflow: hidden;
+      padding: max(12px, env(safe-area-inset-top)) 24px max(22px, env(safe-area-inset-bottom));
+      overflow-x: hidden;
+      overflow-y: auto;
       visibility: hidden;
-      opacity: 0;
+      opacity: 1;
       color: #f2f6f2;
       background: #0b0e0c;
-      transform: translate3d(0, 100%, 0);
+      clip-path: inset(0 0 100% 0);
       transition:
-        transform 460ms cubic-bezier(.16, 1, .3, 1),
-        opacity 260ms ease,
-        visibility 0s linear 460ms;
+        clip-path 560ms cubic-bezier(.16, 1, .3, 1),
+        visibility 0s linear 560ms;
+      transform-origin: top center;
+      will-change: clip-path;
       isolation: isolate;
     }
     :global(html.has-node-mesh) .mobile-menu { background: rgba(7, 10, 8, .72); }
     .mobile-menu:focus { outline: none; }
     .mobile-menu.open {
       visibility: visible;
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
+      clip-path: inset(0);
       transition-delay: 0s;
     }
     .mobile-menu.is-closing {
-      opacity: 0;
-      transform: translate3d(0, 18%, 0);
-      transition-duration: 280ms, 220ms, 0s;
+      clip-path: inset(0 0 100% 0);
+      transition-duration: 340ms, 0s;
     }
 
     .mobile-menu-top {
@@ -238,20 +280,18 @@ const links = [
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 58px;
-      opacity: 0;
-      transform: translateY(-64px);
+      min-height: 48px;
+      opacity: 1;
+      transform: none;
     }
-    .open .mobile-menu-top { animation: menu-group-in 520ms 180ms cubic-bezier(.16, 1, .3, 1) forwards; }
     .mobile-wordmark { display: flex; align-items: center; gap: 10px; color: #f6faf6; text-decoration: none; }
     .mobile-wordmark img { width: 38px; height: 38px; object-fit: contain; }
-    .mobile-wordmark span { font-family: 'Clash Display', sans-serif; font-size: 28px; font-weight: 600; line-height: 1; letter-spacing: -.03em; }
-    .mobile-wordmark sup { margin-left: 5px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; vertical-align: top; }
+    .mobile-wordmark span { font-family: 'Baloo 2', sans-serif; font-size: 1.1rem; font-weight: 700; line-height: 1; }
     .mobile-menu-close {
       display: grid;
       place-items: center;
-      width: 56px;
-      height: 56px;
+      width: 48px;
+      height: 48px;
       border: 1px solid rgba(151, 179, 162, .14);
       border-radius: 50%;
       background: rgba(4, 7, 5, .72);
@@ -287,7 +327,7 @@ const links = [
       transition: color 140ms ease;
     }
     .open .mobile-menu-link {
-      animation: menu-link-in 560ms calc(150ms + var(--menu-index) * 54ms) cubic-bezier(.16, 1, .3, 1) forwards;
+      animation: menu-link-in 560ms calc(260ms + var(--menu-index) * 54ms) cubic-bezier(.16, 1, .3, 1) forwards;
     }
     .mobile-menu-link.active:first-child,
     .mobile-menu-link:focus-visible,
@@ -311,56 +351,25 @@ const links = [
       transform: scale(1.2);
     }
 
-    .mobile-menu-bottom {
-      z-index: 2;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 13px 18px;
-      align-items: end;
-      padding-top: 14px;
-      border-top: 1px solid rgba(146, 175, 157, .14);
-      color: #d9e2dc;
-      font-family: 'Clash Display', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 1.1;
-      letter-spacing: -.01em;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(54px);
-    }
-    .open .mobile-menu-bottom { animation: menu-group-in 520ms 430ms cubic-bezier(.16, 1, .3, 1) forwards; }
-    .mobile-menu-bottom p { margin: 0; }
-    .mobile-menu-meta { display: flex; gap: 20px; }
-    .mobile-menu-meta a { color: inherit; text-decoration: none; }
-    .mobile-menu-meta a:focus-visible, .mobile-menu-meta a:active { color: var(--menu-accent); }
-    .mobile-menu-signal { grid-column: 1 / -1; display: flex; align-items: center; gap: 7px; color: #718078; font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: .12em; }
-    .mobile-menu-signal span { width: 6px; height: 6px; border-radius: 50%; background: var(--menu-accent); box-shadow: 0 0 12px rgba(82, 224, 166, .6); }
-
     .mobile-menu :is(a, button):focus-visible { outline: 1px solid var(--menu-accent); outline-offset: 4px; }
   }
 
   @media (max-width: 360px), (max-height: 680px) {
-    .mobile-menu { padding-inline: 16px; }
-    .mobile-menu-top { min-height: 50px; }
-    .mobile-menu-close { width: 48px; height: 48px; }
-    .mobile-wordmark img { width: 32px; height: 32px; }
-    .mobile-wordmark span { font-size: 24px; }
+    .mobile-menu { padding-inline: 24px; }
+    .mobile-menu-top { min-height: 48px; }
     .mobile-menu-links { padding-block: 8px; }
     .mobile-menu-link { min-height: 43px; font-size: clamp(36px, 11.8vw, 46px); }
-    .mobile-menu-bottom { padding-top: 10px; font-size: 11px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .mobile-menu { transition: opacity 160ms ease, visibility 0s linear 160ms; transform: none; }
+    .mobile-menu { opacity: 0; clip-path: none; transition: opacity 160ms ease, visibility 0s linear 160ms; }
+    .mobile-menu.open { opacity: 1; }
     .mobile-menu.open { transition-delay: 0s; }
-    .mobile-menu.is-closing { transform: none; }
+    .mobile-menu.is-closing { opacity: 0; clip-path: none; }
     .open .mobile-menu-top,
-    .open .mobile-menu-link,
-    .open .mobile-menu-bottom { animation: menu-fade-in 180ms ease forwards; }
+    .open .mobile-menu-link { animation: menu-fade-in 180ms ease forwards; }
   }
 
   @keyframes menu-link-in { to { opacity: 1; transform: translateY(0); } }
-  @keyframes menu-group-in { to { opacity: 1; transform: translateY(0); } }
   @keyframes menu-fade-in { to { opacity: 1; transform: none; } }
 </style>

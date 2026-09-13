@@ -41,6 +41,21 @@ const departmentMembers = {
   creative: ['Priyanka', 'Suraj Padhi', 'Harasis Singh Lamba', 'Yeshika'],
 } as const;
 
+const memberAvatarPhotos: Record<string, string> = {
+  'Dev Saini': '/team_pics/members/dev_saini.png',
+  'Himanshu Vishwakarma': '/team_pics/members/himanshu_yadav.png',
+  'Krishna Tiwari': '/team_pics/members/krishna_tiwari.png',
+  'Parth Garg': '/team_pics/members/parth_garg.jpg',
+  'Srishti Raghava': '/team_pics/members/srishti_raghava.png',
+  'Vandit Kad': '/team_pics/members/vandit_kad.png',
+  'Yash Bahuguna': '/team_pics/members/yash_bahuguna.jpeg',
+  'Yuktarth Naman': '/team_pics/members/yuktarth_naman.png',
+  'Anupam Jain': '/team_pics/members/anupam_jain.png',
+  'Bhumi': '/team_pics/members/bhumi.png',
+  'Haragam Deep Singh': '/team_pics/members/haragam_deep_singh.png',
+  'Palash Kuchroo': '/team_pics/members/palash.png',
+};
+
 const avatarInitials = (name: string) => name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 
 type AlumniMember = { name: string; role: string; tier: 'lead' | 'inner' | 'outer' };
@@ -168,27 +183,35 @@ const chapters = [
         const chapterMembers = members.filter((member) => member.group === chapter.key);
         return (
           <section class="member-chapter" id={chapter.key} data-member-chapter={chapter.key}>
-            <header class="chapter-heading">
-              <p class="chapter-count">{String(chapterMembers.length).padStart(2, '0')} core coordinators</p>
-              <h2>{chapter.heading}</h2>
-              <p>{chapter.note}</p>
-              {chapter.listedMembers.length > 0 && (
-                <div class="member-cluster" aria-label={`${chapter.listedMembers.length} members in ${chapter.title}`}>
-                  <ul>
-                    {chapter.listedMembers.map((memberName, index) => (
-                      <li data-member-name={memberName} title={memberName} style={`--avatar-index:${index}`}>
-                        <span aria-hidden="true">{avatarInitials(memberName)}</span>
-                        <span class="sr-only">{memberName}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </header>
+            <div class="chapter-heading-slot" data-chapter-heading-slot>
+              <header class="chapter-heading">
+                <p class="chapter-count">{String(chapterMembers.length).padStart(2, '0')} core coordinators</p>
+                <h2>{chapter.heading}</h2>
+                <p>{chapter.note}</p>
+                {chapter.listedMembers.length > 0 && (
+                  <div class="member-cluster member-cluster--desktop" aria-label={`${chapter.listedMembers.length} members in ${chapter.title}`}>
+                    <ul>
+                      {chapter.listedMembers.map((memberName, index) => (
+                        <li class:list={{ 'has-avatar': Boolean(memberAvatarPhotos[memberName]) }} data-member-name={memberName} title={memberName} style={`--avatar-index:${index}`}>
+                          {memberAvatarPhotos[memberName] ? (
+                            <img src={memberAvatarPhotos[memberName]} alt="" loading="lazy" />
+                          ) : (
+                            <span aria-hidden="true">{avatarInitials(memberName)}</span>
+                          )}
+                          <span class="sr-only">{memberName}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </header>
+            </div>
 
-            <div class:list={['member-field', `field-${chapter.key}`]}>
-              {chapterMembers.map((member, index) => (
-                <article
+            <div class="member-field-viewport" data-member-field-viewport>
+              <div class="member-field-window">
+                <div class:list={['member-field', `field-${chapter.key}`]}>
+                  {chapterMembers.map((member, index) => (
+                    <article
                   class:list={['member-node', { 'has-member-quote': member.quote }]}
                   data-mesh-member
                   data-mesh-shape="silhouette"
@@ -225,9 +248,27 @@ const chapters = [
                     )}
                     <span class="member-pulse" aria-hidden="true"></span>
                   </div>
-                </article>
-              ))}
+                    </article>
+                  ))}
+                </div>
+              </div>
             </div>
+            {chapter.listedMembers.length > 0 && (
+              <div class="member-cluster member-cluster--mobile" aria-label={`${chapter.listedMembers.length} members in ${chapter.title}`}>
+                <ul>
+                  {chapter.listedMembers.map((memberName, index) => (
+                    <li class:list={{ 'has-avatar': Boolean(memberAvatarPhotos[memberName]) }} data-member-name={memberName} title={memberName} style={`--avatar-index:${index}`}>
+                      {memberAvatarPhotos[memberName] ? (
+                        <img src={memberAvatarPhotos[memberName]} alt="" loading="lazy" />
+                      ) : (
+                        <span aria-hidden="true">{avatarInitials(memberName)}</span>
+                      )}
+                      <span class="sr-only">{memberName}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </section>
         );
       })}
@@ -323,6 +364,7 @@ const chapters = [
     let mobileFrame = 0;
     let alumniFrame = 0;
     let introFrame = 0;
+    let horizontalFrame = 0;
     let slowScrollFrame = 0;
     let slowScrollTarget = window.scrollY;
     let touchY = 0;
@@ -513,6 +555,43 @@ const chapters = [
       if (!mobileFrame) mobileFrame = requestAnimationFrame(updateMobileFocus);
     };
 
+    const updateHorizontalChapters = () => {
+      horizontalFrame = 0;
+      chapters.forEach((chapter) => {
+        const viewport = chapter.querySelector<HTMLElement>('[data-member-field-viewport]');
+        const field = viewport?.querySelector<HTMLElement>('.member-field');
+        const headingSlot = chapter.querySelector<HTMLElement>('[data-chapter-heading-slot]');
+        const heading = headingSlot?.querySelector<HTMLElement>('.chapter-heading');
+        if (!viewport || !field || !headingSlot || !heading) return;
+        if (!mobile.matches || reducedMotion.matches) {
+          chapter.style.removeProperty('--mobile-scroll-distance');
+          chapter.style.removeProperty('--mobile-track-hold');
+          chapter.style.removeProperty('--mobile-heading-height');
+          chapter.classList.remove('is-mobile-track-active', 'is-mobile-track-complete');
+          field.style.removeProperty('transform');
+          return;
+        }
+
+        const headingHeight = heading.offsetHeight;
+        chapter.style.setProperty('--mobile-heading-height', `${headingHeight}px`);
+        const distance = Math.max(0, field.scrollWidth - viewport.clientWidth);
+        const hold = Math.min(140, window.innerHeight * 0.18);
+        chapter.style.setProperty('--mobile-scroll-distance', `${distance}px`);
+        chapter.style.setProperty('--mobile-track-hold', `${hold}px`);
+        const top = headingSlot.getBoundingClientRect().top + window.scrollY;
+        const navHeight = document.querySelector<HTMLElement>('.site-nav')?.offsetHeight ?? 72;
+        const progress = distance > 0 ? clamp((window.scrollY - (top - navHeight)) / distance) : 0;
+        chapter.classList.toggle('is-mobile-track-active', distance > 0 && window.scrollY >= top - navHeight && window.scrollY <= top - navHeight + distance + hold);
+        chapter.classList.toggle('is-mobile-track-complete', distance > 0 && window.scrollY > top - navHeight + distance + hold);
+        field.style.transform = `translate3d(${-progress * distance}px, 0, 0)`;
+        chapter.style.setProperty('--mobile-track-progress', progress.toFixed(4));
+      });
+    };
+
+    const queueHorizontalChapters = () => {
+      if (!horizontalFrame) horizontalFrame = requestAnimationFrame(updateHorizontalChapters);
+    };
+
     const updateAlumniTunnel = () => {
       alumniFrame = 0;
       alumniEras.forEach((era) => {
@@ -575,6 +654,8 @@ const chapters = [
     }
     window.addEventListener('scroll', queueMobileFocus, { passive: true });
     window.addEventListener('resize', queueMobileFocus, { passive: true });
+    window.addEventListener('scroll', queueHorizontalChapters, { passive: true });
+    window.addEventListener('resize', queueHorizontalChapters, { passive: true });
     window.addEventListener('scroll', queueAlumniTunnel, { passive: true });
     window.addEventListener('resize', queueAlumniTunnel, { passive: true });
     window.addEventListener('scroll', queueIntro, { passive: true });
@@ -588,8 +669,13 @@ const chapters = [
       slowScrollTarget = window.scrollY;
       document.documentElement.classList.remove('is-members-intro-scrolling');
     });
-    mobile.addEventListener('change', () => mobile.matches ? queueMobileFocus() : activate(null));
+    mobile.addEventListener('change', () => {
+      if (mobile.matches) queueMobileFocus();
+      else activate(null);
+      queueHorizontalChapters();
+    });
     queueMobileFocus();
+    updateHorizontalChapters();
     queueAlumniTunnel();
     updateIntro();
   };
@@ -1045,9 +1131,11 @@ const chapters = [
     max-width: 17rem;
   }
 
+  .member-cluster--mobile { display: none; }
+
   .member-cluster ul {
     display: grid;
-    grid-template-columns: repeat(6, 2.4rem);
+    grid-template-columns: repeat(5, 3rem);
     gap: 0.45rem;
     margin: 0;
     padding: 0;
@@ -1056,7 +1144,7 @@ const chapters = [
 
   .member-cluster li {
     position: relative;
-    width: 2.4rem;
+    width: 3rem;
     aspect-ratio: 1;
     display: grid;
     place-items: center;
@@ -1071,6 +1159,18 @@ const chapters = [
 
   .member-cluster li:nth-child(3n + 2) { background: rgba(24, 63, 43, 0.76); }
   .member-cluster li:nth-child(4n + 3) { background: rgba(30, 78, 53, 0.72); }
+
+  .member-cluster li.has-avatar { background: #18211c; }
+
+  .member-cluster li img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+    object-position: center;
+  }
 
   .member-cluster li:hover {
     z-index: 2;
@@ -1123,6 +1223,10 @@ const chapters = [
     gap: clamp(4rem, 9vw, 10rem) 1rem;
     padding-top: 4vh;
   }
+
+  .chapter-heading-slot,
+  .member-field-viewport,
+  .member-field-window { display: contents; }
 
   .member-node {
     --pointer-x: 50%;
@@ -1822,21 +1926,99 @@ const chapters = [
 
     .member-chapter {
       min-height: auto;
-      padding: 6rem 1rem 8rem;
+      padding: 6rem 0 8rem;
       display: block;
     }
-    .chapter-heading { position: relative; top: auto; padding-bottom: 5rem; }
+    .chapter-heading-slot {
+      position: relative;
+      display: block;
+    }
+    .chapter-heading { position: relative; top: auto; padding: 0 1rem 1.25rem; }
     .chapter-heading h2 { margin-top: 1.1rem; font-size: clamp(3.2rem, 16vw, 5rem); }
-    .member-field { display: block; padding: 0; }
+    .member-field-viewport {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: calc(100svh - 72px);
+      margin-bottom: calc(var(--mobile-scroll-distance, 0px) + var(--mobile-track-hold, 0px));
+    }
+    .member-field-window {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: clip;
+    }
+    .member-chapter.is-mobile-track-active .chapter-heading-slot,
+    .member-chapter.is-mobile-track-complete .chapter-heading-slot {
+      height: var(--mobile-heading-height);
+    }
+    .member-chapter.is-mobile-track-active .chapter-heading {
+      position: fixed;
+      z-index: 7;
+      top: 96px;
+      left: 0;
+      width: 100%;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .member-chapter.is-mobile-track-complete .chapter-heading {
+      position: absolute;
+      z-index: 7;
+      top: calc(var(--mobile-scroll-distance) + var(--mobile-track-hold) + 24px);
+      left: 0;
+      width: 100%;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .member-chapter.is-mobile-track-active .member-field-window {
+      position: fixed;
+      z-index: 5;
+      top: 72px;
+      left: 0;
+      height: calc(100svh - 72px);
+    }
+    .member-chapter.is-mobile-track-complete .member-field-window {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: calc(100svh - 72px);
+      transform: translateY(calc(var(--mobile-scroll-distance) + var(--mobile-track-hold) - var(--mobile-heading-height)));
+    }
+    .member-field-viewport::-webkit-scrollbar { display: none; }
+    .member-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      width: max-content;
+      min-width: 100%;
+      height: 100%;
+      padding: 1rem;
+      will-change: transform;
+      transition: none !important;
+    }
+    .member-chapter.is-mobile-track-active .member-field,
+    .member-chapter.is-mobile-track-complete .member-field {
+      padding-top: calc(var(--mobile-heading-height) + 4rem);
+    }
     .member-node,
     .member-node:nth-child(n),
     .field-leadership .member-node:nth-child(n) {
       width: min(82vw, 22rem);
-      margin: 0 0 8rem;
+      flex: 0 0 min(82vw, 22rem);
+      margin: 0;
       transform: none;
     }
-    .member-node:nth-child(even) { margin-left: auto; }
-    .member-node:last-child { margin-bottom: 0; }
+    .member-node:nth-child(even) { margin-left: 0; }
+    .member-cluster--desktop { display: none; }
+    .member-cluster--mobile {
+      display: block;
+      width: fit-content;
+      max-width: calc(100% - 2rem);
+      margin: 3.5rem auto 0;
+    }
     .member-node:hover,
     .member-node:focus-visible,
     .member-node.is-mesh-active,
@@ -2015,5 +2197,35 @@ const chapters = [
     .era-year-head { display: none; }
     .alumni-roster--2025 .alumni-person { opacity: 1; transform: none; }
     .founder-person { opacity: 1; transform: translate(-50%, -50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) and (max-width: 760px) {
+    .member-chapter { padding-bottom: 8rem; }
+    .member-field-viewport {
+      position: relative;
+      top: auto;
+      height: auto;
+      overflow: visible;
+    }
+    .member-field-window,
+    .member-chapter.is-mobile-track-active .member-field-window,
+    .member-chapter.is-mobile-track-complete .member-field-window {
+      position: relative;
+      top: auto;
+      left: auto;
+      height: auto;
+      overflow: visible;
+      transform: none;
+    }
+    .member-field {
+      display: block;
+      width: auto;
+      height: auto;
+      padding: 0 1rem;
+    }
+    .chapter-heading-slot { display: contents; }
+    .member-node,
+    .member-node:nth-child(n),
+    .field-leadership .member-node:nth-child(n) { margin-bottom: 6rem; }
   }
 </style>
