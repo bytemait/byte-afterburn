@@ -24,7 +24,7 @@ const members: Member[] = [
   { name: 'Tejas Singh Kapur', short: 'TE', role: 'Coordinator', group: 'cybersecurity', photo: '/team_pics/optimized/tejas_alpha.webp', quote: 'The weakest link in security lies between the computer and the chair' },
   { name: 'Punya Arora', short: 'PA', role: 'Coordinator', group: 'creative', photo: '/team_pics/optimized/punya_arora_alpha.webp', quote: 'Rendering ideas... please wait.' },
   { name: 'Chidroopa Kanaparthy', short: 'CH', role: 'Coordinator', group: 'creative', photo: '/team_pics/optimized/chidroopa_alpha.webp', quote: "They say I don't know when to quit. Like that's a weakness." },
-  { name: 'Snow Sadh', short: 'SN', role: 'Coordinator', group: 'aiml', photo: '/team_pics/optimized/snow_alpha.webp', quote: 'i am gitler' },
+  { name: 'Snow Sadh', short: 'SN', role: 'Coordinator', group: 'aiml', photo: '/team_pics/optimized/snow_alpha.webp', quote: '私はヒトラーと申します。' },
   { name: 'Krishna Mudgal', short: 'KR', role: 'Coordinator', group: 'aiml', photo: '/team_pics/optimized/krishna_mudgal_alpha.webp', quote: 'Byte members are gonna work at DeepMind and Anthropic in the future.' },
   { name: 'Aditya Kumar Maurya', short: 'AM', role: 'Coordinator', group: 'mechatronics', photo: '/team_pics/optimized/aditya_maurya_alpha.webp', quote: 'Part-time engineer, part-time electrician, part-time programmer… fully confused.' },
   { name: 'Devesh Dev', short: 'DD', role: 'Coordinator', group: 'mechatronics', photo: '/team_pics/optimized/devesh_dev_alpha.webp', quote: "We're here to live l. We're here to do. We're here to be" },
@@ -32,7 +32,7 @@ const members: Member[] = [
 
 const departmentMembers = {
   development: [
-    'Aditya Shahi', 'Chirag', 'Dev Saini', 'Himanshu Vishwakarma', 'Ishuman Chaudhary', 'Krishna Tiwari', 'Parth Garg', 'Snehashish Ghosh',
+    'Aditya Shahi', 'Chirag', 'Dev Saini', 'Himanshu Vishwakarma', 'Himanshu Yadav', 'Ishuman Chaudhary', 'Krishna Tiwari', 'Parth Garg', 'Snehashish Ghosh',
     'Srishti Raghava', 'Tanmay Aggarwal', 'Vaibhav Jain', 'Vandit Kad', 'Vinayak Mittal', 'Yash Bahuguna', 'Yash Malhotra', 'Yuktarth Naman',
   ],
   aiml: ['Tasmayu Swain', 'Yajat Makhija', 'Anupam Jain', 'Bhumi', 'Haragam Deep Singh'],
@@ -43,7 +43,7 @@ const departmentMembers = {
 
 const memberAvatarPhotos: Record<string, string> = {
   'Dev Saini': '/team_pics/members/dev_saini.png',
-  'Himanshu Vishwakarma': '/team_pics/members/himanshu_yadav.png',
+  'Himanshu Yadav': '/team_pics/members/himanshu_yadav.png',
   'Krishna Tiwari': '/team_pics/members/krishna_tiwari.png',
   'Parth Garg': '/team_pics/members/parth_garg.jpg',
   'Srishti Raghava': '/team_pics/members/srishti_raghava.png',
@@ -2095,6 +2095,7 @@ const chapters = [
     }
     .chapter-heading { position: relative; top: auto; padding: 0 1rem 1.25rem; }
     .chapter-heading h2 { margin-top: 1.1rem; font-size: clamp(3.2rem, 16vw, 5rem); }
+    .chapter-heading > p:not(.chapter-count) { display: none; }
     .council-role-status {
       width: 100%;
       min-height: 3.8rem;
@@ -2191,7 +2192,14 @@ const chapters = [
     .member-node:nth-child(n)[data-member-active="true"],
     .field-leadership .member-node:nth-child(n)[data-member-active="true"] { transform: translateY(-0.35rem) scale(1.018); }
     .has-active-member .member-node:not([data-member-active="true"]) { opacity: 0.55; }
-    .portrait-stage { aspect-ratio: 4 / 5; }
+    .portrait-stage {
+      aspect-ratio: auto;
+      height: min(
+        102.5vw,
+        27.5rem,
+        max(8.5rem, calc(100svh - var(--mobile-heading-height, 0px) - 17.55rem))
+      );
+    }
     .member-label { min-height: 8.8rem; }
     .member-label h3 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
     .member-quote { right: 1rem; font-size: 1.05rem; }
