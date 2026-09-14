@@ -1,0 +1,625 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/common/Footer.astro';
+import membersData from '../../data/members.json';
+
+interface MemberRecord {
+  slug: string;
+  name: string;
+  role: string;
+  group: string;
+  groupTitle?: string;
+  category?: 'core' | 'department' | 'alumni';
+  photo?: string;
+  quote?: string;
+  short?: string;
+  tier?: 'lead' | 'inner' | 'outer';
+  year?: string;
+}
+
+const chapterTitles: Record<string, string> = {
+  leadership: 'Byte Core',
+  development: 'Development',
+  aiml: 'AI / ML',
+  creative: 'Creative Outreach',
+  mechatronics: 'Mechatronics',
+  cybersecurity: 'Cybersecurity',
+  'alumni-2025': 'Generation 02 Alumni',
+  'alumni-2024': 'Founding Generation Alumni',
+};
+
+const chapterEyebrows: Record<string, string> = {
+  leadership: '01 THE UNCS',
+  development: '02 THE TOKENMAXXERS',
+  aiml: '03 THE RESEARCH LARPERS',
+  creative: '04 THE INTROVERTS',
+  mechatronics: '05 THE SIMULATORS',
+  cybersecurity: '06 THE RAINBOW HAT HACKERS',
+  'alumni-2025': 'GENERATION 02 · 2025',
+  'alumni-2024': 'THE FIRST SPARK · 2024',
+};
+
+const groupDescriptions: Record<string, string> = {
+  leadership: 'Seven people keeping every part of Byte in motion through guidance, strategy, and execution.',
+  development: 'Builders turning ambitious ideas into dependable, high-performance software people can use.',
+  aiml: 'Learning systems, practical experiments, and real-world intelligence pipelines.',
+  creative: 'The voice, image, and connective tissue of the society.',
+  mechatronics: 'Code that leaves the screen and moves through the physical world.',
+  cybersecurity: 'Break it, understand it, secure it, teach it.',
+  'alumni-2025': 'Twelve alumni who carried Byte into its next orbit: leadership, outreach, and development.',
+  'alumni-2024': 'Ten originators who made the leap from an idea to a thriving student technology society.',
+};
+
+export function getStaticPaths() {
+  const chapterTitlesMap: Record<string, string> = {
+    leadership: 'Byte Core',
+    development: 'Development',
+    aiml: 'AI / ML',
+    creative: 'Creative Outreach',
+    mechatronics: 'Mechatronics',
+    cybersecurity: 'Cybersecurity',
+  };
+
+  const allMembers: MemberRecord[] = [
+    ...membersData.members.map((m) => ({
+      ...m,
+      category: 'core' as const,
+      groupTitle: chapterTitlesMap[m.group] || m.group,
+    })),
+    ...Object.entries(membersData.departmentMembers).flatMap(([group, deptMembers]) =>
+      deptMembers.map((m) => ({
+        ...m,
+        category: 'department' as const,
+        groupTitle: chapterTitlesMap[group] || group,
+        photo: m.photo || (membersData.memberAvatarPhotos as Record<string, string>)[m.name] || undefined,
+      }))
+    ),
+    ...membersData.alumni2025.map((m) => ({
+      ...m,
+      group: 'alumni-2025',
+      groupTitle: 'Generation 02 Alumni',
+      category: 'alumni' as const,
+    })),
+    ...membersData.alumni2024.map((m) => ({
+      ...m,
+      group: 'alumni-2024',
+      groupTitle: 'Founding Generation Alumni',
+      category: 'alumni' as const,
+    })),
+  ];
+
+  const paths = allMembers.map((member) => ({
+    params: { slug: member.slug },
+    props: { member },
+  }));
+
+  // Ensure canonical 'pratham-gupta' route resolves if queried directly
+  if (!allMembers.some((m) => m.slug === 'pratham-gupta')) {
+    const pratham = allMembers.find((m) => m.slug === 'pratham-gupta-2025');
+    if (pratham) {
+      paths.push({
+        params: { slug: 'pratham-gupta' },
+        props: { member: { ...pratham, slug: 'pratham-gupta' } },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { slug } = Astro.params;
+
+function getAllMembers(): MemberRecord[] {
+  return [
+    ...membersData.members.map((m) => ({
+      ...m,
+      category: 'core' as const,
+      groupTitle: chapterTitles[m.group] || m.group,
+    })),
+    ...Object.entries(membersData.departmentMembers).flatMap(([group, deptMembers]) =>
+      deptMembers.map((m) => ({
+        ...m,
+        category: 'department' as const,
+        groupTitle: chapterTitles[group] || group,
+        photo: m.photo || (membersData.memberAvatarPhotos as Record<string, string>)[m.name] || undefined,
+      }))
+    ),
+    ...membersData.alumni2025.map((m) => ({
+      ...m,
+      group: 'alumni-2025',
+      groupTitle: 'Generation 02 Alumni',
+      category: 'alumni' as const,
+    })),
+    ...membersData.alumni2024.map((m) => ({
+      ...m,
+      group: 'alumni-2024',
+      groupTitle: 'Founding Generation Alumni',
+      category: 'alumni' as const,
+    })),
+  ];
+}
+
+const member: MemberRecord | undefined =
+  Astro.props.member ||
+  getAllMembers().find((m) => m.slug === slug || (slug === 'pratham-gupta' && m.slug === 'pratham-gupta-2025'));
+
+if (!member) {
+  return Astro.redirect('/members');
+}
+
+const avatarInitials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
+const initials = member.short || avatarInitials(member.name);
+const eyebrow = chapterEyebrows[member.group] || 'BYTE MEMBER';
+const departmentName = member.groupTitle || chapterTitles[member.group] || member.group;
+const description = groupDescriptions[member.group] || 'Active member contributing to Byte society projects and community.';
+---
+
+<Layout title={`${member.name} — B.Y.T.E.`} active="members" footerInSlot>
+  <main class="member-detail-page">
+    <div class="member-detail-wrap">
+      <nav class="member-breadcrumb" aria-label="Breadcrumb">
+        <a href="/members" class="back-link">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M10 13L5 8L10 3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Back to Constellation</span>
+        </a>
+      </nav>
+
+      <article class="member-profile-grid">
+        <!-- Portrait stage -->
+        <div class="profile-media-column">
+          <div class:list={['profile-portrait-card', { 'has-photo': Boolean(member.photo) }]}>
+            {member.photo ? (
+              <div class="portrait-stage">
+                <img class="portrait-base" src={member.photo} alt={member.name} loading="eager" />
+                <img class="portrait-channel portrait-channel--red" src={member.photo} alt="" aria-hidden="true" loading="eager" />
+                <img class="portrait-channel portrait-channel--green" src={member.photo} alt="" aria-hidden="true" loading="eager" />
+                <img class="portrait-channel portrait-channel--blue" src={member.photo} alt="" aria-hidden="true" loading="eager" />
+              </div>
+            ) : (
+              <div class="portrait-fallback" aria-hidden="true">
+                <span>{initials}</span>
+                <svg viewBox="0 0 200 260">
+                  <path d="M100 24c31 0 51 25 51 58 0 29-14 47-28 57 34 9 58 39 62 96H15c4-57 28-87 62-96-15-10-28-28-28-57 0-33 20-58 51-58Z" />
+                </svg>
+              </div>
+            )}
+            <span class="profile-node-tag" aria-hidden="true">BYTE // {initials}</span>
+          </div>
+        </div>
+
+        <!-- Info column -->
+        <div class="profile-info-column">
+          <header class="profile-header">
+            <p class="profile-eyebrow">{eyebrow}</p>
+            <h1 class="profile-name">{member.name}</h1>
+            <div class="profile-badges">
+              <span class="role-pill">{member.role}</span>
+              <span class="dept-pill">{departmentName}</span>
+              {member.year && <span class="year-pill">Class of {member.year}</span>}
+            </div>
+          </header>
+
+          {member.quote && (
+            <div class="profile-quote-block">
+              <span class="quote-mark" aria-hidden="true">“</span>
+              <blockquote class="profile-quote">{member.quote}</blockquote>
+            </div>
+          )}
+
+          <div class="profile-meta-section">
+            <div class="meta-item">
+              <span class="meta-label">Department</span>
+              <p class="meta-value">{departmentName}</p>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Society Role</span>
+              <p class="meta-value">{member.role}</p>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Affiliation</span>
+              <p class="meta-value">B.Y.T.E. MAIT</p>
+            </div>
+          </div>
+
+          <div class="profile-about-block">
+            <h3>About the Department</h3>
+            <p>{description}</p>
+          </div>
+
+          <div class="profile-actions">
+            <a href="/contact" class="btn btn-primary">
+              <span>Connect with Byte</span>
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true" width="14" height="14">
+                <path d="M3 13L13 3M13 3H5M13 3V11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <a href="/members" class="btn btn-outline">
+              <span>Explore All Members</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <Footer immersive />
+  </main>
+</Layout>
+
+<style>
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/assets/clash-600.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Clash Display';
+    src: url('/assets/clash-700.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  :global(html) {
+    background: #101010;
+  }
+
+  .member-detail-page {
+    --ink: #eef4ef;
+    --muted: #8d9a91;
+    --green: #52e0a6;
+    --line: rgba(139, 160, 147, 0.24);
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    padding-top: 110px;
+    background: radial-gradient(circle at 50% 20%, rgba(82, 224, 166, 0.08), transparent 45%), rgba(16, 16, 16, 0.2);
+    color: var(--ink);
+  }
+
+  .member-detail-wrap {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 64px) 100px;
+  }
+
+  .member-breadcrumb {
+    margin-bottom: 40px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: color 180ms ease, transform 180ms ease;
+  }
+
+  .back-link svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 180ms ease;
+  }
+
+  .back-link:hover {
+    color: var(--green);
+    transform: translateX(-3px);
+  }
+
+  .member-profile-grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 440px) 1fr;
+    gap: clamp(36px, 6vw, 80px);
+    align-items: start;
+  }
+
+  .profile-media-column {
+    position: sticky;
+    top: 110px;
+  }
+
+  .profile-portrait-card {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 40%, rgba(82, 224, 166, 0.12), transparent 50%), #141815;
+    border: 1px solid var(--line);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  .profile-portrait-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    border-radius: inherit;
+  }
+
+  .portrait-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .portrait-stage img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 108%;
+    height: 96%;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  .portrait-base {
+    z-index: 0;
+    opacity: 0.95;
+    filter: grayscale(0.2) contrast(1.05);
+  }
+
+  .portrait-channel {
+    z-index: 1;
+    opacity: 0.18;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .portrait-channel--red {
+    filter: url('#member-channel-red');
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  .portrait-channel--green {
+    filter: url('#member-channel-green');
+    transform: translate3d(calc(-50% + 2px), -1px, 0);
+  }
+
+  .portrait-channel--blue {
+    filter: url('#member-channel-blue');
+    transform: translate3d(calc(-50% - 2px), 1px, 0);
+  }
+
+  .portrait-fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--green);
+  }
+
+  .portrait-fallback svg {
+    position: absolute;
+    inset: 12%;
+    width: 76%;
+    height: 76%;
+    fill: rgba(82, 224, 166, 0.04);
+    stroke: rgba(82, 224, 166, 0.36);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .portrait-fallback span {
+    position: relative;
+    z-index: 1;
+    font: 700 clamp(3.5rem, 8vw, 6.5rem)/1 'Clash Display', sans-serif;
+    letter-spacing: -0.04em;
+    color: var(--green);
+  }
+
+  .profile-node-tag {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    padding: 5px 12px;
+    border: 1px solid rgba(82, 224, 166, 0.3);
+    border-radius: 999px;
+    background: rgba(7, 12, 9, 0.76);
+    color: #cce8d7;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .profile-info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .profile-eyebrow {
+    margin: 0 0 12px;
+    color: var(--green);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .profile-name {
+    margin: 0 0 18px;
+    color: #ffffff;
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .profile-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .role-pill {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: var(--green);
+    color: #07110b;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .dept-pill {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--line);
+    color: #dbe6de;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .year-pill {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: rgba(255, 189, 102, 0.12);
+    border: 1px solid rgba(255, 189, 102, 0.35);
+    color: #ffcd8b;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .profile-quote-block {
+    position: relative;
+    padding: 24px 28px 24px 34px;
+    border-left: 3px solid var(--green);
+    background: rgba(23, 27, 24, 0.55);
+    border-radius: 0 14px 14px 0;
+  }
+
+  .quote-mark {
+    position: absolute;
+    top: 4px;
+    left: 12px;
+    color: var(--green);
+    font-family: 'Clash Display', sans-serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    opacity: 0.6;
+  }
+
+  .profile-quote {
+    margin: 0;
+    color: #e5eee7;
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+  }
+
+  .profile-meta-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .meta-value {
+    margin: 0;
+    color: #ffffff;
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .profile-about-block h3 {
+    margin: 0 0 12px;
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+  }
+
+  .profile-about-block p {
+    margin: 0;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .member-profile-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .profile-media-column {
+      position: static;
+      max-width: 380px;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .back-link,
+    .btn {
+      transition: none;
+    }
+  }
+</style>
