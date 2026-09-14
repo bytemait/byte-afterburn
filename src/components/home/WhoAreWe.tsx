@@ -128,10 +128,10 @@ export default function WhoAreWe() {
           </div>
 
           <div className="whoarewe-bottom">
-            <h3 className="whoarewe-role">BUILD. CONNECT.<br />CREATE & IMPACT.</h3>
+            <h3 className="whoarewe-role">WE BUILD<br />REAL TECH.</h3>
             <div className="whoarewe-description">
-              <h3>STUDENT-LED<br />TECH SOCIETY</h3>
-              <p>B.Y.T.E. is a community of innovators, thinkers, and doers. We organize events, build projects, and collaborate to create meaningful impact.</p>
+              <h3>CIRCUITS.<br />CODE. SYSTEMS.</h3>
+              <p>Student engineers solving problems with hardware, software, and everything between. No theory. Just builds.</p>
             </div>
           </div>
 
