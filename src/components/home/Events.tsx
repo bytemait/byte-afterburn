@@ -10,13 +10,15 @@ type Award = {
   href?: string;
 };
 
-const EVENTS: Award[] = events.map(event => ({
-  organization: event.type.toUpperCase(),
-  recognition: event.name.toUpperCase(),
-  project: event.shortDescription.split(' ')[0] + ' ' + event.shortDescription.split(' ')[1], // Rough category fallback
-  image: event.image || 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=2672&h=112',
-  href: `/events/${event.slug}`,
-}));
+const EVENTS: Award[] = [...events]
+  .sort((a, b) => new Date(`${b.date} ${b.year}`).getTime() - new Date(`${a.date} ${a.year}`).getTime())
+  .map(event => ({
+    organization: event.type.toUpperCase(),
+    recognition: event.name.toUpperCase(),
+    project: event.shortSummary || (event.shortDescription.split(' ')[0] + ' ' + event.shortDescription.split(' ')[1]),
+    image: event.image || 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=2672&h=112',
+    href: `/events/${event.slug}`,
+  }));
 
 /** Recreates the Framer awards stack: a hinged 3D face exposes its image strip on interaction. */
 export default function Events() {

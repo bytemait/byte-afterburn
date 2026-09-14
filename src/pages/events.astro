@@ -41,7 +41,9 @@ const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
               return (
                 <div class={`event-card ${isFlip ? 'flip' : ''}`} data-type={event.type}>
                   {!isFlip && (
-                    <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
+                    <div class="ph" data-ratio="800 × 600">
+                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></>}
+                    </div>
                   )}
                   <div class="event-body">
                     <div class="date-chip">
@@ -60,7 +62,9 @@ const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
                     </div>
                   </div>
                   {isFlip && (
-                    <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
+                    <div class="ph" data-ratio="800 × 600">
+                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></>}
+                    </div>
                   )}
                 </div>
               );
@@ -79,7 +83,9 @@ const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
               return (
                 <div class={`event-card ${isFlip ? 'flip' : ''}`} data-type={event.type}>
                   {!isFlip && (
-                    <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></div>
+                    <div class="ph" data-ratio="800 × 600">
+                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></>}
+                    </div>
                   )}
                   <div class="event-body">
                     <div class="date-chip">
@@ -98,7 +104,9 @@ const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
                     </div>
                   </div>
                   {isFlip && (
-                    <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></div>
+                    <div class="ph" data-ratio="800 × 600">
+                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></>}
+                    </div>
                   )}
                 </div>
               );
@@ -133,37 +141,42 @@ const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
 </Layout>
 
 <script>
-  document.querySelectorAll('.filter-pill').forEach((pill) => {
-    pill.addEventListener('click', (e) => {
-      // Handle active state
-      document.querySelectorAll('.filter-pill').forEach((x) => x.classList.remove('active'));
-      const target = e.target as HTMLElement;
-      target.classList.add('active');
+  // Use event delegation on the container or run setup when DOM is fully loaded.
+  // Astro pages sometimes transition without full reloads, so we should ensure the script runs reliably.
+  document.addEventListener('astro:page-load', () => {
+    const pills = document.querySelectorAll('.filter-pill');
+    
+    pills.forEach((pill) => {
+      pill.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        
+        // Handle active state
+        pills.forEach((x) => x.classList.remove('active'));
+        target.classList.add('active');
 
-      // Handle filtering
-      const filterValue = target.textContent?.trim().toLowerCase() || 'all';
-      const eventCards = document.querySelectorAll('.event-card');
-      const blocks = document.querySelectorAll('.events-section-block');
+        // Handle filtering
+        const filterValue = target.textContent?.trim().toLowerCase() || 'all';
+        const eventCards = document.querySelectorAll('.event-card');
+        const blocks = document.querySelectorAll('.events-section-block');
 
-      eventCards.forEach((card) => {
-        const type = (card as HTMLElement).dataset.type?.toLowerCase() || '';
-        if (filterValue === 'all' || type === filterValue) {
-          (card as HTMLElement).style.display = '';
-        } else {
-          (card as HTMLElement).style.display = 'none';
-        }
-      });
+        eventCards.forEach((card) => {
+          const type = (card as HTMLElement).dataset.type?.toLowerCase() || '';
+          if (filterValue === 'all' || type === filterValue) {
+            (card as HTMLElement).style.display = '';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
 
-      // Hide empty section blocks
-      blocks.forEach((block) => {
-        // If a card doesn't have display: none, it's visible.
-        // We use querySelectorAll with a negation pseudo-class to find visible cards.
-        const visibleCards = block.querySelectorAll('.event-card:not([style*="display: none"])');
-        if (visibleCards.length === 0) {
-          (block as HTMLElement).style.display = 'none';
-        } else {
-          (block as HTMLElement).style.display = '';
-        }
+        // Hide empty section blocks
+        blocks.forEach((block) => {
+          const visibleCards = block.querySelectorAll('.event-card:not([style*="display: none"])');
+          if (visibleCards.length === 0) {
+            (block as HTMLElement).style.display = 'none';
+          } else {
+            (block as HTMLElement).style.display = '';
+          }
+        });
       });
     });
   });
