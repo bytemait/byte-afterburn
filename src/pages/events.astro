@@ -11,9 +11,10 @@ const sortedEvents = [...events].sort((a, b) => parseDate(b.date, b.year) - pars
 
 const upcomingEvents = sortedEvents.filter((e) => e.isUpcoming);
 const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
+import Footer from '../components/common/Footer.astro';
 ---
 
-<Layout title="Events — B.Y.T.E." active="events">
+<Layout title="Events — B.Y.T.E." active="events" footerInSlot>
   <div class="page-header">
     <div class="wrap">
       <h1>Events</h1>
@@ -138,6 +139,8 @@ const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
       </div>
     </div>
   </section>
+
+  <Footer immersive />
 </Layout>
 
 <script>
