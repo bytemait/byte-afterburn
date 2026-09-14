@@ -8,41 +8,47 @@ type Award = {
   href?: string;
 };
 
-const AWARDS: Award[] = [
+const EVENTS: Award[] = [
   {
-    organization: 'BYTE EVENT',
-    recognition: 'CODE SPRINT',
-    project: 'OpenAI Codex Hackathon',
-    image: 'https://framerusercontent.com/images/uUKYhUgBYFVMIYb0oOAX8sBls4.jpg?width=2672&height=112',
+    organization: 'COMPETITION',
+    recognition: 'PIXEL PUNK',
+    project: 'Game Jam',
+    image: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=2672&h=112',
   },
   {
-    organization: 'BYTE WORKSHOP',
-    recognition: 'BUILD LAB',
+    organization: 'COMPETITION',
+    recognition: 'ROBO SOCCER',
+    project: 'Robotics',
+    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=2672&h=112',
+  },
+  {
+    organization: 'WORKSHOP',
+    recognition: 'ML WORKSHOP',
     project: 'AI & Machine Learning',
-    image: 'https://framerusercontent.com/images/KYLMw4mXJWgNZfUZZWIUgDy08Wg.jpg?width=2672&height=112',
+    image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=2672&h=112',
   },
   {
-    organization: 'BYTE MEETUP',
-    recognition: 'DEMO NIGHT',
-    project: 'Member Projects',
-    image: 'https://framerusercontent.com/images/xF5y7ik9XpvK5cdKYiNO7H93tiE.jpg?width=2672&height=112',
+    organization: 'BOOTCAMP',
+    recognition: 'SOLANA BOOTCAMP',
+    project: 'Web3 & Rust',
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=2672&h=112',
   },
   {
-    organization: 'BYTE SESSION',
-    recognition: 'TECH TALK',
-    project: 'Tools, Systems & Ideas',
-    image: 'https://framerusercontent.com/images/lQA0cL8JAB45ec2izKEWeoitrM.jpg?width=2672&height=112',
+    organization: 'WORKSHOP',
+    recognition: 'UI/UX WORKSHOP',
+    project: 'Design & AI',
+    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=2672&h=112',
   },
   {
-    organization: 'BYTE COMMUNITY',
-    recognition: 'OPEN BUILD',
-    project: 'Ideas Into Prototypes',
-    image: 'https://framerusercontent.com/images/4AfUgovkqN3hl7roJxqlMvjLV8.jpg?width=2672&height=112',
+    organization: 'COMPETITION',
+    recognition: 'ALGO TRADING SPRINT',
+    project: 'FinTech & ML',
+    image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=2672&h=112',
   },
 ];
 
 /** Recreates the Framer awards stack: a hinged 3D face exposes its image strip on interaction. */
-export default function Awards() {
+export default function Events() {
   return (
     <section className="awards-section" aria-labelledby="events-title">
       <div className="awards-container">
@@ -57,7 +63,7 @@ export default function Awards() {
         </p>
 
         <div className="awards-list">
-          {AWARDS.map((award) => (
+          {EVENTS.map((award) => (
             <a
               className="award-card"
               data-scroll-hover
@@ -77,6 +83,23 @@ export default function Awards() {
               </div>
             </a>
           ))}
+          <a
+            className="award-card"
+            data-scroll-hover
+            href="/events"
+            tabIndex={0}
+          >
+            <div className="award-card-content" style={{ background: '#22c579' }}>
+              <div className="award-card-peek" aria-hidden="true">
+                <div style={{ width: '100%', height: '112px', background: '#52e0a6', display: 'flex', alignItems: 'center', justifyContent: 'center', transform: 'rotateX(180deg)' }}>
+                  <span style={{ color: '#07110b', fontFamily: 'Clash Display', fontSize: '24px', fontWeight: 600 }}>DISCOVER MORE</span>
+                </div>
+              </div>
+              <span className="award-organization" style={{ color: '#07110b' }}>ARCHIVE</span>
+              <strong style={{ color: '#07110b' }}>VIEW ALL EVENTS</strong>
+              <span className="award-project" style={{ color: '#07110b' }}>Explore &rarr;</span>
+            </div>
+          </a>
         </div>
 
         <p className="awards-footnote">
