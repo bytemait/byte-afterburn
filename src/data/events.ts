@@ -9,6 +9,7 @@ export interface EventItem {
   name: string;
   type: string;
   date: string;
+  year?: string;
   time: string;
   venue: string;
   shortDescription: string;
@@ -17,6 +18,7 @@ export interface EventItem {
   whoCanAttend: string[];
   ctaLabel?: string;
   isUpcoming?: boolean;
+  image?: string;
 }
 
 export const events: EventItem[] = [
@@ -24,7 +26,8 @@ export const events: EventItem[] = [
     slug: 'pixel-punk',
     name: 'Pixel Punk Game Jam',
     type: 'Competition',
-    date: '15 Mar',
+    date: '27 Mar',
+    year: '2025',
     time: '10:00 AM – 10:00 AM',
     venue: 'Virtual & Campus',
     shortDescription: 'Merging retro-futurism with modern gameplay in a high-stakes game jam.',
@@ -40,12 +43,14 @@ export const events: EventItem[] = [
       'Any game engine or framework is allowed.',
     ],
     isUpcoming: false,
+    image: '/assets/events/pixel-punk.webp',
   },
   {
     slug: 'robo-soccer',
     name: 'Robo Soccer',
     type: 'Competition',
-    date: '10 Feb',
+    date: '10 Sep',
+    year: '2024',
     time: '11:00 AM – 04:00 PM',
     venue: 'Main Ground',
     shortDescription: 'A high-energy showcase of robotics, engineering precision, and strategy.',
@@ -60,34 +65,36 @@ export const events: EventItem[] = [
       'Spectators are highly encouraged to come and cheer.',
     ],
     isUpcoming: false,
+    image: '/assets/events/robo-soccer.webp',
   },
   {
     slug: 'ml-workshop-week',
     name: 'ML Workshop Week',
     type: 'Workshop',
-    date: '05 Apr',
+    date: '19 Feb',
+    year: '2025',
     time: '04:00 PM – 06:00 PM',
     venue: 'Lab 4, CSE Block',
-    shortDescription: '5-day intensive workshop covering LSTM, Transformers, CUDA, and RL.',
-    description: 'A comprehensive 5-day deep dive into Machine Learning. We moved beyond the basics to cover LSTMs, the architecture of Transformers, an introduction to GPU programming with CUDA, and the fundamentals of Reinforcement Learning. Highly practical and code-heavy.',
+    shortDescription: '3-day intensive workshop covering LSTM, Transformers, CUDA, and RL.',
+    description: 'A comprehensive deep dive into Machine Learning. We moved beyond the basics to cover LSTMs, the architecture of Transformers, an introduction to GPU programming with CUDA, and the fundamentals of Reinforcement Learning. Highly practical and code-heavy.',
     agenda: [
       { time: 'Day 1', title: 'Introduction & Basics', detail: 'Setting the groundwork.' },
-      { time: 'Day 2', title: 'Time Series & LSTMs', detail: 'Handling sequential data.' },
-      { time: 'Day 3', title: 'Transformers', detail: 'Attention is all you need.' },
-      { time: 'Day 4', title: 'Intro to CUDA', detail: 'Accelerating workloads on the GPU.' },
-      { time: 'Day 5', title: 'Reinforcement Learning', detail: 'Teaching agents to play games.' },
+      { time: 'Day 2', title: 'LSTMs & Transformers', detail: 'Handling sequential data and attention.' },
+      { time: 'Day 3', title: 'CUDA & Reinforcement Learning', detail: 'Accelerating workloads and teaching agents.' },
     ],
     whoCanAttend: [
       'Students with intermediate Python knowledge.',
       'Those interested in advanced AI/ML topics.',
     ],
     isUpcoming: false,
+    image: '/assets/events/ml-workshop.webp',
   },
   {
     slug: 'solana-bootcamp',
     name: 'Solana Bootcamp',
     type: 'Bootcamp',
-    date: '22 Apr',
+    date: '08 Oct',
+    year: '2025',
     time: '10:00 AM – 05:00 PM',
     venue: 'Seminar Hall',
     shortDescription: 'Two-day bootcamp diving into blockchain concepts and Rust/Anchor development.',
@@ -101,12 +108,14 @@ export const events: EventItem[] = [
       'Familiarity with systems programming (C/C++) is a plus but not required.',
     ],
     isUpcoming: false,
+    image: '/assets/events/solana.webp',
   },
   {
     slug: 'ui-ux-ai-workshop',
     name: 'UI/UX & AI Workshop',
     type: 'Workshop',
-    date: '14 May',
+    date: '29 Oct',
+    year: '2025',
     time: '02:00 PM – 05:00 PM',
     venue: 'Design Studio',
     shortDescription: 'Exploring how human-centered design blends with artificial intelligence.',
@@ -121,12 +130,14 @@ export const events: EventItem[] = [
       'No prior AI knowledge required.',
     ],
     isUpcoming: false,
+    image: '/assets/events/ui-ux.webp',
   },
   {
     slug: 'algo-trading-sprint',
     name: 'Algo Trading Sprint',
     type: 'Competition',
-    date: '28 May',
+    date: '16 Mar',
+    year: '2026',
     time: '09:00 AM – 06:00 PM',
     venue: 'Lab 2',
     shortDescription: 'A two-day sprint to build and deploy ML-based trading bots.',
@@ -140,6 +151,52 @@ export const events: EventItem[] = [
       'Teams of 2-3 are recommended.',
     ],
     isUpcoming: false,
+    image: '/assets/events/algo-trading.webp',
+  },
+  {
+    slug: 'ai-safety-ml-awareness',
+    name: 'AI Safety & ML Awareness',
+    type: 'Tech Talk',
+    date: '02 Sep',
+    year: '2026',
+    time: '01:10 PM - 02:00 PM',
+    venue: '11th Block, MAIT',
+    shortDescription: 'Talk on AI safety and machine learning awareness by Mr. Manan Wadhwa with an API prize quiz.',
+    description: 'Curious about AI, ML & responsible AI? Join us for an AI Safety & Machine Learning Awareness Session with Mr. Manan Wadhwa and explore how we can make AI safer and more responsible! A quiz will follow the session, based entirely on what is covered, with OpenAI APIs as prizes for the top performers.',
+    agenda: [
+      { time: '01:10 PM', title: 'Session Begins', detail: 'Exploring AI safety, ML awareness, and responsible AI.' },
+      { time: '01:45 PM', title: 'Quiz Time', detail: 'Test your knowledge based entirely on the session content.' },
+      { time: '02:00 PM', title: 'Prize Distribution & Closing', detail: 'OpenAI API prizes awarded to top performers.' },
+    ],
+    whoCanAttend: [
+      'All students interested in AI and its societal impact.',
+      'Anyone curious to learn and win OpenAI API access.',
+    ],
+    isUpcoming: false,
+    image: '/assets/events/ai-safety.webp',
+  },
+  {
+    slug: 'webcmd-hackathon',
+    name: 'WebCMD Hackathon',
+    type: 'Competition',
+    date: '12 Sep',
+    year: '2026',
+    time: '09:00 AM – 06:00 PM',
+    venue: 'MAIT Campus',
+    shortDescription: 'A hands-on hackathon hosted by webcmd to build Self-Learning Browser Agents.',
+    description: 'Delhi, we’re bringing SLAB to MAIT! Build Browser Agents that can research, test, monitor, book, shop, and complete useful work across real websites. Webcmd is self-learning browser infrastructure for AI agents that explores unfamiliar websites and transforms stable workflows into reliable commands. We’ll begin with a practical Browser Agents 101 walkthrough so everyone can start building quickly. Build responsibly, build solo, and bring your preferred stack (Codex, Claude, Playwright, etc).',
+    agenda: [
+      { time: '09:00 AM', title: 'Browser Agents 101', detail: 'A practical walkthrough to get everyone building quickly.' },
+      { time: '10:00 AM', title: 'Hacking Begins', detail: 'Build an agent that solves a meaningful, real-world browser workflow.' },
+      { time: '04:00 PM', title: 'Final Demos', detail: 'Live execution or real screen recordings presented to judges.' },
+    ],
+    whoCanAttend: [
+      'AI-agent builders, developers, students, and automation enthusiasts.',
+      'No prior browser-automation experience is required.',
+      'Solo builders only.',
+    ],
+    isUpcoming: false,
+    image: '/assets/events/webcmd.webp',
   },
 ];
 

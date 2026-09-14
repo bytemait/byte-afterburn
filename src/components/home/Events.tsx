@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { events } from '../../data/events';
+
 type Award = {
   organization: string;
   recognition: string;
@@ -8,44 +10,13 @@ type Award = {
   href?: string;
 };
 
-const EVENTS: Award[] = [
-  {
-    organization: 'COMPETITION',
-    recognition: 'PIXEL PUNK',
-    project: 'Game Jam',
-    image: 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=2672&h=112',
-  },
-  {
-    organization: 'COMPETITION',
-    recognition: 'ROBO SOCCER',
-    project: 'Robotics',
-    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=2672&h=112',
-  },
-  {
-    organization: 'WORKSHOP',
-    recognition: 'ML WORKSHOP',
-    project: 'AI & Machine Learning',
-    image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=2672&h=112',
-  },
-  {
-    organization: 'BOOTCAMP',
-    recognition: 'SOLANA BOOTCAMP',
-    project: 'Web3 & Rust',
-    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=2672&h=112',
-  },
-  {
-    organization: 'WORKSHOP',
-    recognition: 'UI/UX WORKSHOP',
-    project: 'Design & AI',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=2672&h=112',
-  },
-  {
-    organization: 'COMPETITION',
-    recognition: 'ALGO TRADING SPRINT',
-    project: 'FinTech & ML',
-    image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=2672&h=112',
-  },
-];
+const EVENTS: Award[] = events.map(event => ({
+  organization: event.type.toUpperCase(),
+  recognition: event.name.toUpperCase(),
+  project: event.shortDescription.split(' ')[0] + ' ' + event.shortDescription.split(' ')[1], // Rough category fallback
+  image: event.image || 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=2672&h=112',
+  href: `/events/${event.slug}`,
+}));
 
 /** Recreates the Framer awards stack: a hinged 3D face exposes its image strip on interaction. */
 export default function Events() {
