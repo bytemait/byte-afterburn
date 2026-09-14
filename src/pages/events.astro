@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { events } from '../data/events';
+import Footer from '../components/common/Footer.astro';
 ---
 
-<Layout title="Events — B.Y.T.E." active="events">
+<Layout title="Events — B.Y.T.E." active="events" footerInSlot>
   <div class="page-header">
     <div class="wrap">
       <h1>Events</h1>
@@ -67,6 +68,8 @@ import { events } from '../data/events';
       </div>
     </div>
   </section>
+
+  <Footer immersive />
 </Layout>
 
 <script>
