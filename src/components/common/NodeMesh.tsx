@@ -389,6 +389,10 @@ export default function NodeMesh() {
           // Correlated random acceleration gives Brownian drift without frame-to-frame jitter.
           node.vx += ((Math.random() - 0.5) * 0.035 + Math.sin(elapsed + node.phase) * 0.006) * step;
           node.vy += ((Math.random() - 0.5) * 0.035 + Math.cos(elapsed * 0.7 + node.phase) * 0.006) * step;
+          // Faint pull toward an evenly-spread home row stops sustained scroll drag from
+          // leaving the field lopsided (all nodes drained toward one edge) after a long scroll.
+          const homeRow = fieldHomes[nodeIndex];
+          if (homeRow) node.vy += (homeRow.y - node.y) * 0.0025 * step;
           if (pointer.active) {
             const dx = node.x - pointer.x;
             const dy = node.y - pointer.y;
@@ -452,10 +456,11 @@ export default function NodeMesh() {
           // Soft boundary forces preserve continuity; no teleporting edge connections.
           if (node.x < 0) node.vx += 0.025 * step;
           if (node.x > width) node.vx -= 0.025 * step;
-          if (node.y < 0) node.vy += 0.025 * step;
-          if (node.y > height) node.vy -= 0.025 * step;
           node.x = clamp(node.x, -30, width + 30);
-          node.y = clamp(node.y, -30, height + 30);
+          // Vertical wrap-around: nodes drifting off the top re-enter from the bottom (and vice versa)
+          // instead of bunching up against the edge under sustained scroll drag.
+          if (node.y < -30) node.y += height + 60;
+          else if (node.y > height + 30) node.y -= height + 60;
         }
       }
 
