@@ -1,6 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { events } from '../data/events';
+
+// Helper to parse dates for sorting (combines "DD MMM" with "YYYY")
+function parseDate(dateStr: string, yearStr: string = '2026') {
+  return new Date(`${dateStr} ${yearStr}`).getTime();
+}
+
+const sortedEvents = [...events].sort((a, b) => parseDate(b.date, b.year) - parseDate(a.date, a.year));
+
+const upcomingEvents = sortedEvents.filter((e) => e.isUpcoming);
+const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
 import Footer from '../components/common/Footer.astro';
 ---
 
@@ -22,34 +32,95 @@ import Footer from '../components/common/Footer.astro';
         <button class="filter-pill">Social</button>
       </div>
 
-      <div class="events-list">
-        {events.map((event, index) => {
-          const isFlip = index % 2 === 1;
-          const [day, month] = event.date.split(' ');
-          return (
-            <div class={`event-card ${isFlip ? 'flip' : ''}`}>
-              {!isFlip && (
-                <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
-              )}
-              <div class="event-body">
-                <div class="date-chip"><b>{day}</b><span>{month}</span></div>
-                <div class="event-content">
-                  <h3>{event.name}</h3>
-                  <p>{event.shortDescription}</p>
-                  <div class="meta-row">
-                    <span><svg><use href="#i-clock"/></svg>{event.time}</span>
-                    <span><svg><use href="#i-pin"/></svg>{event.venue}</span>
+      {upcomingEvents.length > 0 && (
+        <div class="events-section-block" style="margin-bottom: 80px;">
+          <h2 style="font-family: 'Clash Display', sans-serif; font-size: 2rem; color: #fff; margin-bottom: 30px;">Upcoming Events</h2>
+          <div class="events-list">
+            {upcomingEvents.map((event, index) => {
+              const isFlip = index % 2 === 1;
+              const [day, month] = event.date.split(' ');
+              return (
+                <div class={`event-card ${isFlip ? 'flip' : ''}`} data-type={event.type}>
+                  {!isFlip && (
+                    <div class="ph" data-ratio="800 × 600">
+                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></>}
+                    </div>
+                  )}
+                  <div class="event-body">
+                    <div class="date-chip">
+                      <b>{day}</b>
+                      <span>{month}</span>
+                      {event.year && <span style="font-size: 0.7em; opacity: 0.8; display: block; text-align: center;">{event.year}</span>}
+                    </div>
+                    <div class="event-content">
+                      <h3>{event.name}</h3>
+                      <p>{event.shortDescription}</p>
+                      <div class="meta-row">
+                        <span><svg><use href="#i-clock"/></svg>{event.time}</span>
+                        <span><svg><use href="#i-pin"/></svg>{event.venue}</span>
+                      </div>
+                      <a href={`/events/${event.slug}`} class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+                    </div>
                   </div>
-                  <a href={`/events/${event.slug}`} class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+                  {isFlip && (
+                    <div class="ph" data-ratio="800 × 600">
+                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></>}
+                    </div>
+                  )}
                 </div>
-              </div>
-              {isFlip && (
-                <div class="ph" data-ratio="800 × 600"><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {pastEvents.length > 0 && (
+        <div class="events-section-block">
+          <h2 style="font-family: 'Clash Display', sans-serif; font-size: 2rem; color: #fff; margin-bottom: 30px; opacity: 0.8;">Past Events</h2>
+          <div class="events-list" style="opacity: 0.7;">
+            {pastEvents.map((event, index) => {
+              const isFlip = index % 2 === 1;
+              const [day, month] = event.date.split(' ');
+              return (
+                <div class={`event-card ${isFlip ? 'flip' : ''}`} data-type={event.type}>
+                  {!isFlip && (
+                    <div class="ph" data-ratio="800 × 600">
+                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></>}
+                    </div>
+                  )}
+                  <div class="event-body">
+                    <div class="date-chip">
+                      <b>{day}</b>
+                      <span>{month}</span>
+                      {event.year && <span style="font-size: 0.7em; opacity: 0.8; display: block; text-align: center;">{event.year}</span>}
+                    </div>
+                    <div class="event-content">
+                      <h3>{event.name}</h3>
+                      <p>{event.shortDescription}</p>
+                      <div class="meta-row">
+                        <span><svg><use href="#i-clock"/></svg>{event.time}</span>
+                        <span><svg><use href="#i-pin"/></svg>{event.venue}</span>
+                      </div>
+                      <a href={`/events/${event.slug}`} class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+                    </div>
+                  </div>
+                  {isFlip && (
+                    <div class="ph" data-ratio="800 × 600">
+                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></>}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {upcomingEvents.length === 0 && pastEvents.length === 0 && (
+        <div class="empty-events" style="text-align: center; color: #888; padding: 60px 0;">
+          <p>No events found.</p>
+        </div>
+      )}
     </div>
   </section>
 
@@ -73,10 +144,43 @@ import Footer from '../components/common/Footer.astro';
 </Layout>
 
 <script>
-  document.querySelectorAll('.filter-pill').forEach((p) => {
-    p.addEventListener('click', () => {
-      document.querySelectorAll('.filter-pill').forEach((x) => x.classList.remove('active'));
-      p.classList.add('active');
+  // Use event delegation on the container or run setup when DOM is fully loaded.
+  // Astro pages sometimes transition without full reloads, so we should ensure the script runs reliably.
+  document.addEventListener('astro:page-load', () => {
+    const pills = document.querySelectorAll('.filter-pill');
+    
+    pills.forEach((pill) => {
+      pill.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        
+        // Handle active state
+        pills.forEach((x) => x.classList.remove('active'));
+        target.classList.add('active');
+
+        // Handle filtering
+        const filterValue = target.textContent?.trim().toLowerCase() || 'all';
+        const eventCards = document.querySelectorAll('.event-card');
+        const blocks = document.querySelectorAll('.events-section-block');
+
+        eventCards.forEach((card) => {
+          const type = (card as HTMLElement).dataset.type?.toLowerCase() || '';
+          if (filterValue === 'all' || type === filterValue) {
+            (card as HTMLElement).style.display = '';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+
+        // Hide empty section blocks
+        blocks.forEach((block) => {
+          const visibleCards = block.querySelectorAll('.event-card:not([style*="display: none"])');
+          if (visibleCards.length === 0) {
+            (block as HTMLElement).style.display = 'none';
+          } else {
+            (block as HTMLElement).style.display = '';
+          }
+        });
+      });
     });
   });
 </script>
