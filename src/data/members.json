@@ -1,0 +1,238 @@
+{
+  "members": [
+    {
+      "slug": "swayam-bansal",
+      "name": "Swayam Bansal",
+      "short": "SB",
+      "role": "President",
+      "group": "leadership",
+      "photo": "/team_pics/optimized/swayam_bansal_alpha.webp",
+      "quote": "With great power comes great responsibility… and a lot of WhatsApp messages."
+    },
+    {
+      "slug": "aniket-yadav",
+      "name": "Aniket Yadav",
+      "short": "AY",
+      "role": "Vice President",
+      "group": "leadership",
+      "photo": "/team_pics/optimized/aniket_yadav_alpha.webp",
+      "quote": "probably an edge case."
+    },
+    {
+      "slug": "vansh",
+      "name": "Vansh",
+      "short": "VA",
+      "role": "Vice President",
+      "group": "leadership",
+      "photo": "/team_pics/optimized/vansh_alpha.webp",
+      "quote": "deadline chali gayi quote nhi soch paya"
+    },
+    {
+      "slug": "sanyam-chhabra",
+      "name": "Sanyam Chhabra",
+      "short": "SA",
+      "role": "General Secretary",
+      "group": "leadership",
+      "photo": "/team_pics/optimized/sanyam_alpha.webp",
+      "quote": "Idk man I just got here"
+    },
+    {
+      "slug": "krish-malik",
+      "name": "Krish Malik",
+      "short": "KM",
+      "role": "General Secretary",
+      "group": "leadership",
+      "photo": "/team_pics/optimized/krish_malik_alpha.webp",
+      "quote": "Asymptote of Success never meets for me"
+    },
+    {
+      "slug": "arpan-taneja",
+      "name": "Arpan Taneja",
+      "short": "AR",
+      "role": "Project Manager",
+      "group": "leadership",
+      "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "slug": "mohit-madan",
+      "name": "Mohit Madan",
+      "short": "MM",
+      "role": "Project Manager",
+      "group": "leadership",
+      "photo": "/team_pics/optimized/mohit_madan_alpha.webp",
+      "quote": "Cat of all trades, meowchine learning certified"
+    },
+    {
+      "slug": "aditya-gupta",
+      "name": "Aditya Gupta",
+      "short": "AG",
+      "role": "Coordinator",
+      "group": "development",
+      "photo": "/team_pics/optimized/aditya_gupta_alpha.webp",
+      "quote": "Bafton Ciplax Den Marker"
+    },
+    {
+      "slug": "khushi-dhankar",
+      "name": "Khushi Dhankar",
+      "short": "KD",
+      "role": "Coordinator",
+      "group": "development",
+      "photo": "/team_pics/optimized/khushi_dhankar_alpha.webp",
+      "quote": "professionally winging it…"
+    },
+    {
+      "slug": "shruti",
+      "name": "Shruti",
+      "short": "SH",
+      "role": "Coordinator",
+      "group": "cybersecurity",
+      "photo": "/team_pics/optimized/shruti_alpha.webp",
+      "quote": "Amidst the destruction"
+    },
+    {
+      "slug": "tejas-singh-kapur",
+      "name": "Tejas Singh Kapur",
+      "short": "TE",
+      "role": "Coordinator",
+      "group": "cybersecurity",
+      "photo": "/team_pics/optimized/tejas_alpha.webp",
+      "quote": "The weakest link in security lies between the computer and the chair"
+    },
+    {
+      "slug": "punya-arora",
+      "name": "Punya Arora",
+      "short": "PA",
+      "role": "Coordinator",
+      "group": "creative",
+      "photo": "/team_pics/optimized/punya_arora_alpha.webp",
+      "quote": "Rendering ideas... please wait."
+    },
+    {
+      "slug": "chidroopa-kanaparthy",
+      "name": "Chidroopa Kanaparthy",
+      "short": "CH",
+      "role": "Coordinator",
+      "group": "creative",
+      "photo": "/team_pics/optimized/chidroopa_alpha.webp",
+      "quote": "They say I don't know when to quit. Like that's a weakness."
+    },
+    {
+      "slug": "snow-sadh",
+      "name": "Snow Sadh",
+      "short": "SN",
+      "role": "Coordinator",
+      "group": "aiml",
+      "photo": "/team_pics/optimized/snow_alpha.webp",
+      "quote": "i am gitler"
+    },
+    {
+      "slug": "krishna-mudgal",
+      "name": "Krishna Mudgal",
+      "short": "KR",
+      "role": "Coordinator",
+      "group": "aiml",
+      "photo": "/team_pics/optimized/krishna_mudgal_alpha.webp",
+      "quote": "Byte members are gonna work at DeepMind and Anthropic in the future."
+    },
+    {
+      "slug": "aditya-kumar-maurya",
+      "name": "Aditya Kumar Maurya",
+      "short": "AM",
+      "role": "Coordinator",
+      "group": "mechatronics",
+      "photo": "/team_pics/optimized/aditya_maurya_alpha.webp",
+      "quote": "Part-time engineer, part-time electrician, part-time programmer… fully confused."
+    },
+    {
+      "slug": "devesh-dev",
+      "name": "Devesh Dev",
+      "short": "DD",
+      "role": "Coordinator",
+      "group": "mechatronics",
+      "photo": "/team_pics/optimized/devesh_dev_alpha.webp",
+      "quote": "We're here to live l. We're here to do. We're here to be"
+    }
+  ],
+  "departmentMembers": {
+    "development": [
+      { "slug": "aditya-shahi", "name": "Aditya Shahi", "role": "Member", "group": "development" },
+      { "slug": "chirag", "name": "Chirag", "role": "Member", "group": "development" },
+      { "slug": "dev-saini", "name": "Dev Saini", "role": "Member", "group": "development", "photo": "/team_pics/members/dev_saini.png" },
+      { "slug": "himanshu-vishwakarma", "name": "Himanshu Vishwakarma", "role": "Member", "group": "development" },
+      { "slug": "himanshu-yadav", "name": "Himanshu Yadav", "role": "Member", "group": "development", "photo": "/team_pics/members/himanshu_yadav.png" },
+      { "slug": "ishuman-chaudhary", "name": "Ishuman Chaudhary", "role": "Member", "group": "development" },
+      { "slug": "krishna-tiwari", "name": "Krishna Tiwari", "role": "Member", "group": "development", "photo": "/team_pics/members/krishna_tiwari.png" },
+      { "slug": "parth-garg", "name": "Parth Garg", "role": "Member", "group": "development", "photo": "/team_pics/members/parth_garg.jpg" },
+      { "slug": "snehashish-ghosh", "name": "Snehashish Ghosh", "role": "Member", "group": "development" },
+      { "slug": "srishti-raghava", "name": "Srishti Raghava", "role": "Member", "group": "development", "photo": "/team_pics/members/srishti_raghava.png" },
+      { "slug": "tanmay-aggarwal", "name": "Tanmay Aggarwal", "role": "Member", "group": "development" },
+      { "slug": "vaibhav-jain", "name": "Vaibhav Jain", "role": "Member", "group": "development" },
+      { "slug": "vandit-kad", "name": "Vandit Kad", "role": "Member", "group": "development", "photo": "/team_pics/members/vandit_kad.png" },
+      { "slug": "vinayak-mittal", "name": "Vinayak Mittal", "role": "Member", "group": "development" },
+      { "slug": "yash-bahuguna", "name": "Yash Bahuguna", "role": "Member", "group": "development", "photo": "/team_pics/members/yash_bahuguna.jpeg" },
+      { "slug": "yash-malhotra", "name": "Yash Malhotra", "role": "Member", "group": "development" },
+      { "slug": "yuktarth-naman", "name": "Yuktarth Naman", "role": "Member", "group": "development", "photo": "/team_pics/members/yuktarth_naman.png" }
+    ],
+    "aiml": [
+      { "slug": "tasmayu-swain", "name": "Tasmayu Swain", "role": "Member", "group": "aiml" },
+      { "slug": "yajat-makhija", "name": "Yajat Makhija", "role": "Member", "group": "aiml" },
+      { "slug": "anupam-jain", "name": "Anupam Jain", "role": "Member", "group": "aiml", "photo": "/team_pics/members/anupam_jain.png" },
+      { "slug": "bhumi", "name": "Bhumi", "role": "Member", "group": "aiml", "photo": "/team_pics/members/bhumi.png" },
+      { "slug": "haragam-deep-singh", "name": "Haragam Deep Singh", "role": "Member", "group": "aiml", "photo": "/team_pics/members/haragam_deep_singh.png" }
+    ],
+    "cybersecurity": [
+      { "slug": "pushkar-kumar-jha", "name": "Pushkar Kumar Jha", "role": "Member", "group": "cybersecurity" },
+      { "slug": "ayush-choudhary", "name": "Ayush Choudhary", "role": "Member", "group": "cybersecurity" }
+    ],
+    "mechatronics": [
+      { "slug": "priyansh-singh-rathore", "name": "Priyansh Singh Rathore", "role": "Member", "group": "mechatronics" },
+      { "slug": "palash-kuchroo", "name": "Palash Kuchroo", "role": "Member", "group": "mechatronics", "photo": "/team_pics/members/palash.png" }
+    ],
+    "creative": [
+      { "slug": "priyanka", "name": "Priyanka", "role": "Member", "group": "creative" },
+      { "slug": "suraj-padhi", "name": "Suraj Padhi", "role": "Member", "group": "creative" },
+      { "slug": "harasis-singh-lamba", "name": "Harasis Singh Lamba", "role": "Member", "group": "creative" },
+      { "slug": "yeshika", "name": "Yeshika", "role": "Member", "group": "creative" }
+    ]
+  },
+  "memberAvatarPhotos": {
+    "Dev Saini": "/team_pics/members/dev_saini.png",
+    "Himanshu Yadav": "/team_pics/members/himanshu_yadav.png",
+    "Krishna Tiwari": "/team_pics/members/krishna_tiwari.png",
+    "Parth Garg": "/team_pics/members/parth_garg.jpg",
+    "Srishti Raghava": "/team_pics/members/srishti_raghava.png",
+    "Vandit Kad": "/team_pics/members/vandit_kad.png",
+    "Yash Bahuguna": "/team_pics/members/yash_bahuguna.jpeg",
+    "Yuktarth Naman": "/team_pics/members/yuktarth_naman.png",
+    "Anupam Jain": "/team_pics/members/anupam_jain.png",
+    "Bhumi": "/team_pics/members/bhumi.png",
+    "Haragam Deep Singh": "/team_pics/members/haragam_deep_singh.png",
+    "Palash Kuchroo": "/team_pics/members/palash.png"
+  },
+  "alumni2025": [
+    { "slug": "ashish-negi", "name": "Ashish Negi", "role": "President", "tier": "lead", "year": "2025" },
+    { "slug": "arnav-chopra", "name": "Arnav Chopra", "role": "President", "tier": "lead", "year": "2025" },
+    { "slug": "vipul-kohli", "name": "Vipul Kohli", "role": "Vice President", "tier": "inner", "year": "2025" },
+    { "slug": "pratham-gupta-2025", "name": "Pratham Gupta", "role": "Vice President", "tier": "inner", "year": "2025" },
+    { "slug": "sukaran-gulati", "name": "Sukaran Gulati", "role": "Vice President", "tier": "inner", "year": "2025" },
+    { "slug": "divyansh-kalra", "name": "Divyansh Kalra", "role": "General Secretary", "tier": "inner", "year": "2025" },
+    { "slug": "anagh-miglani", "name": "Anagh Miglani", "role": "General Secretary", "tier": "inner", "year": "2025" },
+    { "slug": "shrey-garg", "name": "Shrey Garg", "role": "Creative Outreach", "tier": "outer", "year": "2025" },
+    { "slug": "jahnvi-pareek", "name": "Jahnvi Pareek", "role": "Creative Outreach", "tier": "outer", "year": "2025" },
+    { "slug": "dishant-pandey", "name": "Dishant Pandey", "role": "Creative Outreach", "tier": "outer", "year": "2025" },
+    { "slug": "manan-wadhwa", "name": "Manan Wadhwa", "role": "Development Coordinator", "tier": "outer", "year": "2025" },
+    { "slug": "kush-aheer", "name": "Kush Aheer", "role": "Development Coordinator", "tier": "outer", "year": "2025" }
+  ],
+  "alumni2024": [
+    { "slug": "shivam-kumar-jha", "name": "Shivam Kumar Jha", "role": "Founding President", "tier": "lead", "year": "2024" },
+    { "slug": "abir-thakur", "name": "Abir Thakur", "role": "Vice President", "tier": "inner", "year": "2024" },
+    { "slug": "aman-sharma", "name": "Aman Sharma", "role": "Vice President", "tier": "inner", "year": "2024" },
+    { "slug": "ansh-kapila", "name": "Ansh Kapila", "role": "Creative Outreach", "tier": "outer", "year": "2024" },
+    { "slug": "tanush-purwar", "name": "Tanush Purwar", "role": "Creative Outreach", "tier": "outer", "year": "2024" },
+    { "slug": "ishaan-minocha", "name": "Ishaan Minocha", "role": "Coordinator", "tier": "outer", "year": "2024" },
+    { "slug": "haaris-huda", "name": "Haaris Huda", "role": "Coordinator", "tier": "outer", "year": "2024" },
+    { "slug": "piyush-mittal", "name": "Piyush Mittal", "role": "Coordinator", "tier": "outer", "year": "2024" },
+    { "slug": "chayan-khetan", "name": "Chayan Khetan", "role": "Coordinator", "tier": "outer", "year": "2024" },
+    { "slug": "pratham-gupta-2024", "name": "Pratham Gupta", "role": "Coordinator", "tier": "outer", "year": "2024" }
+  ]
+}

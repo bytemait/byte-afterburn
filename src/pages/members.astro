@@ -1,61 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/common/Footer.astro';
+import membersData from '../data/members.json';
 
 type Member = {
+  slug: string;
   name: string;
-  short: string;
+  short?: string;
   role: string;
   group: 'leadership' | 'development' | 'cybersecurity' | 'creative' | 'aiml' | 'mechatronics';
   photo?: string;
   quote?: string;
 };
 
-const members: Member[] = [
-  { name: 'Swayam Bansal', short: 'SB', role: 'President', group: 'leadership', photo: '/team_pics/optimized/swayam_bansal_alpha.webp', quote: 'With great power comes great responsibility… and a lot of WhatsApp messages.' },
-  { name: 'Aniket Yadav', short: 'AY', role: 'Vice President', group: 'leadership', photo: '/team_pics/optimized/aniket_yadav_alpha.webp', quote: 'probably an edge case.' },
-  { name: 'Vansh', short: 'VA', role: 'Vice President', group: 'leadership', photo: '/team_pics/optimized/vansh_alpha.webp', quote: 'deadline chali gayi quote nhi soch paya' },
-  { name: 'Sanyam Chhabra', short: 'SA', role: 'General Secretary', group: 'leadership', photo: '/team_pics/optimized/sanyam_alpha.webp', quote: 'Idk man I just got here' },
-  { name: 'Krish Malik', short: 'KM', role: 'General Secretary', group: 'leadership', photo: '/team_pics/optimized/krish_malik_alpha.webp', quote: 'Asymptote of Success never meets for me' },
-  { name: 'Arpan Taneja', short: 'AR', role: 'Project Manager', group: 'leadership', quote: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-  { name: 'Mohit Madan', short: 'MM', role: 'Project Manager', group: 'leadership', photo: '/team_pics/optimized/mohit_madan_alpha.webp', quote: 'Cat of all trades, meowchine learning certified' },
-  { name: 'Aditya Gupta', short: 'AG', role: 'Coordinator', group: 'development', photo: '/team_pics/optimized/aditya_gupta_alpha.webp', quote: 'Bafton Ciplax Den Marker' },
-  { name: 'Khushi Dhankar', short: 'KD', role: 'Coordinator', group: 'development', photo: '/team_pics/optimized/khushi_dhankar_alpha.webp', quote: 'professionally winging it…' },
-  { name: 'Shruti', short: 'SH', role: 'Coordinator', group: 'cybersecurity', photo: '/team_pics/optimized/shruti_alpha.webp', quote: 'Amidst the destruction' },
-  { name: 'Tejas Singh Kapur', short: 'TE', role: 'Coordinator', group: 'cybersecurity', photo: '/team_pics/optimized/tejas_alpha.webp', quote: 'The weakest link in security lies between the computer and the chair' },
-  { name: 'Punya Arora', short: 'PA', role: 'Coordinator', group: 'creative', photo: '/team_pics/optimized/punya_arora_alpha.webp', quote: 'Rendering ideas... please wait.' },
-  { name: 'Chidroopa Kanaparthy', short: 'CH', role: 'Coordinator', group: 'creative', photo: '/team_pics/optimized/chidroopa_alpha.webp', quote: "They say I don't know when to quit. Like that's a weakness." },
-  { name: 'Snow Sadh', short: 'SN', role: 'Coordinator', group: 'aiml', photo: '/team_pics/optimized/snow_alpha.webp', quote: 'i am gitler' },
-  { name: 'Krishna Mudgal', short: 'KR', role: 'Coordinator', group: 'aiml', photo: '/team_pics/optimized/krishna_mudgal_alpha.webp', quote: 'Byte members are gonna work at DeepMind and Anthropic in the future.' },
-  { name: 'Aditya Kumar Maurya', short: 'AM', role: 'Coordinator', group: 'mechatronics', photo: '/team_pics/optimized/aditya_maurya_alpha.webp', quote: 'Part-time engineer, part-time electrician, part-time programmer… fully confused.' },
-  { name: 'Devesh Dev', short: 'DD', role: 'Coordinator', group: 'mechatronics', photo: '/team_pics/optimized/devesh_dev_alpha.webp', quote: "We're here to live l. We're here to do. We're here to be" },
-];
-
-const departmentMembers = {
-  development: [
-    'Aditya Shahi', 'Chirag', 'Dev Saini', 'Himanshu Vishwakarma', 'Himanshu Yadav', 'Ishuman Chaudhary', 'Krishna Tiwari', 'Parth Garg', 'Snehashish Ghosh',
-    'Srishti Raghava', 'Tanmay Aggarwal', 'Vaibhav Jain', 'Vandit Kad', 'Vinayak Mittal', 'Yash Bahuguna', 'Yash Malhotra', 'Yuktarth Naman',
-  ],
-  aiml: ['Tasmayu Swain', 'Yajat Makhija', 'Anupam Jain', 'Bhumi', 'Haragam Deep Singh'],
-  cybersecurity: ['Pushkar Kumar Jha', 'Ayush Choudhary'],
-  mechatronics: ['Priyansh Singh Rathore', 'Palash Kuchroo'],
-  creative: ['Priyanka', 'Suraj Padhi', 'Harasis Singh Lamba', 'Yeshika'],
-} as const;
-
-const memberAvatarPhotos: Record<string, string> = {
-  'Dev Saini': '/team_pics/members/dev_saini.png',
-  'Himanshu Yadav': '/team_pics/members/himanshu_yadav.png',
-  'Krishna Tiwari': '/team_pics/members/krishna_tiwari.png',
-  'Parth Garg': '/team_pics/members/parth_garg.jpg',
-  'Srishti Raghava': '/team_pics/members/srishti_raghava.png',
-  'Vandit Kad': '/team_pics/members/vandit_kad.png',
-  'Yash Bahuguna': '/team_pics/members/yash_bahuguna.jpeg',
-  'Yuktarth Naman': '/team_pics/members/yuktarth_naman.png',
-  'Anupam Jain': '/team_pics/members/anupam_jain.png',
-  'Bhumi': '/team_pics/members/bhumi.png',
-  'Haragam Deep Singh': '/team_pics/members/haragam_deep_singh.png',
-  'Palash Kuchroo': '/team_pics/members/palash.png',
+type DepartmentMember = {
+  slug: string;
+  name: string;
+  role: string;
+  group: string;
+  photo?: string;
 };
+
+type AlumniMember = {
+  slug: string;
+  name: string;
+  role: string;
+  tier: 'lead' | 'inner' | 'outer';
+  year: string;
+};
+
+const members: Member[] = membersData.members as Member[];
+const departmentMembers: Record<string, DepartmentMember[]> = membersData.departmentMembers;
+const memberAvatarPhotos: Record<string, string> = membersData.memberAvatarPhotos;
+const alumni2025: AlumniMember[] = membersData.alumni2025 as AlumniMember[];
+const alumni2024: AlumniMember[] = membersData.alumni2024 as AlumniMember[];
 
 const avatarInitials = (name: string) => name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 
@@ -65,36 +43,6 @@ const councilRoleLabels: Record<string, string> = {
   'General Secretary': 'Gen Secretaries',
   'Project Manager': 'Project Managers',
 };
-
-type AlumniMember = { name: string; role: string; tier: 'lead' | 'inner' | 'outer' };
-
-const alumni2025: AlumniMember[] = [
-  { name: 'Ashish Negi', role: 'President', tier: 'lead' },
-  { name: 'Arnav Chopra', role: 'President', tier: 'lead' },
-  { name: 'Vipul Kohli', role: 'Vice President', tier: 'inner' },
-  { name: 'Pratham Gupta', role: 'Vice President', tier: 'inner' },
-  { name: 'Sukaran Gulati', role: 'Vice President', tier: 'inner' },
-  { name: 'Divyansh Kalra', role: 'General Secretary', tier: 'inner' },
-  { name: 'Anagh Miglani', role: 'General Secretary', tier: 'inner' },
-  { name: 'Shrey Garg', role: 'Creative Outreach', tier: 'outer' },
-  { name: 'Jahnvi Pareek', role: 'Creative Outreach', tier: 'outer' },
-  { name: 'Dishant Pandey', role: 'Creative Outreach', tier: 'outer' },
-  { name: 'Manan Wadhwa', role: 'Development Coordinator', tier: 'outer' },
-  { name: 'Kush Aheer', role: 'Development Coordinator', tier: 'outer' },
-];
-
-const alumni2024: AlumniMember[] = [
-  { name: 'Shivam Kumar Jha', role: 'Founding President', tier: 'lead' },
-  { name: 'Abir Thakur', role: 'Vice President', tier: 'inner' },
-  { name: 'Aman Sharma', role: 'Vice President', tier: 'inner' },
-  { name: 'Ansh Kapila', role: 'Creative Outreach', tier: 'outer' },
-  { name: 'Tanush Purwar', role: 'Creative Outreach', tier: 'outer' },
-  { name: 'Ishaan Minocha', role: 'Coordinator', tier: 'outer' },
-  { name: 'Haaris Huda', role: 'Coordinator', tier: 'outer' },
-  { name: 'Piyush Mittal', role: 'Coordinator', tier: 'outer' },
-  { name: 'Chayan Khetan', role: 'Coordinator', tier: 'outer' },
-  { name: 'Pratham Gupta', role: 'Coordinator', tier: 'outer' },
-];
 
 const founderPositions = [
   { x: 50, y: 30 },
@@ -110,12 +58,12 @@ const founderPositions = [
 ] as const;
 
 const chapters = [
-  { key: 'leadership', title: 'Byte Core', heading: 'Byte Core', eyebrow: '01 THE UNCS', note: 'Seven people keeping every part of Byte in motion.', listedMembers: [] },
-  { key: 'development', title: 'Development', heading: 'Develop\nment', eyebrow: '02 THE TOKENMAXXERS', note: 'Builders turning ambitious ideas into things people can use.', listedMembers: departmentMembers.development },
-  { key: 'aiml', title: 'AI / ML', heading: 'AI / ML', eyebrow: '03 THE RESEARCH LARPERS', note: 'Learning systems, practical experiments and a healthy appetite for the unknown.', listedMembers: departmentMembers.aiml },
-  { key: 'creative', title: 'Creative Outreach', heading: 'Creative\nOutreach', eyebrow: '04 THE INTROVERTS', note: 'The voice, image and connective tissue of the society.', listedMembers: departmentMembers.creative },
-  { key: 'mechatronics', title: 'Mechatronics', heading: 'Mecha\ntronics', eyebrow: '05 THE SIMULATORS', note: 'Code that leaves the screen and moves through the physical world.', listedMembers: departmentMembers.mechatronics },
-  { key: 'cybersecurity', title: 'Cybersecurity', heading: 'Cyber\nSecurity', eyebrow: '06 THE RAINBOW HAT HACKERS', note: 'Break it, understand it, secure it, teach it.', listedMembers: departmentMembers.cybersecurity },
+  { key: 'leadership', title: 'Byte Core', heading: 'Byte Core', eyebrow: '01 THE UNCS', note: 'Seven people keeping every part of Byte in motion.', listedMembers: [] as DepartmentMember[] },
+  { key: 'development', title: 'Development', heading: 'Develop\nment', eyebrow: '02 THE TOKENMAXXERS', note: 'Builders turning ambitious ideas into things people can use.', listedMembers: departmentMembers.development || [] },
+  { key: 'aiml', title: 'AI / ML', heading: 'AI / ML', eyebrow: '03 THE RESEARCH LARPERS', note: 'Learning systems, practical experiments and a healthy appetite for the unknown.', listedMembers: departmentMembers.aiml || [] },
+  { key: 'creative', title: 'Creative Outreach', heading: 'Creative\nOutreach', eyebrow: '04 THE INTROVERTS', note: 'The voice, image and connective tissue of the society.', listedMembers: departmentMembers.creative || [] },
+  { key: 'mechatronics', title: 'Mechatronics', heading: 'Mecha\ntronics', eyebrow: '05 THE SIMULATORS', note: 'Code that leaves the screen and moves through the physical world.', listedMembers: departmentMembers.mechatronics || [] },
+  { key: 'cybersecurity', title: 'Cybersecurity', heading: 'Cyber\nSecurity', eyebrow: '06 THE RAINBOW HAT HACKERS', note: 'Break it, understand it, secure it, teach it.', listedMembers: departmentMembers.cybersecurity || [] },
 ] as const;
 ---
 
@@ -217,16 +165,21 @@ const chapters = [
                 {chapter.listedMembers.length > 0 && (
                   <div class="member-cluster member-cluster--desktop" aria-label={`${chapter.listedMembers.length} members in ${chapter.title}`}>
                     <ul>
-                      {chapter.listedMembers.map((memberName, index) => (
-                        <li class:list={{ 'has-avatar': Boolean(memberAvatarPhotos[memberName]) }} data-member-name={memberName} title={memberName} style={`--avatar-index:${index}`}>
-                          {memberAvatarPhotos[memberName] ? (
-                            <img src={memberAvatarPhotos[memberName]} alt="" loading="lazy" />
-                          ) : (
-                            <span aria-hidden="true">{avatarInitials(memberName)}</span>
-                          )}
-                          <span class="sr-only">{memberName}</span>
-                        </li>
-                      ))}
+                      {chapter.listedMembers.map((deptMember, index) => {
+                        const photo = deptMember.photo || memberAvatarPhotos[deptMember.name];
+                        return (
+                          <li class:list={{ 'has-avatar': Boolean(photo) }} data-member-name={deptMember.name} title={deptMember.name} style={`--avatar-index:${index}`}>
+                            <a href={`/members/${deptMember.slug}`} class="member-cluster-link" aria-label={`View ${deptMember.name}'s profile`}>
+                              {photo ? (
+                                <img src={photo} alt="" loading="lazy" />
+                              ) : (
+                                <span aria-hidden="true">{avatarInitials(deptMember.name)}</span>
+                              )}
+                              <span class="sr-only">{deptMember.name}</span>
+                            </a>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 )}
@@ -237,46 +190,47 @@ const chapters = [
               <div class="member-field-window">
                 <div class:list={['member-field', `field-${chapter.key}`]}>
                   {chapterMembers.map((member, index) => (
-                    <article
-                  class:list={['member-node', { 'has-member-quote': member.quote }]}
-                  data-mesh-member
-                  data-mesh-shape="silhouette"
-                  data-achievement-card
-                  data-member-index={index}
-                  data-member-key={`${chapter.key}:${index}`}
-                  data-council-role-label={chapter.key === 'leadership' ? councilRoleLabels[member.role] : undefined}
-                  tabindex="0"
-                  aria-label={`${member.name}, ${member.role}${member.quote ? `. Quote: ${member.quote}` : ''}`}
-                >
-                  <div class="portrait-stage" data-mesh-frame>
-                    {member.photo ? (
-                      <>
-                        <img class="portrait-base" src={member.photo} alt="" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
-                        <img class="portrait-channel portrait-channel--red" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
-                        <img class="portrait-channel portrait-channel--green" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
-                        <img class="portrait-channel portrait-channel--blue" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
-                      </>
-                    ) : (
-                      <div class="portrait-fallback" aria-hidden="true">
-                        <span>{member.short}</span>
-                        <svg viewBox="0 0 200 260"><path d="M100 24c31 0 51 25 51 58 0 29-14 47-28 57 34 9 58 39 62 96H15c4-57 28-87 62-96-15-10-28-28-28-57 0-33 20-58 51-58Z" /></svg>
+                    <a
+                      href={`/members/${member.slug}`}
+                      class:list={['member-node', { 'has-member-quote': member.quote }]}
+                      data-mesh-member
+                      data-mesh-shape="silhouette"
+                      data-achievement-card
+                      data-member-index={index}
+                      data-member-key={`${chapter.key}:${index}`}
+                      data-council-role-label={chapter.key === 'leadership' ? councilRoleLabels[member.role] : undefined}
+                      tabindex="0"
+                      aria-label={`${member.name}, ${member.role}${member.quote ? `. Quote: ${member.quote}` : ''}`}
+                    >
+                      <div class="portrait-stage" data-mesh-frame>
+                        {member.photo ? (
+                          <>
+                            <img class="portrait-base" src={member.photo} alt="" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                            <img class="portrait-channel portrait-channel--red" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                            <img class="portrait-channel portrait-channel--green" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                            <img class="portrait-channel portrait-channel--blue" src={member.photo} alt="" aria-hidden="true" loading={chapter.key === 'leadership' ? 'eager' : 'lazy'} />
+                          </>
+                        ) : (
+                          <div class="portrait-fallback" aria-hidden="true">
+                            <span>{member.short || avatarInitials(member.name)}</span>
+                            <svg viewBox="0 0 200 260"><path d="M100 24c31 0 51 25 51 58 0 29-14 47-28 57 34 9 58 39 62 96H15c4-57 28-87 62-96-15-10-28-28-28-57 0-33 20-58 51-58Z" /></svg>
+                          </div>
+                        )}
+                        <span class="node-coordinate" aria-hidden="true">N{String(members.indexOf(member) + 1).padStart(2, '0')}</span>
                       </div>
-                    )}
-                    <span class="node-coordinate" aria-hidden="true">N{String(members.indexOf(member) + 1).padStart(2, '0')}</span>
-                  </div>
-                  <div class="member-label">
-                    <div class="member-identity">
-                      <h3 data-member-name={member.name}>{member.name}</h3>
-                      <p class="member-role">{member.role}</p>
-                    </div>
-                    {member.quote && (
-                      <p class="member-quote">
-                        <span aria-hidden="true">“</span>{member.quote}<span aria-hidden="true">”</span>
-                      </p>
-                    )}
-                    <span class="member-pulse" aria-hidden="true"></span>
-                  </div>
-                    </article>
+                      <div class="member-label">
+                        <div class="member-identity">
+                          <h3 data-member-name={member.name}>{member.name}</h3>
+                          <p class="member-role">{member.role}</p>
+                        </div>
+                        {member.quote && (
+                          <p class="member-quote">
+                            <span aria-hidden="true">“</span>{member.quote}<span aria-hidden="true">”</span>
+                          </p>
+                        )}
+                        <span class="member-pulse" aria-hidden="true"></span>
+                      </div>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -284,16 +238,21 @@ const chapters = [
             {chapter.listedMembers.length > 0 && (
               <div class="member-cluster member-cluster--mobile" aria-label={`${chapter.listedMembers.length} members in ${chapter.title}`}>
                 <ul>
-                  {chapter.listedMembers.map((memberName, index) => (
-                    <li class:list={{ 'has-avatar': Boolean(memberAvatarPhotos[memberName]) }} data-member-name={memberName} title={memberName} style={`--avatar-index:${index}`}>
-                      {memberAvatarPhotos[memberName] ? (
-                        <img src={memberAvatarPhotos[memberName]} alt="" loading="lazy" />
-                      ) : (
-                        <span aria-hidden="true">{avatarInitials(memberName)}</span>
-                      )}
-                      <span class="sr-only">{memberName}</span>
-                    </li>
-                  ))}
+                  {chapter.listedMembers.map((deptMember, index) => {
+                    const photo = deptMember.photo || memberAvatarPhotos[deptMember.name];
+                    return (
+                      <li class:list={{ 'has-avatar': Boolean(photo) }} data-member-name={deptMember.name} title={deptMember.name} style={`--avatar-index:${index}`}>
+                        <a href={`/members/${deptMember.slug}`} class="member-cluster-link" aria-label={`View ${deptMember.name}'s profile`}>
+                          {photo ? (
+                            <img src={photo} alt="" loading="lazy" />
+                          ) : (
+                            <span aria-hidden="true">{avatarInitials(deptMember.name)}</span>
+                          )}
+                          <span class="sr-only">{deptMember.name}</span>
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             )}
@@ -316,7 +275,8 @@ const chapters = [
         </div>
         <div class="alumni-roster alumni-roster--2025" aria-label="2025 alumni">
           {alumni2025.map((person, index) => (
-            <article
+            <a
+              href={`/members/${person.slug}`}
               class:list={['alumni-person', `alumni-person--${person.tier}`]}
               data-alumni-person
               data-alumni-year="2025"
@@ -328,7 +288,7 @@ const chapters = [
                 <i></i><i></i><span>{avatarInitials(person.name)}</span>
               </div>
               <div class="alumni-person-copy"><h3>{person.name}</h3><p>{person.role}</p></div>
-            </article>
+            </a>
           ))}
         </div>
         <div class="era-record">
@@ -348,7 +308,8 @@ const chapters = [
         </div>
         <div class="founder-constellation" aria-label="2024 founding alumni">
           {alumni2024.map((person, index) => (
-            <article
+            <a
+              href={`/members/${person.slug}`}
               class:list={['alumni-person', 'founder-person', `alumni-person--${person.tier}`]}
               data-alumni-person
               data-alumni-year="2024"
@@ -360,7 +321,7 @@ const chapters = [
                 <span>{avatarInitials(person.name)}</span>
               </div>
               <div class="alumni-person-copy"><h3>{person.name}</h3><p>{person.role}</p></div>
-            </article>
+            </a>
           ))}
         </div>
       </div>
@@ -1392,6 +1353,16 @@ const chapters = [
   .member-cluster li:nth-child(4n + 3) { background: rgba(30, 78, 53, 0.72); }
 
   .member-cluster li.has-avatar { background: #18211c; }
+
+  .member-cluster-link {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: inherit;
+    color: inherit;
+    text-decoration: none;
+  }
 
   .member-cluster li img {
     position: absolute;
