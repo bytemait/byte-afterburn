@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/common/Footer.astro';
 
 type Member = {
   name: string;
@@ -118,7 +119,7 @@ const chapters = [
 ] as const;
 ---
 
-<Layout title="Living Constellation — B.Y.T.E." active="members">
+<Layout title="Living Constellation — B.Y.T.E." active="members" footerInSlot>
   <script is:inline data-astro-rerun>
     try {
       document.documentElement.classList.toggle(
@@ -369,6 +370,8 @@ const chapters = [
       <p>There is always room for another node.</p>
       <a href="/contact">Connect with Byte <span aria-hidden="true">↗</span></a>
     </section>
+    
+    <Footer immersive />
   </main>
 </Layout>
 
