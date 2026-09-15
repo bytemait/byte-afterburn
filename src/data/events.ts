@@ -94,6 +94,26 @@ export const events: EventItem[] = [
     image: '/assets/events/ml-workshop.webp',
   },
   {
+    slug: 'nba-visit',
+    name: 'NBA Visit',
+    type: 'Showcase',
+    date: '11 Oct',
+    year: '2025',
+    time: '10:00 AM – 05:00 PM',
+    venue: 'MAIT Campus',
+    shortSummary: 'Project Showcase for NBA',
+    shortDescription: 'BYTE members showcased their projects to the NBA accreditation body during their visit to MAIT.',
+    description: 'During the National Board of Accreditation (NBA) visit to MAIT, the BYTE team had the opportunity to showcase their technical projects to the accreditation panel. Members demonstrated a wide range of work spanning software development, robotics, AI/ML, and more — reflecting the depth and breadth of the society\'s output.',
+    agenda: [
+      { time: '10:00 AM', title: 'Project Showcase', detail: 'BYTE members present their projects to the NBA panel.' },
+    ],
+    whoCanAttend: [
+      'Internal showcase event for the NBA accreditation visit.',
+    ],
+    isUpcoming: false,
+    image: '/assets/events/nba-visit.webp',
+  },
+  {
     slug: 'solana-bootcamp',
     name: 'Solana Bootcamp',
     type: 'Bootcamp',
