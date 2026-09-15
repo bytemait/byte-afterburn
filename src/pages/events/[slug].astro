@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import EventDetail from '../../components/events/EventDetail.astro';
+import Footer from '../../components/common/Footer.astro';
 import { events, getEventBySlug } from '../../data/events';
 
 export function getStaticPaths() {
@@ -18,7 +19,7 @@ if (!event) {
 }
 ---
 
-<Layout title={`${event.name} — B.Y.T.E.`} active="events">
+<Layout title={`${event.name} — B.Y.T.E.`} active="events" footerInSlot>
   <EventDetail
     name={event.name}
     type={event.type}
@@ -29,5 +30,8 @@ if (!event) {
     agenda={event.agenda}
     whoCanAttend={event.whoCanAttend}
     ctaLabel={event.ctaLabel}
+    image={event.image}
+    gallery={event.gallery}
   />
+  <Footer immersive />
 </Layout>

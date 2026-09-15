@@ -20,6 +20,7 @@ export interface EventItem {
   ctaLabel?: string;
   isUpcoming?: boolean;
   image?: string;
+  gallery?: string[];
 }
 
 export const events: EventItem[] = [
@@ -112,6 +113,13 @@ export const events: EventItem[] = [
     ],
     isUpcoming: false,
     image: '/assets/events/nba-visit.webp',
+    gallery: [
+      '/assets/events/nba-visit/nba-1.webp',
+      '/assets/events/nba-visit/nba-2.webp',
+      '/assets/events/nba-visit/nba-3.webp',
+      '/assets/events/nba-visit/nba-4.webp',
+      '/assets/events/nba-visit/nba-visit.webp',
+    ],
   },
   {
     slug: 'solana-bootcamp',
@@ -134,6 +142,10 @@ export const events: EventItem[] = [
     ],
     isUpcoming: false,
     image: '/assets/events/solana.webp',
+    gallery: [
+      '/assets/events/solana-bootcamp/solana-1.webp',
+      '/assets/events/solana-bootcamp/solana-2.webp',
+    ],
   },
   {
     slug: 'ui-ux-ai-workshop',
@@ -157,6 +169,10 @@ export const events: EventItem[] = [
     ],
     isUpcoming: false,
     image: '/assets/events/ui-ux.webp',
+    gallery: [
+      '/assets/events/ui-ux-ai-workshop/ui-ux-1.webp',
+      '/assets/events/ui-ux-ai-workshop/ui-ux-4.webp',
+    ],
   },
   {
     slug: 'algo-trading-sprint',
@@ -179,6 +195,13 @@ export const events: EventItem[] = [
     ],
     isUpcoming: false,
     image: '/assets/events/algo-trading.webp',
+    gallery: [
+      '/assets/events/algo-trading-sprint/algo-trading-1.webp',
+      '/assets/events/algo-trading-sprint/algo-trading-2.webp',
+      '/assets/events/algo-trading-sprint/algo-trading-3.webp',
+      '/assets/events/algo-trading-sprint/algo-trading-4.webp',
+      '/assets/events/algo-trading-sprint/algo-trading-5.webp',
+    ],
   },
   {
     slug: 'ai-safety-ml-awareness',
@@ -226,6 +249,15 @@ export const events: EventItem[] = [
     ],
     isUpcoming: false,
     image: '/assets/events/webcmd.webp',
+    gallery: [
+      '/assets/events/webcmd-hackathon/webcmd-1.webp',
+      '/assets/events/webcmd-hackathon/webcmd-3.webp',
+      '/assets/events/webcmd-hackathon/webcmd-4.webp',
+      '/assets/events/webcmd-hackathon/webcmd-5.webp',
+      '/assets/events/webcmd-hackathon/webcmd-6.webp',
+      '/assets/events/webcmd-hackathon/webcmd-7.webp',
+      '/assets/events/webcmd-hackathon/webcmd-8.webp',
+    ],
   },
 ];
 

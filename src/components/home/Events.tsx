@@ -12,6 +12,7 @@ type Award = {
 
 const EVENTS: Award[] = [...events]
   .sort((a, b) => new Date(`${b.date} ${b.year}`).getTime() - new Date(`${a.date} ${a.year}`).getTime())
+  .slice(0, 4)
   .map(event => ({
     organization: event.type.toUpperCase(),
     recognition: event.name.toUpperCase(),
