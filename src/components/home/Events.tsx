@@ -49,7 +49,7 @@ export default function Events() {
             >
               <div className="award-card-content">
                 <div className="award-card-peek" aria-hidden="true">
-                  <img alt="" src={award.image} />
+                  <img alt="" src={award.image} loading="lazy" decoding="async" />
                 </div>
                 <span className="award-organization">{award.organization}</span>
                 <strong>{award.recognition}</strong>
