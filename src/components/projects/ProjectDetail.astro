@@ -1,0 +1,361 @@
+---
+import type { Project } from '../../data/projects';
+import { getTechLogo } from '../../data/tech-logos';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+const domainLabel = project.domains.join(' · ');
+const contributorLabel = project.contributors.join(', ');
+---
+
+<div class="page-header project-detail-header">
+  <div class="wrap">
+    <span class="type-pill">{domainLabel}</span>
+    <h1>{project.title}</h1>
+    <div class="event-meta-row">
+      <span>
+        <svg><use href="#i-folder"/></svg>
+        {domainLabel}
+      </span>
+      <span>
+        <svg><use href="#i-user"/></svg>
+        {contributorLabel}
+      </span>
+    </div>
+  </div>
+</div>
+
+{project.image && (
+  <section class="event-hero-section">
+    <div class="wrap">
+      <figure class="hero-stage">
+        <img src={project.image} alt={`${project.title} hero image`} fetchpriority="high" />
+      </figure>
+    </div>
+  </section>
+)}
+
+<section>
+  <div class="wrap event-detail-grid">
+    <div class="event-detail-main">
+      <h2>About this Project</h2>
+      <p class="event-description">{project.description}</p>
+
+      <div class="project-story">
+        <section>
+          <h2>Project overview</h2>
+          <p>{project.overview}</p>
+        </section>
+        <section>
+          <h2>The challenge</h2>
+          <p>{project.challenge}</p>
+        </section>
+        <section>
+          <h2>How we approached it</h2>
+          <p>{project.approach}</p>
+        </section>
+        <section>
+          <h2>Outcome</h2>
+          <p>{project.outcome}</p>
+        </section>
+      </div>
+
+      <h2>Domains</h2>
+      <div class="project-detail-domains">
+        {project.domains.map((domain) => (
+          <span class="domain-pill">{domain}</span>
+        ))}
+      </div>
+
+      <h2>Contributors</h2>
+      <ul class="attend-list">
+        {project.contributors.map((contributor) => (
+          <li><svg><use href="#i-award"/></svg>{contributor}</li>
+        ))}
+      </ul>
+
+    </div>
+
+    <aside class="event-detail-side">
+      <div class="register-card tech-stack-card">
+        <div class="tech-stack-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <h3>Tech Stack</h3>
+        </div>
+        <ul class="tech-stack-list">
+          {project.tech.map((techName) => {
+            const logoUrl = getTechLogo(techName);
+            return (
+              <li class="tech-stack-item">
+                {logoUrl ? (
+                  <img src={logoUrl} alt={techName} class="tech-logo" width="28" height="28" loading="lazy" />
+                ) : (
+                  <span class="tech-logo-fallback" aria-hidden="true">
+                    {techName.charAt(0).toUpperCase()}
+                  </span>
+                )}
+                <span class="tech-name">{techName}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      {project.links?.github && (
+        <a href={project.links.github} class="github-project-link" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-gh"/></svg>
+          View project on GitHub
+          <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      )}
+      <a href="/projects" class="link-btn back-link"><svg><use href="#i-arrow"/></svg> Back to all projects</a>
+    </aside>
+  </div>
+</section>
+
+<style>
+  /* Reuse EventDetail styles — scoped overrides & additions only */
+
+  .project-detail-header .wrap { padding-top: 6px; }
+  .type-pill {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--lime);
+    background: rgba(34, 197, 121, 0.1);
+    border: 1px solid rgba(34, 197, 121, 0.35);
+    border-radius: 999px;
+    padding: 5px 14px;
+    margin-bottom: 16px;
+  }
+  .event-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 16px;
+  }
+  .event-meta-row span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    font-size: .9rem;
+  }
+  .event-meta-row svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  .event-detail-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .event-detail-main h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin: 40px 0 16px;
+  }
+  .event-detail-main h2:first-child { margin-top: 0; }
+  .event-description {
+    color: var(--text-dim);
+    line-height: 1.75;
+    font-size: .96rem;
+  }
+  .project-story p {
+    color: var(--text-dim);
+    line-height: 1.75;
+    font-size: .96rem;
+    margin: 0;
+  }
+  /* Match the event page's content-to-heading rhythm without relying on margin collapse. */
+  .project-story section {
+    padding: 40px 0 0;
+  }
+  .project-story h2 {
+    margin: 0 0 16px;
+  }
+
+  .attend-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .attend-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--text-dim);
+    font-size: .92rem;
+  }
+  .attend-list svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; color: var(--lime); }
+
+  /* Domains pills */
+  .project-detail-domains {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .domain-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    background: var(--bg-soft);
+  }
+
+  /* Sidebar */
+  .event-detail-side { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 16px; }
+  .register-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px;
+  }
+  .back-link { justify-content: center; }
+  .back-link svg {
+    transform: rotate(180deg);
+  }
+
+  /* Hero Section */
+  .event-hero-section {
+    padding-bottom: 56px;
+  }
+  .hero-stage {
+    position: relative;
+    width: 100%;
+    height: clamp(300px, 45vw, 600px);
+    margin: 0;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #171717;
+  }
+  .hero-stage::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05);
+    border-radius: inherit;
+  }
+  .hero-stage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Tech Stack Card */
+  .tech-stack-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tech-stack-header svg {
+    width: 20px;
+    height: 20px;
+    color: var(--lime);
+    flex-shrink: 0;
+  }
+  .tech-stack-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+  }
+  .tech-stack-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .tech-stack-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .tech-stack-item:hover {
+    border-color: var(--lime-dim);
+    transform: translateX(4px);
+  }
+  .tech-logo {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    object-fit: contain;
+  }
+  .tech-logo-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: var(--charcoal);
+    border: 1px solid var(--line);
+    color: var(--lime);
+    font-size: .72rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tech-name {
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .github-project-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--text);
+    background: var(--bg-soft);
+    font-size: .88rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: border-color .15s ease, color .15s ease, transform .15s ease;
+  }
+  .github-project-link:hover {
+    border-color: var(--lime-dim);
+    color: var(--lime);
+    transform: translateY(-2px);
+  }
+  .github-project-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .github-project-link .external-icon { width: 15px; height: 15px; margin-left: auto; }
+
+  @media (max-width: 900px) {
+    .event-detail-grid { grid-template-columns: 1fr; gap: 32px; }
+    .event-detail-side { position: static; }
+  }
+</style>

@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { projects, getUniqueTags } from '../data/projects';
+import Footer from '../components/common/Footer.astro';
+
+const domains = getUniqueTags('domains');
+const techs = getUniqueTags('tech');
+---
+
+<Layout title="Projects — B.Y.T.E." active="projects" footerInSlot>
+  <div class="page-header">
+    <div class="wrap">
+      <h1>Projects</h1>
+      <p>Built by Byte members. Shipped with intent.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="projects-toolbar">
+        <div class="projects-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="projectSearch" placeholder="Search projects…" autocomplete="off" />
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-group-label">Domain</span>
+          <div class="filter-row" data-filter-group="domain">
+            <button class="filter-pill active" data-filter="all">All</button>
+            {domains.map((d) => (
+              <button class="filter-pill" data-filter={d}>{d}</button>
+            ))}
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-group-label">Tech</span>
+          <div class="filter-row" data-filter-group="tech">
+            <button class="filter-pill active" data-filter="all">All</button>
+            {techs.map((t) => (
+              <button class="filter-pill" data-filter={t}>{t}</button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="project-count" id="projectCount">
+        Showing {projects.length} project{projects.length !== 1 ? 's' : ''}
+      </div>
+
+      <div class="project-grid" id="projectGrid">
+        {projects.map((project) => (
+          <div
+            class="project-card"
+            data-title={project.title.toLowerCase()}
+            data-description={project.description.toLowerCase()}
+            data-domains={project.domains.map(d => d.toLowerCase()).join(',')}
+            data-tech={project.tech.map(t => t.toLowerCase()).join(',')}
+          >
+            <div class="project-card-image">
+              <div class="ph" data-ratio="16 × 9">
+                <span class="ph-tag">Project</span>
+                <svg><use href="#i-image"/></svg>
+              </div>
+            </div>
+            <div class="project-card-body">
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <div class="project-meta">
+                <span class="project-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+                  <span class="project-meta-tags">
+                    {project.domains.map((d) => (
+                      <span class="project-tag">{d}</span>
+                    ))}
+                  </span>
+                </span>
+                <span class="project-meta-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  <span class="project-meta-tags">
+                    {project.tech.map((t) => (
+                      <span class="project-tag">{t}</span>
+                    ))}
+                  </span>
+                </span>
+              </div>
+              {(project.links?.detail || project.links?.github || project.links?.live) && (
+                <div class="project-card-actions">
+                  {project.links.detail && (
+                    <a href={project.links.detail} class="link-btn">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+                  )}
+                  {project.links.github && (
+                    <a href={project.links.github} target="_blank" rel="noopener noreferrer" class="link-btn">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                  )}
+                  {project.links.live && (
+                    <a href={project.links.live} target="_blank" rel="noopener noreferrer" class="link-btn">Live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="projects-empty" id="projectsEmpty" style="display:none;">
+        <p>No projects match your filters.</p>
+        <span class="hint">Try adjusting your search or clearing the filters.</span>
+      </div>
+    </div>
+  </section>
+
+  <Footer immersive />
+</Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const searchInput = document.querySelector<HTMLInputElement>('#projectSearch');
+    const grid = document.querySelector('#projectGrid');
+    const empty = document.querySelector<HTMLElement>('#projectsEmpty');
+    const countEl = document.querySelector<HTMLElement>('#projectCount');
+    const cards = grid?.querySelectorAll<HTMLElement>('.project-card');
+    if (!searchInput || !grid || !empty || !countEl || !cards) return;
+
+    const domainRow = document.querySelector<HTMLElement>('[data-filter-group="domain"]');
+    const techRow = document.querySelector<HTMLElement>('[data-filter-group="tech"]');
+
+    let activeDomain = 'all';
+    let activeTech = 'all';
+
+    function setupFilterRow(row: HTMLElement | null, setter: (val: string) => void) {
+      if (!row) return;
+      row.querySelectorAll<HTMLButtonElement>('.filter-pill').forEach((pill) => {
+        pill.addEventListener('click', () => {
+          row.querySelectorAll('.filter-pill').forEach((p) => p.classList.remove('active'));
+          pill.classList.add('active');
+          setter((pill.dataset.filter || 'all').toLowerCase());
+          filterCards();
+        });
+      });
+    }
+
+    setupFilterRow(domainRow, (v) => { activeDomain = v; });
+    setupFilterRow(techRow, (v) => { activeTech = v; });
+
+    searchInput.addEventListener('input', () => filterCards());
+
+    function filterCards() {
+      const query = searchInput!.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards!.forEach((card) => {
+        const title = card.dataset.title || '';
+        const description = card.dataset.description || '';
+        const domains = card.dataset.domains || '';
+        const tech = card.dataset.tech || '';
+
+        const matchesSearch = !query || title.includes(query) || description.includes(query);
+        const matchesDomain = activeDomain === 'all' || domains.split(',').includes(activeDomain);
+        const matchesTech = activeTech === 'all' || tech.split(',').includes(activeTech);
+
+        if (matchesSearch && matchesDomain && matchesTech) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      empty!.style.display = visible === 0 ? '' : 'none';
+      countEl!.textContent = `Showing ${visible} project${visible !== 1 ? 's' : ''}`;
+    }
+  });
+</script>
