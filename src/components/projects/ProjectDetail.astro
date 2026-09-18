@@ -10,6 +10,7 @@ const { project } = Astro.props;
 
 const domainLabel = project.domains.join(' · ');
 const contributorLabel = project.contributors.join(', ');
+const hasGallery = project.images.length > 1;
 ---
 
 <div class="page-header project-detail-header">
@@ -29,12 +30,21 @@ const contributorLabel = project.contributors.join(', ');
   </div>
 </div>
 
-{project.image && (
+{project.images.length > 0 && (
   <section class="event-hero-section">
     <div class="wrap">
-      <figure class="hero-stage">
-        <img src={project.image} alt={`${project.title} hero image`} fetchpriority="high" />
-      </figure>
+      <div class:list={['project-gallery', { 'project-gallery--multiple': hasGallery }]}>
+        {project.images.map((image, index) => (
+          <figure class="hero-stage">
+            <img
+              src={image}
+              alt={`${project.title} — image ${index + 1}`}
+              fetchpriority={index === 0 ? 'high' : undefined}
+              loading={index === 0 ? undefined : 'lazy'}
+            />
+          </figure>
+        ))}
+      </div>
     </div>
   </section>
 )}
@@ -235,6 +245,17 @@ const contributorLabel = project.contributors.join(', ');
   .event-hero-section {
     padding-bottom: 56px;
   }
+  .project-gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .project-gallery--multiple {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .project-gallery--multiple .hero-stage:first-child {
+    grid-column: 1 / -1;
+  }
   .hero-stage {
     position: relative;
     width: 100%;
@@ -257,6 +278,9 @@ const contributorLabel = project.contributors.join(', ');
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+  .project-gallery--multiple .hero-stage:not(:first-child) {
+    height: clamp(220px, 28vw, 380px);
   }
 
   /* Tech Stack Card */
@@ -357,5 +381,10 @@ const contributorLabel = project.contributors.join(', ');
   @media (max-width: 900px) {
     .event-detail-grid { grid-template-columns: 1fr; gap: 32px; }
     .event-detail-side { position: static; }
+  }
+  @media (max-width: 640px) {
+    .project-gallery--multiple { grid-template-columns: 1fr; }
+    .project-gallery--multiple .hero-stage:first-child { grid-column: auto; }
+    .project-gallery--multiple .hero-stage:not(:first-child) { height: clamp(220px, 70vw, 360px); }
   }
 </style>

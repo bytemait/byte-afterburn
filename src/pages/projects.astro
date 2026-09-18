@@ -58,10 +58,11 @@ const techs = getUniqueTags('tech');
             data-tech={project.tech.map(t => t.toLowerCase()).join(',')}
           >
             <div class="project-card-image">
-              <div class="ph" data-ratio="16 × 9">
-                <span class="ph-tag">Project</span>
-                <svg><use href="#i-image"/></svg>
-              </div>
+              <img
+                src={project.images[0]}
+                alt={`${project.title} preview`}
+                loading="lazy"
+              />
             </div>
             <div class="project-card-body">
               <h3>{project.title}</h3>

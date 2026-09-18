@@ -6,7 +6,8 @@ export interface Project {
   challenge: string;
   approach: string;
   outcome: string;
-  image?: string;
+  /** The first image is used as the project-card preview. */
+  images: string[];
   domains: string[];
   tech: string[];
   contributors: string[];
@@ -31,7 +32,7 @@ export const projects: Project[] = [
       'Using Python and the OpenAI API, the team iterated from a focused problem statement to a testable prototype. Short feedback loops guided the build: define the smallest useful interaction, validate the output, refine the flow, and prepare the explanation alongside the product.',
     outcome:
       'The final prototype earned first place. Beyond the result, it gave Team Byte a repeatable playbook for building AI products under pressure: scope tightly, make the system demonstrable, and explain the technology in terms of the person using it.',
-    image: '/assets/codex_26.webp',
+    images: ['/assets/works/openai_hack/openai_hack_win_1.webp'],
     domains: ['AI/ML', 'Hackathon'],
     tech: ['Python', 'OpenAI API'],
     contributors: ['Team Byte'],
@@ -53,7 +54,11 @@ export const projects: Project[] = [
       'The team used JavaScript and Node.js to build around the smallest complete study path: find the relevant material, understand its importance, and act on it. The interface and supporting logic were refined to keep context visible and make the experience easy to return to during a busy semester.',
     outcome:
       'EZCrack establishes a focused foundation for a practical student tool. Its value is in converting a broad, stressful workflow into a sequence of understandable choices that can grow as more learning resources and insights are added.',
-    image: '/assets/ezcrack.webp',
+    images: [
+      '/assets/works/ezcrack/ezcrack-1.jpeg',
+      '/assets/works/ezcrack/ezcrack-2.jpeg',
+      '/assets/works/ezcrack/ezcrack-3.jpeg',
+    ],
     domains: ['Development'],
     tech: ['JavaScript', 'Node.js'],
     contributors: ['Team Byte'],
@@ -75,7 +80,7 @@ export const projects: Project[] = [
       'The prototype combined CAD for physical design with Arduino and C++ for control. Mechanical, electrical, and software choices were iterated in parallel, with each change evaluated against the end-to-end behaviour of the system and the needs of the final demonstration.',
     outcome:
       'The finished prototype won first place. It demonstrated the team’s ability to connect disciplines, make trade-offs quickly, and turn an engineering brief into a working physical build.',
-    image: '/assets/lam_research_26.webp',
+    images: ['/assets/works/lam_research_hack/lam_research_1.webp'],
     domains: ['Mechatronics', 'Hackathon'],
     tech: ['Arduino', 'C++', 'CAD'],
     contributors: ['Team Byte'],
@@ -97,7 +102,7 @@ export const projects: Project[] = [
       'Built with React Native and TypeScript, HopOff! focuses on a cross-platform, mobile-first flow: set the destination, choose notification preferences, and receive the alert at the right moment. The team kept the interaction model concise so it supports a commute rather than competing for attention.',
     outcome:
       'HopOff! turns a common travel worry into a focused utility. It shows how a small, well-scoped mobile experience can make everyday transit feel more predictable for its users.',
-    image: '/assets/hopoff.webp',
+    images: ['/assets/works/hopoff/WhatsApp%20Image%202026-09-13%20at%2019.49.10.jpeg'],
     domains: ['Development', 'Mobile'],
     tech: ['React Native', 'TypeScript'],
     contributors: ['Team Byte'],
@@ -119,7 +124,10 @@ export const projects: Project[] = [
       'The team built BunkMAIT with React and Node.js around the information students check most often: their timetable, current attendance position, and the practical effect of attending or missing a class. The design prioritises quick scanning and a structure that remains usable on smaller screens.',
     outcome:
       'BunkMAIT makes a routine campus calculation more transparent and actionable. It is an example of Team Byte building for a specific community need with software that is direct, useful, and easy to revisit.',
-    image: '/assets/bunkmait.webp',
+    images: [
+      '/assets/works/bunkmait/bunkmait-1.jpeg',
+      '/assets/works/bunkmait/bunkmait-mobile.jpeg',
+    ],
     domains: ['Development'],
     tech: ['React', 'Node.js'],
     contributors: ['Team Byte'],
@@ -141,7 +149,7 @@ export const projects: Project[] = [
       'Using Python, Scrapy, and TensorFlow, the project treats collection, processing, and simulation as connected stages. Each stage is designed to make weak inputs easier to spot and correct before they distort the resulting model or experiment.',
     outcome:
       'Scrape2Sim provides a practical base for experiments at the intersection of web data, machine learning, and simulation. Its emphasis on traceable stages makes it easier to refine the system as better data and modelling ideas emerge.',
-    image: '/assets/scrape2sim.webp',
+    images: ['/assets/works/scrape-2-sim/scrape-2-sim.jpeg'],
     domains: ['AI/ML', 'Development'],
     tech: ['Python', 'TensorFlow', 'Scrapy'],
     contributors: ['Team Byte'],
@@ -163,7 +171,7 @@ export const projects: Project[] = [
       'Working with Python and networking concepts, the team combined investigation with rapid prototyping. The build was continually tested against the challenge requirements, while the final presentation focused on explaining the problem, the solution’s behaviour, and the reasoning behind it.',
     outcome:
       'Team Byte won first place in the cybersecurity solution track. The result highlights the team’s ability to turn a difficult security brief into a practical, explainable solution under hackathon conditions.',
-    image: '/assets/hack-iitk.webp',
+    images: ['/assets/works/hack_iitk/hack-iitk-1.webp'],
     domains: ['Cybersecurity', 'Hackathon'],
     tech: ['Python', 'Networking'],
     contributors: ['Team Byte'],
