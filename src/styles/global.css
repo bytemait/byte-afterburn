@@ -313,6 +313,97 @@ footer{border-top:1px solid var(--line);padding:56px 0 26px;background:var(--bg-
 .social-row svg{width:12px;height:12px;}
 .community-grid{grid-template-columns:repeat(5,1fr);}
 
+/* PROJECTS */
+.projects-toolbar{display:flex;flex-direction:column;gap:16px;margin-bottom:30px;}
+.projects-search{
+  position:relative;
+}
+.projects-search svg{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;color:var(--text-faint);pointer-events:none;
+}
+.projects-search input{
+  width:100%;padding:12px 16px 12px 40px;
+  background:var(--panel);border:1px solid var(--line);border-radius:8px;
+  color:var(--text);font-size:.88rem;font-family:inherit;
+  transition:border-color .15s ease,box-shadow .15s ease;
+}
+.projects-search input::placeholder{color:var(--text-faint);}
+.projects-search input:focus{
+  outline:none;border-color:var(--lime-dim);
+  box-shadow:0 0 0 3px rgba(34,197,121,0.12);
+}
+.filter-group{display:flex;flex-direction:column;gap:8px;}
+.filter-group-label{
+  font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--text-faint);font-weight:600;
+}
+.filter-group .filter-row{margin-bottom:0;}
+
+.project-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(480px,1fr));
+  gap:20px;
+}
+.project-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:grid;grid-template-columns:220px 1fr;
+  opacity: 0.6;
+  transition:border-color .2s ease;
+}
+.project-card:hover{border-color:#2a3d2c;}
+.project-card-image{
+  position:relative;padding:14px;display:flex;align-items:stretch;
+}
+.project-card-image img{
+  width:100%;
+  height:100%;
+  min-height:180px;
+  border-radius:8px;
+  object-fit:cover;
+  border:1px solid var(--line);
+}
+
+.project-card-body{padding:22px 24px 22px 10px;display:flex;flex-direction:column;flex:1;min-width:0;}
+.project-card-body h3{font-size:1.15rem;font-weight:600;margin:0 0 8px;}
+.project-card-body p{
+  color:var(--text-dim);font-size:.88rem;line-height:1.55;margin:0 0 14px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+.project-meta{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.project-meta-item{
+  font-size:.8rem;color:var(--text-faint);display:flex;align-items:center;gap:7px;
+}
+.project-meta-item svg{width:14px;height:14px;flex-shrink:0;color:var(--lime-dim);opacity:.7;}
+.project-meta-tags{display:flex;flex-wrap:wrap;gap:4px;align-items:center;}
+.project-meta-tags .project-tag{
+  font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;
+  padding:2px 8px;border-radius:4px;
+  background:var(--bg-soft);border:1px solid var(--line);color:var(--text-faint);
+}
+
+.project-card-actions{
+  display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;
+}
+.project-card-actions .link-btn{
+  transition:background .15s ease,border-color .15s ease;
+}
+.project-card-actions .link-btn:hover{
+  background:rgba(166,224,44,0.15);border-color:rgba(166,224,44,0.4);
+}
+
+.projects-empty{
+  text-align:center;padding:80px 20px;color:var(--text-faint);
+}
+.projects-empty p{font-size:1rem;margin:0 0 6px;}
+.projects-empty .hint{font-size:.82rem;color:var(--text-faint);opacity:.7;}
+
+.project-count{
+  font-size:.78rem;color:var(--text-faint);margin-bottom:6px;
+  font-weight:600;letter-spacing:.02em;
+}
+
 /* RESPONSIVE */
 @media (max-width:980px){
   nav.links{display:none;}
@@ -327,6 +418,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 26px;background:var(--bg-
   .upcoming-mini{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .member-grid,.community-grid{grid-template-columns:repeat(3,1fr);}
+  .project-grid{grid-template-columns:1fr;}
 }
 @media (max-width:640px){
   .wrap{padding:0 18px;}
@@ -344,4 +436,9 @@ footer{border-top:1px solid var(--line);padding:56px 0 26px;background:var(--bg-
   .member-grid,.community-grid{grid-template-columns:repeat(2,1fr);}
   .page-header h1{font-size:1.9rem;}
   .filter-row{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;}
+  .projects-toolbar .filter-group .filter-row{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;}
+  .project-card{grid-template-columns:1fr;}
+  .project-card-image{padding:14px 14px 0;}
+  .project-card-image img{min-height:0;aspect-ratio:16/9;}
+  .project-card-body{padding:22px 24px;}
 }

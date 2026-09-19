@@ -1,6 +1,6 @@
 ---
 interface Props {
-  active?: 'home' | 'events' | 'members' | 'contact';
+  active?: 'home' | 'events' | 'members' | 'contact' | 'projects';
   immersive?: boolean;
 }
 
@@ -11,7 +11,7 @@ const links = [
   { href: '/#about', label: 'About' },
   { href: '/events', label: 'Events', activeWhen: 'events' },
   { href: '/members', label: 'Members', activeWhen: 'members' },
-  { href: '/#achievements', label: 'Projects' },
+  { href: '/projects', label: 'Projects', activeWhen: 'projects' },
   { href: '/contact', label: 'Contact', activeWhen: 'contact' },
 ];
 ---
