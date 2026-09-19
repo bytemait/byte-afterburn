@@ -20,28 +20,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: 'codex-26',
-    title: 'OpenAI Codex Hackathon',
-    description:
-      'A rapid AI build shaped around a clear problem, a working prototype, and a presentation that made the technical idea easy to understand. Earned first place.',
-    overview:
-      'OpenAI Codex Hackathon was a fast-paced product build in which Team Byte translated an AI-focused brief into a working prototype and a clear story for the judges. The project balanced the technical work with a deliberately simple user journey, so the value of the idea could be understood in a live demonstration rather than only in a pitch.',
-    challenge:
-      'The central challenge was making strong product decisions with very little time. The team needed to identify a meaningful problem, keep the first version narrow enough to finish, and communicate how the AI component improved the experience without turning the demo into a black box.',
-    approach:
-      'Using Python and the OpenAI API, the team iterated from a focused problem statement to a testable prototype. Short feedback loops guided the build: define the smallest useful interaction, validate the output, refine the flow, and prepare the explanation alongside the product.',
-    outcome:
-      'The final prototype earned first place. Beyond the result, it gave Team Byte a repeatable playbook for building AI products under pressure: scope tightly, make the system demonstrable, and explain the technology in terms of the person using it.',
-    images: ['/assets/works/openai_hack/openai_hack_win_1.webp'],
-    domains: ['AI/ML', 'Hackathon'],
-    tech: ['Python', 'OpenAI API'],
-    contributors: ['Team Byte'],
-    links: {
-      detail: '/projects/codex-26',
-      github: 'https://github.com/bytemait',
-    },
-  },
-  {
     slug: 'ezcrack',
     title: 'EZCrack',
     description:
@@ -64,28 +42,6 @@ export const projects: Project[] = [
     contributors: ['Team Byte'],
     links: {
       detail: '/projects/ezcrack',
-      github: 'https://github.com/bytemait',
-    },
-  },
-  {
-    slug: 'lam-research-26',
-    title: 'Lam Research Hackathon',
-    description:
-      'A first-place mechatronics prototype combining physical systems, fast iteration, and a practical response to the challenge brief.',
-    overview:
-      'For the Lam Research Hackathon, Team Byte developed a first-place mechatronics prototype that brought mechanical design, electronics, and embedded control together as one demonstrable system. The work was shaped around a practical response to the competition brief rather than a purely conceptual solution.',
-    challenge:
-      'The team had to make components from different disciplines behave reliably together on a compressed timeline. A promising design was only useful if it could be assembled, tested, adjusted, and demonstrated consistently in the real world.',
-    approach:
-      'The prototype combined CAD for physical design with Arduino and C++ for control. Mechanical, electrical, and software choices were iterated in parallel, with each change evaluated against the end-to-end behaviour of the system and the needs of the final demonstration.',
-    outcome:
-      'The finished prototype won first place. It demonstrated the team’s ability to connect disciplines, make trade-offs quickly, and turn an engineering brief into a working physical build.',
-    images: ['/assets/works/lam_research_hack/lam_research_1.webp'],
-    domains: ['Mechatronics', 'Hackathon'],
-    tech: ['Arduino', 'C++', 'CAD'],
-    contributors: ['Team Byte'],
-    links: {
-      detail: '/projects/lam-research-26',
       github: 'https://github.com/bytemait',
     },
   },
@@ -155,28 +111,6 @@ export const projects: Project[] = [
     contributors: ['Team Byte'],
     links: {
       detail: '/projects/scrape2sim',
-      github: 'https://github.com/bytemait',
-    },
-  },
-  {
-    slug: 'hack-iitk',
-    title: 'Hack IIT Kanpur',
-    description:
-      'Team Byte won first place in the cybersecurity solution track at HACK IITK 2025, held at IIT Kanpur.',
-    overview:
-      'At HACK IITK 2025, held at IIT Kanpur, Team Byte built a cybersecurity solution for the competition’s security track. The project was developed as a response to a live hackathon brief, where investigation, a defensible technical approach, and a clear demonstration all mattered.',
-    challenge:
-      'Cybersecurity problems demand both careful reasoning and fast delivery. The team had to understand the challenge, decide where a prototype could create the most value, and present the solution in a way that made its security contribution clear to evaluators.',
-    approach:
-      'Working with Python and networking concepts, the team combined investigation with rapid prototyping. The build was continually tested against the challenge requirements, while the final presentation focused on explaining the problem, the solution’s behaviour, and the reasoning behind it.',
-    outcome:
-      'Team Byte won first place in the cybersecurity solution track. The result highlights the team’s ability to turn a difficult security brief into a practical, explainable solution under hackathon conditions.',
-    images: ['/assets/works/hack_iitk/hack-iitk-1.webp'],
-    domains: ['Cybersecurity', 'Hackathon'],
-    tech: ['Python', 'Networking'],
-    contributors: ['Team Byte'],
-    links: {
-      detail: '/projects/hack-iitk',
       github: 'https://github.com/bytemait',
     },
   },
