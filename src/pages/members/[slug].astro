@@ -163,6 +163,20 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
 <Layout title={`${member.name} — B.Y.T.E.`} active="members" footerInSlot>
   <main class="member-detail-page">
+    <svg class="member-channel-filters" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="member-channel-red" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" />
+        </filter>
+        <filter id="member-channel-green" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" />
+        </filter>
+        <filter id="member-channel-blue" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+        </filter>
+      </defs>
+    </svg>
+
     <div class="member-detail-wrap">
       <nav class="member-breadcrumb" aria-label="Breadcrumb">
         <a href="/members" class="back-link">
@@ -176,22 +190,31 @@ const description = groupDescriptions[member.group] || 'Active member contributi
       <article class="member-profile-grid">
         <!-- Portrait stage -->
         <div class="profile-media-column">
-          <div class:list={['profile-portrait-card', { 'has-photo': Boolean(member.photo) }]}>
-            {member.photo ? (
-              <div class="portrait-stage">
-                <img class="portrait-base" src={member.photo} alt={member.name} loading="eager" />
-                <img class="portrait-channel portrait-channel--red" src={member.photo} alt="" aria-hidden="true" loading="eager" />
-                <img class="portrait-channel portrait-channel--green" src={member.photo} alt="" aria-hidden="true" loading="eager" />
-                <img class="portrait-channel portrait-channel--blue" src={member.photo} alt="" aria-hidden="true" loading="eager" />
-              </div>
-            ) : (
-              <div class="portrait-fallback" aria-hidden="true">
-                <span>{initials}</span>
-                <svg viewBox="0 0 200 260">
-                  <path d="M100 24c31 0 51 25 51 58 0 29-14 47-28 57 34 9 58 39 62 96H15c4-57 28-87 62-96-15-10-28-28-28-57 0-33 20-58 51-58Z" />
-                </svg>
-              </div>
-            )}
+          <div
+            class:list={['profile-portrait-card', { 'has-photo': Boolean(member.photo) }]}
+            data-mesh-member
+            data-mesh-shape="silhouette"
+            data-achievement-card
+            tabindex="0"
+            aria-label={`${member.name}, ${member.role}`}
+          >
+            <div class="portrait-stage" data-mesh-frame>
+              {member.photo ? (
+                <>
+                  <img class="portrait-base" src={member.photo} alt={member.name} loading="eager" />
+                  <img class="portrait-channel portrait-channel--red" src={member.photo} alt="" aria-hidden="true" loading="eager" />
+                  <img class="portrait-channel portrait-channel--green" src={member.photo} alt="" aria-hidden="true" loading="eager" />
+                  <img class="portrait-channel portrait-channel--blue" src={member.photo} alt="" aria-hidden="true" loading="eager" />
+                </>
+              ) : (
+                <div class="portrait-fallback" aria-hidden="true">
+                  <span>{initials}</span>
+                  <svg viewBox="0 0 200 260">
+                    <path d="M100 24c31 0 51 25 51 58 0 29-14 47-28 57 34 9 58 39 62 96H15c4-57 28-87 62-96-15-10-28-28-28-57 0-33 20-58 51-58Z" />
+                  </svg>
+                </div>
+              )}
+            </div>
             <span class="profile-node-tag" aria-hidden="true">BYTE // {initials}</span>
           </div>
         </div>
@@ -254,6 +277,74 @@ const description = groupDescriptions[member.group] || 'Active member contributi
   </main>
 </Layout>
 
+<script>
+  const setupMemberCard = () => {
+    const card = document.querySelector<HTMLElement>('[data-mesh-member]');
+    if (!card || card.dataset.enhanced === 'true') return;
+    card.dataset.enhanced = 'true';
+
+    const portrait = card.querySelector<HTMLElement>('.portrait-stage');
+    const hasChannels = Boolean(card.querySelector('.portrait-channel'));
+    const mobile = window.matchMedia('(max-width: 760px)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let depthFrame = 0;
+    let depthX = 0;
+    let depthY = 0;
+
+    portrait?.addEventListener('pointermove', (event) => {
+      if (mobile.matches || reducedMotion.matches) return;
+      const box = portrait.getBoundingClientRect();
+      const x = Math.min(box.width, Math.max(0, event.clientX - box.left));
+      const y = Math.min(box.height, Math.max(0, event.clientY - box.top));
+      card.style.setProperty('--pointer-x', `${x}px`);
+      card.style.setProperty('--pointer-y', `${y}px`);
+      if (!hasChannels) return;
+
+      depthX = (x / box.width - 0.5) * 2;
+      depthY = (y / box.height - 0.5) * 2;
+      if (depthFrame) return;
+      depthFrame = requestAnimationFrame(() => {
+        depthFrame = 0;
+        card.style.setProperty('--rgb-g-x', `${(depthX * 4).toFixed(2)}px`);
+        card.style.setProperty('--rgb-g-y', `${(depthY * 3).toFixed(2)}px`);
+      });
+    }, { passive: true });
+
+    const resetDepth = () => {
+      if (depthFrame) cancelAnimationFrame(depthFrame);
+      depthFrame = 0;
+      card.style.setProperty('--pointer-x', '50%');
+      card.style.setProperty('--pointer-y', '50%');
+      ['--rgb-g-x', '--rgb-g-y'].forEach((property) => card.style.removeProperty(property));
+    };
+
+    card.addEventListener('pointerenter', () => {
+      if (!mobile.matches) card.dataset.memberActive = 'true';
+    });
+    card.addEventListener('pointerleave', () => {
+      resetDepth();
+      if (mobile.matches) return;
+      if (document.activeElement === card && card.matches(':focus-visible')) {
+        card.dataset.memberActive = 'true';
+      } else {
+        delete card.dataset.memberActive;
+      }
+    });
+    card.addEventListener('focus', () => {
+      if (!mobile.matches) card.dataset.memberActive = 'true';
+    });
+    card.addEventListener('blur', () => {
+      resetDepth();
+      if (mobile.matches) return;
+      if (card.matches(':hover')) card.dataset.memberActive = 'true';
+      else delete card.dataset.memberActive;
+    });
+  };
+
+  setupMemberCard();
+  document.addEventListener('astro:page-load', setupMemberCard);
+</script>
+
 <style>
   @font-face {
     font-family: 'Clash Display';
@@ -284,6 +375,14 @@ const description = groupDescriptions[member.group] || 'Active member contributi
     padding-top: 110px;
     background: radial-gradient(circle at 50% 20%, rgba(82, 224, 166, 0.08), transparent 45%), rgba(16, 16, 16, 0.2);
     color: var(--ink);
+  }
+
+  .member-channel-filters {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
   }
 
   .member-detail-wrap {
@@ -322,7 +421,7 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
   .member-profile-grid {
     display: grid;
-    grid-template-columns: minmax(300px, 440px) 1fr;
+    grid-template-columns: minmax(300px, 446px) 1fr;
     gap: clamp(36px, 6vw, 80px);
     align-items: start;
   }
@@ -333,13 +432,22 @@ const description = groupDescriptions[member.group] || 'Active member contributi
   }
 
   .profile-portrait-card {
+    --pointer-x: 50%;
+    --pointer-y: 50%;
+    --rgb-g-x: 0px;
+    --rgb-g-y: 0px;
     position: relative;
-    aspect-ratio: 4 / 5;
-    border-radius: 20px;
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
     overflow: hidden;
-    background: radial-gradient(circle at 50% 40%, rgba(82, 224, 166, 0.12), transparent 50%), #141815;
+    background:
+      radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(82, 224, 166, 0.17), transparent 34%),
+      linear-gradient(180deg, rgba(238, 244, 239, 0.018), rgba(82, 224, 166, 0.055)),
+      #141815;
     border: 1px solid var(--line);
     box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+    transition: opacity 420ms ease, transform 620ms cubic-bezier(.16, 1, .3, 1), border-color 360ms ease, box-shadow 360ms ease;
+    outline: none;
   }
 
   .profile-portrait-card::after {
@@ -349,59 +457,140 @@ const description = groupDescriptions[member.group] || 'Active member contributi
     pointer-events: none;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
     border-radius: inherit;
+    z-index: 2;
+  }
+
+  .profile-portrait-card:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 4px;
+  }
+
+  .profile-portrait-card[data-member-active="true"] {
+    z-index: 2;
+    transform: translateY(-0.4rem) scale(1.02);
+    border-color: rgba(82, 224, 166, 0.44);
+    box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(82, 224, 166, 0.2);
   }
 
   .portrait-stage {
     position: relative;
     width: 100%;
     height: 100%;
+    aspect-ratio: 1 / 1;
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(82, 224, 166, 0.17), transparent 34%),
+      linear-gradient(180deg, rgba(238, 244, 239, 0.018), rgba(82, 224, 166, 0.055));
+  }
+
+  .portrait-stage::before,
+  .portrait-stage::after {
+    position: absolute;
+    z-index: 2;
+    content: '';
+    pointer-events: none;
+  }
+
+  .portrait-stage::before {
+    inset: 0;
+    opacity: 0;
+    background:
+      linear-gradient(180deg, transparent 48%, rgba(5, 8, 6, 0.18) 66%, rgba(4, 7, 5, 0.88) 100%),
+      linear-gradient(180deg, transparent 58%, rgba(82, 224, 166, 0.09));
+    transition: opacity 360ms ease;
+  }
+
+  .portrait-stage::after {
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 1px;
+    background: var(--green);
+    transition: right 600ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .profile-portrait-card[data-member-active="true"] .portrait-stage::before {
+    opacity: 1;
+  }
+
+  .profile-portrait-card[data-member-active="true"] .portrait-stage::after {
+    right: 0;
   }
 
   .portrait-stage img {
     position: absolute;
     bottom: 0;
     left: 50%;
-    width: 108%;
-    height: 96%;
+    width: 112%;
+    height: calc(98% + 6px);
     object-fit: contain;
     object-position: center bottom;
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 1.8%, 0) scale(0.97);
+    transform-origin: center bottom;
   }
 
   .portrait-base {
     z-index: 0;
-    opacity: 0.95;
-    filter: grayscale(0.2) contrast(1.05);
+    opacity: 1;
+    filter: grayscale(1) contrast(0.9) brightness(0.69);
+    transition: filter 540ms ease, opacity 220ms ease, transform 720ms cubic-bezier(.16, 1, .3, 1);
   }
 
   .portrait-channel {
     z-index: 1;
-    opacity: 0.18;
+    opacity: 0;
+    visibility: hidden;
     mix-blend-mode: screen;
     pointer-events: none;
+    transition: opacity 180ms ease, visibility 0s linear 180ms;
   }
 
   .portrait-channel--red {
-    filter: url('#member-channel-red');
-    transform: translate3d(-50%, 0, 0);
+    filter: url(#member-channel-red) contrast(1.04) brightness(0.96);
   }
 
   .portrait-channel--green {
-    filter: url('#member-channel-green');
-    transform: translate3d(calc(-50% + 2px), -1px, 0);
+    filter: url(#member-channel-green) contrast(1.04) brightness(0.94);
   }
 
   .portrait-channel--blue {
-    filter: url('#member-channel-blue');
-    transform: translate3d(calc(-50% - 2px), 1px, 0);
+    filter: url(#member-channel-blue) contrast(1.04) brightness(1.02);
+  }
+
+  .profile-portrait-card[data-member-active="true"] .portrait-base {
+    opacity: 0.16;
+    filter: grayscale(1) contrast(1.04) brightness(0.5);
+    transform: translate3d(-50%, 0, 0) scale(1.04);
+  }
+
+  .profile-portrait-card[data-member-active="true"] .portrait-channel {
+    visibility: visible;
+    opacity: 0.9;
+    transition: opacity 220ms ease, visibility 0s linear 0s;
+    will-change: transform, opacity;
+  }
+
+  .profile-portrait-card[data-member-active="true"] .portrait-channel--red {
+    opacity: 0.84;
+    transform: translate3d(-50%, 0, 0) scale(1.04);
+  }
+
+  .profile-portrait-card[data-member-active="true"] .portrait-channel--green {
+    opacity: 0.94;
+    transform: translate3d(calc(-50% + var(--rgb-g-x)), var(--rgb-g-y), 0) scale(1.04);
+  }
+
+  .profile-portrait-card[data-member-active="true"] .portrait-channel--blue {
+    opacity: 0.88;
+    transform: translate3d(-50%, 0, 0) scale(1.04);
   }
 
   .portrait-fallback {
     position: absolute;
-    inset: 0;
+    inset: 8% 8% 0;
     display: grid;
     place-items: center;
     color: var(--green);
@@ -409,28 +598,27 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
   .portrait-fallback svg {
     position: absolute;
-    inset: 12%;
-    width: 76%;
-    height: 76%;
-    fill: rgba(82, 224, 166, 0.04);
-    stroke: rgba(82, 224, 166, 0.36);
-    stroke-width: 1.2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: rgba(82, 224, 166, 0.035);
+    stroke: rgba(82, 224, 166, 0.48);
+    stroke-width: 1;
     vector-effect: non-scaling-stroke;
   }
 
   .portrait-fallback span {
     position: relative;
     z-index: 1;
-    font: 700 clamp(3.5rem, 8vw, 6.5rem)/1 'Clash Display', sans-serif;
-    letter-spacing: -0.04em;
-    color: var(--green);
+    font: 600 clamp(2.4rem, 5vw, 5.2rem)/1 'Clash Display', sans-serif;
+    letter-spacing: -0.03em;
   }
 
   .profile-node-tag {
     position: absolute;
     top: 18px;
     right: 18px;
-    z-index: 2;
+    z-index: 3;
     padding: 5px 12px;
     border: 1px solid rgba(82, 224, 166, 0.3);
     border-radius: 999px;
@@ -444,26 +632,26 @@ const description = groupDescriptions[member.group] || 'Active member contributi
   .profile-info-column {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 30px;
   }
 
   .profile-eyebrow {
     margin: 0 0 12px;
     color: var(--green);
     font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
   }
 
   .profile-name {
-    margin: 0 0 18px;
+    margin: 0 0 16px;
     color: #ffffff;
     font-family: 'Clash Display', sans-serif;
-    font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+    font-size: clamp(2.55rem, 4.9vw, 4.25rem);
     font-weight: 600;
-    line-height: 0.94;
+    line-height: 0.95;
     letter-spacing: -0.035em;
     text-wrap: balance;
   }
@@ -471,18 +659,18 @@ const description = groupDescriptions[member.group] || 'Active member contributi
   .profile-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 9px;
     align-items: center;
   }
 
   .role-pill {
     display: inline-block;
-    padding: 6px 16px;
+    padding: 5.5px 15px;
     border-radius: 999px;
     background: var(--green);
     color: #07110b;
     font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -490,13 +678,13 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
   .dept-pill {
     display: inline-block;
-    padding: 6px 16px;
+    padding: 5.5px 15px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--line);
     color: #dbe6de;
     font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -504,13 +692,13 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
   .year-pill {
     display: inline-block;
-    padding: 6px 16px;
+    padding: 5.5px 15px;
     border-radius: 999px;
     background: rgba(255, 189, 102, 0.12);
     border: 1px solid rgba(255, 189, 102, 0.35);
     color: #ffcd8b;
     font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -518,7 +706,7 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
   .profile-quote-block {
     position: relative;
-    padding: 24px 28px 24px 34px;
+    padding: 22px 26px 22px 32px;
     border-left: 3px solid var(--green);
     background: rgba(23, 27, 24, 0.55);
     border-radius: 0 14px 14px 0;
@@ -527,10 +715,10 @@ const description = groupDescriptions[member.group] || 'Active member contributi
   .quote-mark {
     position: absolute;
     top: 4px;
-    left: 12px;
+    left: 11px;
     color: var(--green);
     font-family: 'Clash Display', sans-serif;
-    font-size: 2.2rem;
+    font-size: 2.05rem;
     line-height: 1;
     opacity: 0.6;
   }
@@ -539,7 +727,7 @@ const description = groupDescriptions[member.group] || 'Active member contributi
     margin: 0;
     color: #e5eee7;
     font-family: 'Clash Display', sans-serif;
-    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    font-size: clamp(1.1rem, 1.65vw, 1.36rem);
     font-weight: 600;
     line-height: 1.4;
     letter-spacing: -0.015em;
@@ -547,9 +735,9 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
   .profile-meta-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 20px;
-    padding: 24px 0;
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    gap: 19px;
+    padding: 22px 0;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
   }
@@ -563,7 +751,7 @@ const description = groupDescriptions[member.group] || 'Active member contributi
   .meta-label {
     color: var(--muted);
     font-family: 'Inter', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -573,15 +761,15 @@ const description = groupDescriptions[member.group] || 'Active member contributi
     margin: 0;
     color: #ffffff;
     font-family: 'Clash Display', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.0rem;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
 
   .profile-about-block h3 {
-    margin: 0 0 12px;
+    margin: 0 0 11px;
     font-family: 'Clash Display', sans-serif;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: -0.01em;
@@ -592,8 +780,8 @@ const description = groupDescriptions[member.group] || 'Active member contributi
     margin: 0;
     color: var(--muted);
     font-family: 'Inter', sans-serif;
-    font-size: 0.96rem;
-    line-height: 1.65;
+    font-size: 0.93rem;
+    line-height: 1.62;
   }
 
   .profile-actions {
@@ -610,7 +798,7 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
     .profile-media-column {
       position: static;
-      max-width: 380px;
+      max-width: 386px;
       margin: 0 auto;
       width: 100%;
     }
@@ -618,8 +806,16 @@ const description = groupDescriptions[member.group] || 'Active member contributi
 
   @media (prefers-reduced-motion: reduce) {
     .back-link,
-    .btn {
+    .btn,
+    .profile-portrait-card,
+    .portrait-stage::before,
+    .portrait-stage::after,
+    .portrait-stage img {
       transition: none;
+    }
+
+    .profile-portrait-card[data-member-active="true"] .portrait-channel--green {
+      animation: none !important;
     }
   }
 </style>
