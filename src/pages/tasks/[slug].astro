@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/common/Footer.astro';
+import DepartmentTaskDetail from '../../components/tasks/DepartmentTaskDetail.astro';
+import CountdownHUD from '../../components/tasks/CountdownHUD.astro';
+import { taskDepartments, getDepartmentBySlug } from '../../data/tasks';
+
+export function getStaticPaths() {
+  return taskDepartments.map((dept) => ({
+    params: { slug: dept.slug },
+    props: { dept },
+  }));
+}
+
+const { slug } = Astro.params;
+const dept = Astro.props.dept || (slug ? getDepartmentBySlug(slug) : undefined);
+
+if (!dept) {
+  return Astro.redirect('/tasks');
+}
+---
+
+<Layout title={`${dept.department} Tasks — B.Y.T.E.`} active="tasks" footerInSlot>
+  <DepartmentTaskDetail dept={dept} />
+  <CountdownHUD />
+  <Footer immersive />
+</Layout>

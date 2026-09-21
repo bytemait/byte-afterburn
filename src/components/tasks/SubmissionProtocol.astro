@@ -1,0 +1,107 @@
+---
+---
+
+<div class="content-block">
+  <h2 class="section-title">Submission Protocol</h2>
+  <div class="submission-steps-grid">
+    <div class="sub-step">
+      <span class="step-badge">01</span>
+      <div>
+        <strong>Public GitHub Repository</strong>
+        <p>Maintain clean, chronological commits reflecting your build progress. Avoid single-dump commits.</p>
+      </div>
+    </div>
+    <div class="sub-step">
+      <span class="step-badge">02</span>
+      <div>
+        <strong>Comprehensive README</strong>
+        <p>Document architecture diagrams, setup instructions, trade-offs made, and security measures.</p>
+      </div>
+    </div>
+    <div class="sub-step">
+      <span class="step-badge">03</span>
+      <div>
+        <strong>Hosted Demo / Walkthrough</strong>
+        <p>Provide a live link (Vercel/Netlify), shareable APK/Expo link, or screen recording walkthrough.</p>
+      </div>
+    </div>
+    <div class="sub-step">
+      <span class="step-badge">04</span>
+      <div>
+        <strong>Official Form Submission</strong>
+        <p>Submit before Day 5 at 11:59 PM IST. Shortlisted candidates will be invited for live walkthroughs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .submission-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .sub-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 22px;
+    transition: border-color 0.2s ease;
+  }
+
+  .sub-step:hover {
+    border-color: rgba(82, 224, 166, 0.3);
+  }
+
+  .step-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(82, 224, 166, 0.12);
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .sub-step strong {
+    display: block;
+    font-size: 0.94rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .sub-step p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 800px) {
+    .submission-steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

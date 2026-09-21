@@ -1,0 +1,172 @@
+---
+---
+
+<div class="action-banner-grid">
+  <!-- SUBMISSION CTA -->
+  <div class="banner-card submit-banner">
+    <div class="banner-content">
+      <span class="badge-status">RECRUITMENT ACTIVE</span>
+      <h3>Ready to Submit?</h3>
+      <p>Completed your task and have your repository and live demo ready? Submit through the official recruitment form.</p>
+      <div class="deadline-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Deadline: <strong>Day 5 &bull; 11:59 PM IST</strong></span>
+      </div>
+    </div>
+    <a href="https://forms.gle" target="_blank" rel="noopener noreferrer" class="btn btn-primary banner-btn">
+      Open Submission Form
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+  </div>
+
+  <!-- DISCORD SUPPORT -->
+  <div class="banner-card discord-banner">
+    <div class="banner-content">
+      <div class="discord-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h0a14.5 14.5 0 0 0-4-1.5 9.8 9.8 0 0 0-.4 1.8 13.9 13.9 0 0 0-3.2 0 9.8 9.8 0 0 0-.4-1.8A14.5 14.5 0 0 0 6 6a15.8 15.8 0 0 0-2.4 9.7 14.4 14.4 0 0 0 4.5 2.3 10.3 10.3 0 0 0 1-1.6 9.3 9.3 0 0 1-1.5-.7c.1-.1.3-.2.4-.3a10.6 10.6 0 0 0 8 0c.1.1.3.2.4.3a9.3 9.3 0 0 1-1.5.7 10.3 10.3 0 0 0 1 1.6 14.4 14.4 0 0 0 4.5-2.3A15.8 15.8 0 0 0 18 6Z"/><path d="M9.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/><path d="M14.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
+        <span>MENTOR SUPPORT</span>
+      </div>
+      <h3>Have Questions or Stuck?</h3>
+      <p>Domain leads and mentors are active on Discord to answer questions, clarify problem statements, and give advice.</p>
+    </div>
+    <a href="https://discord.gg/HNYhA4Ww5" target="_blank" rel="noopener noreferrer" class="btn btn-outline banner-btn discord-action-btn">
+      Join #recruitment-help
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<style>
+  .action-banner-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .banner-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .submit-banner {
+    border-color: #2a3d2c;
+  }
+
+  .discord-banner {
+    border-color: #272d42;
+  }
+
+  .badge-status {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--lime);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .discord-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #8da0f8;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .discord-tag svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .banner-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+
+  .banner-content p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-dim);
+    margin: 0 0 16px;
+  }
+
+  .deadline-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    color: var(--text-dim);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .deadline-pill svg {
+    width: 13px;
+    height: 13px;
+    color: var(--lime);
+  }
+
+  .deadline-pill strong {
+    color: var(--lime);
+  }
+
+  .banner-btn {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .banner-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .discord-action-btn {
+    border-color: #3b4566;
+    color: var(--text);
+  }
+
+  .discord-action-btn:hover {
+    background: #1c2233;
+    border-color: #8da0f8;
+  }
+
+  @media (max-width: 800px) {
+    .action-banner-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .banner-card {
+      padding: 22px 20px;
+    }
+  }
+</style>

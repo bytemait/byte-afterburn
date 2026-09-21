@@ -1,0 +1,614 @@
+---
+import type { TaskProblemStatement } from '../../data/tasks';
+
+interface Props {
+  task: TaskProblemStatement;
+}
+
+const { task } = Astro.props;
+---
+
+<div class="task-item-card">
+  <!-- HEADER & TITLE -->
+  <div class="task-card-header">
+    <h3 class="task-title">{task.title}</h3>
+  </div>
+
+  <p class="task-brief">{task.brief}</p>
+
+  <!-- CONCEPT CALLOUT -->
+  {task.concept && (
+    <div class="task-concept-callout">
+      <div class="concept-header">
+        <div class="concept-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Concept &amp; Inspiration
+        </div>
+        {task.referenceUrl && (
+          <a href={task.referenceUrl.url} target="_blank" rel="noopener noreferrer" class="ref-link-pill">
+            <span>{task.referenceUrl.label}</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        )}
+      </div>
+      <p class="concept-text">{task.concept}</p>
+    </div>
+  )}
+
+  <!-- STACKS BAR -->
+  {task.stacks && task.stacks.length > 0 && (
+    <div class="task-stacks-bar">
+      <span class="stacks-label">Accepted Stacks:</span>
+      <div class="stacks-tags">
+        {task.stacks.map((stack) => (
+          <span class="stack-badge">{stack}</span>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- MANDATORY MULTI-STAGE ROADMAP -->
+  {task.stages && task.stages.length > 0 ? (
+    <div class="task-stages-wrapper">
+      <div class="stages-header-block">
+        <h4 class="stages-header-title">Mandatory Engineering Stages</h4>
+        <p class="stages-header-desc">Complete each stage in order. Ensure security constraints and verification checks are satisfied.</p>
+      </div>
+
+      <div class="stages-list">
+        {task.stages.map((stage) => (
+          <div class="stage-block">
+            <div class="stage-block-header">
+              <span class="stage-num-pill">Stage 0{stage.stageNumber}</span>
+              <div class="stage-title-group">
+                <h5 class="stage-title">{stage.title}</h5>
+                {stage.subtitle && <span class="stage-subtitle">{stage.subtitle}</span>}
+              </div>
+            </div>
+
+            <div class="stage-body">
+              <ul class="task-checklist stage-checklist">
+                {stage.requirements.map((req) => (
+                  <li>
+                    <span class="check-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {stage.securityNote && (
+                <div class="stage-security-box">
+                  <div class="security-box-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Non-Negotiable Security Requirement</span>
+                  </div>
+                  <p>{stage.securityNote}</p>
+                </div>
+              )}
+
+              {stage.verificationNote && (
+                <div class="stage-verify-box">
+                  <div class="verify-box-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                    <span>Interview Verification Check</span>
+                  </div>
+                  <p>{stage.verificationNote}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ) : task.requirements && task.requirements.length > 0 ? (
+    <div class="task-spec-section">
+      <h4>Core Requirements</h4>
+      <ul class="task-checklist">
+        {task.requirements.map((req) => (
+          <li>
+            <span class="check-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span>{req}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : null}
+
+  <!-- OPTIONAL MISSIONS -->
+  {task.optionalMissions && task.optionalMissions.length > 0 && (
+    <div class="task-spec-section missions-section">
+      <div class="missions-header">
+        <span class="bonus-star">★</span>
+        <h4>Optional Deep-Dive Missions</h4>
+      </div>
+      <p class="missions-intro">These allow strong candidates to demonstrate architectural depth without making baseline evaluation unfair.</p>
+      <div class="missions-grid">
+        {task.optionalMissions.map((m) => (
+          <div class="mission-item">
+            <div class="mission-name">
+              <span class="mission-bullet">✦</span>
+              <strong>{m.name}</strong>
+            </div>
+            <p class="mission-desc">{m.benefit}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- BONUS TASKS -->
+  {task.bonusTasks && task.bonusTasks.length > 0 && (
+    <div class="task-spec-section bonus-section">
+      <h4>
+        <span class="bonus-star">★</span> Extra Credit &amp; Polish
+      </h4>
+      <ul class="task-checklist bonus-checklist">
+        {task.bonusTasks.map((bonus) => (
+          <li>
+            <span class="bonus-plus">+</span>
+            <span>{bonus}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <!-- DELIVERABLES -->
+  {task.submissionDeliverables && task.submissionDeliverables.length > 0 && (
+    <div class="task-spec-section deliverables-section">
+      <h4>Required Submission Evidence</h4>
+      <ul class="task-checklist deliverables-checklist">
+        {task.submissionDeliverables.map((item) => (
+          <li>
+            <span class="deliverable-check">✓</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+</div>
+
+<style>
+  .task-item-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 32px 36px;
+  }
+
+  .task-card-header {
+    margin-bottom: 14px;
+  }
+
+  .task-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .task-brief {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin: 0 0 24px;
+  }
+
+  /* CONCEPT CALLOUT */
+  .task-concept-callout {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 0 0 24px;
+  }
+
+  .concept-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .concept-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--lime);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .concept-badge svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .concept-text {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--text);
+    margin: 0;
+    font-style: italic;
+  }
+
+  .ref-link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    color: var(--lime);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 4px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .ref-link-pill:hover {
+    border-color: #2a3d2c;
+    color: #ffffff;
+  }
+
+  .ref-link-pill svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* STACKS BAR */
+  .task-stacks-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stacks-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .stacks-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .stack-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    color: var(--text);
+  }
+
+  /* STAGES */
+  .task-stages-wrapper {
+    margin-top: 28px;
+  }
+
+  .stages-header-block {
+    margin-bottom: 20px;
+  }
+
+  .stages-header-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 4px;
+  }
+
+  .stages-header-desc {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .stages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stage-block {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px;
+    transition: border-color 0.2s ease;
+  }
+
+  .stage-block:hover {
+    border-color: #2a3d2c;
+  }
+
+  .stage-block-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .stage-num-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--lime);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .stage-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .stage-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .stage-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .task-checklist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .task-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .check-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--lime);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .check-icon svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* SECURITY BOX */
+  .stage-security-box {
+    background: var(--panel);
+    border: 1px solid #4a2020;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-top: 16px;
+  }
+
+  .security-box-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #f87171;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .security-box-header svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .stage-security-box p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #fca5a5;
+    margin: 0;
+  }
+
+  /* VERIFY BOX */
+  .stage-verify-box {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--lime);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-top: 14px;
+  }
+
+  .verify-box-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--lime);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .verify-box-header svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .stage-verify-box p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  /* SPEC SECTION */
+  .task-spec-section {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  .task-spec-section h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* MISSIONS SECTION */
+  .missions-section {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px;
+    margin-top: 28px;
+  }
+
+  .missions-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .missions-header h4 {
+    margin: 0;
+    color: #e0c752;
+  }
+
+  .bonus-star {
+    color: #e0c752;
+    font-size: 1rem;
+  }
+
+  .missions-intro {
+    font-size: 0.86rem;
+    color: var(--text-dim);
+    margin: 0 0 18px;
+  }
+
+  .missions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .mission-item {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .mission-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e0c752;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+
+  .mission-bullet {
+    font-size: 0.75rem;
+  }
+
+  .mission-desc {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  /* BONUS SECTION */
+  .bonus-section {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+
+  .bonus-plus {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: #e0c752;
+    flex-shrink: 0;
+  }
+
+  /* DELIVERABLES SECTION */
+  .deliverables-section {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+
+  .deliverable-check {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--lime);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .task-item-card {
+      padding: 22px 18px;
+    }
+
+    .stage-block {
+      padding: 18px 16px;
+    }
+  }
+</style>

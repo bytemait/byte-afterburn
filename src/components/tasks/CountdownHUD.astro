@@ -1,0 +1,176 @@
+---
+---
+
+<div class="sticky-countdown-badge" id="stickyCountdown" role="timer" aria-label="Submission deadline countdown">
+  <div class="sticky-countdown-inner">
+    <div class="sticky-badge-header">
+      <span class="sticky-live-dot" aria-hidden="true"></span>
+      <span class="sticky-badge-label">SUBMISSION DEADLINE</span>
+    </div>
+    <div class="sticky-digits-row">
+      <span class="sticky-digit" id="cdDays">03</span><span class="sticky-unit">d</span> :
+      <span class="sticky-digit" id="cdHours">14</span><span class="sticky-unit">h</span> :
+      <span class="sticky-digit" id="cdMins">42</span><span class="sticky-unit">m</span> :
+      <span class="sticky-digit" id="cdSecs">18</span><span class="sticky-unit">s</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initStickyCountdown() {
+    const daysEl = document.getElementById('cdDays');
+    const hoursEl = document.getElementById('cdHours');
+    const minsEl = document.getElementById('cdMins');
+    const secsEl = document.getElementById('cdSecs');
+    const badge = document.getElementById('stickyCountdown');
+
+    // 1. Footer collision observer
+    if (badge) {
+      const footer = document.querySelector('.byte-footer');
+      if (footer) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            badge.classList.toggle('is-over-footer', entry.isIntersecting);
+          },
+          { rootMargin: '0px 0px 90px' }
+        );
+        observer.observe(footer);
+      }
+    }
+
+    // 2. Countdown calculation
+    if (!daysEl) return;
+
+    const TARGET_STORAGE_KEY = 'byte_tasks_target_v1';
+    let targetTime = 0;
+    try {
+      const stored = localStorage.getItem(TARGET_STORAGE_KEY);
+      if (stored && Number(stored) > Date.now()) {
+        targetTime = Number(stored);
+      } else {
+        targetTime = Date.now() + (4 * 24 + 14) * 3600 * 1000 + 42 * 60 * 1000;
+        localStorage.setItem(TARGET_STORAGE_KEY, String(targetTime));
+      }
+    } catch {
+      targetTime = Date.now() + (4 * 24 + 14) * 3600 * 1000;
+    }
+
+    function updateCountdown() {
+      const now = Date.now();
+      let diff = Math.max(0, targetTime - now);
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= d * (1000 * 60 * 60 * 24);
+      const h = Math.floor(diff / (1000 * 60 * 60));
+      diff -= h * (1000 * 60 * 60);
+      const m = Math.floor(diff / (1000 * 60));
+      diff -= m * (1000 * 60);
+      const s = Math.floor(diff / 1000);
+
+      const pad = (n: number) => String(n).padStart(2, '0');
+
+      if (daysEl) daysEl.textContent = pad(d);
+      if (hoursEl) hoursEl.textContent = pad(h);
+      if (minsEl) minsEl.textContent = pad(m);
+      if (secsEl) secsEl.textContent = pad(s);
+    }
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => clearInterval(interval),
+      { once: true }
+    );
+  }
+
+  initStickyCountdown();
+  document.addEventListener('astro:page-load', initStickyCountdown);
+</script>
+
+<style>
+  .sticky-countdown-badge {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 20;
+    transform: translateZ(0);
+    transition: bottom 420ms cubic-bezier(0.16, 1, 0.3, 1), transform 220ms ease;
+  }
+
+  .sticky-countdown-badge.is-over-footer {
+    bottom: 88px;
+  }
+
+  .sticky-countdown-inner {
+    background: rgba(12, 16, 13, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(82, 224, 166, 0.38);
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(82, 224, 166, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 175px;
+  }
+
+  .sticky-badge-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sticky-live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+    animation: livePulse 2s infinite;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .sticky-badge-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .sticky-digits-row {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--lime-bright, #52e0a6);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+
+  .sticky-unit {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-right: 2px;
+  }
+
+  @media (max-width: 809.98px) {
+    .sticky-countdown-badge {
+      right: 14px;
+      bottom: 14px;
+    }
+
+    .sticky-countdown-badge.is-over-footer {
+      bottom: 82px;
+    }
+  }
+</style>

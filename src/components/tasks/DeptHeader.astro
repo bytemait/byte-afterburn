@@ -1,0 +1,355 @@
+---
+import type { TaskDepartment } from '../../data/tasks';
+
+interface Props {
+  dept: TaskDepartment;
+}
+
+const { dept } = Astro.props;
+const formatItems = dept.submissionFormat.split('+').map((item) => item.trim());
+---
+
+<div class="page-header dept-detail-header">
+  <div class="wrap">
+    <!-- TOP NAVIGATION BAR -->
+    <div class="dept-header-top">
+      <a href="/tasks" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        All Departments
+      </a>
+      <div class="dept-header-chips">
+        <span class="status-live-chip">
+          <span class="live-dot"></span>
+          Recruitment Open
+        </span>
+        <span class="time-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          {dept.estimatedTime}
+        </span>
+      </div>
+    </div>
+
+    <!-- DOMAIN PILL & TITLE -->
+    <span class="type-pill">Recruitment Brief &bull; {dept.department}</span>
+    <h1>{dept.department} Tasks</h1>
+    <p class="dept-lead-tagline">{dept.tagline}</p>
+
+    <!-- SKILLS METADATA ROW -->
+    <div class="event-meta-row dept-meta-row">
+      <span class="meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <strong>Tech Stacks:</strong>
+        <span class="meta-tag-list">
+          {dept.skills.map((skill) => (
+            <span class="skill-tag">{skill}</span>
+          ))}
+        </span>
+      </span>
+      <span class="meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Timeline: <strong>Day 1 &ndash; Day 5 &bull; 11:59 PM IST</strong></span>
+      </span>
+    </div>
+
+    <!-- FORMAT & DELIVERABLES SHOWCASE CARD -->
+    <div class="format-card">
+      <div class="format-card-header">
+        <div class="format-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+        </div>
+        <div class="format-header-text">
+          <span class="format-kicker">Submission Protocol</span>
+          <h3>Required Deliverables &amp; Format</h3>
+        </div>
+      </div>
+
+      <div class="deliverables-grid">
+        {formatItems.map((item, idx) => (
+          <div class="deliverable-chip">
+            <span class="deliverable-num">0{idx + 1}</span>
+            <span class="deliverable-name">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dept-detail-header {
+    text-align: left;
+    padding: 32px 0 36px;
+  }
+
+  .dept-detail-header .wrap {
+    max-width: 920px;
+  }
+
+  .dept-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--lime);
+  }
+
+  .back-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .dept-header-chips {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .status-live-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--lime);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime);
+    box-shadow: 0 0 6px var(--lime);
+    animation: pulse-dot 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .time-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .time-chip svg {
+    width: 13px;
+    height: 13px;
+    color: var(--lime);
+  }
+
+  .type-pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--lime);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 12px;
+  }
+
+  .dept-detail-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+  }
+
+  .dept-lead-tagline {
+    font-size: 1.05rem;
+    color: var(--lime);
+    font-weight: 600;
+    margin: 0 0 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .dept-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+  }
+
+  .meta-item svg {
+    width: 15px;
+    height: 15px;
+    color: var(--lime);
+    flex-shrink: 0;
+  }
+
+  .meta-item strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .meta-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .skill-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 2px 7px;
+    background: var(--bg-soft);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+
+  /* FORMAT & DELIVERABLES CARD */
+  .format-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .format-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .format-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lime);
+    flex-shrink: 0;
+  }
+
+  .format-icon-box svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .format-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .format-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--lime);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .format-header-text h3 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  .deliverable-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: all 0.2s ease;
+  }
+
+  .deliverable-chip:hover {
+    border-color: #2a3d2c;
+  }
+
+  .deliverable-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--lime);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 2px 6px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .deliverable-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 640px) {
+    .dept-detail-header h1 {
+      font-size: 1.8rem;
+    }
+    .dept-meta-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .deliverables-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
