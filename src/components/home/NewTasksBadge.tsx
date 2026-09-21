@@ -15,7 +15,7 @@ export default function NewTasksBadge() {
   }, []);
 
   return (
-    <a className={`new-tasks-badge${overFooter ? ' is-over-footer' : ''}`} href="#departments" aria-label="Browse new Byte tasks">
+    <a className={`new-tasks-badge${overFooter ? ' is-over-footer' : ''}`} href="/tasks" aria-label="Browse new Byte tasks">
       <div className="new-tasks-preview">
         <svg aria-hidden="true" className="new-tasks-network" viewBox="0 0 144 104">
           <path d="M8 80 38 52 66 68 99 28 136 42M38 52 54 18 99 28M66 68 112 82 136 42" />

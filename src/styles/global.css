@@ -348,7 +348,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 26px;background:var(--bg-
 .project-card{
   background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
   overflow:hidden;display:grid;grid-template-columns:220px 1fr;
-  opacity: 0.6;
   transition:border-color .2s ease;
 }
 .project-card:hover{border-color:#2a3d2c;}
