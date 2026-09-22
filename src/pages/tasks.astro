@@ -2,10 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/common/Footer.astro';
 import TaskCountdown from '../components/tasks/TaskCountdown.astro';
+import TaskTimeline from '../components/tasks/TaskTimeline.astro';
 import TaskCard from '../components/tasks/TaskCard.astro';
 import TaskFAQ from '../components/tasks/TaskFAQ.astro';
 import CountdownHUD from '../components/tasks/CountdownHUD.astro';
-import { taskDepartments, taskFaqs } from '../data/tasks';
+import TaskLockPreviewToggle from '../components/tasks/TaskLockPreviewToggle.astro';
+import { taskDepartments, taskFaqs, timelineSteps } from '../data/tasks';
 ---
 
 <Layout title="Tasks — B.Y.T.E." active="tasks" footerInSlot>
@@ -27,6 +29,9 @@ import { taskDepartments, taskFaqs } from '../data/tasks';
           <TaskCard dept={dept} />
         ))}
       </div>
+
+      <!-- RECRUITMENT ROADMAP TIMELINE -->
+      <TaskTimeline steps={timelineSteps} />
 
       <!-- DISCORD SUPPORT CALLOUT -->
       <div class="discord-callout">
@@ -61,6 +66,9 @@ import { taskDepartments, taskFaqs } from '../data/tasks';
 
   <!-- STICKY FLOATING HUD TIMER -->
   <CountdownHUD />
+
+  <!-- DEV PREVIEW UNLOCK TOGGLE (Delete this single line before production) -->
+  <TaskLockPreviewToggle />
 
   <Footer immersive />
 </Layout>

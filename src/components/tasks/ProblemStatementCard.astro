@@ -6,10 +6,38 @@ interface Props {
 }
 
 const { task } = Astro.props;
+
+// Determine if the card has deep details that benefit from a collapsible "Read More" drawer
+const hasDeepDetails = Boolean(
+  (task.stages && task.stages.length > 0) ||
+  (task.optionalMissions && task.optionalMissions.length > 0) ||
+  (task.bonusTasks && task.bonusTasks.length > 0) ||
+  (task.submissionDeliverables && task.submissionDeliverables.length > 0) ||
+  (task.requirements && task.requirements.length > 2)
+);
+
+const stageCount = task.stages?.length || 0;
+const reqCount = task.requirements?.length || 0;
+const bonusCount = task.bonusTasks?.length || 0;
 ---
 
-<div class="task-item-card">
-  <!-- HEADER & TITLE -->
+<div class="task-item-card" data-has-expand={hasDeepDetails ? 'true' : 'false'}>
+  <!-- CARD TOP HEADER & LEVEL BADGE -->
+  <div class="task-card-top-bar">
+    <span class:list={['task-level-badge', task.level === 'Advanced Track' ? 'is-advanced' : 'is-starter']}>
+      <span class="level-indicator-dot"></span>
+      {task.level}
+    </span>
+
+    {hasDeepDetails && (
+      <span class="task-meta-preview">
+        {stageCount > 0 ? `${stageCount} Engineering Stages` : `${reqCount} Core Requirements`}
+        {bonusCount > 0 ? ` • ${bonusCount} Bonus Tasks` : ''}
+      </span>
+    )}
+  </div>
+
+  <!-- TITLE & BRIEF -->
   <div class="task-card-header">
     <h3 class="task-title">{task.title}</h3>
   </div>
@@ -35,7 +63,7 @@ const { task } = Astro.props;
     </div>
   )}
 
-  <!-- STACKS BAR -->
+  <!-- ACCEPTED STACKS BAR -->
   {task.stacks && task.stacks.length > 0 && (
     <div class="task-stacks-bar">
       <span class="stacks-label">Accepted Stacks:</span>
@@ -47,28 +75,72 @@ const { task } = Astro.props;
     </div>
   )}
 
-  <!-- MANDATORY MULTI-STAGE ROADMAP -->
-  {task.stages && task.stages.length > 0 ? (
-    <div class="task-stages-wrapper">
-      <div class="stages-header-block">
-        <h4 class="stages-header-title">Mandatory Engineering Stages</h4>
-        <p class="stages-header-desc">Complete each stage in order. Ensure security constraints and verification checks are satisfied.</p>
-      </div>
+  <!-- EXPANDABLE DETAILS DRAWER (COLLAPSIBLE WITH READ MORE) -->
+  {hasDeepDetails ? (
+    <div class="task-expandable-container">
+      <div class="task-expandable-drawer" id={`drawer-${task.id}`}>
+        <div class="task-expandable-content">
 
-      <div class="stages-list">
-        {task.stages.map((stage) => (
-          <div class="stage-block">
-            <div class="stage-block-header">
-              <span class="stage-num-pill">Stage 0{stage.stageNumber}</span>
-              <div class="stage-title-group">
-                <h5 class="stage-title">{stage.title}</h5>
-                {stage.subtitle && <span class="stage-subtitle">{stage.subtitle}</span>}
+          <!-- MANDATORY MULTI-STAGE ROADMAP -->
+          {task.stages && task.stages.length > 0 ? (
+            <div class="task-stages-wrapper">
+              <div class="stages-header-block">
+                <h4 class="stages-header-title">Mandatory Engineering Stages</h4>
+                <p class="stages-header-desc">Complete each stage in order. Ensure security constraints and verification checks are satisfied.</p>
+              </div>
+
+              <div class="stages-list">
+                {task.stages.map((stage) => (
+                  <div class="stage-block">
+                    <div class="stage-block-header">
+                      <span class="stage-num-pill">Stage 0{stage.stageNumber}</span>
+                      <div class="stage-title-group">
+                        <h5 class="stage-title">{stage.title}</h5>
+                        {stage.subtitle && <span class="stage-subtitle">{stage.subtitle}</span>}
+                      </div>
+                    </div>
+
+                    <div class="stage-body">
+                      <ul class="task-checklist stage-checklist">
+                        {stage.requirements.map((req) => (
+                          <li>
+                            <span class="check-icon" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
+                            <span>{req}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {stage.securityNote && (
+                        <div class="stage-security-box">
+                          <div class="security-box-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>Non-Negotiable Security Requirement</span>
+                          </div>
+                          <p>{stage.securityNote}</p>
+                        </div>
+                      )}
+
+                      {stage.verificationNote && (
+                        <div class="stage-verify-box">
+                          <div class="verify-box-header">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                            <span>Interview Verification Check</span>
+                          </div>
+                          <p>{stage.verificationNote}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            <div class="stage-body">
-              <ul class="task-checklist stage-checklist">
-                {stage.requirements.map((req) => (
+          ) : task.requirements && task.requirements.length > 0 ? (
+            <div class="task-spec-section">
+              <h4>Core Requirements</h4>
+              <ul class="task-checklist">
+                {task.requirements.map((req) => (
                   <li>
                     <span class="check-icon" aria-hidden="true">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -77,136 +149,237 @@ const { task } = Astro.props;
                   </li>
                 ))}
               </ul>
-
-              {stage.securityNote && (
-                <div class="stage-security-box">
-                  <div class="security-box-header">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    <span>Non-Negotiable Security Requirement</span>
-                  </div>
-                  <p>{stage.securityNote}</p>
-                </div>
-              )}
-
-              {stage.verificationNote && (
-                <div class="stage-verify-box">
-                  <div class="verify-box-header">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                    <span>Interview Verification Check</span>
-                  </div>
-                  <p>{stage.verificationNote}</p>
-                </div>
-              )}
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  ) : task.requirements && task.requirements.length > 0 ? (
-    <div class="task-spec-section">
-      <h4>Core Requirements</h4>
-      <ul class="task-checklist">
-        {task.requirements.map((req) => (
-          <li>
-            <span class="check-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span>{req}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  ) : null}
+          ) : null}
 
-  <!-- OPTIONAL MISSIONS -->
-  {task.optionalMissions && task.optionalMissions.length > 0 && (
-    <div class="task-spec-section missions-section">
-      <div class="missions-header">
-        <span class="bonus-star">★</span>
-        <h4>Optional Deep-Dive Missions</h4>
-      </div>
-      <p class="missions-intro">These allow strong candidates to demonstrate architectural depth without making baseline evaluation unfair.</p>
-      <div class="missions-grid">
-        {task.optionalMissions.map((m) => (
-          <div class="mission-item">
-            <div class="mission-name">
-              <span class="mission-bullet">✦</span>
-              <strong>{m.name}</strong>
+          <!-- OPTIONAL DEEP-DIVE MISSIONS -->
+          {task.optionalMissions && task.optionalMissions.length > 0 && (
+            <div class="task-spec-section missions-section">
+              <div class="missions-header">
+                <span class="bonus-star">★</span>
+                <h4>Optional Deep-Dive Missions</h4>
+              </div>
+              <p class="missions-intro">These allow strong candidates to demonstrate architectural depth without making baseline evaluation unfair.</p>
+              <div class="missions-grid">
+                {task.optionalMissions.map((m) => (
+                  <div class="mission-item">
+                    <div class="mission-name">
+                      <span class="mission-bullet">✦</span>
+                      <strong>{m.name}</strong>
+                    </div>
+                    <p class="mission-desc">{m.benefit}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <p class="mission-desc">{m.benefit}</p>
-          </div>
-        ))}
+          )}
+
+          <!-- BONUS TASKS & EXTRA CREDIT -->
+          {task.bonusTasks && task.bonusTasks.length > 0 && (
+            <div class="task-spec-section bonus-section">
+              <h4>
+                <span class="bonus-star">★</span> Extra Credit &amp; Polish
+              </h4>
+              <ul class="task-checklist bonus-checklist">
+                {task.bonusTasks.map((bonus) => (
+                  <li>
+                    <span class="bonus-plus">+</span>
+                    <span>{bonus}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- REQUIRED DELIVERABLES -->
+          {task.submissionDeliverables && task.submissionDeliverables.length > 0 && (
+            <div class="task-spec-section deliverables-section">
+              <h4>Required Submission Evidence</h4>
+              <ul class="task-checklist deliverables-checklist">
+                {task.submissionDeliverables.map((item) => (
+                  <li>
+                    <span class="deliverable-check">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+        </div>
+      </div>
+
+      <!-- READ MORE / SHOW LESS TOGGLE BUTTON -->
+      <div class="task-toggle-action-bar">
+        <button
+          type="button"
+          class="task-expand-toggle-btn"
+          aria-expanded="false"
+          aria-controls={`drawer-${task.id}`}
+        >
+          <span class="btn-state-collapsed">
+            <span>Read Full Specification</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </span>
+          <span class="btn-state-expanded">
+            <span>Show Less</span>
+            <svg class="toggle-icon is-rotated" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="18 15 12 9 6 15"/>
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
-  )}
-
-  <!-- BONUS TASKS -->
-  {task.bonusTasks && task.bonusTasks.length > 0 && (
-    <div class="task-spec-section bonus-section">
-      <h4>
-        <span class="bonus-star">★</span> Extra Credit &amp; Polish
-      </h4>
-      <ul class="task-checklist bonus-checklist">
-        {task.bonusTasks.map((bonus) => (
-          <li>
-            <span class="bonus-plus">+</span>
-            <span>{bonus}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )}
-
-  <!-- DELIVERABLES -->
-  {task.submissionDeliverables && task.submissionDeliverables.length > 0 && (
-    <div class="task-spec-section deliverables-section">
-      <h4>Required Submission Evidence</h4>
-      <ul class="task-checklist deliverables-checklist">
-        {task.submissionDeliverables.map((item) => (
-          <li>
-            <span class="deliverable-check">✓</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+  ) : (
+    /* FALLBACK FOR SHORT TASKS */
+    task.requirements && task.requirements.length > 0 && (
+      <div class="task-spec-section">
+        <h4>Core Requirements</h4>
+        <ul class="task-checklist">
+          {task.requirements.map((req) => (
+            <li>
+              <span class="check-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>{req}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
   )}
 </div>
 
-<style>
-  .task-item-card {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 32px 36px;
+<script>
+  function setupTaskToggles() {
+    const cards = document.querySelectorAll('.task-item-card[data-has-expand="true"]');
+
+    cards.forEach((card) => {
+      const btn = card.querySelector<HTMLButtonElement>('.task-expand-toggle-btn');
+      if (!btn) return;
+
+      // Avoid double binding
+      if (btn.dataset.bound === 'true') return;
+      btn.dataset.bound = 'true';
+
+      btn.addEventListener('click', () => {
+        const isExpanded = card.classList.toggle('is-expanded');
+        btn.setAttribute('aria-expanded', String(isExpanded));
+
+        if (!isExpanded) {
+          const rect = card.getBoundingClientRect();
+          if (rect.top < 80) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
   }
 
+  setupTaskToggles();
+  document.addEventListener('astro:page-load', setupTaskToggles);
+</script>
+
+<style>
+  .task-item-card {
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
+    border-radius: 16px;
+    padding: 28px 32px;
+    position: relative;
+    scroll-margin-top: 96px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .task-item-card:hover {
+    border-color: rgba(82, 224, 166, 0.3);
+  }
+
+  .task-item-card.is-expanded {
+    border-color: rgba(82, 224, 166, 0.4);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6), 0 0 20px -6px rgba(82, 224, 166, 0.08);
+  }
+
+  /* TOP METADATA BAR */
+  .task-card-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .task-level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .task-level-badge.is-starter {
+    color: var(--lime-bright, #52e0a6);
+    background: rgba(82, 224, 166, 0.08);
+    border: 1px solid rgba(82, 224, 166, 0.25);
+  }
+
+  .task-level-badge.is-advanced {
+    color: #e0c752;
+    background: rgba(224, 199, 82, 0.08);
+    border: 1px solid rgba(224, 199, 82, 0.25);
+  }
+
+  .level-indicator-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+  .task-meta-preview {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-dim, #a4b0a2);
+  }
+
+  /* HEADER & TITLE */
   .task-card-header {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .task-title {
-    font-size: 1.35rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.32rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text, #ffffff);
     margin: 0;
     letter-spacing: -0.01em;
   }
 
   .task-brief {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--text-dim);
-    margin: 0 0 24px;
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: var(--text-dim, #a4b0a2);
+    margin: 0 0 20px;
   }
 
   /* CONCEPT CALLOUT */
   .task-concept-callout {
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
     border-radius: 12px;
-    padding: 20px 24px;
-    margin: 0 0 24px;
+    padding: 18px 22px;
+    margin: 0 0 22px;
   }
 
   .concept-header {
@@ -215,7 +388,7 @@ const { task } = Astro.props;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .concept-badge {
@@ -223,22 +396,22 @@ const { task } = Astro.props;
     align-items: center;
     gap: 6px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    color: var(--lime);
+    color: var(--lime-bright, #52e0a6);
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
 
   .concept-badge svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
   }
 
   .concept-text {
-    font-size: 0.94rem;
-    line-height: 1.65;
-    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text, #ffffff);
     margin: 0;
     font-style: italic;
   }
@@ -248,10 +421,10 @@ const { task } = Astro.props;
     align-items: center;
     gap: 6px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.76rem;
-    color: var(--lime);
-    background: var(--panel);
-    border: 1px solid var(--line);
+    font-size: 0.74rem;
+    color: var(--lime-bright, #52e0a6);
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
     padding: 4px 12px;
     border-radius: 6px;
     text-decoration: none;
@@ -259,7 +432,7 @@ const { task } = Astro.props;
   }
 
   .ref-link-pill:hover {
-    border-color: #2a3d2c;
+    border-color: rgba(82, 224, 166, 0.4);
     color: #ffffff;
   }
 
@@ -274,16 +447,16 @@ const { task } = Astro.props;
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 28px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .stacks-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    color: var(--text-dim);
+    color: var(--text-dim, #a4b0a2);
     text-transform: uppercase;
   }
 
@@ -295,49 +468,145 @@ const { task } = Astro.props;
 
   .stack-badge {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
+    font-size: 0.74rem;
+    padding: 3px 9px;
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
     border-radius: 5px;
-    color: var(--text);
+    color: var(--text, #ffffff);
+  }
+
+  /* EXPANDABLE ACCORDION / DRAWER (CSS GRID ZERO-JS-HEIGHT MAGIC) */
+  .task-expandable-container {
+    position: relative;
+  }
+
+  .task-expandable-drawer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .task-item-card.is-expanded .task-expandable-drawer {
+    grid-template-rows: 1fr;
+  }
+
+  .task-expandable-content {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* FADE OUT MASK WHEN COLLAPSED */
+  .task-item-card:not(.is-expanded) .task-expandable-container::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: 0;
+    right: 0;
+    height: 24px;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 0%, rgba(23, 23, 23, 0.8) 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  /* TOGGLE ACTION BUTTON BAR */
+  .task-toggle-action-bar {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    justify-content: center;
+  }
+
+  .task-expand-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--lime-bright, #52e0a6);
+    background: rgba(82, 224, 166, 0.07);
+    border: 1px solid rgba(82, 224, 166, 0.25);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .task-expand-toggle-btn:hover {
+    background: rgba(82, 224, 166, 0.16);
+    border-color: var(--lime-bright, #52e0a6);
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(82, 224, 166, 0.2);
+  }
+
+  .task-expand-toggle-btn .btn-state-collapsed {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .task-expand-toggle-btn .btn-state-expanded {
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .task-item-card.is-expanded .task-expand-toggle-btn .btn-state-collapsed {
+    display: none;
+  }
+
+  .task-item-card.is-expanded .task-expand-toggle-btn .btn-state-expanded {
+    display: inline-flex;
+  }
+
+  .toggle-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
   }
 
   /* STAGES */
   .task-stages-wrapper {
-    margin-top: 28px;
+    margin-top: 24px;
   }
 
   .stages-header-block {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .stages-header-title {
-    font-size: 1rem;
+    font-size: 0.96rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text, #ffffff);
     text-transform: uppercase;
     letter-spacing: 0.04em;
     margin: 0 0 4px;
   }
 
   .stages-header-desc {
-    font-size: 0.86rem;
-    color: var(--text-dim);
+    font-size: 0.84rem;
+    color: var(--text-dim, #a4b0a2);
     margin: 0;
   }
 
   .stages-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
 
   .stage-block {
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
     border-radius: 12px;
-    padding: 22px;
+    padding: 20px;
     transition: border-color 0.2s ease;
   }
 
@@ -349,16 +618,16 @@ const { task } = Astro.props;
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .stage-num-pill {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    color: var(--lime);
-    background: var(--panel);
-    border: 1px solid var(--line);
+    color: var(--lime-bright, #52e0a6);
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
     padding: 4px 10px;
     border-radius: 6px;
     white-space: nowrap;
@@ -372,15 +641,16 @@ const { task } = Astro.props;
   }
 
   .stage-title {
-    font-size: 1.05rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.02rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text, #ffffff);
     margin: 0;
   }
 
   .stage-subtitle {
-    font-size: 0.82rem;
-    color: var(--text-dim);
+    font-size: 0.8rem;
+    color: var(--text-dim, #a4b0a2);
     font-family: 'JetBrains Mono', monospace;
   }
 
@@ -390,25 +660,25 @@ const { task } = Astro.props;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .task-checklist li {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    line-height: 1.6;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--text-dim, #a4b0a2);
+    line-height: 1.55;
   }
 
   .check-icon {
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
     border-radius: 50%;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    color: var(--lime);
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
+    color: var(--lime-bright, #52e0a6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -417,17 +687,17 @@ const { task } = Astro.props;
   }
 
   .check-icon svg {
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
   }
 
   /* SECURITY BOX */
   .stage-security-box {
-    background: var(--panel);
-    border: 1px solid #4a2020;
+    background: rgba(45, 18, 18, 0.4);
+    border: 1px solid rgba(239, 68, 68, 0.3);
     border-radius: 10px;
-    padding: 16px 18px;
-    margin-top: 16px;
+    padding: 14px 16px;
+    margin-top: 14px;
   }
 
   .security-box-header {
@@ -436,72 +706,72 @@ const { task } = Astro.props;
     gap: 8px;
     color: #f87171;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 6px;
   }
 
   .security-box-header svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
   }
 
   .stage-security-box p {
-    font-size: 0.88rem;
-    line-height: 1.6;
+    font-size: 0.85rem;
+    line-height: 1.55;
     color: #fca5a5;
     margin: 0;
   }
 
   /* VERIFY BOX */
   .stage-verify-box {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--lime);
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
+    border-left: 3px solid var(--lime-bright, #52e0a6);
     border-radius: 10px;
-    padding: 16px 18px;
-    margin-top: 14px;
+    padding: 14px 16px;
+    margin-top: 12px;
   }
 
   .verify-box-header {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--lime);
+    color: var(--lime-bright, #52e0a6);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 6px;
   }
 
   .verify-box-header svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
   }
 
   .stage-verify-box p {
-    font-size: 0.88rem;
-    line-height: 1.6;
-    color: var(--text-dim);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--text-dim, #a4b0a2);
     margin: 0;
   }
 
   /* SPEC SECTION */
   .task-spec-section {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid var(--line);
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .task-spec-section h4 {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text, #ffffff);
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    margin: 0 0 14px;
+    margin: 0 0 12px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -509,11 +779,11 @@ const { task } = Astro.props;
 
   /* MISSIONS SECTION */
   .missions-section {
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
     border-radius: 12px;
-    padding: 22px;
-    margin-top: 28px;
+    padding: 20px;
+    margin-top: 24px;
   }
 
   .missions-header {
@@ -530,26 +800,26 @@ const { task } = Astro.props;
 
   .bonus-star {
     color: #e0c752;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .missions-intro {
-    font-size: 0.86rem;
-    color: var(--text-dim);
-    margin: 0 0 18px;
+    font-size: 0.84rem;
+    color: var(--text-dim, #a4b0a2);
+    margin: 0 0 16px;
   }
 
   .missions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
   }
 
   .mission-item {
-    background: var(--panel);
-    border: 1px solid var(--line);
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
     border-radius: 8px;
-    padding: 14px 16px;
+    padding: 12px 14px;
   }
 
   .mission-name {
@@ -557,7 +827,7 @@ const { task } = Astro.props;
     align-items: center;
     gap: 8px;
     color: #e0c752;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     margin-bottom: 4px;
   }
 
@@ -566,18 +836,18 @@ const { task } = Astro.props;
   }
 
   .mission-desc {
-    font-size: 0.84rem;
-    line-height: 1.5;
-    color: var(--text-dim);
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--text-dim, #a4b0a2);
     margin: 0;
   }
 
   /* BONUS SECTION */
   .bonus-section {
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
     border-radius: 10px;
-    padding: 18px 20px;
+    padding: 16px 18px;
   }
 
   .bonus-plus {
@@ -589,26 +859,31 @@ const { task } = Astro.props;
 
   /* DELIVERABLES SECTION */
   .deliverables-section {
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
     border-radius: 12px;
-    padding: 22px 24px;
+    padding: 20px 22px;
   }
 
   .deliverable-check {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
-    color: var(--lime);
+    color: var(--lime-bright, #52e0a6);
     flex-shrink: 0;
   }
 
   @media (max-width: 640px) {
     .task-item-card {
-      padding: 22px 18px;
+      padding: 20px 16px;
     }
 
     .stage-block {
-      padding: 18px 16px;
+      padding: 16px 14px;
+    }
+
+    .task-expand-toggle-btn {
+      width: 100%;
+      max-width: none;
     }
   }
 </style>

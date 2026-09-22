@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/common/Footer.astro';
 import DepartmentTaskDetail from '../../components/tasks/DepartmentTaskDetail.astro';
 import CountdownHUD from '../../components/tasks/CountdownHUD.astro';
+import TaskLockPreviewToggle from '../../components/tasks/TaskLockPreviewToggle.astro';
 import { taskDepartments, getDepartmentBySlug } from '../../data/tasks';
 
 export function getStaticPaths() {
@@ -23,5 +24,7 @@ if (!dept) {
 <Layout title={`${dept.department} Tasks — B.Y.T.E.`} active="tasks" footerInSlot>
   <DepartmentTaskDetail dept={dept} />
   <CountdownHUD />
+  <!-- DEV PREVIEW UNLOCK TOGGLE (Delete this single line before production) -->
+  <TaskLockPreviewToggle />
   <Footer immersive />
 </Layout>

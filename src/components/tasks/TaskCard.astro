@@ -8,18 +8,78 @@ interface Props {
 const { dept } = Astro.props;
 ---
 
-<div class="project-card">
+<div class="project-card dept-task-card" data-slug={dept.slug}>
+  <!-- CARD IMAGE WITH B.Y.T.E. CYBER LOCK OVERLAY -->
   <div class="project-card-image">
     <img
       src={dept.image}
       alt={`${dept.department} preview`}
       loading="lazy"
     />
+
+    <!-- CYBER LOCK SHROUD -->
+    <div class="card-lock-overlay" aria-hidden="true">
+      <!-- CONSTELLATION MESH IN LOCK OVERLAY -->
+      <svg aria-hidden="true" class="overlay-network" viewBox="0 0 240 160">
+        <path d="M20 120 L70 50 L120 90 L170 30 L220 80 M70 50 L140 20 L170 30 M120 90 L190 130" stroke="#52e0a6" stroke-width="1.2" stroke-opacity="0.35" fill="none" />
+        <circle cx="20" cy="120" r="2.5" fill="#52e0a6" opacity="0.6"/>
+        <circle cx="70" cy="50" r="3" fill="#52e0a6" opacity="0.8"/>
+        <circle cx="120" cy="90" r="2.5" fill="#52e0a6" opacity="0.6"/>
+        <circle cx="140" cy="20" r="2" fill="#52e0a6" opacity="0.5"/>
+        <circle cx="170" cy="30" r="3" fill="#52e0a6" opacity="0.9"/>
+        <circle cx="190" cy="130" r="2.5" fill="#52e0a6" opacity="0.6"/>
+        <circle cx="220" cy="80" r="2.5" fill="#52e0a6" opacity="0.7"/>
+      </svg>
+
+      <!-- CORNER BRACKETS -->
+      <span class="overlay-corner top-left"></span>
+      <span class="overlay-corner top-right"></span>
+      <span class="overlay-corner bottom-left"></span>
+      <span class="overlay-corner bottom-right"></span>
+
+      <!-- CENTER CLEARANCE BADGE -->
+      <div class="lock-clearance-badge">
+        <span class="badge-reticle top-left" aria-hidden="true"></span>
+        <span class="badge-reticle top-right" aria-hidden="true"></span>
+        <span class="badge-reticle bottom-left" aria-hidden="true"></span>
+        <span class="badge-reticle bottom-right" aria-hidden="true"></span>
+
+        <div class="lock-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+
+        <div class="lock-badge-copy">
+          <div class="badge-header-row">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span class="clearance-tag">ACCESS LOCKED</span>
+            <span class="clearance-slash" aria-hidden="true">//</span>
+          </div>
+          <span class="reveal-time-tag">25 SEP 2026 &bull; 15:00 IST</span>
+        </div>
+
+        <span class="badge-hud-mark" aria-hidden="true">
+          <i/><i/><i/><i/>
+        </span>
+      </div>
+    </div>
   </div>
+
+  <!-- CARD BODY -->
   <div class="project-card-body">
-    <h3>{dept.department}</h3>
+    <div class="dept-title-row">
+      <h3>{dept.department}</h3>
+      <span class="dept-live-status">
+        <span class="status-dot"></span>
+        <span class="status-text">Recruiting</span>
+      </span>
+    </div>
+
     <div class="task-tagline">{dept.tagline}</div>
     <p class="task-desc">{dept.description}</p>
+
     <div class="project-meta">
       <span class="project-meta-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -34,23 +94,73 @@ const { dept } = Astro.props;
         </span>
       </span>
     </div>
+
+    <!-- ACTIONS: SWITCH BETWEEN LOCKED & UNLOCKED -->
     <div class="project-card-actions">
+      <!-- UNLOCKED VIEW BUTTON -->
       <a href={`/tasks/${dept.slug}`} class="link-btn active-task-btn">
-        View Tasks
+        <span>View Tasks</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+
+      <!-- LOCKED STATE BUTTON -->
+      <a href={`/tasks/${dept.slug}`} class="link-btn locked-task-btn" title="Tasks unlock on 25 Sep, 3:00 PM IST">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span class="locked-btn-text">Locked &bull; Reveals 25 Sep</span>
+        <span class="locked-btn-arrow">&rarr;</span>
       </a>
     </div>
   </div>
 </div>
 
 <style>
+  .dept-task-card {
+    position: relative;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .dept-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+
+  .dept-live-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--lime-bright, #52e0a6);
+    background: rgba(82, 224, 166, 0.08);
+    border: 1px solid rgba(82, 224, 166, 0.2);
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+  }
+
   .task-tagline {
     color: var(--lime);
     font-size: 0.74rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.03em;
-    margin: -4px 0 8px;
+    margin: 0 0 8px;
   }
 
   .task-desc {
@@ -70,18 +180,331 @@ const { dept } = Astro.props;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  .active-task-btn {
-    color: var(--lime-bright, #52e0a6);
-    border-color: rgba(82, 224, 166, 0.3);
-    background: rgba(82, 224, 166, 0.05);
+  /* ==========================================================================
+     CYBER LOCK OVERLAY ON IMAGE (TRANSLUCENT GLASS)
+     ========================================================================== */
+  .card-lock-overlay {
+    position: absolute;
+    inset: 14px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, rgba(8, 14, 10, 0.42) 0%, rgba(12, 20, 15, 0.3) 100%);
+    backdrop-filter: blur(3.5px) brightness(0.82);
+    -webkit-backdrop-filter: blur(3.5px) brightness(0.82);
+    border: 1px solid rgba(82, 224, 166, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.35s ease;
+    overflow: hidden;
+  }
+
+  .overlay-network {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  .overlay-corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .overlay-corner.top-left {
+    top: 6px;
+    left: 6px;
+    border-top: 2px solid var(--lime-bright, #52e0a6);
+    border-left: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .overlay-corner.top-right {
+    top: 6px;
+    right: 6px;
+    border-top: 2px solid var(--lime-bright, #52e0a6);
+    border-right: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .overlay-corner.bottom-left {
+    bottom: 6px;
+    left: 6px;
+    border-bottom: 2px solid var(--lime-bright, #52e0a6);
+    border-left: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .overlay-corner.bottom-right {
+    bottom: 6px;
+    right: 6px;
+    border-bottom: 2px solid var(--lime-bright, #52e0a6);
+    border-right: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .lock-clearance-badge {
+    position: relative;
+    z-index: 2;
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    max-width: calc(100% - 16px);
+    box-sizing: border-box;
+    background: rgba(8, 12, 10, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(82, 224, 166, 0.42);
+    padding: 6px 10px 6px 8px;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 16px rgba(82, 224, 166, 0.14);
+    transform: translateY(0);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .dept-task-card:hover .lock-clearance-badge {
+    border-color: rgba(82, 224, 166, 0.65);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75), 0 0 22px rgba(82, 224, 166, 0.25);
+  }
+
+  /* BADGE CORNER RETICLES */
+  .badge-reticle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .badge-reticle.top-left {
+    top: 2px;
+    left: 2px;
+    border-top: 1.5px solid var(--lime-bright, #52e0a6);
+    border-left: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .badge-reticle.top-right {
+    top: 2px;
+    right: 2px;
+    border-top: 1.5px solid var(--lime-bright, #52e0a6);
+    border-right: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .badge-reticle.bottom-left {
+    bottom: 2px;
+    left: 2px;
+    border-bottom: 1.5px solid var(--lime-bright, #52e0a6);
+    border-left: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .badge-reticle.bottom-right {
+    bottom: 2px;
+    right: 2px;
+    border-bottom: 1.5px solid var(--lime-bright, #52e0a6);
+    border-right: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .lock-icon-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: rgba(82, 224, 166, 0.12);
+    border: 1px solid rgba(82, 224, 166, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lime-bright, #52e0a6);
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(82, 224, 166, 0.18);
+  }
+
+  .lock-icon-box svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .lock-badge-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .badge-header-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .clearance-tag {
+    font-family: 'Chakra Petch', 'JetBrains Mono', monospace, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--lime-bright, #52e0a6);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .clearance-slash {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: var(--lime, #22c579);
+    opacity: 0.8;
+  }
+
+  .reveal-time-tag {
+    font-family: 'Chakra Petch', 'JetBrains Mono', monospace, sans-serif;
+    font-size: 0.56rem;
+    font-weight: 600;
+    color: var(--text-dim, #a4b0a2);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .badge-hud-mark {
+    width: 7px;
+    height: 7px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    transform: rotate(45deg);
+    color: var(--lime-bright, #52e0a6);
+    opacity: 0.75;
+    margin-left: 1px;
+    flex-shrink: 0;
+  }
+
+  .badge-hud-mark i {
+    display: block;
+    border-radius: 0.5px;
+    background: currentColor;
+  }
+
+  /* ==========================================================================
+     ACTION BUTTONS
+     ========================================================================== */
+  .active-task-btn {
+    color: #08110d;
+    border-color: var(--lime-bright, #52e0a6);
+    background: var(--lime-bright, #52e0a6);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .active-task-btn:hover {
-    background: rgba(82, 224, 166, 0.15);
-    border-color: var(--lime-bright, #52e0a6);
-    color: #ffffff;
+    background: #7dffc4;
+    border-color: #7dffc4;
+    color: #08110d;
+    box-shadow: 0 0 16px rgba(82, 224, 166, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .locked-task-btn {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    color: var(--text, #ffffff);
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .locked-task-btn svg {
+    width: 14px;
+    height: 14px;
+    color: var(--lime-bright, #52e0a6);
+    flex-shrink: 0;
+  }
+
+  .locked-task-btn:hover {
+    background: rgba(82, 224, 166, 0.08);
+    border-color: rgba(82, 224, 166, 0.35);
+    color: var(--lime-bright, #52e0a6);
+    transform: translateY(-1px);
+  }
+
+  .locked-btn-arrow {
+    color: var(--text-dim, #a4b0a2);
+    margin-left: 2px;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .locked-task-btn:hover .locked-btn-arrow {
+    transform: translateX(3px);
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  /* ==========================================================================
+     LOCKED & UNLOCKED STATES
+     ========================================================================== */
+  :global(html.tasks-locked) .card-lock-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  :global(html.tasks-locked) .active-task-btn {
+    display: none;
+  }
+
+  :global(html.tasks-locked) .locked-task-btn {
+    display: inline-flex;
+  }
+
+  :global(html.tasks-unlocked) .dept-task-card {
+    animation: unlockCardPulse 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  :global(html.tasks-unlocked) .card-lock-overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  :global(html.tasks-unlocked) .active-task-btn {
+    display: inline-flex;
+    animation: fadeInUpButton 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  :global(html.tasks-unlocked) .locked-task-btn {
+    display: none;
+  }
+
+  @keyframes unlockCardPulse {
+    0% {
+      border-color: rgba(82, 224, 166, 0.5);
+      box-shadow: 0 0 20px rgba(82, 224, 166, 0.25);
+    }
+    100% {
+      border-color: var(--line, #292929);
+      box-shadow: none;
+    }
+  }
+
+  @keyframes fadeInUpButton {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .card-lock-overlay {
+      inset: 14px 14px 0;
+    }
   }
 </style>

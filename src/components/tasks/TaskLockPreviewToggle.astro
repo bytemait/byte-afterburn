@@ -1,0 +1,169 @@
+---
+// DEV PREVIEW TOGGLE
+// To remove this preview toggle before production, simply delete this component or remove <TaskLockPreviewToggle /> from the page.
+---
+
+<div class="byte-dev-lock-toggle-widget" id="byteDevLockWidget" role="region" aria-label="Tasks preview unlock control">
+  <button
+    type="button"
+    id="globalTaskLockToggleBtn"
+    class="dev-floating-toggle-btn"
+    title="Toggle between locked and unlocked state to test the reveal animation"
+    aria-label="Toggle lock preview"
+  >
+    <span class="dev-badge-chip">DEV PREVIEW</span>
+    <span class="toggle-mark" aria-hidden="true">
+      <i/><i/><i/><i/>
+    </span>
+    <span id="globalLockStateText">Preview Unlock</span>
+  </button>
+</div>
+
+<script>
+  function initGlobalDevToggle() {
+    const btn = document.getElementById('globalTaskLockToggleBtn');
+    const textEl = document.getElementById('globalLockStateText');
+    const TARGET_TIME = new Date('2026-09-25T15:00:00+05:30').getTime();
+    const OVERRIDE_KEY = 'byte_tasks_lock_override';
+
+    function isLocked() {
+      const override = localStorage.getItem(OVERRIDE_KEY);
+      if (override === 'unlocked') return false;
+      if (override === 'locked') return true;
+      return Date.now() < TARGET_TIME;
+    }
+
+    function syncLockState(locked: boolean) {
+      if (locked) {
+        document.documentElement.classList.add('tasks-locked');
+        document.documentElement.classList.remove('tasks-unlocked');
+        if (textEl) textEl.textContent = 'Preview Unlock';
+        if (btn) btn.classList.remove('is-active-unlocked');
+      } else {
+        document.documentElement.classList.remove('tasks-locked');
+        document.documentElement.classList.add('tasks-unlocked');
+        if (textEl) textEl.textContent = 'Preview Lock';
+        if (btn) btn.classList.add('is-active-unlocked');
+      }
+
+      window.dispatchEvent(
+        new CustomEvent('byte:tasks-lock-change', { detail: { locked } })
+      );
+    }
+
+    // Initialize state on page load
+    syncLockState(isLocked());
+
+    if (btn && !btn.dataset.bound) {
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', () => {
+        const currentlyLocked = isLocked();
+        const nextState = !currentlyLocked;
+        localStorage.setItem(OVERRIDE_KEY, nextState ? 'locked' : 'unlocked');
+        syncLockState(nextState);
+      });
+    }
+
+    // Listen to external lock changes
+    window.addEventListener('byte:tasks-lock-change', ((e: CustomEvent) => {
+      const locked = e.detail?.locked ?? isLocked();
+      if (locked) {
+        if (textEl) textEl.textContent = 'Preview Unlock';
+        if (btn) btn.classList.remove('is-active-unlocked');
+      } else {
+        if (textEl) textEl.textContent = 'Preview Lock';
+        if (btn) btn.classList.add('is-active-unlocked');
+      }
+    }) as EventListener);
+  }
+
+  initGlobalDevToggle();
+  document.addEventListener('astro:page-load', initGlobalDevToggle);
+</script>
+
+<style>
+  .byte-dev-lock-toggle-widget {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+  }
+
+  .dev-floating-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #08110d;
+    background: #e0c752;
+    border: 1px solid rgba(224, 199, 82, 0.8);
+    padding: 7px 14px 7px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(224, 199, 82, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dev-floating-toggle-btn:hover {
+    background: #f0dc6b;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(224, 199, 82, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .dev-floating-toggle-btn.is-active-unlocked {
+    background: var(--lime-bright, #52e0a6);
+    border-color: var(--lime-bright, #52e0a6);
+    color: #08110d;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 18px rgba(82, 224, 166, 0.35);
+  }
+
+  .dev-floating-toggle-btn.is-active-unlocked:hover {
+    background: #7dffc4;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 24px rgba(82, 224, 166, 0.5);
+  }
+
+  .dev-badge-chip {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    color: inherit;
+    text-transform: uppercase;
+  }
+
+  .toggle-mark {
+    width: 10px;
+    height: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    transform: rotate(45deg);
+  }
+
+  .toggle-mark i {
+    display: block;
+    border-radius: 0.5px;
+    background: currentColor;
+  }
+
+  @media (max-width: 640px) {
+    .byte-dev-lock-toggle-widget {
+      left: 14px;
+      bottom: 74px;
+    }
+
+    .dev-floating-toggle-btn {
+      padding: 6px 11px 6px 8px;
+      font-size: 0.68rem;
+    }
+  }
+</style>

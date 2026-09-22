@@ -1,54 +1,104 @@
 ---
 ---
 
-<div class="task-countdown-card" role="timer" aria-label="Task submission deadline countdown">
-  <div class="countdown-main">
-    <div class="countdown-info">
-      <div class="countdown-badge">
-        <span class="live-dot"></span>
-        <span>Recruitment Active</span>
-      </div>
-      <h3 class="countdown-title">Submission Window Closes In</h3>
-      <p class="countdown-subtitle">Complete your task and submit your repo + live demo before time expires.</p>
-    </div>
+<div class="task-countdown-box" role="region" aria-label="Task reveal countdown">
+  <!-- CORNER RETICLES -->
+  <span class="corner-reticle top-left" aria-hidden="true"></span>
+  <span class="corner-reticle top-right" aria-hidden="true"></span>
+  <span class="corner-reticle bottom-left" aria-hidden="true"></span>
+  <span class="corner-reticle bottom-right" aria-hidden="true"></span>
 
-    <div class="countdown-timer-wrap">
-      <div class="timer-unit">
-        <span class="timer-num" id="pageCdDays">03</span>
-        <span class="timer-label">Days</span>
-      </div>
-      <span class="timer-sep">:</span>
-      <div class="timer-unit">
-        <span class="timer-num" id="pageCdHours">14</span>
-        <span class="timer-label">Hours</span>
-      </div>
-      <span class="timer-sep">:</span>
-      <div class="timer-unit">
-        <span class="timer-num" id="pageCdMins">42</span>
-        <span class="timer-label">Mins</span>
-      </div>
-      <span class="timer-sep">:</span>
-      <div class="timer-unit">
-        <span class="timer-num" id="pageCdSecs">18</span>
-        <span class="timer-label">Secs</span>
-      </div>
+  <!-- TOP CYBER TELEMETRY HEADER -->
+  <div class="countdown-outer-header">
+    <div class="header-tag-group">
+      <span class="header-slash" aria-hidden="true">//</span>
+      <span class="header-title">TASKS REVEAL COUNTDOWN</span>
+      <span class="header-slash" aria-hidden="true">//</span>
+    </div>
+    <div class="header-meta-group">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="header-target-time">25 SEP 2026 &bull; 15:00 IST</span>
     </div>
   </div>
 
-  <div class="countdown-footer">
-    <div class="countdown-footer-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span>Deadline: <strong>Day 5 &bull; 11:59 PM IST</strong></span>
+  <!-- 4 TIMELINE-STYLE UNIT BOXES GRID -->
+  <div class="countdown-inner-grid">
+    <!-- DAYS -->
+    <div class="unit-card">
+      <span class="unit-reticle top-right" aria-hidden="true"></span>
+      <span class="unit-reticle bottom-left" aria-hidden="true"></span>
+      <div class="unit-fact-bar">
+        <span class="unit-code">DAYS</span>
+        <span class="unit-index">01</span>
+      </div>
+      <div class="unit-number-box">
+        <span class="unit-giant-num" id="pageCdDays">00</span>
+      </div>
+      <div class="unit-bottom-accent">
+        <div class="accent-track">
+          <div class="accent-fill"></div>
+        </div>
+      </div>
     </div>
-    <div class="countdown-footer-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      <span>Deliverables: <strong>GitHub Repo + Hosted Demo / Output</strong></span>
+
+    <!-- HOURS -->
+    <div class="unit-card">
+      <span class="unit-reticle top-right" aria-hidden="true"></span>
+      <span class="unit-reticle bottom-left" aria-hidden="true"></span>
+      <div class="unit-fact-bar">
+        <span class="unit-code">HOURS</span>
+        <span class="unit-index">02</span>
+      </div>
+      <div class="unit-number-box">
+        <span class="unit-giant-num" id="pageCdHours">00</span>
+      </div>
+      <div class="unit-bottom-accent">
+        <div class="accent-track">
+          <div class="accent-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MINUTES -->
+    <div class="unit-card">
+      <span class="unit-reticle top-right" aria-hidden="true"></span>
+      <span class="unit-reticle bottom-left" aria-hidden="true"></span>
+      <div class="unit-fact-bar">
+        <span class="unit-code">MINUTES</span>
+        <span class="unit-index">03</span>
+      </div>
+      <div class="unit-number-box">
+        <span class="unit-giant-num" id="pageCdMins">00</span>
+      </div>
+      <div class="unit-bottom-accent">
+        <div class="accent-track">
+          <div class="accent-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECONDS -->
+    <div class="unit-card">
+      <span class="unit-reticle top-right" aria-hidden="true"></span>
+      <span class="unit-reticle bottom-left" aria-hidden="true"></span>
+      <div class="unit-fact-bar">
+        <span class="unit-code">SECONDS</span>
+        <span class="unit-index">04</span>
+      </div>
+      <div class="unit-number-box">
+        <span class="unit-giant-num" id="pageCdSecs">00</span>
+      </div>
+      <div class="unit-bottom-accent">
+        <div class="accent-track">
+          <div class="accent-fill"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  function initPageCountdown() {
+  function initCountdown() {
     const daysEl = document.getElementById('pageCdDays');
     const hoursEl = document.getElementById('pageCdHours');
     const minsEl = document.getElementById('pageCdMins');
@@ -56,23 +106,41 @@
 
     if (!daysEl) return;
 
-    const TARGET_STORAGE_KEY = 'byte_tasks_target_v1';
-    let targetTime = 0;
-    try {
-      const stored = localStorage.getItem(TARGET_STORAGE_KEY);
-      if (stored && Number(stored) > Date.now()) {
-        targetTime = Number(stored);
-      } else {
-        targetTime = Date.now() + (4 * 24 + 14) * 3600 * 1000 + 42 * 60 * 1000;
-        localStorage.setItem(TARGET_STORAGE_KEY, String(targetTime));
-      }
-    } catch {
-      targetTime = Date.now() + (4 * 24 + 14) * 3600 * 1000;
+    // Reveal target: 25 Sep 2026, 3:00 PM IST (UTC+5:30)
+    const TARGET_TIME = new Date('2026-09-25T15:00:00+05:30').getTime();
+    const OVERRIDE_KEY = 'byte_tasks_lock_override';
+
+    function isLocked() {
+      const override = localStorage.getItem(OVERRIDE_KEY);
+      if (override === 'unlocked') return false;
+      if (override === 'locked') return true;
+      return Date.now() < TARGET_TIME;
     }
 
-    function updateTimer() {
+    function applyLockState(locked: boolean) {
+      if (locked) {
+        document.documentElement.classList.add('tasks-locked');
+        document.documentElement.classList.remove('tasks-unlocked');
+      } else {
+        document.documentElement.classList.remove('tasks-locked');
+        document.documentElement.classList.add('tasks-unlocked');
+      }
+    }
+
+    applyLockState(isLocked());
+
+    window.addEventListener('byte:tasks-lock-change', ((e: CustomEvent) => {
+      const locked = e.detail?.locked ?? isLocked();
+      applyLockState(locked);
+    }) as EventListener);
+
+    function update() {
       const now = Date.now();
-      let diff = Math.max(0, targetTime - now);
+      let diff = Math.max(0, TARGET_TIME - now);
+
+      if (diff === 0 && !localStorage.getItem(OVERRIDE_KEY)) {
+        applyLockState(false);
+      }
 
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       diff -= d * (1000 * 60 * 60 * 24);
@@ -90,8 +158,8 @@
       if (secsEl) secsEl.textContent = pad(s);
     }
 
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
+    update();
+    const interval = setInterval(update, 1000);
 
     document.addEventListener(
       'astro:before-swap',
@@ -100,61 +168,111 @@
     );
   }
 
-  initPageCountdown();
-  document.addEventListener('astro:page-load', initPageCountdown);
+  initCountdown();
+  document.addEventListener('astro:page-load', initCountdown);
 </script>
 
 <style>
-  .task-countdown-card {
-    background: var(--panel);
-    border: 1px solid var(--line);
+  .task-countdown-box {
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
     border-radius: 14px;
-    padding: 24px 28px;
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    padding: 16px 20px 18px;
+    margin-bottom: 36px;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
   }
 
-  .countdown-main {
+  /* CORNER RETICLES */
+  .corner-reticle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .corner-reticle.top-left {
+    top: 6px;
+    left: 6px;
+    border-top: 2px solid var(--lime-bright, #52e0a6);
+    border-left: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .corner-reticle.top-right {
+    top: 6px;
+    right: 6px;
+    border-top: 2px solid var(--lime-bright, #52e0a6);
+    border-right: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .corner-reticle.bottom-left {
+    bottom: 6px;
+    left: 6px;
+    border-bottom: 2px solid var(--lime-bright, #52e0a6);
+    border-left: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .corner-reticle.bottom-right {
+    bottom: 6px;
+    right: 6px;
+    border-bottom: 2px solid var(--lime-bright, #52e0a6);
+    border-right: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  /* TOP HEADER */
+  .countdown-outer-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     flex-wrap: wrap;
   }
 
-  .countdown-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    max-width: 480px;
-  }
-
-  .countdown-badge {
+  .header-tag-group {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+  }
+
+  .header-slash {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--lime-bright, #52e0a6);
+    user-select: none;
+  }
+
+  .header-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text, #ffffff);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .header-meta-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--lime);
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
-    padding: 3px 8px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    width: fit-content;
-    margin-bottom: 4px;
+    font-weight: 600;
+    color: var(--text-dim, #a4b0a2);
+    letter-spacing: 0.04em;
   }
 
   .live-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--lime);
-    box-shadow: 0 0 6px var(--lime);
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
     animation: livePulse 2s infinite ease-in-out;
   }
 
@@ -163,121 +281,185 @@
     50% { opacity: 0.4; transform: scale(0.85); }
   }
 
-  .countdown-title {
-    font-family: 'Sora', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text);
-    margin: 0;
-    letter-spacing: -0.01em;
+  /* INNER 4-BOX GRID */
+  .countdown-inner-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
   }
 
-  .countdown-subtitle {
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    margin: 0;
-    line-height: 1.45;
-  }
-
-  .countdown-timer-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
-    padding: 12px 18px;
-    border-radius: 12px;
-  }
-
-  .timer-unit {
+  .unit-card {
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
+    border-radius: 8px;
+    padding: 10px 12px 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    min-width: 46px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .timer-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--lime);
-    line-height: 1.1;
+  .unit-card:hover {
+    transform: translateY(-2px);
+    background: #161c18;
+    border-color: rgba(82, 224, 166, 0.4);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 14px rgba(82, 224, 166, 0.1);
   }
 
-  .timer-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-top: 2px;
+  /* UNIT RETICLES */
+  .unit-reticle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.45;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
   }
 
-  .timer-sep {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--text-dim);
-    margin-bottom: 12px;
+  .unit-card:hover .unit-reticle {
+    opacity: 0.9;
   }
 
-  .countdown-footer {
+  .unit-reticle.top-right {
+    top: 4px;
+    right: 4px;
+    border-top: 1.5px solid var(--lime-bright, #52e0a6);
+    border-right: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .unit-reticle.bottom-left {
+    bottom: 4px;
+    left: 4px;
+    border-bottom: 1.5px solid var(--lime-bright, #52e0a6);
+    border-left: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .unit-fact-bar {
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
-    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
   }
 
-  .countdown-footer-item {
-    display: inline-flex;
+  .unit-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--text-dim, #a4b0a2);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .unit-card:hover .unit-code {
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  .unit-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: var(--lime, #22c579);
+    opacity: 0.75;
+    letter-spacing: 0.04em;
+  }
+
+  .unit-number-box {
+    display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    color: var(--text-dim);
+    justify-content: center;
+    padding: 8px 0 6px;
   }
 
-  .countdown-footer-item svg {
-    width: 14px;
-    height: 14px;
-    color: var(--lime);
-    flex-shrink: 0;
+  .unit-giant-num {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on, 'zero' on;
+    font-variant-numeric: tabular-nums;
+    color: var(--lime-bright, #52e0a6);
+    text-shadow: 0 0 16px rgba(82, 224, 166, 0.35);
+    transition: color 0.2s ease;
   }
 
-  .countdown-footer-item strong {
-    color: var(--text);
+  .unit-card:hover .unit-giant-num {
+    color: #7dffc4;
+    text-shadow: 0 0 22px rgba(82, 224, 166, 0.5);
+  }
+
+  .unit-bottom-accent {
+    margin-top: auto;
+    padding-top: 4px;
+  }
+
+  .accent-track {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .accent-fill {
+    height: 100%;
+    width: 100%;
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+  }
+
+  @media (max-width: 1024px) {
+    .task-countdown-box {
+      padding: 14px 16px 16px;
+    }
+
+    .countdown-inner-grid {
+      gap: 10px;
+    }
+
+    .unit-card {
+      padding: 9px 10px 8px;
+    }
+
+    .unit-giant-num {
+      font-size: 30px;
+    }
   }
 
   @media (max-width: 640px) {
-    .task-countdown-card {
-      padding: 18px 18px;
+    .task-countdown-box {
+      padding: 14px 12px 14px;
     }
 
-    .countdown-main {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-    }
-
-    .countdown-timer-wrap {
-      width: 100%;
-      justify-content: space-around;
-      padding: 10px 12px;
-    }
-
-    .timer-unit {
-      min-width: 38px;
-    }
-
-    .timer-num {
-      font-size: 1.25rem;
-    }
-
-    .countdown-footer {
+    .countdown-outer-header {
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+    }
+
+    .countdown-inner-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .unit-card {
+      padding: 8px 10px 8px;
+    }
+
+    .unit-giant-num {
+      font-size: 26px;
+    }
+
+    .unit-number-box {
+      padding: 6px 0 4px;
     }
   }
 </style>

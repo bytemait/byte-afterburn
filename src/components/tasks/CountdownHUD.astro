@@ -1,17 +1,39 @@
 ---
 ---
 
-<div class="sticky-countdown-badge" id="stickyCountdown" role="timer" aria-label="Submission deadline countdown">
+<div class="sticky-countdown-badge" id="stickyCountdown" role="timer" aria-label="Tasks reveal countdown">
   <div class="sticky-countdown-inner">
+    <!-- FOUR CORNER RETICLES -->
+    <span class="hud-corner top-left" aria-hidden="true"></span>
+    <span class="hud-corner top-right" aria-hidden="true"></span>
+    <span class="hud-corner bottom-left" aria-hidden="true"></span>
+    <span class="hud-corner bottom-right" aria-hidden="true"></span>
+
+    <!-- SUBTLE CONSTELLATION SVG -->
+    <svg aria-hidden="true" class="hud-network" viewBox="0 0 160 80">
+      <path d="M10 60 L45 25 L80 50 L120 18 L150 45" stroke="#52e0a6" stroke-width="1.2" stroke-opacity="0.3" fill="none" />
+      <circle cx="10" cy="60" r="2" fill="#52e0a6" opacity="0.6"/>
+      <circle cx="45" cy="25" r="2.5" fill="#52e0a6" opacity="0.8"/>
+      <circle cx="80" cy="50" r="2" fill="#52e0a6" opacity="0.6"/>
+      <circle cx="120" cy="18" r="2.5" fill="#52e0a6" opacity="0.9"/>
+      <circle cx="150" cy="45" r="2" fill="#52e0a6" opacity="0.7"/>
+    </svg>
+
     <div class="sticky-badge-header">
-      <span class="sticky-live-dot" aria-hidden="true"></span>
-      <span class="sticky-badge-label">SUBMISSION DEADLINE</span>
+      <div class="header-status">
+        <span class="sticky-live-dot" aria-hidden="true"></span>
+        <span class="sticky-badge-label">REVEAL IN</span>
+      </div>
+      <span class="hud-mark" aria-hidden="true">
+        <i/><i/><i/><i/>
+      </span>
     </div>
+
     <div class="sticky-digits-row">
-      <span class="sticky-digit" id="cdDays">03</span><span class="sticky-unit">d</span> :
-      <span class="sticky-digit" id="cdHours">14</span><span class="sticky-unit">h</span> :
-      <span class="sticky-digit" id="cdMins">42</span><span class="sticky-unit">m</span> :
-      <span class="sticky-digit" id="cdSecs">18</span><span class="sticky-unit">s</span>
+      <span class="sticky-digit" id="cdDays">00</span><span class="sticky-unit">d</span> <span class="sticky-sep">:</span>
+      <span class="sticky-digit" id="cdHours">00</span><span class="sticky-unit">h</span> <span class="sticky-sep">:</span>
+      <span class="sticky-digit" id="cdMins">00</span><span class="sticky-unit">m</span> <span class="sticky-sep">:</span>
+      <span class="sticky-digit" id="cdSecs">00</span><span class="sticky-unit">s</span>
     </div>
   </div>
 </div>
@@ -41,23 +63,12 @@
     // 2. Countdown calculation
     if (!daysEl) return;
 
-    const TARGET_STORAGE_KEY = 'byte_tasks_target_v1';
-    let targetTime = 0;
-    try {
-      const stored = localStorage.getItem(TARGET_STORAGE_KEY);
-      if (stored && Number(stored) > Date.now()) {
-        targetTime = Number(stored);
-      } else {
-        targetTime = Date.now() + (4 * 24 + 14) * 3600 * 1000 + 42 * 60 * 1000;
-        localStorage.setItem(TARGET_STORAGE_KEY, String(targetTime));
-      }
-    } catch {
-      targetTime = Date.now() + (4 * 24 + 14) * 3600 * 1000;
-    }
+    // Reveal target: 25 Sep 2026, 3:00 PM IST
+    const TARGET_TIME = new Date('2026-09-25T15:00:00+05:30').getTime();
 
     function updateCountdown() {
       const now = Date.now();
-      let diff = Math.max(0, targetTime - now);
+      let diff = Math.max(0, TARGET_TIME - now);
 
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       diff -= d * (1000 * 60 * 60 * 24);
@@ -104,21 +115,78 @@
   }
 
   .sticky-countdown-inner {
-    background: rgba(12, 16, 13, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    background: rgba(12, 16, 13, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(82, 224, 166, 0.38);
     border-radius: 12px;
-    padding: 10px 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(82, 224, 166, 0.1);
+    padding: 10px 14px 10px 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 16px rgba(82, 224, 166, 0.12);
     display: flex;
     flex-direction: column;
     gap: 4px;
-    min-width: 175px;
+    min-width: 185px;
+    overflow: hidden;
+  }
+
+  /* HUD RETICLES */
+  .hud-corner {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .hud-corner.top-left {
+    top: 4px;
+    left: 4px;
+    border-top: 1.5px solid var(--lime-bright, #52e0a6);
+    border-left: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .hud-corner.top-right {
+    top: 4px;
+    right: 4px;
+    border-top: 1.5px solid var(--lime-bright, #52e0a6);
+    border-right: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .hud-corner.bottom-left {
+    bottom: 4px;
+    left: 4px;
+    border-bottom: 1.5px solid var(--lime-bright, #52e0a6);
+    border-left: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .hud-corner.bottom-right {
+    bottom: 4px;
+    right: 4px;
+    border-bottom: 1.5px solid var(--lime-bright, #52e0a6);
+    border-right: 1.5px solid var(--lime-bright, #52e0a6);
+  }
+
+  .hud-network {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.5;
   }
 
   .sticky-badge-header {
+    position: relative;
+    z-index: 1;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .header-status {
+    display: inline-flex;
     align-items: center;
     gap: 6px;
   }
@@ -141,13 +209,32 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.62rem;
     font-weight: 700;
-    color: var(--text-dim);
+    color: var(--text-dim, #a4b0a2);
     letter-spacing: 0.05em;
   }
 
+  .hud-mark {
+    width: 10px;
+    height: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    transform: rotate(45deg);
+    color: var(--lime-bright, #52e0a6);
+    opacity: 0.7;
+  }
+
+  .hud-mark i {
+    display: block;
+    border-radius: 0.5px;
+    background: currentColor;
+  }
+
   .sticky-digits-row {
+    position: relative;
+    z-index: 1;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.95rem;
+    font-size: 0.96rem;
     font-weight: 800;
     color: var(--lime-bright, #52e0a6);
     letter-spacing: 0.02em;
@@ -156,11 +243,21 @@
     gap: 2px;
   }
 
+  .sticky-digit {
+    font-variant-numeric: tabular-nums;
+  }
+
   .sticky-unit {
     font-size: 0.68rem;
     font-weight: 600;
-    color: var(--text-dim);
+    color: var(--text-dim, #a4b0a2);
     margin-right: 2px;
+  }
+
+  .sticky-sep {
+    color: var(--lime-dim, #1a9c5f);
+    opacity: 0.7;
+    margin: 0 1px;
   }
 
   @media (max-width: 809.98px) {
