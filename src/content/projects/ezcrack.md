@@ -3,6 +3,7 @@ title: EZCrack
 description: A development project built around making a complicated workflow feel direct, legible, and useful from the first interaction.
 order: 0
 links:
+  github: https://github.com/swymbnsl/EZCrack
   live: https://ezcrack.swymbnsl.com
 images:
   - /assets/works/ezcrack/ezcrack-1.jpeg
