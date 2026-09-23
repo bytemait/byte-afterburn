@@ -16,8 +16,8 @@ const RIBBON_ITEMS = [
 export default function Hero({
   titleTop = 'BYTE',
   titleBottom = '.DEVS',
-  introTitle = 'STUDENT INNOVATION & TECHNICAL SOCIETY',
-  introBody = 'A student-led community where builders, designers, and researchers turn bold ideas into working technology.',
+  introTitle = 'OFFICIAL TECHNOLOGY SOCIETY OF MAIT',
+  introBody = 'BYTE brings students at Maharaja Agrasen Institute of Technology together to build projects, explore research, and innovate across every tech domain.',
 }: HeroProps) {
   const rootRef = useRef<HTMLElement>(null);
   const zoomFrameRef = useRef<HTMLDivElement>(null);
@@ -149,7 +149,7 @@ export default function Hero({
           <div className="hero-zoom-scaler">
             <img
               src="/assets/hero.webp"
-              alt="Byte member projects collage"
+              alt="BYTE MAIT members at Maharaja Agrasen Institute of Technology"
               width="1944"
               height="915"
               className="hero-zoom-image"

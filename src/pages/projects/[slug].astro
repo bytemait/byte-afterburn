@@ -4,6 +4,14 @@ import ProjectDetail from '../../components/projects/ProjectDetail.astro';
 import Footer from '../../components/common/Footer.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import {
+  DEFAULT_SOCIAL_IMAGE,
+  ORGANIZATION_ID,
+  absoluteUrl,
+  breadcrumbJsonLd,
+  toMetaDescription,
+  type JsonLd,
+} from '../../lib/seo';
 
 export async function getStaticPaths() {
   const entries = await getCollection('projects');
@@ -18,9 +26,44 @@ type Props = {
 };
 
 const { entry: project } = Astro.props;
+const projectPath = `/projects/${project.id}/`;
+const projectImage = project.data.images[0] ?? DEFAULT_SOCIAL_IMAGE;
+const projectDescription = toMetaDescription(
+  `${project.data.description} Built by BYTE members at Maharaja Agrasen Institute of Technology.`,
+);
+const projectLinks = [project.data.links.live, project.data.links.github].filter(Boolean);
+const projectStructuredData: JsonLd[] = [
+  {
+    '@type': 'SoftwareSourceCode',
+    '@id': `${absoluteUrl(projectPath)}#project`,
+    name: project.data.title,
+    description: project.data.description,
+    url: absoluteUrl(projectPath),
+    image: absoluteUrl(projectImage),
+    creator: { '@id': ORGANIZATION_ID },
+    programmingLanguage: project.data.stack,
+    keywords: [...project.data.domains, ...project.data.stack].join(', '),
+    ...(project.data.links.github ? { codeRepository: project.data.links.github } : {}),
+    ...(projectLinks.length ? { sameAs: projectLinks } : {}),
+  },
+  breadcrumbJsonLd([
+    { name: 'Projects', path: '/projects/' },
+    { name: project.data.title, path: projectPath },
+  ]),
+];
 ---
 
-<Layout title={`${project.data.title} — B.Y.T.E.`} active="projects" footerInSlot>
+<Layout
+  title={`${project.data.title} | BYTE MAIT`}
+  description={projectDescription}
+  image={projectImage}
+  imageAlt={`${project.data.title}, a project built by BYTE MAIT members`}
+  pageType="ItemPage"
+  mainEntityId={`${absoluteUrl(projectPath)}#project`}
+  structuredData={projectStructuredData}
+  active="projects"
+  footerInSlot
+>
   <ProjectDetail project={project} />
   <Footer immersive />
 </Layout>

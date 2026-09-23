@@ -4,6 +4,14 @@ import EventDetail from '../../components/events/EventDetail.astro';
 import Footer from '../../components/common/Footer.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import {
+  DEFAULT_SOCIAL_IMAGE,
+  ORGANIZATION_ID,
+  absoluteUrl,
+  breadcrumbJsonLd,
+  toMetaDescription,
+  type JsonLd,
+} from '../../lib/seo';
 
 export async function getStaticPaths() {
   const entries = await getCollection('events');
@@ -18,9 +26,55 @@ type Props = {
 };
 
 const { entry: event } = Astro.props;
+const eventPath = `/events/${event.id}/`;
+const eventImage = event.data.image ?? DEFAULT_SOCIAL_IMAGE;
+const eventDescription = toMetaDescription(
+  `${event.data.shortDescription} Hosted by BYTE at Maharaja Agrasen Institute of Technology.`,
+);
+const eventStructuredData: JsonLd[] = [
+  {
+    '@type': 'Event',
+    '@id': `${absoluteUrl(eventPath)}#event`,
+    name: event.data.name,
+    description: event.data.shortDescription,
+    startDate: event.data.date.toISOString(),
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: event.data.venue.toLowerCase().includes('virtual')
+      ? 'https://schema.org/MixedEventAttendanceMode'
+      : 'https://schema.org/OfflineEventAttendanceMode',
+    location: {
+      '@type': 'Place',
+      name: event.data.venue,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Maharaja Agrasen Institute of Technology, PSP Area, Plot No. 1, Sector 22, Rohini',
+        addressLocality: 'Delhi',
+        postalCode: '110086',
+        addressCountry: 'IN',
+      },
+    },
+    image: [absoluteUrl(eventImage)],
+    url: absoluteUrl(eventPath),
+    organizer: { '@id': ORGANIZATION_ID },
+  },
+  breadcrumbJsonLd([
+    { name: 'Events', path: '/events/' },
+    { name: event.data.name, path: eventPath },
+  ]),
+];
 ---
 
-<Layout title={`${event.data.name} — B.Y.T.E.`} active="events" footerInSlot>
+<Layout
+  title={`${event.data.name} | BYTE MAIT`}
+  description={eventDescription}
+  image={eventImage}
+  imageAlt={`${event.data.name}, an event by BYTE MAIT`}
+  pageType="ItemPage"
+  mainEntityId={`${absoluteUrl(eventPath)}#event`}
+  structuredData={eventStructuredData}
+  active="events"
+  footerInSlot
+>
   <EventDetail event={event} />
   <Footer immersive />
 </Layout>

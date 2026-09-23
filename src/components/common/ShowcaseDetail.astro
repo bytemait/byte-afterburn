@@ -4,6 +4,13 @@ import Footer from './Footer.astro';
 import NavbarScrollFade from './NavbarScrollFade';
 import type { ShowcasePageData } from '../../data/showcase-pages';
 import { defaultFaqs } from '../../data/showcase-pages';
+import {
+  ORGANIZATION_ID,
+  absoluteUrl,
+  breadcrumbJsonLd,
+  toMetaDescription,
+  type JsonLd,
+} from '../../lib/seo';
 import '../../styles/recreation.css';
 
 interface Props {
@@ -13,9 +20,45 @@ interface Props {
 const { page } = Astro.props;
 const faqs = page.faqs ?? defaultFaqs;
 const typeLabel = page.kind === 'work' ? 'Project' : 'Department';
+const routeGroup = page.kind === 'work' ? 'works' : 'services';
+const pagePath = `/${routeGroup}/${page.slug}/`;
+const canonicalPath = page.canonicalPath ?? pagePath;
+const description = toMetaDescription(
+  `${page.sections[0].paragraphs[0]} ${page.kind === 'work' ? 'A BYTE MAIT project.' : 'Explore this BYTE MAIT department at Maharaja Agrasen Institute of Technology.'}`,
+);
+const entityId = `${absoluteUrl(canonicalPath)}#${page.kind}`;
+const structuredData: JsonLd[] = [
+  {
+    '@type': page.kind === 'work' ? 'CreativeWork' : 'Service',
+    '@id': entityId,
+    name: page.title,
+    description,
+    url: absoluteUrl(canonicalPath),
+    image: absoluteUrl(page.hero.src),
+    ...(page.kind === 'work'
+      ? { creator: { '@id': ORGANIZATION_ID } }
+      : { provider: { '@id': ORGANIZATION_ID }, areaServed: 'Maharaja Agrasen Institute of Technology' }),
+  },
+  breadcrumbJsonLd([
+    { name: 'BYTE MAIT', path: '/' },
+    { name: page.title, path: canonicalPath },
+  ]),
+];
 ---
 
-<Layout title={`${page.title} — BYTE`} immersiveNav footerInSlot contentTransition={false}>
+<Layout
+  title={`${page.title} | BYTE MAIT`}
+  description={description}
+  image={page.hero.src}
+  imageAlt={page.hero.alt}
+  canonical={canonicalPath}
+  pageType="ItemPage"
+  mainEntityId={entityId}
+  structuredData={structuredData}
+  immersiveNav
+  footerInSlot
+  contentTransition={false}
+>
   <main class="showcase-page" data-showcase-page>
     <NavbarScrollFade client:load />
 

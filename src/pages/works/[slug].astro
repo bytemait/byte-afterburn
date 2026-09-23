@@ -31,6 +31,7 @@ export async function getStaticPaths() {
       slug: entry.id,
       kind: 'work',
       title: data.title.toUpperCase(),
+      canonicalPath: `/projects/${entry.id}/`,
       meta: [
         { value: 'Member project', label: 'Project distinction' },
         { value: ['Project', ...data.domains].join(', '), label: 'Project focus' },

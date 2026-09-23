@@ -3,6 +3,13 @@ import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/common/Footer.astro';
 import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import {
+  DEFAULT_SOCIAL_IMAGE,
+  ORGANIZATION_ID,
+  absoluteUrl,
+  breadcrumbJsonLd,
+  type JsonLd,
+} from '../../lib/seo';
 
 export async function getStaticPaths() {
   const entries = await getCollection('members');
@@ -67,9 +74,41 @@ const avatarInitials = (name: string) =>
 const initials = member.short || avatarInitials(member.name);
 const eyebrow = group?.data.eyebrow || 'BYTE MEMBER';
 const departmentName = group?.data.title || 'BYTE MEMBER';
+const memberPath = `/members/${entry.id}/`;
+const memberImage = member.photo ?? DEFAULT_SOCIAL_IMAGE;
+const memberDescription = `${member.name} is ${member.role} at BYTE MAIT, the official technology society of Maharaja Agrasen Institute of Technology.`;
+const memberStructuredData: JsonLd[] = [
+  {
+    '@type': 'Person',
+    '@id': `${absoluteUrl(memberPath)}#person`,
+    name: member.name,
+    jobTitle: member.role,
+    description: memberDescription,
+    url: absoluteUrl(memberPath),
+    image: absoluteUrl(memberImage),
+    affiliation: { '@id': ORGANIZATION_ID },
+    memberOf: { '@id': ORGANIZATION_ID },
+    ...(socials.length ? { sameAs: socials.map((social) => social.href) } : {}),
+  },
+  breadcrumbJsonLd([
+    { name: 'Members', path: '/members/' },
+    { name: member.name, path: memberPath },
+  ]),
+];
 ---
 
-<Layout title={`${member.name} — B.Y.T.E.`} active="members" footerInSlot>
+<Layout
+  title={`${member.name} | BYTE MAIT`}
+  description={memberDescription}
+  image={memberImage}
+  imageAlt={`${member.name}, ${member.role} at BYTE MAIT`}
+  canonical={memberPath}
+  pageType="ProfilePage"
+  mainEntityId={`${absoluteUrl(memberPath)}#person`}
+  structuredData={memberStructuredData}
+  active="members"
+  footerInSlot
+>
   <main class="member-detail-page">
     <svg class="member-channel-filters" aria-hidden="true" focusable="false">
       <defs>
@@ -158,7 +197,7 @@ const departmentName = group?.data.title || 'BYTE MEMBER';
               </div>
               <div class="meta-item">
                 <span class="meta-label">Affiliation</span>
-                <p class="meta-value">B.Y.T.E. MAIT</p>
+                <p class="meta-value">BYTE MAIT</p>
               </div>
             </div>
 

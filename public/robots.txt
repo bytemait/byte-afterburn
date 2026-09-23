@@ -1,4 +1,4 @@
-     User-agent: *
-     Allow: /
+User-agent: *
+Allow: /
 
-     Sitemap: https://byte-dev.nyahost.in/sitemap-index.xml
+Sitemap: https://bytesoc.dev/sitemap-index.xml

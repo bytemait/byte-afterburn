@@ -120,7 +120,7 @@ export default function WhoAreWe() {
         >
           <div className="whoarewe-top">
             <div className="whoarewe-top-copy">
-              <h3>B.Y.T.E.<br />SOCIETY</h3>
+              <h3>BYTE MAIT<br />SOCIETY</h3>
               <div className="whoarewe-tags">
                 {TAGS.map((tag) => <span key={tag}>{tag}</span>)}
               </div>
@@ -141,7 +141,7 @@ export default function WhoAreWe() {
               className="whoarewe-lab-art"
             >
               <img className="whoarewe-lab-frame" src="/assets/collage_frame.png" alt="" width="2380" height="1792" loading="lazy" decoding="async" />
-              <img className="whoarewe-lab-outer" src="/assets/collage_outer.png" alt="Byte Tech Society laboratory" width="2380" height="1792" loading="lazy" decoding="async" />
+              <img className="whoarewe-lab-outer" src="/assets/collage_outer.png" alt="BYTE MAIT technology society project laboratory" width="2380" height="1792" loading="lazy" decoding="async" />
               <img className="whoarewe-lab-reveal" src="/assets/collage_frame.png" alt="" width="2380" height="1792" loading="lazy" decoding="async" />
             </div>
           </div>
