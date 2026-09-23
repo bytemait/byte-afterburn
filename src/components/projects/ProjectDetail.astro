@@ -1,22 +1,25 @@
 ---
-import type { Project } from '../../data/projects';
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
 import { getTechLogo } from '../../data/tech-logos';
 
 interface Props {
-  project: Project;
+  project: CollectionEntry<'projects'>;
 }
 
 const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
 
-const domainLabel = project.domains.join(' · ');
-const contributorLabel = project.contributors.join(', ');
-const hasGallery = project.images.length > 1;
+const domainLabel = data.domains.join(' · ');
+const contributorLabel = data.contributors.join(', ');
+const hasGallery = data.images.length > 1;
 ---
 
 <div class="page-header project-detail-header">
   <div class="wrap">
     <span class="type-pill">{domainLabel}</span>
-    <h1>{project.title}</h1>
+    <h1>{data.title}</h1>
     <div class="event-meta-row">
       <span>
         <svg><use href="#i-folder"/></svg>
@@ -30,15 +33,15 @@ const hasGallery = project.images.length > 1;
   </div>
 </div>
 
-{project.images.length > 0 && (
+{data.images.length > 0 && (
   <section class="event-hero-section">
     <div class="wrap">
       <div class:list={['project-gallery', { 'project-gallery--multiple': hasGallery }]}>
-        {project.images.map((image, index) => (
+        {data.images.map((image, index) => (
           <figure class="hero-stage">
             <img
               src={image}
-              alt={`${project.title} — image ${index + 1}`}
+              alt={`${data.title} — image ${index + 1}`}
               fetchpriority={index === 0 ? 'high' : undefined}
               loading={index === 0 ? undefined : 'lazy'}
             />
@@ -53,37 +56,22 @@ const hasGallery = project.images.length > 1;
   <div class="wrap event-detail-grid">
     <div class="event-detail-main">
       <h2>About this Project</h2>
-      <p class="event-description">{project.description}</p>
+      <p class="event-description">{data.description}</p>
 
       <div class="project-story">
-        <section>
-          <h2>Project overview</h2>
-          <p>{project.overview}</p>
-        </section>
-        <section>
-          <h2>The challenge</h2>
-          <p>{project.challenge}</p>
-        </section>
-        <section>
-          <h2>How we approached it</h2>
-          <p>{project.approach}</p>
-        </section>
-        <section>
-          <h2>Outcome</h2>
-          <p>{project.outcome}</p>
-        </section>
+        <Content />
       </div>
 
       <h2>Domains</h2>
       <div class="project-detail-domains">
-        {project.domains.map((domain) => (
+        {data.domains.map((domain) => (
           <span class="domain-pill">{domain}</span>
         ))}
       </div>
 
       <h2>Contributors</h2>
       <ul class="attend-list">
-        {project.contributors.map((contributor) => (
+        {data.contributors.map((contributor) => (
           <li><svg><use href="#i-award"/></svg>{contributor}</li>
         ))}
       </ul>
@@ -97,7 +85,7 @@ const hasGallery = project.images.length > 1;
           <h3>Tech Stack</h3>
         </div>
         <ul class="tech-stack-list">
-          {project.tech.map((techName) => {
+          {data.stack.map((techName) => {
             const logoUrl = getTechLogo(techName);
             return (
               <li class="tech-stack-item">
@@ -114,8 +102,8 @@ const hasGallery = project.images.length > 1;
           })}
         </ul>
       </div>
-      {project.links?.github && (
-        <a href={project.links.github} class="github-project-link" target="_blank" rel="noopener noreferrer">
+      {data.links.github && (
+        <a href={data.links.github} class="github-project-link" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-gh"/></svg>
           View project on GitHub
           <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -177,18 +165,21 @@ const hasGallery = project.images.length > 1;
     line-height: 1.75;
     font-size: .96rem;
   }
-  .project-story p {
+  .project-story :global(h2) {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin: 40px 0 16px;
+  }
+  .project-story :global(p) {
     color: var(--text-dim);
     line-height: 1.75;
     font-size: .96rem;
     margin: 0;
   }
-  /* Match the event page's content-to-heading rhythm without relying on margin collapse. */
-  .project-story section {
-    padding: 40px 0 0;
-  }
-  .project-story h2 {
-    margin: 0 0 16px;
+  .project-story :global(p + p) {
+    margin-top: 1em;
   }
 
   .attend-list {

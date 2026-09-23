@@ -10,7 +10,30 @@ import MobileScrollHover from '../components/home/MobileScrollHover';
 import NavbarScrollFade from '../components/common/NavbarScrollFade';
 import NewTasksBadge from '../components/home/NewTasksBadge';
 import Footer from '../components/common/Footer.astro';
+import { getCollection } from 'astro:content';
 import '../styles/recreation.css';
+
+const achievements = (await getCollection('achievements')).map((entry) => ({
+  id: entry.id,
+  name: entry.data.name,
+  tags: entry.data.tags,
+  description: entry.data.description,
+  imageSrc: entry.data.image,
+  link: entry.data.link,
+  featured: entry.data.featured,
+}));
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const events = (await getCollection('events')).map((entry) => ({
+  slug: entry.id,
+  name: entry.data.name,
+  type: entry.data.type,
+  date: `${String(entry.data.date.getUTCDate()).padStart(2, '0')} ${MONTHS[entry.data.date.getUTCMonth()]}`,
+  year: String(entry.data.date.getUTCFullYear()),
+  shortSummary: entry.data.shortSummary,
+  shortDescription: entry.data.shortDescription,
+  image: entry.data.image,
+}));
 ---
 
 <Layout title="B.Y.T.E. — Build. Connect. Create Impact." active="home" immersiveNav footerInSlot contentTransition={false}>
@@ -25,10 +48,10 @@ import '../styles/recreation.css';
       <WhoAreWe client:load />
 
       <!-- 3. Our Achievements -->
-      <Achievements client:load />
+      <Achievements client:load achievements={achievements} />
 
       <!-- 4. Events -->
-      <Events client:load />
+      <Events client:load events={events} />
 
       <!-- 5. Departments and stats -->
       <Departments client:load />

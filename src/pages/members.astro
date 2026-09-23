@@ -1,14 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/common/Footer.astro';
-import membersData from '../data/members.json';
+import { getCollection } from 'astro:content';
 
 type Member = {
   slug: string;
   name: string;
   short?: string;
   role: string;
-  group: 'leadership' | 'development' | 'cybersecurity' | 'creative' | 'aiml' | 'mechatronics';
+  group: string;
   photo?: string;
   quote?: string;
 };
@@ -29,11 +29,47 @@ type AlumniMember = {
   year: string;
 };
 
-const members: Member[] = membersData.members as Member[];
-const departmentMembers: Record<string, DepartmentMember[]> = membersData.departmentMembers;
-const memberAvatarPhotos: Record<string, string> = membersData.memberAvatarPhotos;
-const alumni2025: AlumniMember[] = membersData.alumni2025 as AlumniMember[];
-const alumni2024: AlumniMember[] = membersData.alumni2024 as AlumniMember[];
+const memberEntries = (await getCollection('members')).sort(
+  (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0),
+);
+const groupEntries = (await getCollection('groups')).sort((a, b) => a.data.order - b.data.order);
+
+const members: Member[] = memberEntries
+  .filter((entry) => entry.data.status === 'core')
+  .map((entry) => ({
+    slug: entry.id,
+    name: entry.data.name,
+    short: entry.data.short,
+    role: entry.data.role,
+    group: entry.data.group.id,
+    photo: entry.data.photo,
+    quote: entry.data.quote,
+  }));
+
+const listedMembersFor = (groupId: string): DepartmentMember[] =>
+  memberEntries
+    .filter((entry) => entry.data.status === 'department' && entry.data.group.id === groupId)
+    .map((entry) => ({
+      slug: entry.id,
+      name: entry.data.name,
+      role: entry.data.role,
+      group: entry.data.group.id,
+      photo: entry.data.photo,
+    }));
+
+const alumniFor = (groupId: string): AlumniMember[] =>
+  memberEntries
+    .filter((entry) => entry.data.status === 'alumni' && entry.data.group.id === groupId)
+    .map((entry) => ({
+      slug: entry.id,
+      name: entry.data.name,
+      role: entry.data.role,
+      tier: entry.data.tier ?? 'outer',
+      year: entry.data.batch ?? '',
+    }));
+
+const alumni2025 = alumniFor('alumni-2025');
+const alumni2024 = alumniFor('alumni-2024');
 
 const avatarInitials = (name: string) => name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 
@@ -57,14 +93,16 @@ const founderPositions = [
   { x: 84, y: 77 },
 ] as const;
 
-const chapters = [
-  { key: 'leadership', title: 'Byte Core', heading: 'Byte Core', eyebrow: '01 THE UNCS', note: 'Seven people keeping every part of Byte in motion.', listedMembers: [] as DepartmentMember[] },
-  { key: 'development', title: 'Development', heading: 'Develop\nment', eyebrow: '02 THE TOKENMAXXERS', note: 'Builders turning ambitious ideas into things people can use.', listedMembers: departmentMembers.development || [] },
-  { key: 'aiml', title: 'AI / ML', heading: 'AI / ML', eyebrow: '03 THE RESEARCH LARPERS', note: 'Learning systems, practical experiments and a healthy appetite for the unknown.', listedMembers: departmentMembers.aiml || [] },
-  { key: 'creative', title: 'Creative Outreach', heading: 'Creative\nOutreach', eyebrow: '04 THE INTROVERTS', note: 'The voice, image and connective tissue of the society.', listedMembers: departmentMembers.creative || [] },
-  { key: 'mechatronics', title: 'Mechatronics', heading: 'Mecha\ntronics', eyebrow: '05 THE SIMULATORS', note: 'Code that leaves the screen and moves through the physical world.', listedMembers: departmentMembers.mechatronics || [] },
-  { key: 'cybersecurity', title: 'Cybersecurity', heading: 'Cyber\nSecurity', eyebrow: '06 THE RAINBOW HAT HACKERS', note: 'Break it, understand it, secure it, teach it.', listedMembers: departmentMembers.cybersecurity || [] },
-] as const;
+const chapters = groupEntries
+  .filter((entry) => entry.data.kind === 'chapter')
+  .map((entry) => ({
+    key: entry.id,
+    title: entry.data.title,
+    heading: entry.data.heading ?? entry.data.title,
+    eyebrow: entry.data.eyebrow ?? '',
+    note: entry.data.note ?? '',
+    listedMembers: listedMembersFor(entry.id),
+  }));
 ---
 
 <Layout title="Living Constellation — B.Y.T.E." active="members" footerInSlot>
@@ -166,7 +204,7 @@ const chapters = [
                   <div class="member-cluster member-cluster--desktop" aria-label={`${chapter.listedMembers.length} members in ${chapter.title}`}>
                     <ul>
                       {chapter.listedMembers.map((deptMember, index) => {
-                        const photo = deptMember.photo || memberAvatarPhotos[deptMember.name];
+                        const photo = deptMember.photo;
                         return (
                           <li class:list={{ 'has-avatar': Boolean(photo) }} data-member-name={deptMember.name} title={deptMember.name} style={`--avatar-index:${index}`}>
                             <a href={`/members/${deptMember.slug}`} class="member-cluster-link" aria-label={`View ${deptMember.name}'s profile`}>
@@ -239,7 +277,7 @@ const chapters = [
               <div class="member-cluster member-cluster--mobile" aria-label={`${chapter.listedMembers.length} members in ${chapter.title}`}>
                 <ul>
                   {chapter.listedMembers.map((deptMember, index) => {
-                    const photo = deptMember.photo || memberAvatarPhotos[deptMember.name];
+                    const photo = deptMember.photo;
                     return (
                       <li class:list={{ 'has-avatar': Boolean(photo) }} data-member-name={deptMember.name} title={deptMember.name} style={`--avatar-index:${index}`}>
                         <a href={`/members/${deptMember.slug}`} class="member-cluster-link" aria-label={`View ${deptMember.name}'s profile`}>

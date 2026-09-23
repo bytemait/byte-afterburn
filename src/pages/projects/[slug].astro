@@ -2,24 +2,25 @@
 import Layout from '../../layouts/Layout.astro';
 import ProjectDetail from '../../components/projects/ProjectDetail.astro';
 import Footer from '../../components/common/Footer.astro';
-import { projects } from '../../data/projects';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
-export function getStaticPaths() {
-  return projects.map((project) => ({
-    params: { slug: project.slug },
-    props: { project },
+export async function getStaticPaths() {
+  const entries = await getCollection('projects');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
   }));
 }
 
-const { slug } = Astro.params;
-const project = Astro.props.project || projects.find((p) => p.slug === slug);
+type Props = {
+  entry: CollectionEntry<'projects'>;
+};
 
-if (!project) {
-  return Astro.redirect('/projects');
-}
+const { entry: project } = Astro.props;
 ---
 
-<Layout title={`${project.title} — B.Y.T.E.`} active="projects" footerInSlot>
+<Layout title={`${project.data.title} — B.Y.T.E.`} active="projects" footerInSlot>
   <ProjectDetail project={project} />
   <Footer immersive />
 </Layout>

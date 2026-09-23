@@ -1,0 +1,44 @@
+- id: openai-codex-hackathon
+  name: "Winners, OpenAI Hackathon 2026"
+  tags: ["Hackathon", "AI"]
+  description: "Team Byte took first place in the Codex Hackathon organized by OpenAI and won $4,000 in prize credits."
+  image: "/assets/works/openai_hack/openai_hack_win_1.webp"
+  link: "/works/codex_26"
+- id: ezcrack
+  name: "EZCrack"
+  tags: ["Project", "Development"]
+  description: "EZCrack streamlines exam prep with high-impact study material, topic weightage, and frequently repeated questions."
+  image: "/assets/works/ezcrack/ezcrack-1.jpeg"
+  link: "/works/ezcrack"
+- id: lam-research-hackathon
+  name: "Winners, LAM Research Hackathon 2026"
+  tags: ["Hackathon", "Mechatronics"]
+  description: "Team Byte took first place at the LAM Research Challenge, a national systems engineering competition, winning ₹5 lakh in prize money."
+  image: "/assets/works/lam_research_hack/lam_research_1.webp"
+  link: "/works/lam_research_26"
+  featured: true
+- id: hopoff
+  name: "HopOff"
+  tags: ["Project", "Development"]
+  description: "HopOff! alerts Delhi Metro riders before their stop with customizable notifications, sound, and haptics."
+  image: "/assets/works/hopoff/WhatsApp Image 2026-09-13 at 19.49.10.jpeg"
+  link: "/works/hopoff"
+- id: bunkmait
+  name: "BunkMAIT"
+  tags: ["Project", "Development"]
+  description: "BunkMAIT is a free attendance calculator that loads your timetable, tracks classes, and helps you plan safe bunks."
+  image: "/assets/works/bunkmait/bunkmait-1.jpeg"
+  link: "/works/bunkmait"
+- id: scrape2sim
+  name: "Scrape2Sim"
+  tags: ["Machine Learning", "Project"]
+  description: "A machine learning project built around turning data into useful simulation workflows."
+  image: "/assets/works/scrape-2-sim/scrape-2-sim.jpeg"
+  link: "/works/scrape2sim"
+- id: hack-iitk
+  name: "Winners, Hack IIT Kanpur 2025"
+  tags: ["Hackathon", "Cybersecurity"]
+  description: "Team Byte won first place in the cybersecurity solution track at HACK IITK 2025, held at IIT Kanpur."
+  image: "/assets/works/hack_iitk/hack-iitk-1.webp"
+  link: "/works/hack-iitk"
+  featured: true

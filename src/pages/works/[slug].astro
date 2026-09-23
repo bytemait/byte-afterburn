@@ -1,9 +1,60 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import ShowcaseDetail from '../../components/common/ShowcaseDetail.astro';
-import { workPages } from '../../data/showcase-pages';
+import { workPages, type ShowcasePageData } from '../../data/showcase-pages';
 
-export function getStaticPaths() {
-  return workPages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+export async function getStaticPaths() {
+  const extractSection = (body: string, heading: string): string | undefined => {
+    const sections = body.split(/^##\s+/m);
+    for (const section of sections) {
+      const [title, ...rest] = section.split('\n');
+      if (title.trim().toLowerCase() === heading.toLowerCase()) {
+        return rest.join('\n').trim();
+      }
+    }
+    return undefined;
+  };
+
+  const pageFromProject = (entry: CollectionEntry<'projects'>): ShowcasePageData => {
+    const { data } = entry;
+    const body = entry.body ?? '';
+    const hero = {
+      src: data.images[0] ?? '/assets/hero.webp',
+      alt: `${data.title} project preview`,
+      position: 'center',
+    };
+    const secondSrc = data.images[1] ?? hero.src;
+    const method = extractSection(body, 'Approach') ?? data.description;
+    const unlocked = extractSection(body, 'Outcome') ?? data.description;
+    return {
+      slug: entry.id,
+      kind: 'work',
+      title: data.title.toUpperCase(),
+      meta: [
+        { value: 'Member project', label: 'Project distinction' },
+        { value: ['Project', ...data.domains].join(', '), label: 'Project focus' },
+      ],
+      hero,
+      sections: [
+        { title: 'The build', paragraphs: [data.description] },
+        { title: 'How we worked', paragraphs: [method] },
+        { title: 'What it unlocked', paragraphs: [unlocked] },
+      ],
+      gallery: [
+        { src: hero.src, alt: `${data.title} interface detail`, position: 'left center' },
+        { src: secondSrc, alt: `${data.title} system detail`, position: 'right center' },
+      ],
+      closingImage: { src: hero.src, alt: `${data.title} final overview` },
+    };
+  };
+
+  const projectEntries = await getCollection('projects');
+  const pages: ShowcasePageData[] = [
+    ...workPages,
+    ...projectEntries.map(pageFromProject),
+  ];
+  return pages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
 }
 
 const { page } = Astro.props;
