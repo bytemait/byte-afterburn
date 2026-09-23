@@ -1,6 +1,7 @@
 ---
 name: "Arpan Taneja"
 short: "AR"
+photo: "/team_pics/optimized/arpan_alpha.webp"
 role: "Project Manager"
 group: "leadership"
 status: "core"
