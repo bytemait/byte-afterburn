@@ -69,8 +69,7 @@ export default function NodeMesh() {
       frameMode = '';
     }
 
-    function pointsAround(element: HTMLElement, pad = 14) {
-      const rect = element.getBoundingClientRect();
+    function pointsAroundRect(rect: DOMRect, pad = 14) {
       const visibleWidth = Math.min(rect.right, width) - Math.max(rect.left, 0);
       const visibleHeight = Math.min(rect.bottom, height) - Math.max(rect.top, 0);
       if (visibleWidth < 24 || visibleHeight < 24) return [];
@@ -86,6 +85,25 @@ export default function NodeMesh() {
       for (let i = 1; i <= horizontal; i++) points.push({ x: right - (right - left) * i / horizontal, y: bottom });
       for (let i = 1; i < vertical; i++) points.push({ x: left, y: bottom - (bottom - top) * i / vertical });
       return points;
+    }
+
+    function pointsAround(element: HTMLElement, pad = 14) {
+      return pointsAroundRect(element.getBoundingClientRect(), pad);
+    }
+
+    function pointsAroundMemberFrame(frame: HTMLElement, pad = 14) {
+      const quote = frame.closest<HTMLElement>('[data-mesh-member]')?.querySelector<HTMLElement>('.member-quote');
+      if (!quote) return pointsAround(frame, pad);
+
+      const frameRect = frame.getBoundingClientRect();
+      const quoteRect = quote.getBoundingClientRect();
+      const bounds = new DOMRect(
+        Math.min(frameRect.left, quoteRect.left),
+        Math.min(frameRect.top, quoteRect.top),
+        Math.max(frameRect.right, quoteRect.right) - Math.min(frameRect.left, quoteRect.left),
+        Math.max(frameRect.bottom, quoteRect.bottom) - Math.min(frameRect.top, quoteRect.top),
+      );
+      return pointsAroundRect(bounds, pad);
     }
 
     function pointsOnEllipse(element: HTMLElement, count = 30, pad = 18) {
@@ -214,7 +232,12 @@ export default function NodeMesh() {
         if (stage) addGroup(pointsOnEllipse(stage, width < 700 ? 20 : 34, width < 700 ? 5 : 22), true);
         if (member && member !== stage) addGroup(pointsAround(member, 9), true);
       } else if (member) {
-        addGroup(pointsAround(member, 10), true);
+        addGroup(
+          mode === 'constellation' && member.matches('[data-mesh-frame]')
+            ? pointsAroundMemberFrame(member, 10)
+            : pointsAround(member, 10),
+          true,
+        );
       }
 
       return { targets, groups };
