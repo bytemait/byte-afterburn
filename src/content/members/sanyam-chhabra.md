@@ -7,4 +7,6 @@ status: "core"
 order: 3
 photo: "/team_pics/optimized/sanyam_alpha.webp"
 quote: "Idk man I just got here"
+portfolio: "https://linkedin.com/in/sanyamchhabra"
 ---
+

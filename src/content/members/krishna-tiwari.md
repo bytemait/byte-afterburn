@@ -5,4 +5,6 @@ group: "development"
 status: "department"
 order: 6
 photo: "/team_pics/members/krishna_tiwari.png"
+portfolio: "https://linkedin.com/in/krsna-tiwari"
 ---
+
