@@ -29,6 +29,28 @@ const members = defineCollection({
     tier: z.enum(['lead', 'inner', 'outer']).optional(),
     batch: z.string().optional(),
     portfolio: z.url().optional(),
+    linkedin: z.url().optional(),
+    github: z.url().optional(),
+    twitter: z.string().optional(),
+    contributions: z
+      .array(
+        z.object({
+          title: z.string(),
+          description: z.string().optional(),
+          url: z.url().optional(),
+        }),
+      )
+      .default([]),
+    awards: z
+      .array(
+        z.object({
+          title: z.string(),
+          date: z.string().optional(),
+          detail: z.string().optional(),
+          url: z.url().optional(),
+        }),
+      )
+      .default([]),
     projects: z.array(reference('projects')).default([]),
     achievements: z.array(reference('achievements')).default([]),
     career: z
