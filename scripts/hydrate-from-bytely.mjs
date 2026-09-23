@@ -32,6 +32,8 @@ const stats = submissions.reduce(
 );
 console.log(`bytely submissions by status: ${JSON.stringify(stats)}`);
 
+const OVERRIDES = [{ name: 'yash', github: 'yashbhu', file: 'yash-bahuguna.md' }];
+
 const index = indexMemberFiles();
 const perFile = new Map();
 const unmatched = [];
@@ -47,6 +49,12 @@ for (const submission of submissions) {
   const matches = index.bySlug.get(slug) ?? [];
   if (matches.length === 0 && index.byName.has(fullNormalize(d.fullName))) {
     matches.push(...index.byName.get(fullNormalize(d.fullName)));
+  }
+  if (matches.length === 0) {
+    const override = OVERRIDES.find(
+      (o) => fullNormalize(o.name) === fullNormalize(d.fullName) && (d.githubUsername ?? '').toLowerCase() === o.github,
+    );
+    if (override) matches.push(override.file);
   }
 
   if (matches.length === 0) {
@@ -286,7 +294,7 @@ function planUpdates(file, d, status) {
 
   const professionalUrl =
     typeof d.linkedin === 'string' && d.linkedin.trim()
-      ? toUrl(d.linkedin)
+      ? toUrl(d.linkedin.trim())
       : typeof d.githubUsername === 'string' && d.githubUsername.trim()
         ? `https://github.com/${d.githubUsername.trim().replace(/^@/, '')}`
         : undefined;
