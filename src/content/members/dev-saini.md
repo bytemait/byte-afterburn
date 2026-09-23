@@ -5,7 +5,7 @@ group: "development"
 status: "department"
 order: 2
 photo: "/team_pics/members/dev_saini.png"
-portfolio: "https://linkedin.com/in/devsainia1"
+portfolio: "https://www.linkedin.com/in/devsainia1"
 quote: "Exploring Android Development | Kotlin • Jetpack Compose • Android SDK"
 
 contributions:
@@ -33,7 +33,7 @@ contributions:
     url: https://drive.google.com/drive/folders/1s4uCRnslhvWFj8EzF8IreT6ds0dI2Fsd?usp=drive_link
   - title: WellDrive
     url: https://drive.google.com/drive/folders/1_a9WPPvQTRzHQG4cNT1F27td5pMjmERF?usp=sharing
-linkedin: "https://linkedin.com/in/devsainia1"
-github: "https://github.com/github.com/DevSaini064"
+linkedin: "https://www.linkedin.com/in/devsainia1"
+github: "https://github.com/DevSaini064"
 ---
 

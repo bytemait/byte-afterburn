@@ -7,7 +7,7 @@ status: "core"
 order: 13
 photo: "/team_pics/optimized/snow_alpha.webp"
 quote: "i am gitler"
-portfolio: "https://linkedin.com/in/snow-s"
+portfolio: "https://www.linkedin.com/in/snow-s"
 
 contributions:
   - title: fiebatt
@@ -33,7 +33,7 @@ awards:
   - title: HackVision 2025 — IEEE NSUT
     date: November 2025
     detail: 2nd place
-linkedin: "https://linkedin.com/in/snow-s"
+linkedin: "https://www.linkedin.com/in/snow-s"
 github: "https://github.com/snowsadh"
 twitter: "https://twitter.com/snoetwt"
 ---

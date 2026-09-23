@@ -286,7 +286,7 @@ function planUpdates(file, d, status) {
     .map((w) => {
       const title = typeof w.title === 'string' ? w.title.trim() : '';
       const venue = typeof w.format === 'string' ? w.format.trim() : '';
-      const url = typeof w.url === 'string' && w.url.trim() ? toUrl(w.url.trim()) : undefined;
+      const url = typeof w.url === 'string' && w.url.trim() ? cleanUrl(w.url.trim()) : undefined;
       return url || title ? { title: title || (url ?? ''), venue, url } : undefined;
     })
     .filter(Boolean);
@@ -298,12 +298,12 @@ function planUpdates(file, d, status) {
 
   const site = typeof d.website === 'string' ? d.website.trim() : '';
   const linkedinUrl =
-    typeof d.linkedin === 'string' && d.linkedin.trim() ? toUrl(d.linkedin.trim()) : undefined;
+    typeof d.linkedin === 'string' && d.linkedin.trim() ? cleanUrl(d.linkedin.trim()) : undefined;
   const githubUrl =
     typeof d.githubUsername === 'string' && d.githubUsername.trim()
-      ? `https://github.com/${d.githubUsername.trim().replace(/^@/, '')}`
+      ? cleanUrl(`https://github.com/${d.githubUsername.trim().replace(/^@/, '')}`)
       : undefined;
-  const professionalUrl = site ? toUrl(site) : linkedinUrl ?? githubUrl;
+  const professionalUrl = site ? cleanUrl(site) : linkedinUrl ?? githubUrl;
 
   const existingPortfolio = readKey(frontmatter, 'portfolio');
   if (professionalUrl && existingPortfolio === null) {
@@ -316,7 +316,7 @@ function planUpdates(file, d, status) {
   }
 
   const linkedin =
-    typeof d.linkedin === 'string' && d.linkedin.trim() ? toUrl(d.linkedin.trim()) : undefined;
+    typeof d.linkedin === 'string' && d.linkedin.trim() ? cleanUrl(d.linkedin.trim()) : undefined;
   if (linkedin && !hasKey(frontmatter, 'linkedin')) {
     changes.linkedin = linkedin;
     changes.changes++;
@@ -324,7 +324,7 @@ function planUpdates(file, d, status) {
 
   const github =
     typeof d.githubUsername === 'string' && d.githubUsername.trim()
-      ? `https://github.com/${d.githubUsername.trim().replace(/^@/, '')}`
+      ? cleanUrl(`https://github.com/${d.githubUsername.trim().replace(/^@/, '')}`)
       : undefined;
   if (github && !hasKey(frontmatter, 'github')) {
     changes.github = github;
@@ -348,11 +348,7 @@ function planUpdates(file, d, status) {
           : undefined;
       let url;
       if (raw) {
-        try {
-          url = new URL(toUrl(raw)).href;
-        } catch {
-          url = undefined;
-        }
+        url = cleanUrl(raw);
       }
       return title ? { title, description, url: url ?? undefined } : undefined;
     })
@@ -374,11 +370,7 @@ function planUpdates(file, d, status) {
           .join(' \u00b7 ') || undefined;
       let url;
       if (typeof a.url === 'string' && a.url.trim()) {
-        try {
-          url = new URL(toUrl(a.url.trim())).href;
-        } catch {
-          url = undefined;
-        }
+        url = cleanUrl(a.url.trim());
       }
       return title ? { title, date, detail, url: url ?? undefined } : undefined;
     })
@@ -483,4 +475,32 @@ function toUrl(value) {
 function toTwitterUrl(value) {
   const v = value.trim();
   return /^https?:\/\//i.test(v) ? v : `https://twitter.com/${v.replace(/^@/, '')}`;
+}
+
+function cleanUrl(value) {
+  if (!value) return undefined;
+  let u;
+  try {
+    u = new URL(/^https?:\/\//i.test(value) ? value : toUrl(value));
+  } catch {
+    return undefined;
+  }
+  u.host = u.host.toLowerCase();
+  if (u.host.replace(/^www\./, '') === 'linkedin.in') u.host = 'www.linkedin.com';
+  const bare = u.host.replace(/^www\./, '');
+  if (bare === 'github.com') {
+    const lower = u.pathname.toLowerCase();
+    const gi = lower.lastIndexOf('github.com/');
+    if (gi >= 0) u.pathname = u.pathname.slice(gi + 'github.com'.length) || '/';
+    u.search = '';
+    u.hash = '';
+  }
+  if (bare === 'linkedin.com') {
+    if (!u.pathname.startsWith('/in/') && u.pathname.split('/').filter(Boolean).length === 1) {
+      u.pathname = `/in${u.pathname}`;
+    }
+    u.search = '';
+    u.hash = '';
+  }
+  return u.toString().replace(/\/$/, '');
 }

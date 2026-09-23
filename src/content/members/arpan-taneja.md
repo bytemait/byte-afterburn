@@ -16,25 +16,25 @@ portfolio: "https://arpantaneja.dev"
 contributions:
   - title: Cosmic Engine
     description: An experimentation platform for comparing 10+ RAG retrieval, chunking, generation, and caching strategies, all at once!
-    url: https://cosmicengine.arpantaneja.dev/
+    url: "https://cosmicengine.arpantaneja.dev"
   - title: Clickpick
     description: Fastest prints on campus. book online and just collect!
-    url: https://clickpic-alpha.vercel.app/
+    url: "https://clickpic-alpha.vercel.app"
   - title: LampStack
     description: AI powered healthcare provider validation system using multi-agent architecture with LangGraph, Mistral AI, and vector embeddings for automated NPI verification and trust scoring.
-    url: https://github.com/arpan-lol/LampStack/
+    url: "https://github.com/arpan-lol/LampStack"
   - title: IOSD
     description: IOSD MAIT's official website!
-    url: https://iosdmait.com/
+    url: "https://iosdmait.com"
   - title: Veil
     description: Encrypted & local RAG for investigative journalism, powered by CyborgDB.
-    url: http://cyborg.arpantaneja.dev/
+    url: "http://cyborg.arpantaneja.dev"
   - title: ReTexture
     description: AI image orchestration platform built on LangGraph with a three-agent architecture. Features a dynamic canvas for element-level control, automated compliance validation for Amazon/Flipkart, and separate creative + regulatory engines that resolve violations through natural language commands.
-    url: https://retexture.vercel.app/
+    url: "https://retexture.vercel.app"
   - title: CPU Comparison
     description: nanoreview.com only lets me compare two CPUs at once so I made this scraper
-    url: https://cpu.arpantaneja.dev/
+    url: "https://cpu.arpantaneja.dev"
   - title: StealthBit
     description: Malware injection to remotely control multiple computers at once! for learning purposes only. uses reverse shell on SSE
     url: https://github.com/PrathamGupta06/StealthBit
@@ -51,7 +51,7 @@ awards:
   - title: Tesco Retail Media InnovAItion Jam
     date: December 2025
     detail: National Finalist
-linkedin: "https://www.linkedin.com/in/arpantaneja/"
+linkedin: "https://www.linkedin.com/in/arpantaneja"
 github: "https://github.com/arpan-lol"
 ---
 

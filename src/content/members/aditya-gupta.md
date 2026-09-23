@@ -15,7 +15,7 @@ career:
   - org: NIIT
     title: Software Engineering Intern
     period: July 2026 – Present
-portfolio: "https://aditagupta.dev"
+portfolio: "https://adityagupta.dev"
 
 contributions:
   - title: Omnia
@@ -30,7 +30,7 @@ contributions:
 
       For humans, it removes the coding barrier. But the bigger reason it matters now is AI agents. Instead of an agent freehand-writing raw Manim/Python (fragile, error-prone, hard to run unsupervised), Leenim exposes a constrained DSL via MCP — a small set of reliable "building blocks" the agent assembles instead of guessing at code. That means agents can generate animations faster, with fewer failures, safely enough to run autonomously, and in a form the user can immediately see and tweak. It turns "AI vibe-codes Manim and hopes it compiles" into "AI reliably assembles known-good pieces" — which is exactly the kind of structured interface agentic AI needs to be trustworthy at creative, technical tasks.
     url: https://github.com/sortedcord/leenim
-linkedin: "https://linkedin.in/sortedcord"
+linkedin: "https://www.linkedin.com/in/sortedcord"
 github: "https://github.com/sortedcord"
 twitter: "https://twitter.com/sortedcord"
 ---

@@ -12,7 +12,7 @@ portfolio: "https://github.com/iamadityamaurya"
 contributions:
   - title: BunkMAIT
     description: Attendance tracking app for MAIT Student. It has many other things like syllabus, teachers info, Subject detail etc
-    url: https://bunkmait.adityamaurya.dev/
+    url: "https://bunkmait.adityamaurya.dev"
   - title: LIne Follower Robot
     description: |-
       Line follower robot 

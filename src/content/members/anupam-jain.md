@@ -10,7 +10,7 @@ career:
   - org: WorldQuant
     title: Quantitative Research Consultant
     period: Jun 2026 – Aug 2026
-portfolio: "https://www.linkedin.com/in/anupam99jain/"
+portfolio: "https://www.linkedin.com/in/anupam99jain"
 quote: "WorldQuant Research Consultant | BYTE ML Member | Codeforces Pupil | 1600+ LeetCode | Open-Source Contributor"
 
 contributions:
@@ -26,7 +26,7 @@ awards:
     date: Aug 2026
     detail: '7'
     url: https://unstop.com/hackathons/code-royale-oblivion26-dcode-nsut-1722239
-linkedin: "https://www.linkedin.com/in/anupam99jain/"
+linkedin: "https://www.linkedin.com/in/anupam99jain"
 github: "https://github.com/anupam99jain"
 ---
 

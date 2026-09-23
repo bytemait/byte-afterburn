@@ -5,7 +5,7 @@ group: "development"
 status: "department"
 order: 4
 photo: "/team_pics/members/himanshu_yadav.png"
-portfolio: "https://www.linkedin.com/in/himanshu-yadav-62117b371/"
+portfolio: "https://www.linkedin.com/in/himanshu-yadav-62117b371"
 quote: "Building Apps for the better"
 
 contributions:
@@ -17,7 +17,7 @@ awards:
   - title: Encrypt Hackathon
     date: '2025'
     detail: 5000 · 1st place
-linkedin: "https://www.linkedin.com/in/himanshu-yadav-62117b371/"
+linkedin: "https://www.linkedin.com/in/himanshu-yadav-62117b371"
 github: "https://github.com/Hiimanshuyadav11"
 ---
 

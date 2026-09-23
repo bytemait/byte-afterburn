@@ -61,7 +61,7 @@ awards:
   - title: PSI Internal Hackathon
     date: November 2025
     detail: 20000 · 1st
-linkedin: "https://linkedin.com/in/parth-garg-1761a531b/"
+linkedin: "https://www.linkedin.com/in/parth-garg-1761a531b"
 github: "https://github.com/Parth06102006"
 twitter: "https://twitter.com/ParthGarg2006"
 ---

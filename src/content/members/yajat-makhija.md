@@ -9,9 +9,9 @@ career:
   - org: NeuriqAi
     title: Ai engineer intern
     period: April, 2026 – Present
-portfolio: "https://Linkedin.com/in/yajatmakhija"
+portfolio: "https://www.linkedin.com/in/yajatmakhija"
 quote: "Building Enterprise AI products"
-linkedin: "https://Linkedin.com/in/yajatmakhija"
+linkedin: "https://www.linkedin.com/in/yajatmakhija"
 github: "https://github.com/YajatMakhija"
 ---
 

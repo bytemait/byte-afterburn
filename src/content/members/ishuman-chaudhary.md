@@ -10,7 +10,7 @@ quote: "I like simple and minimalist things."
 contributions:
   - title: magpie - an ordered curation of my own watch-later videos
     description: Clusters my YouTube WL videos into genres using UMAP and HDBSCAN via vector embeddings.
-    url: https://magpie.ishu.foo/
+    url: "https://magpie.ishu.foo"
 
 awards:
   - title: FSF Diversity, Equity, Inclusion & Belonging Award for the Lewa project

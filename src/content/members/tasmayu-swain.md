@@ -38,7 +38,7 @@ contributions:
       the original claim holds but where it stops holding, and our results confirm the robustness of
       the original findings across most of these settings while also surfacing a clear boundary case
       in architecture and several open questions for future work on symmetry based alignment.
-linkedin: "https://www.linkedin.com/in/tasmayu-swain-27b886312/"
+linkedin: "https://www.linkedin.com/in/tasmayu-swain-27b886312"
 github: "https://github.com/TASMAYU"
 twitter: "https://twitter.com/tasmayu"
 ---

@@ -10,14 +10,14 @@ career:
   - org: N.A.
     title: N.A.
     period: 2025 October
-portfolio: "https://www.linkedin.com/in/yuktarth-naman/"
+portfolio: "https://www.linkedin.com/in/yuktarth-naman"
 
 contributions:
   - title: Pixovid
     description: |-
       Multi Track Video Templates,Prompt to Video and Image Generation,. Multi-Model Orchestration
       Users can create, face-swap avatars onto multi-track timelines, stitch scenes, and pay seamlessly per generation—bringing studio-grade video production down to a single prompt and a few seconds.Moreover there are clips of college so content creators can make reels , clips through it without wasting their time in editing..
-    url: https://pixovid-frontend.onrender.com/
+    url: "https://pixovid-frontend.onrender.com"
   - title: Juris-Genie
     description: |-
       JurisGenie is a **Deterministic Legal Execution Engine**. It takes unstructured legal documents (PDFs, contracts, court orders), extracts structured data using AI (Google Gemini), forces the extracted data through a **deterministic state machine**, and anchors execution results.
@@ -31,7 +31,7 @@ awards:
     date: June 2026
     detail: $250 · Jury Recommendation
     url: https://shorturl.at/UQR8c
-linkedin: "https://www.linkedin.com/in/yuktarth-naman/"
+linkedin: "https://www.linkedin.com/in/yuktarth-naman"
 github: "https://github.com/naman-yk"
 ---
 
