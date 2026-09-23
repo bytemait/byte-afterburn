@@ -30,7 +30,7 @@ publications:
   - title: How Can Multiple Tasks Run Without Running at the Same Time?
     venue: Blog
     url: https://medium.com/@yaxmeh/how-can-multiple-tasks-run-without-running-at-the-same-time-cb4b56c47959?sharedUserId=yaxmeh
-portfolio: "https://www.linkedin.com/in/yash-b-79396130b"
+portfolio: "https://yash.tech/"
 quote: "I’m someone who’s always curious about how things work. I like building things, going down random rabbit holes, and learning by figuring things out myself. Most of what I spend my time on revolves around engineering, open source, and whatever I happen to be interested in at the moment."
 ---
 
