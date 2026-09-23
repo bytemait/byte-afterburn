@@ -3,7 +3,7 @@ title: BunkMAIT
 description: Turns a recurring student need into a straightforward digital tool designed for the rhythms of campus life.
 order: 2
 links:
-  github: https://github.com/bytemait
+  live: https://bunkmait.adityamaurya.dev
 images:
   - /assets/works/bunkmait/bunkmait-1.jpeg
   - /assets/works/bunkmait/bunkmait-mobile.jpeg
