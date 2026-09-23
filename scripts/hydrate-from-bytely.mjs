@@ -108,6 +108,10 @@ for (const diff of proposed) {
   console.log('\n' + diff.slug + `  [${diff.status}]`);
   console.log(`  career ${diff.career?.length ?? 0} entries`);
   console.log(`  publications ${diff.publications?.length ?? 0}`);
+  console.log(`  contributions ${diff.contributions?.length ?? 0}`);
+  console.log(`  awards ${diff.awards?.length ?? 0}`);
+  if (diff.github) console.log(`  github ${diff.github}`);
+  if (diff.linkedin) console.log(`  linkedin ${diff.linkedin}`);
   if (diff.portfolio) console.log(`  portfolio ${diff.portfolio}`);
   if (diff.quote) console.log(`  quote ${diff.quote}`);
 }
@@ -264,7 +268,7 @@ function slugify(name) {
 
 function planUpdates(file, d, status) {
   const { frontmatter } = splitFrontmatter(file);
-  const changes = { file, slug: file.replace(/\.md$/, ''), status, career: [], portfolio: undefined, portfolioReplace: false, quote: undefined, publications: [], changes: 0 };
+  const changes = { file, slug: file.replace(/\.md$/, ''), status, career: [], portfolio: undefined, portfolioReplace: false, linkedin: undefined, github: undefined, twitter: undefined, contributions: [], awards: [], quote: undefined, publications: [], changes: 0 };
 
   const career = (d.experiences ?? []).map((e) => {
     const org = typeof e.organization === 'string' ? e.organization.trim() : '';
@@ -311,6 +315,80 @@ function planUpdates(file, d, status) {
     changes.changes++;
   }
 
+  const linkedin =
+    typeof d.linkedin === 'string' && d.linkedin.trim() ? toUrl(d.linkedin.trim()) : undefined;
+  if (linkedin && !hasKey(frontmatter, 'linkedin')) {
+    changes.linkedin = linkedin;
+    changes.changes++;
+  }
+
+  const github =
+    typeof d.githubUsername === 'string' && d.githubUsername.trim()
+      ? `https://github.com/${d.githubUsername.trim().replace(/^@/, '')}`
+      : undefined;
+  if (github && !hasKey(frontmatter, 'github')) {
+    changes.github = github;
+    changes.changes++;
+  }
+
+  const twitter = typeof d.twitter === 'string' && d.twitter.trim() ? toTwitterUrl(d.twitter.trim()) : undefined;
+  if (twitter && !hasKey(frontmatter, 'twitter')) {
+    changes.twitter = twitter;
+    changes.changes++;
+  }
+
+  const contributions = (d.projects ?? [])
+    .map((p) => {
+      const title = typeof p.title === 'string' ? p.title.trim() : '';
+      const description = typeof p.description === 'string' && p.description.trim() ? p.description.trim() : undefined;
+      const raw = p.primaryUrl
+        ? p.primaryUrl.trim()
+        : Array.isArray(p.links)
+          ? (p.links.find((l) => l && l.url)?.url ?? undefined)
+          : undefined;
+      let url;
+      if (raw) {
+        try {
+          url = new URL(toUrl(raw)).href;
+        } catch {
+          url = undefined;
+        }
+      }
+      return title ? { title, description, url: url ?? undefined } : undefined;
+    })
+    .filter(Boolean);
+
+  if (contributions.length && !hasKey(frontmatter, 'contributions')) {
+    changes.contributions = contributions;
+    changes.changes++;
+  }
+
+  const awards = (d.achievements ?? [])
+    .map((a) => {
+      const title = typeof a.name === 'string' ? a.name.trim() : '';
+      const date = typeof a.date === 'string' && a.date.trim() ? a.date.trim() : undefined;
+      const detail =
+        [a.prize, a.result]
+          .filter((x) => typeof x === 'string' && x.trim())
+          .map((x) => x.trim())
+          .join(' \u00b7 ') || undefined;
+      let url;
+      if (typeof a.url === 'string' && a.url.trim()) {
+        try {
+          url = new URL(toUrl(a.url.trim())).href;
+        } catch {
+          url = undefined;
+        }
+      }
+      return title ? { title, date, detail, url: url ?? undefined } : undefined;
+    })
+    .filter(Boolean);
+
+  if (awards.length && !hasKey(frontmatter, 'awards')) {
+    changes.awards = awards;
+    changes.changes++;
+  }
+
   if (typeof d.quickHighlights === 'string' && d.quickHighlights.trim() && !hasKey(frontmatter, 'quote')) {
     changes.quote = d.quickHighlights.trim();
     changes.changes++;
@@ -325,6 +403,11 @@ function render(diff) {
 
   if (diff.career.length && !hasKey(lines, 'career')) lines.push('', 'career:', ...dumpBlock(diff.career));
   if (diff.publications.length && !hasKey(lines, 'publications')) lines.push('', 'publications:', ...dumpBlock(diff.publications));
+  if (diff.contributions.length && !hasKey(lines, 'contributions')) lines.push('', 'contributions:', ...dumpBlock(diff.contributions));
+  if (diff.awards.length && !hasKey(lines, 'awards')) lines.push('', 'awards:', ...dumpBlock(diff.awards));
+  if (diff.linkedin && !hasKey(lines, 'linkedin')) lines.push(`linkedin: ${JSON.stringify(diff.linkedin)}`);
+  if (diff.github && !hasKey(lines, 'github')) lines.push(`github: ${JSON.stringify(diff.github)}`);
+  if (diff.twitter && !hasKey(lines, 'twitter')) lines.push(`twitter: ${JSON.stringify(diff.twitter)}`);
   if (diff.portfolio) {
     const idx = lines.findIndex((line) => line.startsWith('portfolio:'));
     if (idx === -1) lines.push(`portfolio: ${JSON.stringify(diff.portfolio)}`);
@@ -395,4 +478,9 @@ function clean(value) {
 function toUrl(value) {
   const v = value.trim();
   return /^https?:\/\//i.test(v) ? v : `https://${v}`;
+}
+
+function toTwitterUrl(value) {
+  const v = value.trim();
+  return /^https?:\/\//i.test(v) ? v : `https://twitter.com/${v.replace(/^@/, '')}`;
 }

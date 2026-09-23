@@ -13,5 +13,12 @@ publications:
     venue: Research summary
     url: https://mudgalkrishna.substack.com/p/can-ai-remember-over-2-million-tokens?r=3tjrxd
 portfolio: "https://www.linkedin.com/in/krishnamudgal2007/"
+
+awards:
+  - title: Research Paper
+    date: Aug 2026
+    url: https://openreview.net/pdf?id=GzZhaWVtSj
+linkedin: "https://www.linkedin.com/in/krishnamudgal2007/"
+github: "https://github.com/mudgalKrishna"
 ---
 

@@ -11,5 +11,7 @@ career:
     period: April, 2026 – Present
 portfolio: "https://Linkedin.com/in/yajatmakhija"
 quote: "Building Enterprise AI products"
+linkedin: "https://Linkedin.com/in/yajatmakhija"
+github: "https://github.com/YajatMakhija"
 ---
 
