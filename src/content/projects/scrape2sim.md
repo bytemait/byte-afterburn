@@ -2,8 +2,6 @@
 title: Scrape2Sim
 description: Explores how collected data can be cleaned, interpreted, and turned into inputs for useful simulation workflows.
 order: 3
-links:
-  github: https://github.com/bytemait
 images:
   - /assets/works/scrape-2-sim/scrape-2-sim.jpeg
 stack:
