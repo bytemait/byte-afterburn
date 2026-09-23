@@ -6,7 +6,7 @@ role: "Project Manager"
 group: "leadership"
 status: "core"
 order: 5
-quote: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+quote: "look mom i can fly"
 
 career:
   - org: Lean Summits Inc.
