@@ -1,111 +1,43 @@
 import React from 'react';
 
-export interface ProjectItem {
+export interface AchievementItem {
   id: string;
   name: string;
   tags: string[];
   description: string;
-  descriptionSide: 'left' | 'right';
   imageSrc: string;
-  cardWidth: number;   // exact desktop card width in px
-  cardHeight: number;  // exact desktop total card height in px
-  mediaHeight: number; // exact desktop image box height in px
   link?: string;
+  featured?: boolean;
 }
 
-const PROJECTS: ProjectItem[] = [
-  // Row 1
-  {
-    id: 'openai-codex-hackathon',
-    name: 'Winners, OpenAI Hackathon 2026',
-    tags: ['Hackathon', 'AI'],
-    description: 'Team Byte took first place in the Codex Hackathon organized by OpenAI and won $4,000 in prize credits.',
-    descriptionSide: 'right',
-    imageSrc: '/assets/works/openai_hack/openai_hack_win_1.webp',
-    cardWidth: 648,
-    cardHeight: 598,
-    mediaHeight: 480,
-    link: '/works/codex_26'
-  },
-  {
-    id: 'ezcrack',
-    name: 'EZCrack',
-    tags: ['Project', 'Development'],
-    description: 'EZCrack streamlines exam prep with high-impact study material, topic weightage, and frequently repeated questions.',
-    descriptionSide: 'left',
-    imageSrc: '/assets/works/ezcrack/ezcrack-1.jpeg',
-    cardWidth: 311,
-    cardHeight: 424,
-    mediaHeight: 306,
-    link: '/works/ezcrack'
-  },
-  // Row 2
-  {
-    id: 'lam-research-hackathon',
-    name: 'Winners, LAM Research Hackathon 2026',
-    tags: ['Hackathon', 'Mechatronics'],
-    description: 'Team Byte took first place at the LAM Research Challenge, a national systems engineering competition, winning ₹5 lakh in prize money.',
-    descriptionSide: 'left',
-    imageSrc: '/assets/works/lam_research_hack/lam_research_1.webp',
-    cardWidth: 972,
-    cardHeight: 847,
-    mediaHeight: 729,
-    link: '/works/lam_research_26'
-  },
-  // Row 3
-  {
-    id: 'clickpic',
-    name: 'HopOff',
-    tags: ['Project', 'Development'],
-    description: 'HopOff! alerts Delhi Metro riders before their stop with customizable notifications, sound, and haptics.',
-    descriptionSide: 'right',
-    imageSrc: '/assets/works/hopoff/WhatsApp Image 2026-09-13 at 19.49.10.jpeg',
-    cardWidth: 635,
-    cardHeight: 598,
-    mediaHeight: 480,
-    link: '/works/hopoff'
-  },
-  // Row 4
-  {
-    id: 'bunkmait',
-    name: 'BunkMAIT',
-    tags: ['Project', 'Development'],
-    description: 'BunkMAIT is a free attendance calculator that loads your timetable, tracks classes, and helps you plan safe bunks.',
-    descriptionSide: 'right',
-    imageSrc: '/assets/works/bunkmait/bunkmait-1.jpeg',
-    cardWidth: 311,
-    cardHeight: 424,
-    mediaHeight: 306,
-    link: '/works/bunkmait'
-  },
-  {
-    id: 'scrape2sim',
-    name: 'Scrape2Sim',
-    tags: ['Machine Learning', 'Project'],
-    description: 'A machine learning project built around turning data into useful simulation workflows.',
-    descriptionSide: 'left',
-    imageSrc: '/assets/works/scrape-2-sim/scrape-2-sim.jpeg',
-    cardWidth: 635,
-    cardHeight: 598,
-    mediaHeight: 480,
-    link: '/works/scrape2sim'
-  },
-  // Row 5
-  {
-    id: 'drone-ahh',
-    name: 'Winners, Hack IIT Kanpur 2025',
-    tags: ['Hackathon', 'Cybersecurity'],
-    description: 'Team Byte won first place in the cybersecurity solution track at HACK IITK 2025, held at IIT Kanpur.',
-    descriptionSide: 'right',
-    imageSrc: '/assets/works/hack_iitk/hack-iitk-1.webp',
-    cardWidth: 972,
-    cardHeight: 847,
-    mediaHeight: 729,
-    link: '/works/hack-iitk'
-  }
-];
+interface LayoutSlot {
+  side: 'left' | 'right';
+  cardHeight: number;
+  mediaHeight: number;
+}
 
-export default function Achievements() {
+const LAYOUT: Record<string, LayoutSlot> = {
+  'openai-codex-hackathon': { side: 'right', cardHeight: 598, mediaHeight: 480 },
+  ezcrack: { side: 'left', cardHeight: 424, mediaHeight: 306 },
+  'lam-research-hackathon': { side: 'left', cardHeight: 847, mediaHeight: 729 },
+  hopoff: { side: 'right', cardHeight: 598, mediaHeight: 480 },
+  bunkmait: { side: 'right', cardHeight: 424, mediaHeight: 306 },
+  scrape2sim: { side: 'left', cardHeight: 598, mediaHeight: 480 },
+  'hack-iitk': { side: 'right', cardHeight: 847, mediaHeight: 729 },
+};
+
+interface Props {
+  achievements: AchievementItem[];
+}
+
+export default function Achievements({ achievements }: Props) {
+  const byId = new Map(achievements.map((item) => [item.id, item]));
+  const card = (id: string) => {
+    const item = byId.get(id);
+    const layout = LAYOUT[id];
+    if (!item || !layout) return null;
+    return <ProjectCard project={item} layout={layout} />;
+  };
   return (
     <section className="achievements-section" id="achievements" aria-labelledby="achievements-title">
       <div className="achievements-container">
@@ -127,41 +59,41 @@ export default function Achievements() {
           {/* Row 1: OpenAI Codex Hackathon (648px) + EZCrack (311px) space-between */}
           <div className="achievements-row row-1">
             <div className="slot-agencify">
-              <ProjectCard project={PROJECTS[0]} />
+              {card('openai-codex-hackathon')}
             </div>
             <div className="slot-antony">
-              <ProjectCard project={PROJECTS[1]} />
+              {card('ezcrack')}
             </div>
           </div>
 
           {/* Row 2: LAM Research Hackathon (972px) aligned right */}
           <div className="achievements-row row-2">
             <div className="slot-zcf">
-              <ProjectCard project={PROJECTS[2]} />
+              {card('lam-research-hackathon')}
             </div>
           </div>
 
           {/* Row 3: ClickPic (635px) aligned center/left */}
           <div className="achievements-row row-3">
             <div className="slot-candreva">
-              <ProjectCard project={PROJECTS[3]} />
+              {card('hopoff')}
             </div>
           </div>
 
           {/* Row 4: BunkMAIT (311px) + Scrape2Sim (635px) space-between */}
           <div className="achievements-row row-4">
             <div className="slot-sotto">
-              <ProjectCard project={PROJECTS[4]} />
+              {card('bunkmait')}
             </div>
             <div className="slot-tesla">
-              <ProjectCard project={PROJECTS[5]} />
+              {card('scrape2sim')}
             </div>
           </div>
 
           {/* Row 5: Drone ahh (972px) aligned left */}
           <div className="achievements-row row-5">
             <div className="slot-bruno">
-              <ProjectCard project={PROJECTS[6]} />
+              {card('hack-iitk')}
             </div>
           </div>
         </div>
@@ -665,19 +597,19 @@ export default function Achievements() {
   );
 }
 
-function ProjectCard({ project }: { project: ProjectItem }) {
+function ProjectCard({ project, layout }: { project: AchievementItem; layout: LayoutSlot }) {
   return (
     <a
       href={project.link || '#'}
       className="framer-work-card"
       data-scroll-hover
       data-achievement-card
-      style={{ height: `${project.cardHeight}px` }}
+      style={{ height: `${layout.cardHeight}px` }}
       aria-label={`View ${project.name} project`}
       aria-describedby={`${project.id}-description`}
     >
       {/* Top Image Media with exact height */}
-      <div className="framer-card-top-media" style={{ height: `${project.mediaHeight}px` }}>
+      <div className="framer-card-top-media" style={{ height: `${layout.mediaHeight}px` }}>
         <img
           src={project.imageSrc}
           alt={`${project.name} project preview`}
@@ -710,8 +642,8 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         id={`${project.id}-description`}
         className="achievement-description"
         data-mesh-frame
-        data-side={project.descriptionSide}
-        style={{ '--description-top': `${project.mediaHeight / 2}px` } as React.CSSProperties}
+        data-side={layout.side}
+        style={{ '--description-top': `${layout.mediaHeight / 2}px` } as React.CSSProperties}
       >
         {project.description}
       </p>

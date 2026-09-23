@@ -1,55 +1,38 @@
 ---
-interface AgendaItem {
-  time: string;
-  title: string;
-  detail?: string;
-}
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
 
 interface Props {
-  name: string;
-  type: string;
-  date: string;
-  time: string;
-  venue: string;
-  description: string;
-  agenda: AgendaItem[];
-  whoCanAttend: string[];
-  ctaLabel?: string;
-  image?: string;
-  gallery?: string[];
+  event: CollectionEntry<'events'>;
 }
 
-const {
-  name,
-  type,
-  date,
-  time,
-  venue,
-  description,
-  agenda,
-  whoCanAttend,
-  ctaLabel = 'Register Now',
-  image,
-  gallery,
-} = Astro.props;
+const { event } = Astro.props;
+const { data } = event;
+const { Content } = await render(event);
+
+const ctaLabel = data.ctaLabel ?? 'Register Now';
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const day = String(data.date.getUTCDate()).padStart(2, '0');
+const month = MONTHS[data.date.getUTCMonth()];
+const dateLabel = `${day} ${month}`;
 ---
 
 <div class="page-header event-detail-header">
   <div class="wrap">
-    <span class="type-pill">{type}</span>
-    <h1>{name}</h1>
+    <span class="type-pill">{data.type}</span>
+    <h1>{data.name}</h1>
     <div class="event-meta-row">
-      <span><svg><use href="#i-clock"/></svg>{date} &middot; {time}</span>
-      <span><svg><use href="#i-pin"/></svg>{venue}</span>
+      <span><svg><use href="#i-clock"/></svg>{dateLabel} &middot; {data.time}</span>
+      <span><svg><use href="#i-pin"/></svg>{data.venue}</span>
     </div>
   </div>
 </div>
 
-{image && (
+{data.image && (
   <section class="event-hero-section">
     <div class="wrap">
       <figure class="hero-stage">
-        <img src={image} alt={`${name} hero image`} fetchpriority="high" />
+        <img src={data.image} alt={`${data.name} hero image`} fetchpriority="high" />
       </figure>
     </div>
   </section>
@@ -59,11 +42,13 @@ const {
   <div class="wrap event-detail-grid">
     <div class="event-detail-main">
       <h2>About this event</h2>
-      <p class="event-description">{description}</p>
+      <div class="event-description">
+        <Content />
+      </div>
 
       <h2>Agenda &amp; Highlights</h2>
       <ol class="agenda-list">
-        {agenda.map((item) => (
+        {data.agenda.map((item) => (
           <li>
             <span class="agenda-time">{item.time}</span>
             <div>
@@ -76,7 +61,7 @@ const {
 
       <h2>Who Can Attend</h2>
       <ul class="attend-list">
-        {whoCanAttend.map((line) => (
+        {data.whoCanAttend.map((line) => (
           <li><svg><use href="#i-award"/></svg>{line}</li>
         ))}
       </ul>
@@ -84,12 +69,16 @@ const {
 
     <aside class="event-detail-side">
       <div class="register-card">
-        <div class="date-chip lg"><b>{date.split(' ')[0]}</b><span>{date.split(' ')[1]}</span></div>
+        <div class="date-chip lg"><b>{day}</b><span>{month}</span></div>
         <div class="meta-row">
-          <span><svg><use href="#i-clock"/></svg>{time}</span>
-          <span><svg><use href="#i-pin"/></svg>{venue}</span>
+          <span><svg><use href="#i-clock"/></svg>{data.time}</span>
+          <span><svg><use href="#i-pin"/></svg>{data.venue}</span>
         </div>
-        <button class="btn btn-primary register-btn">{ctaLabel}</button>
+        {data.registration ? (
+          <a href={data.registration} class="btn btn-primary register-btn" target="_blank" rel="noopener noreferrer">{ctaLabel}</a>
+        ) : (
+          <button class="btn btn-primary register-btn">{ctaLabel}</button>
+        )}
         <p class="register-note">Seats are limited — registration closes 24 hours before the event.</p>
       </div>
       <a href="/events" class="link-btn back-link"><svg><use href="#i-arrow"/></svg> Back to all events</a>
@@ -97,14 +86,14 @@ const {
   </div>
 </section>
 
-{gallery && gallery.length > 0 && (
+{data.gallery.length > 0 && (
   <section class="event-gallery-section">
     <div class="wrap">
       <h2>Event Gallery</h2>
-      <div class={`masonry-grid ${gallery.length < 4 ? 'masonry-grid-sparse' : ''}`}>
-        {gallery.map((imgUrl) => (
+      <div class={`masonry-grid ${data.gallery.length < 4 ? 'masonry-grid-sparse' : ''}`}>
+        {data.gallery.map((imgUrl) => (
           <figure class="masonry-item">
-            <img src={imgUrl} loading="lazy" alt={`${name} gallery image`} />
+            <img src={imgUrl} loading="lazy" alt={`${data.name} gallery image`} />
           </figure>
         ))}
       </div>
@@ -156,10 +145,14 @@ const {
     margin: 40px 0 16px;
   }
   .event-detail-main h2:first-child { margin-top: 0; }
-  .event-description {
+  .event-description :global(p) {
+    margin: 0;
     color: var(--text-dim);
     line-height: 1.75;
     font-size: .96rem;
+  }
+  .event-description :global(p + p) {
+    margin-top: 1em;
   }
 
   .agenda-list {

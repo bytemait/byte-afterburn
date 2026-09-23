@@ -2,36 +2,25 @@
 import Layout from '../../layouts/Layout.astro';
 import EventDetail from '../../components/events/EventDetail.astro';
 import Footer from '../../components/common/Footer.astro';
-import { events, getEventBySlug } from '../../data/events';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
-export function getStaticPaths() {
-  return events.map((event) => ({
-    params: { slug: event.slug },
-    props: { event },
+export async function getStaticPaths() {
+  const entries = await getCollection('events');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
   }));
 }
 
-const { slug } = Astro.params;
-const event = Astro.props.event || (slug ? getEventBySlug(slug) : undefined);
+type Props = {
+  entry: CollectionEntry<'events'>;
+};
 
-if (!event) {
-  return Astro.redirect('/events');
-}
+const { entry: event } = Astro.props;
 ---
 
-<Layout title={`${event.name} — B.Y.T.E.`} active="events" footerInSlot>
-  <EventDetail
-    name={event.name}
-    type={event.type}
-    date={event.date}
-    time={event.time}
-    venue={event.venue}
-    description={event.description}
-    agenda={event.agenda}
-    whoCanAttend={event.whoCanAttend}
-    ctaLabel={event.ctaLabel}
-    image={event.image}
-    gallery={event.gallery}
-  />
+<Layout title={`${event.data.name} — B.Y.T.E.`} active="events" footerInSlot>
+  <EventDetail event={event} />
   <Footer immersive />
 </Layout>
