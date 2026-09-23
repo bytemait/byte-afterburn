@@ -239,17 +239,37 @@ const departmentName = group?.data.title || 'BYTE MEMBER';
             <section class="profile-about-block">
               <h3>Side Projects</h3>
               <ul class="profile-project-list">
-                {contributions.map((item) => (
-                  <li>
-                    <strong>{item.title}</strong>
-                    {item.description && <p>{item.description}</p>}
-                    {item.url && (
-                      <a href={item.url} target="_blank" rel="noopener noreferrer">
-                        View project <span aria-hidden="true">↗</span>
-                      </a>
-                    )}
-                  </li>
-                ))}
+                {contributions.map((item) => {
+                  const long = typeof item.description === 'string' && item.description.length > 200;
+                  let summaryText =
+                    typeof item.description === 'string'
+                      ? item.description.split(/\n{2,}/)[0].trim()
+                      : '';
+                  if (long && summaryText.length > 200) summaryText = summaryText.slice(0, 200).trim();
+                  const clipped = long && summaryText.length < item.description.length;
+                  return (
+                    <li>
+                      <strong>{item.title}</strong>
+                      {item.description &&
+                        (long ? (
+                          <details class="project-desc">
+                            <summary>
+                              {summaryText}
+                              {clipped ? ' …' : ''}
+                            </summary>
+                            <p>{item.description}</p>
+                          </details>
+                        ) : (
+                          <p>{item.description}</p>
+                        ))}
+                      {item.url && (
+                        <a href={item.url} target="_blank" rel="noopener noreferrer">
+                          View project <span aria-hidden="true">↗</span>
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           )}
@@ -1055,6 +1075,41 @@ const departmentName = group?.data.title || 'BYTE MEMBER';
   .profile-project-list a:hover,
   .profile-award-list a:hover {
     text-decoration: underline;
+  }
+
+  .project-desc summary {
+    margin: 0 0 6px;
+    cursor: pointer;
+    list-style: none;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .project-desc summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .project-desc summary::after {
+    content: 'Read more';
+    display: inline-block;
+    margin-left: 8px;
+    color: var(--green);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .project-desc[open] summary::after {
+    content: 'Show less';
+  }
+
+  .project-desc[open] p {
+    margin: 12px 0 6px;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .award-title-row {
