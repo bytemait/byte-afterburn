@@ -67,7 +67,6 @@ const avatarInitials = (name: string) =>
 const initials = member.short || avatarInitials(member.name);
 const eyebrow = group?.data.eyebrow || 'BYTE MEMBER';
 const departmentName = group?.data.title || 'BYTE MEMBER';
-const description = group?.data.description || 'Active member contributing to Byte society projects and community.';
 ---
 
 <Layout title={`${member.name} — B.Y.T.E.`} active="members" footerInSlot>
@@ -194,11 +193,6 @@ const description = group?.data.description || 'Active member contributing to By
               </div>
             )}
           </div>
-
-          <section class="profile-about-block">
-            <h3>About the Department</h3>
-            <p>{description}</p>
-          </section>
 
           {hasBody && (
             <section class="profile-about-block">
@@ -803,6 +797,13 @@ const description = group?.data.description || 'Active member contributing to By
     font-size: 1.0rem;
     font-weight: 600;
     letter-spacing: -0.01em;
+  }
+
+  .profile-about-block {
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--bg-soft);
   }
 
   .profile-about-block h3 {
