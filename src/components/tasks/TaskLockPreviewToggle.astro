@@ -20,10 +20,12 @@
 </div>
 
 <script>
+  import { TASK_CONFIG } from '../../data/tasks';
+
   function initGlobalDevToggle() {
     const btn = document.getElementById('globalTaskLockToggleBtn');
     const textEl = document.getElementById('globalLockStateText');
-    const TARGET_TIME = new Date('2026-09-25T15:00:00+05:30').getTime();
+    const TARGET_TIME = TASK_CONFIG.revealTimestamp;
     const OVERRIDE_KEY = 'byte_tasks_lock_override';
 
     function isLocked() {

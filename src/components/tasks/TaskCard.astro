@@ -1,5 +1,6 @@
 ---
 import type { TaskDepartment } from '../../data/tasks';
+import { TASK_CONFIG } from '../../data/tasks';
 
 interface Props {
   dept: TaskDepartment;
@@ -57,7 +58,7 @@ const { dept } = Astro.props;
             <span class="clearance-tag">ACCESS LOCKED</span>
             <span class="clearance-slash" aria-hidden="true">//</span>
           </div>
-          <span class="reveal-time-tag">25 SEP 2026 &bull; 15:00 IST</span>
+          <span class="reveal-time-tag">{TASK_CONFIG.revealDateFull}</span>
         </div>
 
         <span class="badge-hud-mark" aria-hidden="true">
@@ -104,12 +105,12 @@ const { dept } = Astro.props;
       </a>
 
       <!-- LOCKED STATE BUTTON -->
-      <a href={`/tasks/${dept.slug}`} class="link-btn locked-task-btn" title="Tasks unlock on 25 Sep, 3:00 PM IST">
+      <a href={`/tasks/${dept.slug}`} class="link-btn locked-task-btn" title={`Tasks unlock on ${TASK_CONFIG.revealDateShort}`}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-        <span class="locked-btn-text">Locked &bull; Reveals 25 Sep</span>
+        <span class="locked-btn-text">Locked &bull; Reveals {TASK_CONFIG.revealDateDay}</span>
         <span class="locked-btn-arrow">&rarr;</span>
       </a>
     </div>

@@ -1,4 +1,5 @@
 ---
+import { TASK_CONFIG } from '../../data/tasks';
 ---
 
 <div class="content-block">
@@ -29,7 +30,7 @@
       <span class="step-badge">04</span>
       <div>
         <strong>Official Form Submission</strong>
-        <p>Submit before Day 5 at 11:59 PM IST. Shortlisted candidates will be invited for live walkthroughs.</p>
+        <p>Submit before {TASK_CONFIG.submissionDeadline}. Shortlisted candidates will be invited for live walkthroughs.</p>
       </div>
     </div>
   </div>

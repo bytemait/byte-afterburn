@@ -1,18 +1,20 @@
 /**
- * ============================================================================
- * B.Y.T.E. RECRUITMENT TASKS & PROBLEM STATEMENTS (DATA SCHEMA & TEMPLATES)
- * ============================================================================
- *
- * HOW TO USE THIS FILE AS A TEAM LEAD:
- * 1. Find your department slug ('app-dev', 'web-dev', 'ai-ml', 'mechatronics', 'cybersecurity', 'outreach').
- * 2. Update `evaluationCriteria`, `skills`, `estimatedTime`, and `submissionFormat`.
- * 3. Replace the Lorem Ipsum placeholder text in `tasks` with your actual problem statements:
- *    - For simple tasks: Provide `id`, `title`, `level`, `brief`, `requirements`, and `bonusTasks`.
- *    - For structured multi-stage tasks: Provide `stages` (with `requirements`, `securityNote`, `verificationNote`),
- *      `optionalMissions`, and `submissionDeliverables`. Cards with extensive details automatically render
- *      with a smooth "Read Full Specification" collapsible drawer.
- * ============================================================================
+ * Global recruitment task countdown & schedule configuration.
+ * Update this timestamp and labels to change the reveal schedule across all countdowns and pages.
  */
+export const TASK_CONFIG = {
+  revealDateIso: '2026-09-25T15:00:00+05:30',
+  revealTimestamp: new Date('2026-09-25T15:00:00+05:30').getTime(),
+  revealDateFull: '25 SEP 2026 • 15:00 IST',
+  revealDateShort: '25 Sep • 3:00 PM IST',
+  revealDateDay: '25 Sep',
+  submissionDeadline: 'Day 5 at 11:59 PM IST',
+  submissionFormUrl: 'https://forms.gle',
+  discordUrl: 'https://discord.gg/HNYhA4Ww5',
+};
+
+export const TASK_REVEAL_TIMESTAMP = TASK_CONFIG.revealTimestamp;
+export const TASK_REVEAL_DATE_ISO = TASK_CONFIG.revealDateIso;
 
 export interface TaskStage {
   stageNumber: string | number;

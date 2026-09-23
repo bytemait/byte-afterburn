@@ -1,4 +1,5 @@
 ---
+import { TASK_CONFIG } from '../../data/tasks';
 ---
 
 <div class="task-countdown-box" role="region" aria-label="Task reveal countdown">
@@ -17,7 +18,7 @@
     </div>
     <div class="header-meta-group">
       <span class="live-dot" aria-hidden="true"></span>
-      <span class="header-target-time">25 SEP 2026 &bull; 15:00 IST</span>
+      <span class="header-target-time">{TASK_CONFIG.revealDateFull}</span>
     </div>
   </div>
 
@@ -98,6 +99,8 @@
 </div>
 
 <script>
+  import { TASK_CONFIG } from '../../data/tasks';
+
   function initCountdown() {
     const daysEl = document.getElementById('pageCdDays');
     const hoursEl = document.getElementById('pageCdHours');
@@ -106,8 +109,8 @@
 
     if (!daysEl) return;
 
-    // Reveal target: 25 Sep 2026, 3:00 PM IST (UTC+5:30)
-    const TARGET_TIME = new Date('2026-09-25T15:00:00+05:30').getTime();
+    // Reveal target timestamp from centralized configuration
+    const TARGET_TIME = TASK_CONFIG.revealTimestamp;
     const OVERRIDE_KEY = 'byte_tasks_lock_override';
 
     function isLocked() {

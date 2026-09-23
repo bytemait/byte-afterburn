@@ -39,6 +39,8 @@
 </div>
 
 <script>
+  import { TASK_CONFIG } from '../../data/tasks';
+
   function initStickyCountdown() {
     const daysEl = document.getElementById('cdDays');
     const hoursEl = document.getElementById('cdHours');
@@ -63,8 +65,8 @@
     // 2. Countdown calculation
     if (!daysEl) return;
 
-    // Reveal target: 25 Sep 2026, 3:00 PM IST
-    const TARGET_TIME = new Date('2026-09-25T15:00:00+05:30').getTime();
+    // Reveal target timestamp from centralized configuration
+    const TARGET_TIME = TASK_CONFIG.revealTimestamp;
 
     function updateCountdown() {
       const now = Date.now();

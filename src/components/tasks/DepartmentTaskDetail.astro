@@ -1,6 +1,6 @@
 ---
 import type { TaskDepartment } from '../../data/tasks';
-import { taskDepartments } from '../../data/tasks';
+import { taskDepartments, TASK_CONFIG } from '../../data/tasks';
 import { getTechLogo } from '../../data/tech-logos';
 import ProblemStatementCard from './ProblemStatementCard.astro';
 import SubmissionProtocol from './SubmissionProtocol.astro';
@@ -29,7 +29,7 @@ const otherDepts = taskDepartments.filter((d) => d.slug !== dept.slug);
       </span>
       <span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Reveals: 25 Sep &bull; 3:00 PM IST
+        Reveals: {TASK_CONFIG.revealDateShort}
       </span>
       <span class="status-live-meta">
         <span class="live-dot"></span>
@@ -128,7 +128,7 @@ const otherDepts = taskDepartments.filter((d) => d.slug !== dept.slug);
               <div class="gate-header-block">
                 <h3 class="gate-title">Problem Statements Locked</h3>
                 <p class="gate-desc">
-                  Tasks for <strong>{dept.department}</strong> will be revealed on <strong>25 Sep 2026 at 3:00 PM IST</strong>.
+                  Tasks for <strong>{dept.department}</strong> will be revealed on <strong>{TASK_CONFIG.revealDateFull}</strong>.
                 </p>
               </div>
 
@@ -214,17 +214,17 @@ const otherDepts = taskDepartments.filter((d) => d.slug !== dept.slug);
           <p>Submit your GitHub repository, README, and live demo output link before the window closes.</p>
           <div class="side-deadline-tag">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Opens 25 Sep &bull; 3:00 PM IST</span>
+            <span>Opens {TASK_CONFIG.revealDateShort}</span>
           </div>
         </div>
-        <a href="https://forms.gle" target="_blank" rel="noopener noreferrer" class="btn btn-primary submit-full-btn">
+        <a href={TASK_CONFIG.submissionFormUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary submit-full-btn">
           Open Submission Form
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
       </div>
 
       <!-- DISCORD MENTOR SUPPORT LINK -->
-      <a href="https://discord.gg/HNYhA4Ww5" class="github-project-link discord-sidebar-link" target="_blank" rel="noopener noreferrer">
+      <a href={TASK_CONFIG.discordUrl} class="github-project-link discord-sidebar-link" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h0a14.5 14.5 0 0 0-4-1.5 9.8 9.8 0 0 0-.4 1.8 13.9 13.9 0 0 0-3.2 0 9.8 9.8 0 0 0-.4-1.8A14.5 14.5 0 0 0 6 6a15.8 15.8 0 0 0-2.4 9.7 14.4 14.4 0 0 0 4.5 2.3 10.3 10.3 0 0 0 1-1.6 9.3 9.3 0 0 1-1.5-.7c.1-.1.3-.2.4-.3a10.6 10.6 0 0 0 8 0c.1.1.3.2.4.3a9.3 9.3 0 0 1-1.5.7 10.3 10.3 0 0 0 1 1.6 14.4 14.4 0 0 0 4.5-2.3A15.8 15.8 0 0 0 18 6Z"/><path d="M9.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/><path d="M14.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
         <span>Ask in Discord (#recruitment)</span>
         <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -248,13 +248,15 @@ const otherDepts = taskDepartments.filter((d) => d.slug !== dept.slug);
 </section>
 
 <script>
+  import { TASK_CONFIG } from '../../data/tasks';
+
   function initDetailLock() {
     const daysEl = document.getElementById('gateCdDays');
     const hoursEl = document.getElementById('gateCdHours');
     const minsEl = document.getElementById('gateCdMins');
     const secsEl = document.getElementById('gateCdSecs');
 
-    const TARGET_TIME = new Date('2026-09-25T15:00:00+05:30').getTime();
+    const TARGET_TIME = TASK_CONFIG.revealTimestamp;
     const OVERRIDE_KEY = 'byte_tasks_lock_override';
 
     function isLocked() {
