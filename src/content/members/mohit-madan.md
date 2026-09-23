@@ -12,6 +12,6 @@ career:
   - org: Artifex One
     title: AI Engineer
     period: May,26 – Present
-portfolio: "https://www.linkedin.com/in/mohit-madan-b8447a313/"
+portfolio: "https://icyzh.dev/"
 ---
 

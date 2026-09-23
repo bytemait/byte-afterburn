@@ -15,6 +15,6 @@ career:
   - org: NIIT
     title: Software Engineering Intern
     period: July 2026 – Present
-portfolio: "https://linkedin.in/sortedcord"
+portfolio: "https://aditagupta.dev"
 ---
 

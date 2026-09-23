@@ -264,7 +264,7 @@ function slugify(name) {
 
 function planUpdates(file, d, status) {
   const { frontmatter } = splitFrontmatter(file);
-  const changes = { file, slug: file.replace(/\.md$/, ''), status, career: [], portfolio: undefined, quote: undefined, publications: [], changes: 0 };
+  const changes = { file, slug: file.replace(/\.md$/, ''), status, career: [], portfolio: undefined, portfolioReplace: false, quote: undefined, publications: [], changes: 0 };
 
   const career = (d.experiences ?? []).map((e) => {
     const org = typeof e.organization === 'string' ? e.organization.trim() : '';
@@ -292,15 +292,22 @@ function planUpdates(file, d, status) {
     changes.changes++;
   }
 
-  const professionalUrl =
-    typeof d.linkedin === 'string' && d.linkedin.trim()
-      ? toUrl(d.linkedin.trim())
-      : typeof d.githubUsername === 'string' && d.githubUsername.trim()
-        ? `https://github.com/${d.githubUsername.trim().replace(/^@/, '')}`
-        : undefined;
+  const site = typeof d.website === 'string' ? d.website.trim() : '';
+  const linkedinUrl =
+    typeof d.linkedin === 'string' && d.linkedin.trim() ? toUrl(d.linkedin.trim()) : undefined;
+  const githubUrl =
+    typeof d.githubUsername === 'string' && d.githubUsername.trim()
+      ? `https://github.com/${d.githubUsername.trim().replace(/^@/, '')}`
+      : undefined;
+  const professionalUrl = site ? toUrl(site) : linkedinUrl ?? githubUrl;
 
-  if (professionalUrl && !hasKey(frontmatter, 'portfolio')) {
+  const existingPortfolio = readKey(frontmatter, 'portfolio');
+  if (professionalUrl && existingPortfolio === null) {
     changes.portfolio = professionalUrl;
+    changes.changes++;
+  } else if (professionalUrl && site && existingPortfolio !== professionalUrl) {
+    changes.portfolio = professionalUrl;
+    changes.portfolioReplace = true;
     changes.changes++;
   }
 
@@ -318,7 +325,11 @@ function render(diff) {
 
   if (diff.career.length && !hasKey(lines, 'career')) lines.push('', 'career:', ...dumpBlock(diff.career));
   if (diff.publications.length && !hasKey(lines, 'publications')) lines.push('', 'publications:', ...dumpBlock(diff.publications));
-  if (diff.portfolio && !hasKey(lines, 'portfolio')) lines.push(`portfolio: ${JSON.stringify(diff.portfolio)}`);
+  if (diff.portfolio) {
+    const idx = lines.findIndex((line) => line.startsWith('portfolio:'));
+    if (idx === -1) lines.push(`portfolio: ${JSON.stringify(diff.portfolio)}`);
+    else if (diff.portfolioReplace) lines[idx] = `portfolio: ${JSON.stringify(diff.portfolio)}`;
+  }
   if (diff.quote && !hasKey(lines, 'quote')) lines.push(`quote: ${JSON.stringify(diff.quote)}`);
 
   return ['---', ...lines.slice(1), '---', '', body].join('\n');
@@ -348,6 +359,16 @@ function splitFrontmatter(file) {
 
 function hasKey(frontmatter, key) {
   return frontmatter.some((line) => /^[A-Za-z0-9_.-]+:/.test(line) && line.startsWith(`${key}:`));
+}
+
+function readKey(frontmatter, key) {
+  const line = frontmatter.find((l) => l.startsWith(`${key}:`));
+  if (line === undefined) return null;
+  return line
+    .slice(line.indexOf(':') + 1)
+    .trim()
+    .replace(/^"(.*)"$/, '$1')
+    .replace(/^'(.*)'$/, '$1');
 }
 
 function dumpBlock(value) {

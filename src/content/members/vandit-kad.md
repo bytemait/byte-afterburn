@@ -13,6 +13,6 @@ career:
   - org: Metline
     title: web dev
     period: Nov 2025 – Dev 2025
-portfolio: "https://www.linkedin.com/in/vanditkad/"
+portfolio: "https://vanditkad.com/"
 ---
 

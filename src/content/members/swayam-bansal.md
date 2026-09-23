@@ -12,6 +12,6 @@ career:
   - org: Uncensored AI
     title: SWE
     period: june 2026 – Present
-portfolio: "https://linkedin.com/in/swymbnsl"
+portfolio: "https://swymbnsl.com"
 ---
 
