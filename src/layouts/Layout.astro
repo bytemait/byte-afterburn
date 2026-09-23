@@ -5,6 +5,17 @@ import Footer from '../components/common/Footer.astro';
 import PageTransitions from '../components/common/PageTransitions.astro';
 import NodeMesh from '../components/common/NodeMesh';
 import { ClientRouter } from 'astro:transitions';
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_SOCIAL_IMAGE,
+  DEFAULT_SOCIAL_IMAGE_ALT,
+  MAIT_ID,
+  ORGANIZATION_ID,
+  SITE_NAME,
+  SITE_URL,
+  WEBSITE_ID,
+  type JsonLd,
+} from '../lib/seo';
 import '../styles/global.css';
 
 interface Props {
@@ -12,6 +23,13 @@ interface Props {
   active?: 'home' | 'events' | 'members' | 'contact' | 'projects';
   description?: string;
   image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  canonical?: string;
+  pageType?: string | string[];
+  mainEntityId?: string;
+  structuredData?: JsonLd | JsonLd[];
   immersiveNav?: boolean;
   footerInSlot?: boolean;
   contentTransition?: boolean;
@@ -19,16 +37,105 @@ interface Props {
 
 const {
   title,
-  description = 'Byte Society — what happens after the ignition.',
-  image = '/og-image.png',
+  description = DEFAULT_DESCRIPTION,
+  image = DEFAULT_SOCIAL_IMAGE,
+  imageAlt = DEFAULT_SOCIAL_IMAGE_ALT,
+  imageWidth: providedImageWidth,
+  imageHeight: providedImageHeight,
+  canonical,
+  pageType = 'WebPage',
+  mainEntityId,
+  structuredData = [],
   active = 'home',
   immersiveNav = false,
   footerInSlot = false,
-  contentTransition = Astro.url.pathname !== '/'
+  contentTransition = Astro.url.pathname !== '/',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(image, Astro.site);
+const siteURL = Astro.site ?? SITE_URL;
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, siteURL);
+const ogImageURL = new URL(image, siteURL);
+const usesDefaultImage = image === DEFAULT_SOCIAL_IMAGE;
+const imageWidth = providedImageWidth ?? (usesDefaultImage ? 1200 : undefined);
+const imageHeight = providedImageHeight ?? (usesDefaultImage ? 630 : undefined);
+const pageId = `${canonicalURL.href}#webpage`;
+const imageId = `${ogImageURL.href}#primaryimage`;
+const extraStructuredData = Array.isArray(structuredData) ? structuredData : [structuredData];
+const schemaGraph: JsonLd[] = [
+  {
+    '@type': 'Organization',
+    '@id': ORGANIZATION_ID,
+    name: SITE_NAME,
+    alternateName: ['BYTE', 'BYTE Society', 'Brains Yielding Technical Endeavors'],
+    description: DEFAULT_DESCRIPTION,
+    url: new URL('/', siteURL).href,
+    email: 'innovators.byte@gmail.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/icon.png', siteURL).href,
+      width: 264,
+      height: 263,
+    },
+    parentOrganization: {
+      '@type': 'CollegeOrUniversity',
+      '@id': MAIT_ID,
+      name: 'Maharaja Agrasen Institute of Technology',
+      alternateName: 'MAIT',
+      url: 'https://www.mait.ac.in/',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'PSP Area, Plot No. 1, Sector 22, Rohini',
+      addressLocality: 'Delhi',
+      postalCode: '110086',
+      addressCountry: 'IN',
+    },
+    knowsAbout: ['Software Development', 'Artificial Intelligence', 'Machine Learning', 'Robotics', 'Cybersecurity', 'Research'],
+    sameAs: [
+      'https://cse.mait.ac.in/index.php/societies-chapters/student-club',
+      'https://www.instagram.com/byte__official',
+      'https://www.linkedin.com/company/byte-official',
+      'https://github.com/bytemait',
+      'https://www.youtube.com/@BYTE-mait',
+    ],
+  },
+  {
+    '@type': 'WebSite',
+    '@id': WEBSITE_ID,
+    url: new URL('/', siteURL).href,
+    name: SITE_NAME,
+    alternateName: 'BYTE',
+    description: DEFAULT_DESCRIPTION,
+    publisher: { '@id': ORGANIZATION_ID },
+    inLanguage: 'en-IN',
+  },
+  {
+    '@type': 'ImageObject',
+    '@id': imageId,
+    url: ogImageURL.href,
+    contentUrl: ogImageURL.href,
+    caption: imageAlt,
+    ...(imageWidth ? { width: imageWidth } : {}),
+    ...(imageHeight ? { height: imageHeight } : {}),
+  },
+  {
+    '@type': pageType,
+    '@id': pageId,
+    url: canonicalURL.href,
+    name: title,
+    description,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORGANIZATION_ID },
+    primaryImageOfPage: { '@id': imageId },
+    ...(mainEntityId ? { mainEntity: { '@id': mainEntityId } } : {}),
+    inLanguage: 'en-IN',
+  },
+  ...extraStructuredData,
+];
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': schemaGraph }).replace(
+  /</g,
+  '\\u003c',
+);
 ---
 
 <!doctype html>
@@ -38,9 +145,12 @@ const ogImageURL = new URL(image, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/icon.png" />
     <link rel="canonical" href={canonicalURL} />
 
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#07110b" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -48,16 +158,24 @@ const ogImageURL = new URL(image, Astro.site);
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:secure_url" content={ogImageURL} />
+    <meta property="og:image:alt" content={imageAlt} />
+    {imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+    {imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
 
-    <!-- Twitter -->
+    <!-- X / Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    <script type="application/ld+json" set:html={jsonLd} />
 
     <ClientRouter fallback="swap" />
 

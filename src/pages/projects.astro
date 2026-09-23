@@ -22,7 +22,13 @@ const domains = [...new Set(projects.flatMap((project) => project.domains))].sor
 const techs = [...new Set(projects.flatMap((project) => project.stack))].sort();
 ---
 
-<Layout title="Projects — B.Y.T.E." active="projects" footerInSlot>
+<Layout
+  title="Projects | BYTE MAIT"
+  description="Explore software, AI/ML, mobile, and engineering projects built by BYTE members at Maharaja Agrasen Institute of Technology."
+  pageType="CollectionPage"
+  active="projects"
+  footerInSlot
+>
   <div class="page-header">
     <div class="wrap">
       <h1>Projects</h1>

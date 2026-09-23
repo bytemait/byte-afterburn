@@ -23,6 +23,7 @@ export interface ShowcasePageData {
   slug: string;
   kind: 'work' | 'service';
   title: string;
+  canonicalPath?: string;
   meta: [ShowcaseMetaItem, ShowcaseMetaItem];
   hero: ShowcaseImage;
   sections: [ShowcaseSection, ShowcaseSection, ShowcaseSection];
