@@ -1,16 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { events } from '../data/events';
+import { getCollection } from 'astro:content';
 
-// Helper to parse dates for sorting (combines "DD MMM" with "YYYY")
-function parseDate(dateStr: string, yearStr: string = '2026') {
-  return new Date(`${dateStr} ${yearStr}`).getTime();
-}
+const entries = await getCollection('events');
+const sortedEvents = [...entries].sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
 
-const sortedEvents = [...events].sort((a, b) => parseDate(b.date, b.year) - parseDate(a.date, a.year));
+const now = Date.now();
+const upcomingEvents = sortedEvents.filter((e) => e.data.date.getTime() >= now);
+const pastEvents = sortedEvents.filter((e) => e.data.date.getTime() < now);
 
-const upcomingEvents = sortedEvents.filter((e) => e.isUpcoming);
-const pastEvents = sortedEvents.filter((e) => !e.isUpcoming);
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const dateParts = (date: Date) => ({
+  day: String(date.getUTCDate()).padStart(2, '0'),
+  month: MONTHS[date.getUTCMonth()],
+  year: String(date.getUTCFullYear()),
+});
 import Footer from '../components/common/Footer.astro';
 ---
 
@@ -38,33 +44,33 @@ import Footer from '../components/common/Footer.astro';
           <div class="events-list">
             {upcomingEvents.map((event, index) => {
               const isFlip = index % 2 === 1;
-              const [day, month] = event.date.split(' ');
+              const { day, month, year } = dateParts(event.data.date);
               return (
-                <div class={`event-card ${isFlip ? 'flip' : ''}`} data-type={event.type}>
+                <div class={`event-card ${isFlip ? 'flip' : ''}`} data-type={event.data.type}>
                   {!isFlip && (
                     <div class="ph" data-ratio="800 × 600">
-                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></>}
+                      {event.data.image ? <img src={event.data.image} alt={event.data.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></>}
                     </div>
                   )}
                   <div class="event-body">
                     <div class="date-chip">
                       <b>{day}</b>
                       <span>{month}</span>
-                      {event.year && <span style="font-size: 0.7em; opacity: 0.8; display: block; text-align: center;">{event.year}</span>}
+                      <span style="font-size: 0.7em; opacity: 0.8; display: block; text-align: center;">{year}</span>
                     </div>
                     <div class="event-content">
-                      <h3>{event.name}</h3>
-                      <p>{event.shortDescription}</p>
+                      <h3>{event.data.name}</h3>
+                      <p>{event.data.shortDescription}</p>
                       <div class="meta-row">
-                        <span><svg><use href="#i-clock"/></svg>{event.time}</span>
-                        <span><svg><use href="#i-pin"/></svg>{event.venue}</span>
+                        <span><svg><use href="#i-clock"/></svg>{event.data.time}</span>
+                        <span><svg><use href="#i-pin"/></svg>{event.data.venue}</span>
                       </div>
-                      <a href={`/events/${event.slug}`} class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+                      <a href={`/events/${event.id}`} class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
                     </div>
                   </div>
                   {isFlip && (
                     <div class="ph" data-ratio="800 × 600">
-                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></>}
+                      {event.data.image ? <img src={event.data.image} alt={event.data.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Event photo</span><svg><use href="#i-image"/></svg></>}
                     </div>
                   )}
                 </div>
@@ -80,33 +86,33 @@ import Footer from '../components/common/Footer.astro';
           <div class="events-list" style="opacity: 0.7;">
             {pastEvents.map((event, index) => {
               const isFlip = index % 2 === 1;
-              const [day, month] = event.date.split(' ');
+              const { day, month, year } = dateParts(event.data.date);
               return (
-                <div class={`event-card ${isFlip ? 'flip' : ''}`} data-type={event.type}>
+                <div class={`event-card ${isFlip ? 'flip' : ''}`} data-type={event.data.type}>
                   {!isFlip && (
                     <div class="ph" data-ratio="800 × 600">
-                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></>}
+                      {event.data.image ? <img src={event.data.image} alt={event.data.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></>}
                     </div>
                   )}
                   <div class="event-body">
                     <div class="date-chip">
                       <b>{day}</b>
                       <span>{month}</span>
-                      {event.year && <span style="font-size: 0.7em; opacity: 0.8; display: block; text-align: center;">{event.year}</span>}
+                      <span style="font-size: 0.7em; opacity: 0.8; display: block; text-align: center;">{year}</span>
                     </div>
                     <div class="event-content">
-                      <h3>{event.name}</h3>
-                      <p>{event.shortDescription}</p>
+                      <h3>{event.data.name}</h3>
+                      <p>{event.data.shortDescription}</p>
                       <div class="meta-row">
-                        <span><svg><use href="#i-clock"/></svg>{event.time}</span>
-                        <span><svg><use href="#i-pin"/></svg>{event.venue}</span>
+                        <span><svg><use href="#i-clock"/></svg>{event.data.time}</span>
+                        <span><svg><use href="#i-pin"/></svg>{event.data.venue}</span>
                       </div>
-                      <a href={`/events/${event.slug}`} class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
+                      <a href={`/events/${event.id}`} class="link-btn">View Details <svg><use href="#i-arrow"/></svg></a>
                     </div>
                   </div>
                   {isFlip && (
                     <div class="ph" data-ratio="800 × 600">
-                      {event.image ? <img src={event.image} alt={event.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></>}
+                      {event.data.image ? <img src={event.data.image} alt={event.data.name} loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" /> : <><span class="ph-tag">Archive photo</span><svg><use href="#i-image"/></svg></>}
                     </div>
                   )}
                 </div>

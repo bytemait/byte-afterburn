@@ -1,151 +1,49 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/common/Footer.astro';
-import membersData from '../../data/members.json';
+import { getCollection, getEntries, getEntry, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
-interface MemberRecord {
-  slug: string;
-  name: string;
-  role: string;
-  group: string;
-  groupTitle?: string;
-  category?: 'core' | 'department' | 'alumni';
-  photo?: string;
-  quote?: string;
-  short?: string;
-  tier?: 'lead' | 'inner' | 'outer';
-  year?: string;
-}
-
-const chapterTitles: Record<string, string> = {
-  leadership: 'Byte Core',
-  development: 'Development',
-  aiml: 'AI / ML',
-  creative: 'Creative Outreach',
-  mechatronics: 'Mechatronics',
-  cybersecurity: 'Cybersecurity',
-  'alumni-2025': 'Generation 02 Alumni',
-  'alumni-2024': 'Founding Generation Alumni',
-};
-
-const chapterEyebrows: Record<string, string> = {
-  leadership: '01 THE UNCS',
-  development: '02 THE TOKENMAXXERS',
-  aiml: '03 THE RESEARCH LARPERS',
-  creative: '04 THE INTROVERTS',
-  mechatronics: '05 THE SIMULATORS',
-  cybersecurity: '06 THE RAINBOW HAT HACKERS',
-  'alumni-2025': 'GENERATION 02 · 2025',
-  'alumni-2024': 'THE FIRST SPARK · 2024',
-};
-
-const groupDescriptions: Record<string, string> = {
-  leadership: 'Seven people keeping every part of Byte in motion through guidance, strategy, and execution.',
-  development: 'Builders turning ambitious ideas into dependable, high-performance software people can use.',
-  aiml: 'Learning systems, practical experiments, and real-world intelligence pipelines.',
-  creative: 'The voice, image, and connective tissue of the society.',
-  mechatronics: 'Code that leaves the screen and moves through the physical world.',
-  cybersecurity: 'Break it, understand it, secure it, teach it.',
-  'alumni-2025': 'Twelve alumni who carried Byte into its next orbit: leadership, outreach, and development.',
-  'alumni-2024': 'Ten originators who made the leap from an idea to a thriving student technology society.',
-};
-
-export function getStaticPaths() {
-  const chapterTitlesMap: Record<string, string> = {
-    leadership: 'Byte Core',
-    development: 'Development',
-    aiml: 'AI / ML',
-    creative: 'Creative Outreach',
-    mechatronics: 'Mechatronics',
-    cybersecurity: 'Cybersecurity',
-  };
-
-  const allMembers: MemberRecord[] = [
-    ...membersData.members.map((m) => ({
-      ...m,
-      category: 'core' as const,
-      groupTitle: chapterTitlesMap[m.group] || m.group,
-    })),
-    ...Object.entries(membersData.departmentMembers).flatMap(([group, deptMembers]) =>
-      deptMembers.map((m) => ({
-        ...m,
-        category: 'department' as const,
-        groupTitle: chapterTitlesMap[group] || group,
-        photo: m.photo || (membersData.memberAvatarPhotos as Record<string, string>)[m.name] || undefined,
-      }))
-    ),
-    ...membersData.alumni2025.map((m) => ({
-      ...m,
-      group: 'alumni-2025',
-      groupTitle: 'Generation 02 Alumni',
-      category: 'alumni' as const,
-    })),
-    ...membersData.alumni2024.map((m) => ({
-      ...m,
-      group: 'alumni-2024',
-      groupTitle: 'Founding Generation Alumni',
-      category: 'alumni' as const,
-    })),
-  ];
-
-  const paths = allMembers.map((member) => ({
-    params: { slug: member.slug },
-    props: { member },
+export async function getStaticPaths() {
+  const entries = await getCollection('members');
+  const paths = entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
   }));
 
-  // Ensure canonical 'pratham-gupta' route resolves if queried directly
-  if (!allMembers.some((m) => m.slug === 'pratham-gupta')) {
-    const pratham = allMembers.find((m) => m.slug === 'pratham-gupta-2025');
-    if (pratham) {
-      paths.push({
-        params: { slug: 'pratham-gupta' },
-        props: { member: { ...pratham, slug: 'pratham-gupta' } },
-      });
-    }
+  const pratham = entries.find((entry) => entry.id === 'pratham-gupta-2025');
+  if (pratham) {
+    paths.push({
+      params: { slug: 'pratham-gupta' },
+      props: { entry: pratham },
+    });
   }
 
   return paths;
 }
 
-const { slug } = Astro.params;
+type Props = {
+  entry: CollectionEntry<'members'>;
+};
 
-function getAllMembers(): MemberRecord[] {
-  return [
-    ...membersData.members.map((m) => ({
-      ...m,
-      category: 'core' as const,
-      groupTitle: chapterTitles[m.group] || m.group,
-    })),
-    ...Object.entries(membersData.departmentMembers).flatMap(([group, deptMembers]) =>
-      deptMembers.map((m) => ({
-        ...m,
-        category: 'department' as const,
-        groupTitle: chapterTitles[group] || group,
-        photo: m.photo || (membersData.memberAvatarPhotos as Record<string, string>)[m.name] || undefined,
-      }))
-    ),
-    ...membersData.alumni2025.map((m) => ({
-      ...m,
-      group: 'alumni-2025',
-      groupTitle: 'Generation 02 Alumni',
-      category: 'alumni' as const,
-    })),
-    ...membersData.alumni2024.map((m) => ({
-      ...m,
-      group: 'alumni-2024',
-      groupTitle: 'Founding Generation Alumni',
-      category: 'alumni' as const,
-    })),
-  ];
-}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const group = await getEntry(entry.data.group);
+const memberProjects = await getEntries(entry.data.projects);
+const memberAchievements = await getEntries(entry.data.achievements);
+const career = entry.data.career;
+const publications = entry.data.publications;
+const portfolio = entry.data.portfolio;
+const hasBody = Boolean(entry.body?.trim());
 
-const member: MemberRecord | undefined =
-  Astro.props.member ||
-  getAllMembers().find((m) => m.slug === slug || (slug === 'pratham-gupta' && m.slug === 'pratham-gupta-2025'));
-
-if (!member) {
-  return Astro.redirect('/members');
-}
+const member = {
+  name: entry.data.name,
+  short: entry.data.short,
+  role: entry.data.role,
+  photo: entry.data.photo,
+  quote: entry.data.quote,
+  batch: entry.data.batch,
+};
 
 const avatarInitials = (name: string) =>
   name
@@ -156,9 +54,9 @@ const avatarInitials = (name: string) =>
     .toUpperCase();
 
 const initials = member.short || avatarInitials(member.name);
-const eyebrow = chapterEyebrows[member.group] || 'BYTE MEMBER';
-const departmentName = member.groupTitle || chapterTitles[member.group] || member.group;
-const description = groupDescriptions[member.group] || 'Active member contributing to Byte society projects and community.';
+const eyebrow = group?.data.eyebrow || 'BYTE MEMBER';
+const departmentName = group?.data.title || 'BYTE MEMBER';
+const description = group?.data.description || 'Active member contributing to Byte society projects and community.';
 ---
 
 <Layout title={`${member.name} — B.Y.T.E.`} active="members" footerInSlot>
@@ -227,7 +125,7 @@ const description = groupDescriptions[member.group] || 'Active member contributi
             <div class="profile-badges">
               <span class="role-pill">{member.role}</span>
               <span class="dept-pill">{departmentName}</span>
-              {member.year && <span class="year-pill">Class of {member.year}</span>}
+              {member.batch && <span class="year-pill">Class of {member.batch}</span>}
             </div>
           </header>
 
@@ -258,6 +156,61 @@ const description = groupDescriptions[member.group] || 'Active member contributi
             <p>{description}</p>
           </div>
 
+          {hasBody && (
+            <div class="profile-about-block">
+              <h3>Biography</h3>
+              <div class="profile-bio">
+                <Content />
+              </div>
+            </div>
+          )}
+
+          {career.length > 0 && (
+            <div class="profile-about-block">
+              <h3>Career</h3>
+              <ul class="profile-timeline">
+                {career.map((item) => (
+                  <li>
+                    <strong>{item.title}</strong>
+                    <span>{item.org}</span>
+                    <em>{item.period}</em>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {publications.length > 0 && (
+            <div class="profile-about-block">
+              <h3>Publications</h3>
+              <ul class="profile-timeline">
+                {publications.map((item) => (
+                  <li>
+                    <strong>{item.title}</strong>
+                    <span>{item.venue}</span>
+                    {item.url && (
+                      <a href={item.url} target="_blank" rel="noopener noreferrer">View</a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {(memberProjects.length > 0 || memberAchievements.length > 0) && (
+            <div class="profile-about-block">
+              <h3>Work</h3>
+              <div class="profile-chip-row">
+                {memberProjects.map((project) => (
+                  <a href={`/projects/${project.id}`} class="profile-chip">{project.data.title}</a>
+                ))}
+                {memberAchievements.map((achievement) => (
+                  <a href={achievement.data.link ?? '/#achievements'} class="profile-chip">{achievement.data.name}</a>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div class="profile-actions">
             <a href="/contact" class="btn btn-primary">
               <span>Connect with Byte</span>
@@ -268,6 +221,11 @@ const description = groupDescriptions[member.group] || 'Active member contributi
             <a href="/members" class="btn btn-outline">
               <span>Explore All Members</span>
             </a>
+            {portfolio && (
+              <a href={portfolio} class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                <span>Portfolio</span>
+              </a>
+            )}
           </div>
         </div>
       </article>
@@ -782,6 +740,113 @@ const description = groupDescriptions[member.group] || 'Active member contributi
     font-family: 'Inter', sans-serif;
     font-size: 0.93rem;
     line-height: 1.62;
+  }
+
+  .profile-bio :global(p) {
+    margin: 0;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .profile-bio :global(p + p) {
+    margin-top: 1em;
+  }
+
+  .profile-bio :global(h2),
+  .profile-bio :global(h3) {
+    margin: 24px 0 8px;
+    color: #ffffff;
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .profile-bio :global(h2:first-child),
+  .profile-bio :global(h3:first-child) {
+    margin-top: 0;
+  }
+
+  .profile-bio :global(a) {
+    color: var(--green);
+  }
+
+  .profile-bio :global(ul),
+  .profile-bio :global(ol) {
+    margin: 0;
+    padding-left: 1.2em;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .profile-timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-timeline li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .profile-timeline strong {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .profile-timeline em {
+    color: var(--green);
+    font-style: normal;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .profile-timeline a {
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  .profile-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .profile-chip {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: #dbe6de;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .profile-chip:hover {
+    border-color: var(--green);
+    color: var(--green);
   }
 
   .profile-actions {

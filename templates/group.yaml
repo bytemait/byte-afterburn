@@ -1,0 +1,12 @@
+# Copy any entry (or the whole block) into src/content/groups.yaml.
+# `id` is required and must be unique; members reference it via `group:`.
+# `order` controls sort position; `kind` is chapter or alumni.
+
+- id: quantum
+  order: 9
+  kind: chapter
+  title: "Quantum"
+  heading: "Quan\ntum"
+  eyebrow: "07 THE WAVE FUNCTION COLLAPSERS"
+  note: "Playing dice with the universe, responsibly."
+  description: "Exploring quantum computing and information, one qubit at a time."

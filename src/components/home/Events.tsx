@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { events } from '../../data/events';
-
 type Award = {
   organization: string;
   recognition: string;
@@ -10,19 +8,33 @@ type Award = {
   href?: string;
 };
 
-const EVENTS: Award[] = [...events]
-  .sort((a, b) => new Date(`${b.date} ${b.year}`).getTime() - new Date(`${a.date} ${a.year}`).getTime())
-  .slice(0, 4)
-  .map(event => ({
-    organization: event.type.toUpperCase(),
-    recognition: event.name.toUpperCase(),
-    project: event.shortSummary || (event.shortDescription.split(' ')[0] + ' ' + event.shortDescription.split(' ')[1]),
-    image: event.image || 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=2672&h=112',
-    href: `/events/${event.slug}`,
-  }));
+export interface EventListItem {
+  slug: string;
+  name: string;
+  type: string;
+  date: string;
+  year: string;
+  shortSummary?: string;
+  shortDescription: string;
+  image?: string;
+}
+
+interface Props {
+  events: EventListItem[];
+}
 
 /** Recreates the Framer awards stack: a hinged 3D face exposes its image strip on interaction. */
-export default function Events() {
+export default function Events({ events }: Props) {
+  const EVENTS: Award[] = [...events]
+    .sort((a, b) => new Date(`${b.date} ${b.year}`).getTime() - new Date(`${a.date} ${a.year}`).getTime())
+    .slice(0, 4)
+    .map(event => ({
+      organization: event.type.toUpperCase(),
+      recognition: event.name.toUpperCase(),
+      project: event.shortSummary || (event.shortDescription.split(' ')[0] + ' ' + event.shortDescription.split(' ')[1]),
+      image: event.image || 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=2672&h=112',
+      href: `/events/${event.slug}`,
+    }));
   return (
     <section className="awards-section" aria-labelledby="events-title">
       <div className="awards-container">

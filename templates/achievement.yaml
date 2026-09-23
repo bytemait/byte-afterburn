@@ -1,0 +1,18 @@
+# Copy any entry (or the whole block) into src/content/achievements.yaml.
+# `id` is required and must be unique; other entries reference it.
+
+- id: hackatt-mate-hackathon
+  name: Winners, HackAtt Mate Hackathon 2026
+  tags: ["Hackathon", "AI"]
+  description: "Team Byte took first place at HackAtt Mate, building a submission stayed up under a live demo."
+  image: "/assets/works/hackatt_mate/hackatt-mate-1.webp"
+  # link: "/works/hackatt-mate-hackathon"
+  # featured: true
+
+  # Reference existing entries by id to wire relationships.
+  # projects:
+  #   - hackatt-mate
+  # members:
+  #   - rana-vasudev
+  # events:
+  #   - hackatt-mate-hackathon

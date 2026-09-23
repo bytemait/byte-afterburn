@@ -1,0 +1,60 @@
+- id: leadership
+  order: 1
+  kind: chapter
+  title: "Byte Core"
+  heading: "Byte Core"
+  eyebrow: "01 THE UNCS"
+  note: "Seven people keeping every part of Byte in motion."
+  description: "Seven people keeping every part of Byte in motion through guidance, strategy, and execution."
+- id: development
+  order: 2
+  kind: chapter
+  title: "Development"
+  heading: "Develop\nment"
+  eyebrow: "02 THE TOKENMAXXERS"
+  note: "Builders turning ambitious ideas into things people can use."
+  description: "Builders turning ambitious ideas into dependable, high-performance software people can use."
+- id: aiml
+  order: 3
+  kind: chapter
+  title: "AI / ML"
+  heading: "AI / ML"
+  eyebrow: "03 THE RESEARCH LARPERS"
+  note: "Learning systems, practical experiments and a healthy appetite for the unknown."
+  description: "Learning systems, practical experiments, and real-world intelligence pipelines."
+- id: creative
+  order: 4
+  kind: chapter
+  title: "Creative Outreach"
+  heading: "Creative\nOutreach"
+  eyebrow: "04 THE INTROVERTS"
+  note: "The voice, image and connective tissue of the society."
+  description: "The voice, image, and connective tissue of the society."
+- id: mechatronics
+  order: 5
+  kind: chapter
+  title: "Mechatronics"
+  heading: "Mecha\ntronics"
+  eyebrow: "05 THE SIMULATORS"
+  note: "Code that leaves the screen and moves through the physical world."
+  description: "Code that leaves the screen and moves through the physical world."
+- id: cybersecurity
+  order: 6
+  kind: chapter
+  title: "Cybersecurity"
+  heading: "Cyber\nSecurity"
+  eyebrow: "06 THE RAINBOW HAT HACKERS"
+  note: "Break it, understand it, secure it, teach it."
+  description: "Break it, understand it, secure it, teach it."
+- id: alumni-2025
+  order: 7
+  kind: alumni
+  title: "Generation 02 Alumni"
+  eyebrow: "GENERATION 02 · 2025"
+  description: "Twelve alumni who carried Byte into its next orbit: leadership, outreach, and development."
+- id: alumni-2024
+  order: 8
+  kind: alumni
+  title: "Founding Generation Alumni"
+  eyebrow: "THE FIRST SPARK · 2024"
+  description: "Ten originators who made the leap from an idea to a thriving student technology society."
