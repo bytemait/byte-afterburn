@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/assets/clash-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/assets/clash-600.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/assets/clash-700.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root{
   --bg: #101010;
   --bg-soft: #141414;
@@ -348,7 +372,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 26px;background:var(--bg-
 .project-card{
   background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
   overflow:hidden;display:grid;grid-template-columns:220px 1fr;
-  opacity: 0.6;
   transition:border-color .2s ease;
 }
 .project-card:hover{border-color:#2a3d2c;}

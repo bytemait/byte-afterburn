@@ -1,0 +1,379 @@
+---
+import type { TimelineStep } from '../../data/tasks';
+import { timelineSteps } from '../../data/tasks';
+
+interface Props {
+  steps?: TimelineStep[];
+}
+
+const { steps = timelineSteps } = Astro.props;
+---
+
+<section class="task-roadmap-section" aria-labelledby="roadmap-title">
+  <!-- BRACKET HEADER BAR -->
+  <div class="roadmap-header-bar">
+    <span class="bracket" aria-hidden="true">//</span>
+    <h2 id="roadmap-title">RECRUITMENT ROADMAP</h2>
+    <span class="bracket" aria-hidden="true">//</span>
+  </div>
+
+  <!-- SUBTITLE -->
+  <p class="roadmap-subtitle">
+    From day-one problem statements to technical walkthroughs &mdash; a 5-day sprint to build, test, and ship.
+  </p>
+
+  <!-- CYBER STAGE CARDS GRID -->
+  <div class="roadmap-grid">
+    {steps.map((item) => {
+      const isCurrent = item.status === 'current';
+      const isCompleted = item.status === 'completed';
+
+      return (
+        <div class:list={['stage-card', { 'is-current': isCurrent, 'is-completed': isCompleted }]}>
+          {/* Top Cyber Fact Divider */}
+          <div class="stage-fact-bar">
+            <span class="stage-code">STAGE_{item.step}</span>
+            <span class="stage-slash" aria-hidden="true">//</span>
+          </div>
+
+          {/* Big Clash Display Number & Status Box */}
+          <div class="stage-number-box">
+            <span class="stage-giant-number">{item.step}</span>
+            {isCurrent ? (
+              <div class="stage-status-badge is-active">
+                <span class="live-dot"></span>
+                <span>Active Stage</span>
+              </div>
+            ) : isCompleted ? (
+              <div class="stage-status-badge is-done">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </div>
+            ) : (
+              <div class="stage-status-badge is-upcoming">
+                <span>Upcoming</span>
+              </div>
+            )}
+          </div>
+
+          {/* Stage Body Details */}
+          <div class="stage-card-body">
+            <div class="stage-timeline-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>{item.date}</span>
+            </div>
+
+            <h3 class="stage-title">{item.title}</h3>
+            <p class="stage-desc">{item.desc}</p>
+          </div>
+
+          {/* Bottom Terminal Accent Line */}
+          <div class="stage-bottom-accent">
+            <div class="accent-track">
+              <div class="accent-fill"></div>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  .task-roadmap-section {
+    width: 100%;
+    margin-top: 56px;
+    margin-bottom: 56px;
+    position: relative;
+  }
+
+  /* BRACKET HEADER BAR */
+  .roadmap-header-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgb(51, 51, 51);
+    box-sizing: border-box;
+    margin-bottom: 12px;
+  }
+
+  .roadmap-header-bar .bracket {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--lime-bright, #52e0a6);
+    user-select: none;
+  }
+
+  .roadmap-header-bar h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text, #ffffff);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .roadmap-subtitle {
+    margin: 0 auto 32px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-dim, #a4b0a2);
+    text-align: center;
+    max-width: 540px;
+  }
+
+  /* ROADMAP GRID */
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    width: 100%;
+  }
+
+  /* STAGE CARD */
+  .stage-card {
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
+    border-radius: 12px;
+    padding: 20px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .stage-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(82, 224, 166, 0.35);
+  }
+
+  .stage-card.is-current {
+    background: linear-gradient(180deg, #161c18 0%, #111512 100%);
+    border-color: rgba(82, 224, 166, 0.45);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 20px rgba(82, 224, 166, 0.12);
+  }
+
+  /* FACT TOP BAR */
+  .stage-fact-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    width: 100%;
+  }
+
+  .stage-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-dim, #a4b0a2);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .stage-card.is-current .stage-code {
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  .stage-slash {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--lime, #22c579);
+  }
+
+  /* GIANT NUMBER & STATUS BOX */
+  .stage-number-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0 12px;
+  }
+
+  .stage-giant-number {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-feature-settings: 'tnum' on, 'zero' on;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-faint, #67746a);
+    transition: color 0.2s ease;
+  }
+
+  .stage-card.is-current .stage-giant-number {
+    color: var(--lime-bright, #52e0a6);
+    text-shadow: 0 0 24px rgba(82, 224, 166, 0.4);
+  }
+
+  .stage-card.is-completed .stage-giant-number {
+    color: var(--lime-dim, #1a9c5f);
+  }
+
+  .stage-card:hover .stage-giant-number {
+    color: var(--text, #ffffff);
+  }
+
+  .stage-card.is-current:hover .stage-giant-number {
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  /* STATUS BADGES */
+  .stage-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+
+  .stage-status-badge.is-active {
+    color: var(--lime-bright, #52e0a6);
+    background: rgba(82, 224, 166, 0.12);
+    border: 1px solid rgba(82, 224, 166, 0.35);
+  }
+
+  .stage-status-badge.is-done {
+    color: var(--lime, #22c579);
+    background: rgba(34, 197, 121, 0.08);
+    border: 1px solid rgba(34, 197, 121, 0.2);
+  }
+
+  .stage-status-badge.is-done svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .stage-status-badge.is-upcoming {
+    color: var(--text-faint, #67746a);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+    animation: livePulse 2s infinite ease-in-out;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* STAGE BODY */
+  .stage-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .stage-timeline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-dim, #a4b0a2);
+    background: var(--bg-soft, #141414);
+    border: 1px solid var(--line, #292929);
+    padding: 3px 8px;
+    border-radius: 5px;
+    width: fit-content;
+  }
+
+  .stage-timeline-badge svg {
+    width: 12px;
+    height: 12px;
+    color: var(--lime, #22c579);
+  }
+
+  .stage-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text, #ffffff);
+    letter-spacing: -0.01em;
+    margin: 2px 0 0;
+  }
+
+  .stage-desc {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--text-dim, #a4b0a2);
+    margin: 0;
+  }
+
+  /* BOTTOM ACCENT BAR */
+  .stage-bottom-accent {
+    margin-top: 16px;
+    padding-top: 10px;
+  }
+
+  .accent-track {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .accent-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 8px var(--lime-bright, #52e0a6);
+    transition: width 0.3s ease;
+  }
+
+  .stage-card.is-current .accent-fill {
+    width: 100%;
+  }
+
+  .stage-card.is-completed .accent-fill {
+    width: 100%;
+    background: var(--lime-dim, #1a9c5f);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .roadmap-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .roadmap-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .stage-giant-number {
+      font-size: 44px;
+    }
+  }
+</style>

@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/common/Footer.astro';
+import TaskCountdown from '../components/tasks/TaskCountdown.astro';
+import TaskTimeline from '../components/tasks/TaskTimeline.astro';
+import TaskCard from '../components/tasks/TaskCard.astro';
+import TaskFAQ from '../components/tasks/TaskFAQ.astro';
+import CountdownHUD from '../components/tasks/CountdownHUD.astro';
+import TaskLockPreviewToggle from '../components/tasks/TaskLockPreviewToggle.astro';
+import { taskDepartments, taskFaqs, timelineSteps, TASK_CONFIG } from '../data/tasks';
+---
+
+<Layout title="Tasks — B.Y.T.E." active="tasks" footerInSlot>
+  <div class="page-header">
+    <div class="wrap">
+      <h1>Tasks</h1>
+      <p>Pick a department. Grab a task. Start building.</p>
+    </div>
+  </div>
+
+  <section class="tasks-section">
+    <div class="wrap">
+      <!-- COUNTDOWN TIMER -->
+      <TaskCountdown />
+
+      <!-- DEPARTMENTS TASK GRID -->
+      <div class="project-grid">
+        {taskDepartments.map((dept) => (
+          <TaskCard dept={dept} />
+        ))}
+      </div>
+
+      <!-- RECRUITMENT ROADMAP TIMELINE -->
+      <TaskTimeline steps={timelineSteps} />
+
+      <!-- DISCORD SUPPORT CALLOUT -->
+      <div class="discord-callout">
+        <div class="discord-callout-content">
+          <div class="discord-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h0a14.5 14.5 0 0 0-4-1.5 9.8 9.8 0 0 0-.4 1.8 13.9 13.9 0 0 0-3.2 0 9.8 9.8 0 0 0-.4-1.8A14.5 14.5 0 0 0 6 6a15.8 15.8 0 0 0-2.4 9.7 14.4 14.4 0 0 0 4.5 2.3 10.3 10.3 0 0 0 1-1.6 9.3 9.3 0 0 1-1.5-.7c.1-.1.3-.2.4-.3a10.6 10.6 0 0 0 8 0c.1.1.3.2.4.3a9.3 9.3 0 0 1-1.5.7 10.3 10.3 0 0 0 1 1.6 14.4 14.4 0 0 0 4.5-2.3A15.8 15.8 0 0 0 18 6Z"/><path d="M9.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/><path d="M14.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
+          </div>
+          <div>
+            <h3>Stuck on a task? Ask in Discord.</h3>
+            <p>Our domain leads and mentors are active on Discord to help you troubleshoot, clarify requirements, or discuss ideas.</p>
+          </div>
+        </div>
+        <a href={TASK_CONFIG.discordUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline discord-btn">
+          Join Discord
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <!-- FAQ ACCORDION COMPONENT -->
+      <TaskFAQ faqs={taskFaqs} />
+
+      <!-- FOOTER CTA -->
+      <div class="newsletter" style="margin-top:56px;">
+        <div>
+          <h3>Ready to have a byte?</h3>
+          <p>Tasks will be posted here when recruitment opens. Follow us to stay in the loop.</p>
+        </div>
+        <a href="/contact" class="btn btn-primary">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY FLOATING HUD TIMER -->
+  <CountdownHUD />
+
+  <!-- DEV PREVIEW UNLOCK TOGGLE (Delete this single line before production) -->
+  <TaskLockPreviewToggle />
+
+  <Footer immersive />
+</Layout>
+
+<style>
+  .discord-callout {
+    margin-top: 56px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .discord-callout-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .discord-icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--lime);
+  }
+
+  .discord-icon-badge svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .discord-callout h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: var(--text);
+  }
+
+  .discord-callout p {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 55ch;
+  }
+
+  .discord-btn {
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-color: rgba(82, 224, 166, 0.4);
+    color: var(--text);
+    flex-shrink: 0;
+  }
+
+  .discord-btn:hover {
+    background: rgba(82, 224, 166, 0.15);
+    border-color: var(--lime-bright, #52e0a6);
+  }
+
+  .discord-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  @media (max-width: 640px) {
+    .discord-callout {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 22px 20px;
+    }
+
+    .discord-callout-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .discord-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

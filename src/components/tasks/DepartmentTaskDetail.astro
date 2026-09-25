@@ -1,0 +1,1006 @@
+---
+import type { TaskDepartment } from '../../data/tasks';
+import { taskDepartments, TASK_CONFIG } from '../../data/tasks';
+import { getTechLogo } from '../../data/tech-logos';
+import ProblemStatementCard from './ProblemStatementCard.astro';
+import SubmissionProtocol from './SubmissionProtocol.astro';
+import OtherDepartments from './OtherDepartments.astro';
+
+interface Props {
+  dept: TaskDepartment;
+}
+
+const { dept } = Astro.props;
+const otherDepts = taskDepartments.filter((d) => d.slug !== dept.slug);
+---
+
+<!-- PAGE HEADER -->
+<div class="page-header project-detail-header">
+  <div class="wrap">
+    <div class="header-top-row">
+      <span class="type-pill">Recruitment Task &bull; {dept.department}</span>
+    </div>
+
+    <h1>{dept.department} Tasks</h1>
+    <div class="event-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Estimated: {dept.estimatedTime}
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Reveals: {TASK_CONFIG.revealDateShort}
+      </span>
+      <span class="status-live-meta">
+        <span class="live-dot"></span>
+        <span class="lock-status-text">Status: Locked</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- HERO BANNER -->
+{dept.image && (
+  <section class="event-hero-section">
+    <div class="wrap">
+      <figure class="hero-stage">
+        <img
+          src={dept.image}
+          alt={`${dept.department} — Recruitment Task Banner`}
+          fetchpriority="high"
+        />
+      </figure>
+    </div>
+  </section>
+)}
+
+<!-- MAIN TWO-COLUMN CONTENT GRID -->
+<section class="dept-content-section">
+  <div class="wrap event-detail-grid">
+
+    <!-- LEFT MAIN COLUMN -->
+    <div class="event-detail-main">
+      <h2>About this Department</h2>
+      <p class="event-description">{dept.description}</p>
+
+      <div class="project-story">
+        <!-- EVALUATION CRITERIA -->
+        <section>
+          <h2>Evaluation Criteria</h2>
+          <p>What our domain leads look for during code reviews and technical interview walkthroughs:</p>
+          <ul class="attend-list eval-criteria-list">
+            {dept.evaluationCriteria.map((criterion) => (
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>{criterion}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- PROBLEM STATEMENTS (WRAPPED IN LOCK GATE) -->
+        <section class="problem-statements-wrapper">
+          <h2>Problem Statements</h2>
+          <p>Read through the problem statement below. Fulfill the core requirements and follow the mandatory engineering stages.</p>
+
+          <!-- B.Y.T.E. CYBER LOCK GATE -->
+          <div class="task-lock-gate" id="taskLockGate">
+            <!-- FOUR CORNER BRACKET RETICLES -->
+            <span class="gate-corner top-left" aria-hidden="true"></span>
+            <span class="gate-corner top-right" aria-hidden="true"></span>
+            <span class="gate-corner bottom-left" aria-hidden="true"></span>
+            <span class="gate-corner bottom-right" aria-hidden="true"></span>
+
+            <!-- CONSTELLATION NETWORK WIREFRAME SVG -->
+            <svg aria-hidden="true" class="gate-network" viewBox="0 0 700 240">
+              <defs>
+                <linearGradient id="gateNetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#52e0a6" stop-opacity="0.3"/>
+                  <stop offset="50%" stop-color="#52e0a6" stop-opacity="0.08"/>
+                  <stop offset="100%" stop-color="#52e0a6" stop-opacity="0.25"/>
+                </linearGradient>
+              </defs>
+              <path d="M20,170 L110,80 L220,140 L350,55 L480,120 L590,40 L670,160 M110,80 L260,40 L480,120 M220,140 L380,190 L590,40" stroke="url(#gateNetGrad)" stroke-width="1.2" fill="none" />
+              <circle cx="20" cy="170" r="3" fill="#52e0a6" opacity="0.6"/>
+              <circle cx="110" cy="80" r="3.5" fill="#52e0a6" opacity="0.85"/>
+              <circle cx="220" cy="140" r="3" fill="#52e0a6" opacity="0.6"/>
+              <circle cx="260" cy="40" r="2.5" fill="#52e0a6" opacity="0.5"/>
+              <circle cx="350" cy="55" r="4" fill="#52e0a6" opacity="0.95"/>
+              <circle cx="380" cy="190" r="3" fill="#52e0a6" opacity="0.6"/>
+              <circle cx="480" cy="120" r="3.5" fill="#52e0a6" opacity="0.8"/>
+              <circle cx="590" cy="40" r="3" fill="#52e0a6" opacity="0.75"/>
+              <circle cx="670" cy="160" r="3.5" fill="#52e0a6" opacity="0.7"/>
+            </svg>
+
+            <div class="gate-card">
+              <div class="gate-telemetry-pill">
+                <span class="gate-live-dot" aria-hidden="true"></span>
+                <span class="telemetry-label">// ACCESS LOCKED //</span>
+              </div>
+
+              <div class="gate-icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </div>
+
+              <div class="gate-header-block">
+                <h3 class="gate-title">Problem Statements Locked</h3>
+                <p class="gate-desc">
+                  Tasks for <strong>{dept.department}</strong> will be revealed on <strong>{TASK_CONFIG.revealDateFull}</strong>.
+                </p>
+              </div>
+
+              <!-- CLASH DISPLAY CYBER COUNTDOWN -->
+              <div class="gate-countdown-grid" role="timer" aria-live="polite">
+                <div class="gate-cd-box">
+                  <span class="cd-num" id="gateCdDays">00</span>
+                  <span class="cd-label">// DAYS //</span>
+                </div>
+                <span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box">
+                  <span class="cd-num" id="gateCdHours">00</span>
+                  <span class="cd-label">// HOURS //</span>
+                </div>
+                <span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box">
+                  <span class="cd-num" id="gateCdMins">00</span>
+                  <span class="cd-label">// MINS //</span>
+                </div>
+                <span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box">
+                  <span class="cd-num" id="gateCdSecs">00</span>
+                  <span class="cd-label">// SECS //</span>
+                </div>
+              </div>
+
+              <p class="gate-hint">
+                Review the evaluation criteria and familiarize yourself with the tech stack while waiting for the release.
+              </p>
+            </div>
+          </div>
+
+          <!-- ACTUAL PROBLEM STATEMENT STACK (SMOOTH REVEAL) -->
+          <div class="tasks-stack" id="tasksStackContainer">
+            {dept.tasks.map((task) => (
+              <ProblemStatementCard task={task} />
+            ))}
+          </div>
+        </section>
+
+        <!-- SUBMISSION PROTOCOL -->
+        <section>
+          <SubmissionProtocol />
+        </section>
+      </div>
+    </div>
+
+    <!-- RIGHT STICKY SIDEBAR -->
+    <aside class="event-detail-side">
+      <!-- TECH STACK CARD -->
+      <div class="register-card tech-stack-card">
+        <div class="tech-stack-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <h3>Tech Stack</h3>
+        </div>
+        <ul class="tech-stack-list">
+          {dept.skills.map((techName) => {
+            const logoUrl = getTechLogo(techName);
+            return (
+              <li class="tech-stack-item">
+                {logoUrl ? (
+                  <img src={logoUrl} alt={techName} class="tech-logo" width="28" height="28" loading="lazy" />
+                ) : (
+                  <span class="tech-logo-fallback" aria-hidden="true">
+                    {techName.charAt(0).toUpperCase()}
+                  </span>
+                )}
+                <span class="tech-name">{techName}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <!-- SUBMISSION ACTION CARD -->
+      <div class="register-card submit-sidebar-card">
+        <div class="submit-card-content">
+          <div class="submit-card-badge">
+            <span class="live-dot"></span>
+            <span>Submission Window</span>
+          </div>
+          <h3>Ready to Submit?</h3>
+          <p>Submit your GitHub repository, README, and live demo output link before the window closes.</p>
+          <div class="side-deadline-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Opens {TASK_CONFIG.revealDateShort}</span>
+          </div>
+        </div>
+        <a href={TASK_CONFIG.submissionFormUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary submit-full-btn">
+          Open Submission Form
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <!-- DISCORD MENTOR SUPPORT LINK -->
+      <a href={TASK_CONFIG.discordUrl} class="github-project-link discord-sidebar-link" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h0a14.5 14.5 0 0 0-4-1.5 9.8 9.8 0 0 0-.4 1.8 13.9 13.9 0 0 0-3.2 0 9.8 9.8 0 0 0-.4-1.8A14.5 14.5 0 0 0 6 6a15.8 15.8 0 0 0-2.4 9.7 14.4 14.4 0 0 0 4.5 2.3 10.3 10.3 0 0 0 1-1.6 9.3 9.3 0 0 1-1.5-.7c.1-.1.3-.2.4-.3a10.6 10.6 0 0 0 8 0c.1.1.3.2.4.3a9.3 9.3 0 0 1-1.5.7 10.3 10.3 0 0 0 1 1.6 14.4 14.4 0 0 0 4.5-2.3A15.8 15.8 0 0 0 18 6Z"/><path d="M9.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/><path d="M14.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
+        <span>Ask in Discord (#recruitment)</span>
+        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+
+      <!-- BACK TO ALL TASKS LINK -->
+      <a href="/tasks" class="link-btn back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to all tasks
+      </a>
+    </aside>
+
+  </div>
+</section>
+
+<!-- OTHER DEPARTMENTS -->
+<section class="other-depts-wrap-section">
+  <div class="wrap">
+    <OtherDepartments otherDepts={otherDepts} />
+  </div>
+</section>
+
+<script>
+  import { TASK_CONFIG } from '../../data/tasks';
+
+  function initDetailLock() {
+    const daysEl = document.getElementById('gateCdDays');
+    const hoursEl = document.getElementById('gateCdHours');
+    const minsEl = document.getElementById('gateCdMins');
+    const secsEl = document.getElementById('gateCdSecs');
+
+    const TARGET_TIME = TASK_CONFIG.revealTimestamp;
+    const OVERRIDE_KEY = 'byte_tasks_lock_override';
+
+    function isLocked() {
+      const override = localStorage.getItem(OVERRIDE_KEY);
+      if (override === 'unlocked') return false;
+      if (override === 'locked') return true;
+      return Date.now() < TARGET_TIME;
+    }
+
+    function applyLockState(locked: boolean) {
+      const statusTextEl = document.querySelector('.lock-status-text');
+      if (locked) {
+        document.documentElement.classList.add('tasks-locked');
+        document.documentElement.classList.remove('tasks-unlocked');
+        if (statusTextEl) statusTextEl.textContent = 'Status: Locked';
+      } else {
+        document.documentElement.classList.remove('tasks-locked');
+        document.documentElement.classList.add('tasks-unlocked');
+        if (statusTextEl) statusTextEl.textContent = 'Status: Unlocked';
+      }
+    }
+
+    applyLockState(isLocked());
+
+    // Listen to global lock changes
+    window.addEventListener('byte:tasks-lock-change', ((e: CustomEvent) => {
+      const locked = e.detail?.locked ?? isLocked();
+      applyLockState(locked);
+    }) as EventListener);
+
+    // Gate countdown calculation
+    function updateGateTimer() {
+      if (!daysEl) return;
+      const now = Date.now();
+      let diff = Math.max(0, TARGET_TIME - now);
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= d * (1000 * 60 * 60 * 24);
+      const h = Math.floor(diff / (1000 * 60 * 60));
+      diff -= h * (1000 * 60 * 60);
+      const m = Math.floor(diff / (1000 * 60));
+      diff -= m * (1000 * 60);
+      const s = Math.floor(diff / 1000);
+
+      const pad = (n: number) => String(n).padStart(2, '0');
+      if (daysEl) daysEl.textContent = pad(d);
+      if (hoursEl) hoursEl.textContent = pad(h);
+      if (minsEl) minsEl.textContent = pad(m);
+      if (secsEl) secsEl.textContent = pad(s);
+    }
+
+    updateGateTimer();
+    const interval = setInterval(updateGateTimer, 1000);
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => clearInterval(interval),
+      { once: true }
+    );
+  }
+
+  initDetailLock();
+  document.addEventListener('astro:page-load', initDetailLock);
+</script>
+
+<style>
+  .project-detail-header .wrap { padding-top: 6px; }
+
+  .header-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .type-pill {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--lime);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 14px;
+    margin: 0;
+  }
+
+  .project-detail-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+  }
+
+  .event-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 16px;
+  }
+
+  .event-meta-row span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    font-size: .9rem;
+  }
+
+  .event-meta-row svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    color: var(--lime);
+  }
+
+  .status-live-meta {
+    color: var(--text-dim) !important;
+    font-weight: 600;
+  }
+
+  :global(html.tasks-unlocked) .status-live-meta {
+    color: var(--lime-bright, #52e0a6) !important;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime-dim, #1a9c5f);
+    box-shadow: 0 0 6px var(--lime-dim, #1a9c5f);
+  }
+
+  :global(html.tasks-unlocked) .live-dot {
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+    animation: livePulse 2s infinite ease-in-out;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* HERO SECTION */
+  .event-hero-section {
+    padding-bottom: 48px;
+  }
+
+  .hero-stage {
+    position: relative;
+    width: 100%;
+    height: clamp(260px, 32vw, 420px);
+    margin: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+  }
+
+  .hero-stage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* TWO-COLUMN GRID */
+  .dept-content-section {
+    padding-bottom: 72px;
+  }
+
+  .event-detail-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .event-detail-main h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin: 40px 0 16px;
+    color: var(--text);
+  }
+
+  .event-detail-main h2:first-child {
+    margin-top: 0;
+  }
+
+  .event-description {
+    color: var(--text-dim);
+    line-height: 1.75;
+    font-size: .96rem;
+    margin: 0;
+  }
+
+  .project-story p {
+    color: var(--text-dim);
+    line-height: 1.75;
+    font-size: .96rem;
+    margin: 0 0 16px;
+  }
+
+  .project-story section {
+    padding: 40px 0 0;
+  }
+
+  .project-story h2 {
+    margin: 0 0 16px;
+  }
+
+  .eval-criteria-list {
+    margin-top: 18px;
+  }
+
+  .attend-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .attend-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--text-dim);
+    font-size: .92rem;
+    line-height: 1.55;
+  }
+
+  .attend-list svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--lime);
+  }
+
+  /* ==========================================================================
+     B.Y.T.E. CYBER LOCK GATE
+     ========================================================================== */
+  .problem-statements-wrapper {
+    position: relative;
+  }
+
+  .task-lock-gate {
+    display: none;
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, rgba(82, 224, 166, 0.08) 0%, rgba(13, 17, 14, 0.95) 75%), #0d110e;
+    border: 1px solid rgba(82, 224, 166, 0.28);
+    border-radius: 16px;
+    padding: 36px 24px 32px;
+    text-align: center;
+    margin-top: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.8), 0 0 24px -6px rgba(82, 224, 166, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* CORNER RETICLES */
+  .gate-corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .gate-corner.top-left {
+    top: 8px;
+    left: 8px;
+    border-top: 2px solid var(--lime-bright, #52e0a6);
+    border-left: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .gate-corner.top-right {
+    top: 8px;
+    right: 8px;
+    border-top: 2px solid var(--lime-bright, #52e0a6);
+    border-right: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .gate-corner.bottom-left {
+    bottom: 8px;
+    left: 8px;
+    border-bottom: 2px solid var(--lime-bright, #52e0a6);
+    border-left: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .gate-corner.bottom-right {
+    bottom: 8px;
+    right: 8px;
+    border-bottom: 2px solid var(--lime-bright, #52e0a6);
+    border-right: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .gate-network {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: 0;
+  }
+
+  .gate-card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .gate-telemetry-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(82, 224, 166, 0.08);
+    border: 1px solid rgba(82, 224, 166, 0.25);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .gate-live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+    animation: livePulse 2s infinite ease-in-out;
+  }
+
+  .telemetry-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  .gate-icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(82, 224, 166, 0.12);
+    border: 1px solid rgba(82, 224, 166, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 20px rgba(82, 224, 166, 0.2);
+  }
+
+  .gate-icon-badge svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .gate-header-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .gate-title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 600;
+    color: var(--text, #ffffff);
+    margin: 0;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .gate-desc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-dim, #a4b0a2);
+    margin: 0;
+  }
+
+  /* COUNTDOWN GRID */
+  .gate-countdown-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 420px;
+    margin: 4px 0;
+  }
+
+  .gate-cd-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    background: rgba(14, 20, 16, 0.85);
+    border: 1px solid rgba(82, 224, 166, 0.2);
+    border-radius: 10px;
+    padding: 8px 4px 6px;
+    position: relative;
+    transition: border-color 0.25s ease;
+  }
+
+  .gate-cd-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime-bright, #52e0a6), transparent);
+  }
+
+  .gate-cd-box:hover {
+    border-color: rgba(82, 224, 166, 0.4);
+  }
+
+  .cd-num {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+    font-weight: 700;
+    color: var(--lime-bright, #52e0a6);
+    line-height: 1.1;
+    font-feature-settings: 'tnum' on, 'zero' on;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 12px rgba(82, 224, 166, 0.3);
+  }
+
+  .cd-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.54rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-dim, #a4b0a2);
+    margin-top: 3px;
+    text-transform: uppercase;
+  }
+
+  .cd-colon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--lime-dim, #1a9c5f);
+    opacity: 0.6;
+    margin-bottom: 10px;
+    user-select: none;
+  }
+
+  .gate-hint {
+    font-size: 0.82rem;
+    color: var(--text-dim, #a4b0a2);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .tasks-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 20px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  /* TOGGLED STATES */
+  :global(html.tasks-locked) .task-lock-gate {
+    display: block;
+    animation: fadeInLockGate 0.3s ease both;
+  }
+
+  :global(html.tasks-locked) .tasks-stack {
+    display: none;
+  }
+
+  :global(html.tasks-unlocked) .task-lock-gate {
+    display: none;
+  }
+
+  :global(html.tasks-unlocked) .tasks-stack {
+    display: flex;
+    animation: smoothRevealTasks 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes fadeInLockGate {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes smoothRevealTasks {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* SIDEBAR STYLING */
+  .event-detail-side {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .register-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px;
+  }
+
+  .tech-stack-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tech-stack-header svg {
+    width: 18px;
+    height: 18px;
+    color: var(--lime);
+  }
+
+  .tech-stack-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    color: var(--text);
+  }
+
+  .tech-stack-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tech-stack-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .tech-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: var(--bg-soft);
+    padding: 3px;
+    border: 1px solid var(--line);
+  }
+
+  .tech-logo-fallback {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: .8rem;
+    color: var(--lime);
+  }
+
+  .tech-name {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .submit-card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--lime-bright, #52e0a6);
+    background: rgba(82, 224, 166, 0.08);
+    border: 1px solid rgba(82, 224, 166, 0.2);
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .submit-sidebar-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 8px;
+  }
+
+  .submit-sidebar-card p {
+    font-size: .86rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+
+  .side-deadline-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--lime-bright, #52e0a6);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+  }
+
+  .side-deadline-tag svg {
+    width: 14px;
+    height: 14px;
+    color: var(--lime);
+  }
+
+  .submit-full-btn {
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .discord-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-size: .88rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .discord-sidebar-link:hover {
+    border-color: rgba(82, 224, 166, 0.4);
+    background: var(--bg-soft);
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  .discord-sidebar-link svg:first-child {
+    width: 20px;
+    height: 20px;
+    color: var(--lime);
+  }
+
+  .discord-sidebar-link .external-icon {
+    width: 14px;
+    height: 14px;
+    margin-left: auto;
+    color: var(--text-dim);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    font-size: .88rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+    padding: 6px 0;
+  }
+
+  .back-link:hover {
+    color: var(--text);
+  }
+
+  .back-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .other-depts-wrap-section {
+    padding-bottom: 80px;
+    border-top: 1px solid var(--line);
+    margin-top: 24px;
+    padding-top: 56px;
+  }
+
+  @media (max-width: 900px) {
+    .event-detail-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .event-detail-side {
+      position: static;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .task-lock-gate {
+      padding: 32px 20px;
+    }
+
+    .gate-title {
+      font-size: 1.2rem;
+    }
+
+    .gate-countdown-grid {
+      padding: 12px 14px;
+    }
+
+    .cd-num {
+      font-size: 1.15rem;
+    }
+  }
+</style>

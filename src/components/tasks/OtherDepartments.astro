@@ -1,0 +1,92 @@
+---
+import type { TaskDepartment } from '../../data/tasks';
+
+interface Props {
+  otherDepts: TaskDepartment[];
+}
+
+const { otherDepts } = Astro.props;
+---
+
+<div class="other-depts-section">
+  <h3 class="other-depts-heading">Explore Other Department Tasks</h3>
+  <div class="other-depts-grid">
+    {otherDepts.map((d) => (
+      <a href={`/tasks/${d.slug}`} class="other-dept-card">
+        <div class="other-dept-info">
+          <span class="other-dept-title">{d.department}</span>
+          <span class="other-dept-tagline">{d.tagline}</span>
+        </div>
+        <span class="other-dept-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .other-depts-section {
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+
+  .other-depts-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 16px;
+  }
+
+  .other-depts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .other-dept-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .other-dept-card:hover {
+    border-color: rgba(82, 224, 166, 0.35);
+    background: rgba(82, 224, 166, 0.04);
+  }
+
+  .other-dept-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .other-dept-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .other-dept-tagline {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .other-dept-arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .other-dept-card:hover .other-dept-arrow {
+    color: var(--lime-bright, #52e0a6);
+    transform: translateX(3px);
+  }
+</style>
