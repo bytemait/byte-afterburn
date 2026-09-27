@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/common/Footer.astro';
 import DepartmentTaskDetail from '../../components/tasks/DepartmentTaskDetail.astro';
 import { taskDepartments, getDepartmentBySlug } from '../../data/tasks';
+import { absoluteUrl, breadcrumbJsonLd, toMetaDescription, type JsonLd } from '../../lib/seo';
 
 export function getStaticPaths() {
   return taskDepartments.map((dept) => ({
@@ -17,9 +18,33 @@ const dept = Astro.props.dept || (slug ? getDepartmentBySlug(slug) : undefined);
 if (!dept) {
   return Astro.redirect('/tasks');
 }
+
+const canonicalPath = `/tasks/${dept.slug}/`;
+const title = `${dept.department} Recruitment Tasks | BYTE MAIT`;
+const description = toMetaDescription(
+  `${dept.description} Explore the ${dept.department} recruitment challenge, task requirements, and submission guidance from BYTE MAIT.`,
+);
+const structuredData: JsonLd[] = [
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Recruitment Tasks', path: '/tasks/' },
+    { name: dept.department, path: canonicalPath },
+  ]),
+  {
+    '@type': 'CollectionPage',
+    name: title,
+    description,
+    url: absoluteUrl(canonicalPath),
+    hasPart: dept.tasks.map((task) => ({
+      '@type': 'CreativeWork',
+      name: task.title,
+      description: toMetaDescription(task.brief),
+    })),
+  },
+];
 ---
 
-<Layout title={`${dept.department} Tasks — B.Y.T.E.`} active="tasks" footerInSlot>
+<Layout title={title} description={description} canonical={canonicalPath} pageType="CollectionPage" structuredData={structuredData} active="tasks" footerInSlot>
   <DepartmentTaskDetail dept={dept} />
   <Footer immersive />
 </Layout>
