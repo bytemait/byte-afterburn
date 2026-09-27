@@ -13,6 +13,7 @@ const hasDeepDetails = Boolean(
   (task.optionalMissions && task.optionalMissions.length > 0) ||
   (task.bonusTasks && task.bonusTasks.length > 0) ||
   (task.submissionDeliverables && task.submissionDeliverables.length > 0) ||
+  (task.detailSections && task.detailSections.length > 0) ||
   (task.requirements && task.requirements.length > 2)
 );
 
@@ -190,6 +191,36 @@ const bonusCount = task.bonusTasks?.length || 0;
               </ul>
             </div>
           )}
+
+          <!-- ADDITIONAL TRACK DETAILS -->
+          {task.detailSections && task.detailSections.map((section) => (
+            <section class="task-spec-section detail-section">
+              <h4>{section.title}</h4>
+              {section.paragraphs?.map((paragraph) => <p class="detail-paragraph">{paragraph}</p>)}
+              {section.code && <pre class="detail-code"><code>{section.code}</code></pre>}
+              {section.items && (
+                <ul class="task-checklist detail-list">
+                  {section.items.map((item) => (
+                    <li>
+                      <span class="check-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {section.links && (
+                <ul class="detail-links">
+                  {section.links.map((link) => (
+                    <li>
+                      {link.url ? <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<span aria-hidden="true"> ↗</span></a> : link.label}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))}
 
           <!-- REQUIRED DELIVERABLES -->
           {task.submissionDeliverables && task.submissionDeliverables.length > 0 && (
@@ -776,6 +807,46 @@ const bonusCount = task.bonusTasks?.length || 0;
     align-items: center;
     gap: 8px;
   }
+
+  .detail-paragraph {
+    margin: 0 0 12px;
+    color: var(--text-dim, #a4b0a2);
+    font-size: .88rem;
+    line-height: 1.65;
+  }
+
+  .detail-code {
+    overflow-x: auto;
+    margin: 12px 0;
+    padding: 14px 16px;
+    border: 1px solid var(--line, #292929);
+    border-radius: 8px;
+    background: var(--bg-soft, #141414);
+    color: var(--lime-bright, #52e0a6);
+    font: .78rem/1.6 'JetBrains Mono', monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .detail-list { margin-top: 12px; }
+
+  .detail-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 12px 0 0;
+    padding-left: 18px;
+    color: var(--text-dim, #a4b0a2);
+    font-size: .86rem;
+  }
+
+  .detail-links a {
+    color: var(--lime-bright, #52e0a6);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .detail-links a:hover { color: var(--text, #fff); }
 
   /* MISSIONS SECTION */
   .missions-section {

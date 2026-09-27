@@ -20,5 +20,7 @@ awards:
     url: https://openreview.net/pdf?id=GzZhaWVtSj
 linkedin: "https://www.linkedin.com/in/krishnamudgal2007"
 github: "https://github.com/mudgalKrishna"
+phone: "202-555-0106"
+discord: "Krishnamudgal#0000"
 ---
 

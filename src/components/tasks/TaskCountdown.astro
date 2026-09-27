@@ -2,7 +2,7 @@
 import { TASK_CONFIG } from '../../data/tasks';
 ---
 
-<div class="task-countdown-box" role="region" aria-label="Task reveal countdown">
+<div class="task-countdown-box" role="region" aria-label="Submission opening countdown">
   <!-- CORNER RETICLES -->
   <span class="corner-reticle top-left" aria-hidden="true"></span>
   <span class="corner-reticle top-right" aria-hidden="true"></span>
@@ -13,12 +13,12 @@ import { TASK_CONFIG } from '../../data/tasks';
   <div class="countdown-outer-header">
     <div class="header-tag-group">
       <span class="header-slash" aria-hidden="true">//</span>
-      <span class="header-title">TASKS REVEAL COUNTDOWN</span>
+      <span class="header-title">SUBMISSION OPENS IN</span>
       <span class="header-slash" aria-hidden="true">//</span>
     </div>
     <div class="header-meta-group">
       <span class="live-dot" aria-hidden="true"></span>
-      <span class="header-target-time">{TASK_CONFIG.revealDateFull}</span>
+      <span class="header-target-time">{TASK_CONFIG.submissionOpenFull}</span>
     </div>
   </div>
 
@@ -110,14 +110,15 @@ import { TASK_CONFIG } from '../../data/tasks';
     if (!daysEl) return;
 
     // Reveal target timestamp from centralized configuration
-    const TARGET_TIME = TASK_CONFIG.revealTimestamp;
+    const TARGET_TIME = TASK_CONFIG.submissionOpenTimestamp;
+    const REVEAL_TIME = TASK_CONFIG.revealTimestamp;
     const OVERRIDE_KEY = 'byte_tasks_lock_override';
 
     function isLocked() {
       const override = localStorage.getItem(OVERRIDE_KEY);
       if (override === 'unlocked') return false;
       if (override === 'locked') return true;
-      return Date.now() < TARGET_TIME;
+      return Date.now() < REVEAL_TIME;
     }
 
     function applyLockState(locked: boolean) {
@@ -141,7 +142,7 @@ import { TASK_CONFIG } from '../../data/tasks';
       const now = Date.now();
       let diff = Math.max(0, TARGET_TIME - now);
 
-      if (diff === 0 && !localStorage.getItem(OVERRIDE_KEY)) {
+      if (Date.now() >= REVEAL_TIME && !localStorage.getItem(OVERRIDE_KEY)) {
         applyLockState(false);
       }
 
@@ -179,15 +180,19 @@ import { TASK_CONFIG } from '../../data/tasks';
   .task-countdown-box {
     background: var(--panel, #171717);
     border: 1px solid var(--line, #292929);
-    border-radius: 14px;
-    padding: 16px 20px 18px;
+    border-radius: 12px;
+    padding: 20px;
     margin-bottom: 36px;
     position: relative;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
     overflow: hidden;
   }
 
-  /* CORNER RETICLES */
+  /* Keep the countdown aligned with the site card system. */
+  .corner-reticle,
+  .unit-reticle {
+    display: none;
+  }
+
   .corner-reticle {
     position: absolute;
     width: 8px;
@@ -232,7 +237,7 @@ import { TASK_CONFIG } from '../../data/tasks';
     gap: 12px;
     margin-bottom: 12px;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--line, #292929);
     flex-wrap: wrap;
   }
 
@@ -251,11 +256,10 @@ import { TASK_CONFIG } from '../../data/tasks';
   }
 
   .header-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     font-weight: 700;
     color: var(--text, #ffffff);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
@@ -263,11 +267,9 @@ import { TASK_CONFIG } from '../../data/tasks';
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: var(--text-dim, #a4b0a2);
-    letter-spacing: 0.04em;
   }
 
   .live-dot {
@@ -275,7 +277,6 @@ import { TASK_CONFIG } from '../../data/tasks';
     height: 6px;
     border-radius: 50%;
     background: var(--lime-bright, #52e0a6);
-    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
     animation: livePulse 2s infinite ease-in-out;
   }
 
@@ -287,8 +288,8 @@ import { TASK_CONFIG } from '../../data/tasks';
   /* INNER 4-BOX GRID */
   .countdown-inner-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
     width: 100%;
   }
 
@@ -296,19 +297,16 @@ import { TASK_CONFIG } from '../../data/tasks';
     background: var(--bg-soft, #141414);
     border: 1px solid var(--line, #292929);
     border-radius: 8px;
-    padding: 10px 12px 10px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s ease;
   }
 
   .unit-card:hover {
-    transform: translateY(-2px);
-    background: #161c18;
     border-color: rgba(82, 224, 166, 0.4);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 14px rgba(82, 224, 166, 0.1);
   }
 
   /* UNIT RETICLES */
@@ -380,20 +378,18 @@ import { TASK_CONFIG } from '../../data/tasks';
 
   .unit-giant-num {
     font-family: 'Clash Display', sans-serif;
-    font-size: 34px;
+    font-size: 32px;
     font-weight: 600;
     line-height: 1;
     letter-spacing: -0.02em;
     font-feature-settings: 'tnum' on, 'zero' on;
     font-variant-numeric: tabular-nums;
     color: var(--lime-bright, #52e0a6);
-    text-shadow: 0 0 16px rgba(82, 224, 166, 0.35);
     transition: color 0.2s ease;
   }
 
   .unit-card:hover .unit-giant-num {
     color: #7dffc4;
-    text-shadow: 0 0 22px rgba(82, 224, 166, 0.5);
   }
 
   .unit-bottom-accent {
@@ -414,7 +410,6 @@ import { TASK_CONFIG } from '../../data/tasks';
     height: 100%;
     width: 100%;
     background: var(--lime-bright, #52e0a6);
-    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
   }
 
   @media (max-width: 1024px) {

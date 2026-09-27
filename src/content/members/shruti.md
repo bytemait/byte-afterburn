@@ -7,4 +7,6 @@ status: "core"
 order: 9
 photo: "/team_pics/optimized/shruti_alpha.webp"
 quote: "Amidst the destruction"
+phone: "202-555-0104"
+discord: "Shruti#0000"
 ---

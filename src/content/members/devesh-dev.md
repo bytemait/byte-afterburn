@@ -24,5 +24,7 @@ contributions:
 linkedin: "https://www.linkedin.com/in/devesh-dev-928222283"
 github: "https://github.com/divs27-xgb"
 twitter: "https://x.com/itsmedevesh278"
+phone: "202-555-0108"
+discord: "Deveshdev#0000"
 ---
 

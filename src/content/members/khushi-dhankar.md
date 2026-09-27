@@ -7,4 +7,6 @@ status: "core"
 order: 8
 photo: "/team_pics/optimized/khushi_dhankar_alpha.webp"
 quote: "professionally winging it…"
+phone: "202-555-0101"
+discord: "Khushidhankar#0000"
 ---

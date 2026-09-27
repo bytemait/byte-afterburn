@@ -1,7 +1,7 @@
 ---
 ---
 
-<div class="sticky-countdown-badge" id="stickyCountdown" role="timer" aria-label="Tasks reveal countdown">
+<div class="sticky-countdown-badge" id="stickyCountdown" role="timer" aria-label="Submission portal opening countdown">
   <div class="sticky-countdown-inner">
     <!-- FOUR CORNER RETICLES -->
     <span class="hud-corner top-left" aria-hidden="true"></span>
@@ -22,7 +22,7 @@
     <div class="sticky-badge-header">
       <div class="header-status">
         <span class="sticky-live-dot" aria-hidden="true"></span>
-        <span class="sticky-badge-label">REVEAL IN</span>
+        <span class="sticky-badge-label">PORTAL OPENS IN</span>
       </div>
       <span class="hud-mark" aria-hidden="true">
         <i/><i/><i/><i/>
@@ -66,7 +66,7 @@
     if (!daysEl) return;
 
     // Reveal target timestamp from centralized configuration
-    const TARGET_TIME = TASK_CONFIG.revealTimestamp;
+    const TARGET_TIME = TASK_CONFIG.submissionOpenTimestamp;
 
     function updateCountdown() {
       const now = Date.now();

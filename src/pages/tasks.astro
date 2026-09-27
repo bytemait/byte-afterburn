@@ -6,7 +6,6 @@ import TaskTimeline from '../components/tasks/TaskTimeline.astro';
 import TaskCard from '../components/tasks/TaskCard.astro';
 import TaskFAQ from '../components/tasks/TaskFAQ.astro';
 import CountdownHUD from '../components/tasks/CountdownHUD.astro';
-import TaskLockPreviewToggle from '../components/tasks/TaskLockPreviewToggle.astro';
 import { taskDepartments, taskFaqs, timelineSteps, TASK_CONFIG } from '../data/tasks';
 ---
 
@@ -67,8 +66,6 @@ import { taskDepartments, taskFaqs, timelineSteps, TASK_CONFIG } from '../data/t
   <!-- STICKY FLOATING HUD TIMER -->
   <CountdownHUD />
 
-  <!-- DEV PREVIEW UNLOCK TOGGLE (Delete this single line before production) -->
-  <TaskLockPreviewToggle />
 
   <Footer immersive />
 </Layout>

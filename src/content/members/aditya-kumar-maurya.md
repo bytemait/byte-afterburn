@@ -19,5 +19,7 @@ contributions:
       we have won 2 hackathon with this in YMCA faridabad
     url: https://github.com/iamadityamaurya/hardware_code/tree/main/Line%20follower/Alpha
 github: "https://github.com/iamadityamaurya"
+phone: "202-555-0107"
+discord: "Adityakumarmaurya#0000"
 ---
 

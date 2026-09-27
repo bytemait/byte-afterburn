@@ -61,6 +61,8 @@ const member = {
   photo: entry.data.photo,
   quote: entry.data.quote,
   batch: entry.data.batch,
+  phone: entry.data.phone,
+  discord: entry.data.discord,
 };
 
 const avatarInitials = (name: string) =>
@@ -200,6 +202,13 @@ const memberStructuredData: JsonLd[] = [
                 <p class="meta-value">BYTE MAIT</p>
               </div>
             </div>
+
+            {(member.phone || member.discord) && (
+              <div class="member-contact-details" aria-label="Contact details">
+                {member.phone && <div><span class="meta-label">Phone</span><a href={`tel:${member.phone}`}>{member.phone}</a></div>}
+                {member.discord && <div><span class="meta-label">Discord</span><p>{member.discord}</p></div>}
+              </div>
+            )}
 
             {(socials.length > 0 || portfolio) && (
               <div class="summary-links">
@@ -823,6 +832,33 @@ const memberStructuredData: JsonLd[] = [
     font-weight: 600;
     line-height: 1.4;
     letter-spacing: -0.015em;
+  }
+
+  .member-contact-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 32px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .member-contact-details > div {
+    display: grid;
+    gap: 5px;
+  }
+
+  .member-contact-details a,
+  .member-contact-details p {
+    margin: 0;
+    color: #ffffff;
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .member-contact-details a:hover {
+    color: var(--green);
   }
 
   .profile-meta-section {
