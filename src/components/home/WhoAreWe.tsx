@@ -106,11 +106,11 @@ export default function WhoAreWe() {
   return (
     <section ref={sectionRef} className="whoarewe-section" id="about" aria-labelledby="whoarewe-heading">
       <div className="whoarewe-inner">
-        <div className="whoarewe-heading-bar">
+        {/* <div className="whoarewe-heading-bar">
           <span aria-hidden="true">//</span>
           <h2 id="whoarewe-heading">WHO ARE WE</h2>
           <span aria-hidden="true">//</span>
-        </div>
+        </div> */}
 
         <div
           className="whoarewe-content"
@@ -131,7 +131,7 @@ export default function WhoAreWe() {
             <h3 className="whoarewe-role">WE BUILD<br />REAL TECH.</h3>
             <div className="whoarewe-description">
               <h3>CIRCUITS.<br />CODE. SYSTEMS.</h3>
-              <p>Student engineers solving problems with hardware, software, and everything between. No theory. Just builds.</p>
+              <p>Student engineers innovating tech with hardware, software, and everything in between. Real world stuff out of lectures, Come see us win!</p>
             </div>
           </div>
 
@@ -186,7 +186,6 @@ export default function WhoAreWe() {
           width: 100%;
           min-height: 72px;
           padding-top: 18px;
-          border-top: 1px solid #333;
           display: flex;
           align-items: flex-start;
           justify-content: space-between;

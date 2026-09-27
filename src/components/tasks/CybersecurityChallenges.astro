@@ -12,7 +12,7 @@ const { tasks } = Astro.props;
   {tasks.map((task, index) => (
     <article class="challenge" aria-labelledby={`security-task-${index + 1}`}>
       <p class="challenge-number">Task {String(index + 1).padStart(2, '0')}</p>
-      <h3 id={`security-task-${index + 1}`}>{task.title.replace(/^Task \d+ — /, '')}</h3>
+      <h3 id={`security-task-${index + 1}`}>{task.title.replace(/^Task \d+: /, '')}</h3>
       <p class="challenge-description">{task.brief}</p>
       {task.id === 'sec-cryptography' && (
         <div class="challenge-prompt">

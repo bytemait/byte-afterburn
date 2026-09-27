@@ -41,7 +41,7 @@ const hasGallery = data.images.length > 1;
           <figure class="hero-stage">
             <img
               src={image}
-              alt={`${data.title} — image ${index + 1}`}
+              alt={`${data.title}: image ${index + 1}`}
               fetchpriority={index === 0 ? 'high' : undefined}
               loading={index === 0 ? undefined : 'lazy'}
             />

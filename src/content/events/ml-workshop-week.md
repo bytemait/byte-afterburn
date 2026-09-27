@@ -2,7 +2,7 @@
 name: ML Workshop Week
 type: Workshop
 date: "2025-02-19"
-time: 04:00 PM – 06:00 PM
+time: 04:00 PM to 06:00 PM
 venue: Lab 4, CSE Block
 shortDescription: 3-day intensive workshop covering LSTM, Transformers, CUDA, and RL.
 agenda:

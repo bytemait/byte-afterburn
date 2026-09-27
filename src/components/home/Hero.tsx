@@ -3,21 +3,25 @@ import React, { useEffect, useRef, useState } from 'react';
 interface HeroProps {
   titleTop?: string;
   titleBottom?: string;
-  introTitle?: string;
+  introTitle?: React.ReactNode;
   introBody?: string;
 }
 
 const RIBBON_ITEMS = [
   'BUILD WITH BYTE',
-  'LEARN • SHIP • SHARE',
+  'STUDENT-LED COMMUNITY',
+  'HACKATHONS',
+  'ALUMNI INTERACTION',
+  'INNOVATION',
+  'BUILD IN PUBLIC',
   'PROJECT TEAMS FORMING',
 ];
 
 export default function Hero({
   titleTop = 'BYTE',
   titleBottom = '.DEVS',
-  introTitle = 'OFFICIAL TECHNOLOGY SOCIETY OF MAIT',
-  introBody = 'BYTE brings students at Maharaja Agrasen Institute of Technology together to build projects, explore research, and innovate across every tech domain.',
+  introTitle = <>OFFICIAL TECHNICAL SOCIETY OF <a href="https://mait.ac.in" target="_blank" rel="noreferrer">MAIT</a></>,
+  introBody = 'We’re BYTE, the technical society at MAIT for people who want to make things happen. We build projects, explore research, host & participate in hackathons, and create space for students to learn with one another. Whether it starts with code, a circuit, a design, or a wild idea, we turn curiosity into work that matters!',
 }: HeroProps) {
   const rootRef = useRef<HTMLElement>(null);
   const zoomFrameRef = useRef<HTMLDivElement>(null);
@@ -300,6 +304,21 @@ export default function Hero({
           line-height: 24px;
           color: #ffffff;
           text-transform: uppercase;
+        }
+
+        .hero-intro-heading a {
+          color: inherit;
+          text-decoration: none;
+          text-decoration-thickness: 2px;
+          text-underline-offset: 4px;
+          transition: color 160ms ease, text-decoration-color 160ms ease;
+        }
+
+        .hero-intro-heading a:hover,
+        .hero-intro-heading a:focus-visible {
+          color: var(--byte-accent-bright, #52e0a6);
+          text-decoration-line: underline;
+          text-decoration-color: var(--byte-accent, #22c579);
         }
 
         .hero-intro-desc {

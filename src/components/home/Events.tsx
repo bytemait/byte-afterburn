@@ -88,9 +88,6 @@ export default function Events({ events }: Props) {
           </a>
         </div>
 
-        <p className="awards-footnote">
-          From quick workshops to ambitious hackathons, every event is an open invitation to build something new.
-        </p>
       </div>
 
       <style>{`
@@ -108,7 +105,7 @@ export default function Events({ events }: Props) {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 96px;
+          gap: 76px;
         }
 
         .awards-header-bar {
@@ -137,14 +134,15 @@ export default function Events({ events }: Props) {
 
         .awards-intro,
         .awards-footnote {
-          max-width: 636px;
+          max-width: 620px;
           margin: 0;
           color: #d9e5df;
           font-family: 'Inter', sans-serif;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 1.45;
+          line-height: 1.5;
           text-align: center;
+          text-wrap: balance;
         }
 
         .awards-list {

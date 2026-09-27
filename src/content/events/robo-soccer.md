@@ -2,7 +2,7 @@
 name: Robo Soccer
 type: Competition
 date: "2024-09-10"
-time: 11:00 AM – 04:00 PM
+time: 11:00 AM to 04:00 PM
 venue: Main Ground
 shortDescription: A high-energy showcase of robotics, engineering precision, and strategy.
 agenda:

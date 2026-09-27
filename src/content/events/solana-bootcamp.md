@@ -2,7 +2,7 @@
 name: Solana Bootcamp
 type: Bootcamp
 date: "2025-10-08"
-time: 10:00 AM – 05:00 PM
+time: 10:00 AM to 05:00 PM
 venue: Seminar Hall
 shortDescription: Two-day bootcamp diving into blockchain concepts and Rust/Anchor development.
 agenda:
