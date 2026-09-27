@@ -30,6 +30,7 @@ const bonusCount = task.bonusTasks?.length || 0;
     'electronics-stage-two': task.id === 'electronics-task-2',
     'electronics-stage-three': task.id === 'electronics-task-3',
     'web-debug-task': task.id === 'web-debugging',
+    'is-expanded': task.id === 'ros-turtlebot-patrol',
   },
 ]} data-has-expand={hasDeepDetails ? 'true' : 'false'}>
   <!-- CARD TOP HEADER & LEVEL BADGE -->
@@ -269,6 +270,7 @@ const bonusCount = task.bonusTasks?.length || 0;
       </div>
 
       <!-- READ MORE / SHOW LESS TOGGLE BUTTON -->
+      {task.id !== 'ros-turtlebot-patrol' && (
       <div class="task-toggle-action-bar">
         <button
           type="button"
@@ -290,6 +292,7 @@ const bonusCount = task.bonusTasks?.length || 0;
           </span>
         </button>
       </div>
+      )}
     </div>
   ) : (
     /* FALLBACK FOR SHORT TASKS */

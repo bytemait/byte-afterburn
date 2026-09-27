@@ -13,6 +13,7 @@ const { tasks } = Astro.props;
     <article class="challenge" aria-labelledby={`security-task-${index + 1}`}>
       <p class="challenge-number">Task {String(index + 1).padStart(2, '0')}</p>
       <h3 id={`security-task-${index + 1}`}>{task.title.replace(/^Task \d+ — /, '')}</h3>
+      <p class="challenge-description">{task.brief}</p>
       {task.id === 'sec-cryptography' && (
         <div class="challenge-prompt">
           <label for="crypto-challenge-value">Challenge text</label>
@@ -34,7 +35,15 @@ const { tasks } = Astro.props;
           <span class="copy-status" role="status" aria-live="polite"></span>
         </div>
       )}
-      {task.id === 'sec-binary-exploitation' && <div class="challenge-prompt"><span>Challenge endpoint</span><code>{task.concept}</code></div>}
+      {task.id === 'sec-binary-exploitation' && (
+        <>
+          <div class="challenge-prompt"><span>Remote challenge endpoint</span><code>{task.concept}</code></div>
+          <ul class="binary-steps">
+            {task.requirements?.map((requirement) => <li>{requirement}</li>)}
+          </ul>
+        </>
+      )}
+      <p class="flag-format">Find the flag that is in the format <code>BYTE&#123;&#125;</code></p>
     </article>
   ))}
 </div>
@@ -89,7 +98,13 @@ const { tasks } = Astro.props;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
-  .challenge h3 { margin: 0 0 18px; font-size: 1.15rem; color: var(--text); }
+  .challenge h3 { margin: 0 0 10px; font-size: 1.15rem; color: var(--text); }
+  .challenge-description {
+    margin: 0 0 18px;
+    color: var(--text-dim);
+    font-size: .86rem;
+    line-height: 1.65;
+  }
   .challenge-prompt { display: grid; gap: 8px; min-width: 0; }
   .challenge-prompt label,
   .challenge-prompt > span:first-child { color: var(--text-dim); font-size: .8rem; font-weight: 600; }
@@ -151,6 +166,27 @@ const { tasks } = Astro.props;
     color: var(--lime-bright, #52e0a6);
     font-size: .7rem;
     line-height: 1.3;
+  }
+  .binary-steps {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding-left: 20px;
+    color: var(--text-dim);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+  .binary-steps li::marker { color: var(--lime-bright, #52e0a6); }
+  .flag-format {
+    margin: 16px 0 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    color: var(--text-dim);
+    font-size: .78rem;
+  }
+  .flag-format code {
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .8rem 'JetBrains Mono', monospace;
   }
   .challenge-prompt code {
     display: block;

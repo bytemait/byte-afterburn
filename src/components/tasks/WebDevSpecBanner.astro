@@ -1,4 +1,21 @@
-<aside class="spec-banner" aria-label="Full Gym Slot Booking task specification">
+---
+interface Props {
+  track?: 'web-dev' | 'electronics' | 'cad' | 'ros';
+}
+const { track = 'web-dev' } = Astro.props;
+const title = track === 'electronics' ? 'Electronics Domain' : track === 'cad' ? 'CAD Domain' : track === 'ros' ? 'ROS Domain' : 'Gym Slot Booking';
+const href = track === 'electronics' ? '/tasks/Electronics%20Domain.pdf' : track === 'cad' ? '/tasks/CAD%20Domain.pdf' : track === 'ros' ? '/tasks/ROS_domain.pdf' : '/tasks/web-task.pdf';
+const taskLabel = track === 'electronics' ? 'Electronics · Full specification' : track === 'cad' ? 'CAD · Full specification' : track === 'ros' ? 'ROS · Full specification' : 'Task 2 · Full specification';
+const description = track === 'electronics'
+  ? 'Download the full task brief for the complete Electronics requirements and submission details.'
+  : track === 'cad'
+    ? 'Download the complete CAD task brief, including the official task details and submission guidance.'
+    : track === 'ros'
+      ? 'Download the complete ROS task brief and submission instructions.'
+      : 'The brief above is the overview. Download the full spec for complete rules, requirements, and evaluation details.';
+---
+
+<aside class="spec-banner" aria-label={`Full ${title} task specification`}>
   <div class="spec-mark" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
       <path d="M6 2.75h8l4.25 4.3v14.2H6a2 2 0 0 1-2-2v-14.5a2 2 0 0 1 2-2Z" />
@@ -6,11 +23,11 @@
     </svg>
   </div>
   <div class="spec-copy">
-    <p class="spec-eyebrow">Task 2 · Full specification</p>
-    <h2>Gym Slot Booking</h2>
-    <p>The brief above is the overview. Download the full spec for complete rules, requirements, and evaluation details.</p>
+    <p class="spec-eyebrow">{taskLabel}</p>
+    <h2>{title}</h2>
+    <p>{description}</p>
   </div>
-  <a href="/tasks/web-task.pdf" download class="spec-cta">
+  <a href={href} download class="spec-cta">
     Download task brief <span aria-hidden="true">↓</span>
   </a>
 </aside>

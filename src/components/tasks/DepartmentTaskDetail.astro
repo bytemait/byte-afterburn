@@ -7,6 +7,7 @@ import AppDevRoadmap from './AppDevRoadmap.astro';
 import ElectronicsRosGuide from './ElectronicsRosGuide.astro';
 import CybersecurityChallenges from './CybersecurityChallenges.astro';
 import CybersecuritySubmission from './CybersecuritySubmission.astro';
+import CybersecurityArchiveBanner from './CybersecurityArchiveBanner.astro';
 import WebDevRepoBanner from './WebDevRepoBanner.astro';
 import WebDevSpecBanner from './WebDevSpecBanner.astro';
 import WebDevSubmission from './WebDevSubmission.astro';
@@ -47,16 +48,6 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
     </div>
 
     <h1>{dept.department} Tasks</h1>
-    <div class="event-meta-row">
-      <span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Estimated: {dept.estimatedTime}
-      </span>
-      <span class="status-live-meta">
-        <span class="live-dot"></span>
-        <span class="lock-status-text">Status: Locked</span>
-      </span>
-    </div>
   </div>
 </div>
 
@@ -72,74 +63,25 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
           <h2 id="year-guidance-title">Choose two tasks.</h2>
           <p class="year-guidance-intro">Pick any two of the four tasks across ML Research and Agentic AI. Your year determines the required difficulty combination:</p>
           <ol class="year-guidance-list">
-            <li>
-              <span class="year-guidance-number" aria-hidden="true">01</span>
-              <div>
-                <h3>First year <span>Any two tasks</span></h3>
-                <p>Choose any two of the four tasks. You can pick both from the same track—for example, Basic and Advanced Agentic AI—or mix tracks and difficulty levels.</p>
-              </div>
-            </li>
-            <li>
-              <span class="year-guidance-number" aria-hidden="true">02</span>
-              <div>
-                <h3>Second year <span>At least one Advanced</span></h3>
-                <p>Choose any two of the four tasks across both tracks. At least one of your choices must be Advanced.</p>
-              </div>
-            </li>
-            <li>
-              <span class="year-guidance-number" aria-hidden="true">03</span>
-              <div>
-                <h3>Third year <span>Both Advanced</span></h3>
-                <p>Choose the Advanced task from ML Research and the Advanced task from Agentic AI.</p>
-              </div>
-            </li>
+            <li><span class="year-guidance-number" aria-hidden="true">01</span><div><h3>First year <span>Any two tasks</span></h3><p>Choose any two of the four tasks. You can pick both from the same track—for example, Basic and Advanced Agentic AI—or mix tracks and difficulty levels.</p></div></li>
+            <li><span class="year-guidance-number" aria-hidden="true">02</span><div><h3>Second year <span>At least one Advanced</span></h3><p>Choose any two of the four tasks across both tracks. At least one of your choices must be Advanced.</p></div></li>
+            <li><span class="year-guidance-number" aria-hidden="true">03</span><div><h3>Third year <span>Both Advanced</span></h3><p>Choose the Advanced task from ML Research and the Advanced task from Agentic AI.</p></div></li>
           </ol>
         </section>
       )}
-      {['electronics', 'ros'].includes(dept.slug) && <ElectronicsRosGuide track={dept.slug as 'electronics' | 'ros'} />}
-      {dept.slug === 'cybersecurity' && <CybersecuritySubmission />}
+
       <div class="project-story">
-        {dept.slug === 'cad' && (
-          <section class="cad-guidelines">
-            <p class="domain-guidance-eyebrow">CAD submission requirements</p>
-            <h2>One folder. Both CAD tasks.</h2>
-            <p>Submit one Google Drive folder link through the website upload form. Your name, roll number, and department are already captured at login; use your name only in the folder name: <code>&lt;YourName&gt;_CAD</code>.</p>
-            <div class="cad-sharing-note">
-              <strong>Mandatory sharing permission</strong>
-              <span>Anyone with the link — Viewer</span>
-              <p>Restricted or login-required links count as not submitted. Test the folder from an incognito window before submitting.</p>
-            </div>
-            <h3>Required folder structure</h3>
-            <pre class="cad-folder-tree"><code>&lt;YourName&gt;_CAD/\n├── Task1/\n│   ├── Task1.stl (or Task1.step)\n│   └── Design_rationale.docx\n└── Task2/ (if attempted)\n    ├── Task2.step\n    ├── Demo.mp4 (or Demo.gif / labeled screenshots)\n    └── Design_rationale.docx</code></pre>
-            <h3>Choose tasks by year</h3>
-            <ol class="domain-year-rules">
-              <li><strong>1st year:</strong> Complete at least CAD Task 1.</li>
-              <li><strong>2nd year:</strong> Complete CAD Tasks 1 and 2.</li>
-            </ol>
-            <ul class="cad-checklist">
-              <li>Use the exact file names shown so submissions can be processed correctly.</li>
-              <li>Task 1 model: Task1.stl or Task1.step. Rationale: 150–250 words on board arrangement, standoff heights, wall height, lid mechanism and tradeoffs.</li>
-              <li>Task 2: preserve joints/mates in Task2.step. Demonstrate motion at 0°, 90°, 180°, and 270° without interference/binding, using video/GIF or labeled screenshots. Rationale: 150–250 words on dimensions, joints, and interference checks.</li>
-              <li>Use only official component drawings. Models should be printable in principle, with reasonable wall thickness and no unsupported overhangs; printing is not required.</li>
-              <li>Task 1 is required for shortlisting. Task 2 is optional and adds bonus weight.</li>
-            </ul>
-          </section>
-        )}
         {!['app-dev', 'ml-research', 'agentic-ai', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'video-editing', 'outreach', 'web-dev'].includes(dept.slug) && (
           <section>
             <h2>Evaluation Criteria</h2>
             <p>What our domain leads look for during code reviews and technical interview walkthroughs:</p>
             <ul class="attend-list eval-criteria-list">
               {dept.evaluationCriteria.map((criterion) => (
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>{criterion}</span>
-                </li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>{criterion}</span></li>
               ))}
             </ul>
           </section>
         )}
-
 
         <section class="problem-statements-wrapper">
           {dept.slug === 'web-dev' && <WebDevRepoBanner />}
@@ -150,85 +92,27 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
             </>
           )}
 
-          <!-- B.Y.T.E. CYBER LOCK GATE -->
           <div class="task-lock-gate" id="taskLockGate">
-            <!-- FOUR CORNER BRACKET RETICLES -->
-            <span class="gate-corner top-left" aria-hidden="true"></span>
-            <span class="gate-corner top-right" aria-hidden="true"></span>
-            <span class="gate-corner bottom-left" aria-hidden="true"></span>
-            <span class="gate-corner bottom-right" aria-hidden="true"></span>
-
-            <!-- CONSTELLATION NETWORK WIREFRAME SVG -->
+            <span class="gate-corner top-left" aria-hidden="true"></span><span class="gate-corner top-right" aria-hidden="true"></span><span class="gate-corner bottom-left" aria-hidden="true"></span><span class="gate-corner bottom-right" aria-hidden="true"></span>
             <svg aria-hidden="true" class="gate-network" viewBox="0 0 700 240">
-              <defs>
-                <linearGradient id="gateNetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#52e0a6" stop-opacity="0.3"/>
-                  <stop offset="50%" stop-color="#52e0a6" stop-opacity="0.08"/>
-                  <stop offset="100%" stop-color="#52e0a6" stop-opacity="0.25"/>
-                </linearGradient>
-              </defs>
-              <path d="M20,170 L110,80 L220,140 L350,55 L480,120 L590,40 L670,160 M110,80 L260,40 L480,120 M220,140 L380,190 L590,40" stroke="url(#gateNetGrad)" stroke-width="1.2" fill="none" />
-              <circle cx="20" cy="170" r="3" fill="#52e0a6" opacity="0.6"/>
-              <circle cx="110" cy="80" r="3.5" fill="#52e0a6" opacity="0.85"/>
-              <circle cx="220" cy="140" r="3" fill="#52e0a6" opacity="0.6"/>
-              <circle cx="260" cy="40" r="2.5" fill="#52e0a6" opacity="0.5"/>
-              <circle cx="350" cy="55" r="4" fill="#52e0a6" opacity="0.95"/>
-              <circle cx="380" cy="190" r="3" fill="#52e0a6" opacity="0.6"/>
-              <circle cx="480" cy="120" r="3.5" fill="#52e0a6" opacity="0.8"/>
-              <circle cx="590" cy="40" r="3" fill="#52e0a6" opacity="0.75"/>
-              <circle cx="670" cy="160" r="3.5" fill="#52e0a6" opacity="0.7"/>
+              <defs><linearGradient id="gateNetGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#52e0a6" stop-opacity="0.3"/><stop offset="50%" stop-color="#52e0a6" stop-opacity="0.08"/><stop offset="100%" stop-color="#52e0a6" stop-opacity="0.25"/></linearGradient></defs>
+              <path d="M20,170 L110,80 L220,140 L350,55 L480,120 L590,40 L670,160 M110,80 L260,40 L480,120 M220,140 L380,190 L590,40" stroke="url(#gateNetGrad)" stroke-width="1.2" fill="none"/>
+              <circle cx="20" cy="170" r="3" fill="#52e0a6" opacity="0.6"/><circle cx="110" cy="80" r="3.5" fill="#52e0a6" opacity="0.85"/><circle cx="220" cy="140" r="3" fill="#52e0a6" opacity="0.6"/><circle cx="260" cy="40" r="2.5" fill="#52e0a6" opacity="0.5"/><circle cx="350" cy="55" r="4" fill="#52e0a6" opacity="0.95"/><circle cx="380" cy="190" r="3" fill="#52e0a6" opacity="0.6"/><circle cx="480" cy="120" r="3.5" fill="#52e0a6" opacity="0.8"/><circle cx="590" cy="40" r="3" fill="#52e0a6" opacity="0.75"/><circle cx="670" cy="160" r="3.5" fill="#52e0a6" opacity="0.7"/>
             </svg>
-
             <div class="gate-card">
-              <div class="gate-telemetry-pill">
-                <span class="gate-live-dot" aria-hidden="true"></span>
-                <span class="telemetry-label">// ACCESS LOCKED //</span>
-              </div>
-
-              <div class="gate-icon-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                </svg>
-              </div>
-
-              <div class="gate-header-block">
-                <h3 class="gate-title">Problem Statements Locked</h3>
-                <p class="gate-desc">
-                  Tasks for <strong>{dept.department}</strong> will be revealed on <strong>{TASK_CONFIG.revealDateFull}</strong>.
-                </p>
-              </div>
-
-              <!-- CLASH DISPLAY CYBER COUNTDOWN -->
+              <div class="gate-telemetry-pill"><span class="gate-live-dot" aria-hidden="true"></span><span class="telemetry-label">// ACCESS LOCKED //</span></div>
+              <div class="gate-icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+              <div class="gate-header-block"><h3 class="gate-title">Problem Statements Locked</h3><p class="gate-desc">Tasks for <strong>{dept.department}</strong> will be revealed on <strong>{TASK_CONFIG.revealDateFull}</strong>.</p></div>
               <div class="gate-countdown-grid" role="timer" aria-live="polite">
-                <div class="gate-cd-box">
-                  <span class="cd-num" id="gateCdDays">00</span>
-                  <span class="cd-label">// DAYS //</span>
-                </div>
-                <span class="cd-colon" aria-hidden="true">:</span>
-                <div class="gate-cd-box">
-                  <span class="cd-num" id="gateCdHours">00</span>
-                  <span class="cd-label">// HOURS //</span>
-                </div>
-                <span class="cd-colon" aria-hidden="true">:</span>
-                <div class="gate-cd-box">
-                  <span class="cd-num" id="gateCdMins">00</span>
-                  <span class="cd-label">// MINS //</span>
-                </div>
-                <span class="cd-colon" aria-hidden="true">:</span>
-                <div class="gate-cd-box">
-                  <span class="cd-num" id="gateCdSecs">00</span>
-                  <span class="cd-label">// SECS //</span>
-                </div>
+                <div class="gate-cd-box"><span class="cd-num" id="gateCdDays">00</span><span class="cd-label">// DAYS //</span></div><span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box"><span class="cd-num" id="gateCdHours">00</span><span class="cd-label">// HOURS //</span></div><span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box"><span class="cd-num" id="gateCdMins">00</span><span class="cd-label">// MINS //</span></div><span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box"><span class="cd-num" id="gateCdSecs">00</span><span class="cd-label">// SECS //</span></div>
               </div>
-
-              <p class="gate-hint">
-                Review the submission instructions while you wait for the tasks to unlock.
-              </p>
+              <p class="gate-hint">Review the submission instructions while you wait for the tasks to unlock.</p>
             </div>
           </div>
 
-          <!-- ACTUAL PROBLEM STATEMENT STACK (SMOOTH REVEAL) -->
           <div class="tasks-stack" id="tasksStackContainer">
             {dept.slug === 'app-dev' ? (
               <AppDevRoadmap task={dept.tasks[0]} />
@@ -239,21 +123,56 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
                 <>
                   <ProblemStatementCard task={task} />
                   {dept.slug === 'web-dev' && task.id === 'web-debugging' && <WebDevSpecBanner />}
+                  {dept.slug === 'agentic-ai' && task.id === 'manga-advanced' && (
+                    <a class="advanced-brief-link" href="https://docs.google.com/document/d/1QwsqMYJZUDtiaXJIL0wDrdOpjxbaM8AcPL3HIxd2ABA/edit?tab=t.0#heading=h.ubr3uv6ruzl1" target="_blank" rel="noopener noreferrer">
+                      <span class="brief-file-icon" aria-hidden="true">↗</span><span class="advanced-brief-copy"><small>Applied AI · Advanced track</small><strong>Open the full task brief</strong><span>View the complete instructions in Google Docs.</span></span><span class="brief-open-mark" aria-hidden="true">↗</span>
+                    </a>
+                  )}
                 </>
               ))
             )}
           </div>
         </section>
-
-        <!-- SUBMISSION PROTOCOL -->
-        {!['app-dev', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'web-dev'].includes(dept.slug) && (
-          <section>
-            <SubmissionProtocol />
-          </section>
-        )}
       </div>
+
+      <!-- All track-specific submission guidance follows the problem statements. -->
+      {dept.slug === 'electronics' && <ElectronicsRosGuide track="electronics" />}
+      {dept.slug === 'ros' && <ElectronicsRosGuide track="ros" />}
+      {dept.slug === 'ros' && <WebDevSpecBanner track="ros" />}
+      {dept.slug === 'cybersecurity' && <CybersecurityArchiveBanner />}
+      {dept.slug === 'cybersecurity' && <CybersecuritySubmission />}
+      {dept.slug === 'cad' && (
+        <>
+          <WebDevSpecBanner track="cad" />
+          <section class="cad-guidelines">
+            <p class="domain-guidance-eyebrow">CAD submission requirements</p>
+            <h2>One folder. Both CAD tasks.</h2>
+            <p>Submit one Google Drive folder link through the website upload form. Your name, roll number, and department are already captured at login; use your name only in the folder name: <code>&lt;YourName&gt;_CAD</code>.</p>
+            <div class="cad-sharing-note"><strong>Mandatory sharing permission</strong><span>Anyone with the link — Viewer</span><p>Restricted or login-required links count as not submitted. Test the folder from an incognito window before submitting.</p></div>
+            <h3>Required folder structure</h3>
+            <pre class="cad-folder-tree"><code>&lt;YourName&gt;_CAD/
+├── Task1/
+│   ├── Task1.stl (or Task1.step)
+│   └── Design_rationale.docx
+└── Task2/ (if attempted)
+    ├── Task2.step
+    ├── Demo.mp4 (or Demo.gif / labeled screenshots)
+    └── Design_rationale.docx</code></pre>
+            <h3>Choose tasks by year</h3>
+            <ol class="domain-year-rules"><li><strong>1st year:</strong> Complete at least CAD Task 1.</li><li><strong>2nd year:</strong> Complete CAD Tasks 1 and 2.</li></ol>
+            <ul class="cad-checklist">
+              <li>Use the exact file names shown so submissions can be processed correctly.</li>
+              <li>Task 1 model: Task1.stl or Task1.step. Rationale: 150–250 words on board arrangement, standoff heights, wall height, lid mechanism and tradeoffs.</li>
+              <li>Task 2: preserve joints/mates in Task2.step. Demonstrate motion at 0°, 90°, 180°, and 270° without interference/binding, using video/GIF or labeled screenshots. Rationale: 150–250 words on dimensions, joints, and interference checks.</li>
+              <li>Use only official component drawings. Models should be printable in principle, with reasonable wall thickness and no unsupported overhangs; printing is not required.</li>
+              <li>Task 1 is required for shortlisting. Task 2 is optional and adds bonus weight.</li>
+            </ul>
+          </section>
+        </>
+      )}
       {dept.slug === 'graphic-design' && <GraphicDesignSubmission />}
       {dept.slug === 'web-dev' && <WebDevSubmission />}
+      {!['app-dev', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'video-editing', 'outreach', 'web-dev', 'agentic-ai'].includes(dept.slug) && <SubmissionProtocol />}
     </div>
 
     <!-- RIGHT STICKY SIDEBAR -->
@@ -526,9 +445,15 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
 
   .event-detail-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
     gap: 56px;
     align-items: start;
+  }
+
+  .event-detail-main,
+  .project-story,
+  .problem-statements-wrapper {
+    min-width: 0;
   }
 
   .event-detail-main h2 {
@@ -683,6 +608,62 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
     color: var(--lime-bright, #52e0a6);
   }
 
+  .advanced-brief-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    margin-top: 14px;
+    padding: 16px 18px;
+    border: 1px solid rgba(237, 143, 183, .36);
+    border-left: 3px solid #ed8fb7;
+    border-radius: 10px;
+    background: linear-gradient(110deg, rgba(237, 143, 183, .08), var(--panel) 55%);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color .18s ease, background .18s ease;
+  }
+
+  .advanced-brief-link:hover {
+    border-color: rgba(237, 143, 183, .7);
+    background: linear-gradient(110deg, rgba(237, 143, 183, .13), var(--panel) 60%);
+  }
+
+  .advanced-brief-link:focus-visible {
+    outline: 2px solid #ed8fb7;
+    outline-offset: 3px;
+  }
+
+  .brief-file-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(237, 143, 183, .34);
+    border-radius: 8px;
+    background: rgba(237, 143, 183, .09);
+    color: #ed8fb7;
+    font-size: 1.1rem;
+  }
+
+  .advanced-brief-copy {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .advanced-brief-copy small {
+    color: #ed8fb7;
+    font: 700 .64rem 'JetBrains Mono', monospace;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .advanced-brief-copy strong { font-size: .88rem; }
+  .advanced-brief-copy > span { color: var(--text-dim); font-size: .76rem; line-height: 1.45; }
+  .brief-open-mark { margin-left: auto; flex: 0 0 auto; color: #ed8fb7; }
+
   .cad-guidelines {
     margin: 0 0 36px;
     padding: 24px;
@@ -748,7 +729,11 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
   }
 
   .cad-folder-tree {
+    display: block;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     margin: 0;
     padding: 16px;
     border: 1px solid var(--line);
@@ -756,9 +741,12 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
     background: var(--bg-soft);
     color: var(--text-dim);
     font: .78rem/1.65 'JetBrains Mono', monospace;
+    scrollbar-width: thin;
+    scrollbar-color: var(--lime-dim) var(--panel);
   }
 
   .cad-folder-tree code {
+    font: inherit;
     white-space: pre;
   }
 
@@ -1370,6 +1358,11 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
 
     .cad-guidelines {
       padding: 20px 18px;
+    }
+
+    .cad-folder-tree {
+      padding: 12px;
+      font-size: .7rem;
     }
 
     .task-lock-gate {

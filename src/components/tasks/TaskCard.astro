@@ -84,7 +84,7 @@ const parentDepartment: Record<string, string> = {
   <!-- CARD BODY -->
   <div class="project-card-body">
     <div class="dept-title-row">
-      <h3>{dept.department}</h3>
+      <h3>{dept.slug === 'ros' ? 'ROS' : dept.department}</h3>
       <span class="dept-live-status">
         <span class="status-dot"></span>
         <span class="status-text">{parentDepartment[dept.slug] ?? dept.department}</span>
@@ -94,20 +94,6 @@ const parentDepartment: Record<string, string> = {
     <div class="task-tagline">{dept.tagline}</div>
     <p class="task-desc">{dept.description}</p>
 
-    <div class="project-meta">
-      <span class="project-meta-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span>{dept.estimatedTime}</span>
-      </span>
-      <span class="project-meta-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        <span class="project-meta-tags">
-          {dept.skills.map((skill) => (
-            <span class="project-tag">{skill}</span>
-          ))}
-        </span>
-      </span>
-    </div>
 
     <!-- ACTIONS: SWITCH BETWEEN LOCKED & UNLOCKED -->
     <div class="project-card-actions">
@@ -166,6 +152,14 @@ const parentDepartment: Record<string, string> = {
     border-radius: 50%;
     background: var(--lime-bright, #52e0a6);
     box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+  }
+
+  .full-department-name {
+    margin: 0 0 6px;
+    color: var(--lime-bright, #52e0a6);
+    font-size: .82rem;
+    font-weight: 600;
+    line-height: 1.35;
   }
 
   .task-tagline {
