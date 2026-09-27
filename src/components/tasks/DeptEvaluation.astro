@@ -1,0 +1,107 @@
+---
+interface Props {
+  description: string;
+  evaluationCriteria: string[];
+}
+
+const { description, evaluationCriteria } = Astro.props;
+---
+
+<div class="dept-eval-container">
+  <!-- DOMAIN OVERVIEW -->
+  <div class="content-block">
+    <h2 class="section-title">Domain Overview</h2>
+    <p class="overview-text">{description}</p>
+  </div>
+
+  <!-- WHAT WE EVALUATE -->
+  <div class="content-block">
+    <h2 class="section-title">Evaluation Criteria</h2>
+    <p class="section-subtitle-text">What our domain leads look for during code reviews and technical interviews:</p>
+    <div class="eval-grid">
+      {evaluationCriteria.map((criterion, idx) => (
+        <div class="eval-card">
+          <span class="eval-num">0{idx + 1}</span>
+          <p>{criterion}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .dept-eval-container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .content-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-subtitle-text {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin: 0 0 20px;
+  }
+
+  .overview-text {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .eval-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .eval-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: border-color 0.2s ease;
+  }
+
+  .eval-card:hover {
+    border-color: rgba(82, 224, 166, 0.3);
+  }
+
+  .eval-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--lime-bright, #52e0a6);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .eval-card p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  @media (max-width: 800px) {
+    .eval-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

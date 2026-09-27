@@ -1,0 +1,148 @@
+---
+import type { TaskFAQItem } from '../../data/tasks';
+
+interface Props {
+  faqs: TaskFAQItem[];
+}
+
+const { faqs } = Astro.props;
+---
+
+<div class="faq-section-wrapper">
+  <div class="section-heading" id="faqs">
+    <h2>Recruitment FAQs</h2>
+    <p>Everything you need to know about the tasks and selection process.</p>
+  </div>
+
+  <div class="faq-accordion">
+    {faqs.map((faq, i) => (
+      <details class="faq-card">
+        <summary>
+          <span class="faq-num">0{i + 1}</span>
+          <span class="faq-title">{faq.q}</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </summary>
+        <div class="faq-body">
+          <p>{faq.a}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+</div>
+
+<style>
+  .faq-section-wrapper {
+    margin-top: 56px;
+  }
+
+  .section-heading {
+    margin-bottom: 24px;
+  }
+
+  .section-heading h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-heading p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .faq-card:hover {
+    border-color: rgba(82, 224, 166, 0.3);
+  }
+
+  .faq-card[open] {
+    border-color: rgba(82, 224, 166, 0.4);
+  }
+
+  .faq-card summary {
+    padding: 18px 22px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    user-select: none;
+  }
+
+  .faq-card summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--lime);
+    font-weight: 600;
+  }
+
+  .faq-title {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .faq-chevron {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    transition: transform 0.25s ease, color 0.2s ease;
+  }
+
+  .faq-chevron svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .faq-card[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--lime);
+  }
+
+  .faq-body {
+    padding: 0 22px 18px 46px;
+  }
+
+  .faq-body p {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .faq-body {
+      padding: 0 18px 16px 18px;
+    }
+
+    .faq-card summary {
+      padding: 16px 18px;
+      gap: 12px;
+    }
+  }
+</style>

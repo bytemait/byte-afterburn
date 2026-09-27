@@ -1,0 +1,52 @@
+---
+interface Props {
+  image: string;
+  department: string;
+}
+
+const { image, department } = Astro.props;
+---
+
+<div class="dept-hero-section">
+  <div class="wrap">
+    <div class="dept-hero-stage">
+      <img src={image} alt={`${department} artwork`} fetchpriority="high" />
+      <div class="hero-overlay-glow"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dept-hero-section {
+    padding: 0 0 36px;
+  }
+
+  .dept-hero-section .wrap {
+    max-width: 920px;
+  }
+
+  .dept-hero-stage {
+    position: relative;
+    width: 100%;
+    height: clamp(240px, 30vw, 380px);
+    border-radius: var(--radius, 12px);
+    overflow: hidden;
+    background: var(--panel, #171717);
+    border: 1px solid var(--line, #292929);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .dept-hero-stage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-overlay-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(16, 16, 16, 0.75) 100%);
+    pointer-events: none;
+  }
+</style>
