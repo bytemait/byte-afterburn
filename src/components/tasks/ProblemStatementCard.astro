@@ -22,12 +22,20 @@ const reqCount = task.requirements?.length || 0;
 const bonusCount = task.bonusTasks?.length || 0;
 ---
 
-<div class="task-item-card" data-has-expand={hasDeepDetails ? 'true' : 'false'}>
+<div class:list={[
+  'task-item-card',
+  {
+    'is-bonus-task': task.id === 'electronics-task-3',
+    'electronics-stage-one': task.id === 'electronics-task-1',
+    'electronics-stage-two': task.id === 'electronics-task-2',
+    'electronics-stage-three': task.id === 'electronics-task-3',
+  },
+]} data-has-expand={hasDeepDetails ? 'true' : 'false'}>
   <!-- CARD TOP HEADER & LEVEL BADGE -->
   <div class="task-card-top-bar">
     <span class:list={['task-level-badge', task.level === 'Advanced Track' ? 'is-advanced' : 'is-starter']}>
       <span class="level-indicator-dot"></span>
-      {task.level}
+      {task.badgeLabel ?? task.level}
     </span>
 
     {hasDeepDetails && (
@@ -62,6 +70,12 @@ const bonusCount = task.bonusTasks?.length || 0;
       </div>
       <p class="concept-text">{task.concept}</p>
     </div>
+  )}
+
+  {task.referenceUrl && !task.concept && (
+    <a href={task.referenceUrl.url} target="_blank" rel="noopener noreferrer" class="ref-link-pill challenge-file-link">
+      {task.referenceUrl.label}<span aria-hidden="true"> ↗</span>
+    </a>
   )}
 
   <!-- ACCEPTED STACKS BAR -->
@@ -327,6 +341,47 @@ const bonusCount = task.bonusTasks?.length || 0;
   .task-item-card:hover {
     border-color: rgba(82, 224, 166, 0.3);
   }
+
+  .challenge-file-link {
+    min-height: 42px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+  }
+
+  .task-item-card.is-bonus-task {
+    border-color: rgba(224, 199, 82, .3);
+  }
+
+  .task-item-card.is-bonus-task:hover,
+  .task-item-card.is-bonus-task.is-expanded {
+    border-color: rgba(237, 143, 183, .55);
+  }
+
+  .task-item-card.electronics-stage-one { border-top: 2px solid #52e0a6; }
+  .task-item-card.electronics-stage-two { border-top: 2px solid #e0c752; }
+  .task-item-card.electronics-stage-three { border-top: 2px solid #ed8fb7; }
+
+  .electronics-stage-one .task-level-badge {
+    color: #52e0a6;
+    background: rgba(82, 224, 166, .08);
+    border-color: rgba(82, 224, 166, .3);
+  }
+
+  .electronics-stage-two .task-level-badge {
+    color: #e0c752;
+    background: rgba(224, 199, 82, .08);
+    border-color: rgba(224, 199, 82, .3);
+  }
+
+  .electronics-stage-three .task-level-badge {
+    color: #ed8fb7;
+    background: rgba(237, 143, 183, .08);
+    border-color: rgba(237, 143, 183, .32);
+  }
+
+  .electronics-stage-one .task-level-badge .level-indicator-dot { color: #52e0a6; }
+  .electronics-stage-two .task-level-badge .level-indicator-dot { color: #e0c752; }
+  .electronics-stage-three .task-level-badge .level-indicator-dot { color: #ed8fb7; }
 
   .task-item-card.is-expanded {
     border-color: rgba(82, 224, 166, 0.4);

@@ -1,0 +1,122 @@
+<section class="submission-guide" aria-labelledby="cyber-submission-title">
+  <header class="guide-header">
+    <p class="eyebrow">Submission format</p>
+    <h2 id="cyber-submission-title">Show your work</h2>
+    <p>Submit both links. Your approach and effort count, so explain what you actually did.</p>
+  </header>
+
+  <ol class="deliverables">
+    <li>
+      <span class="step" aria-hidden="true">01</span>
+      <div>
+        <h3>GitHub repository</h3>
+        <p>Include your work for all the challenges and upload any files needed as proof.</p>
+      </div>
+    </li>
+    <li>
+      <span class="step" aria-hidden="true">02</span>
+      <div>
+        <h3>Google Doc</h3>
+        <p>In your own words, explain your thought process and the tools you used. Be thorough about exactly what you did—you’ll be judged on your reasoning and effort, too.</p>
+      </div>
+    </li>
+  </ol>
+
+  <p class="access-note"><span aria-hidden="true">↗</span><span><strong>Make both links public.</strong> Private or inaccessible repositories and documents will not be evaluated.</span></p>
+</section>
+
+<style>
+  .submission-guide {
+    min-width: 0;
+    padding: 24px clamp(18px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+    color: var(--text);
+  }
+
+  .eyebrow {
+    margin: 0 0 8px;
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .68rem/1.4 'JetBrains Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .guide-header h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1.22rem, 2vw, 1.45rem);
+    line-height: 1.25;
+    letter-spacing: -.02em;
+  }
+
+  .guide-header > p:last-child {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .88rem;
+    line-height: 1.6;
+  }
+
+  .deliverables {
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .deliverables li {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px 0;
+  }
+
+  .deliverables li + li { border-top: 1px solid var(--line); }
+
+  .step {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(82, 224, 166, .35);
+    border-radius: 50%;
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .72rem 'JetBrains Mono', monospace;
+  }
+
+  .deliverables h3 {
+    margin: 0 0 4px;
+    font-size: .92rem;
+    line-height: 1.45;
+  }
+
+  .deliverables p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+
+  .access-note {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin: 0;
+    padding: 14px 16px;
+    border: 1px solid rgba(82, 224, 166, .3);
+    border-left: 3px solid var(--lime-bright, #52e0a6);
+    border-radius: 8px;
+    background: rgba(82, 224, 166, .055);
+    color: var(--text-dim);
+    font-size: .82rem;
+    line-height: 1.6;
+  }
+
+  .access-note > span:first-child { color: var(--lime-bright, #52e0a6); font-size: 1.1rem; line-height: 1.2; }
+  .access-note strong { color: var(--text); }
+
+  @media (max-width: 640px) {
+    .submission-guide { padding: 20px 18px; }
+    .deliverables li { gap: 12px; }
+  }
+</style>

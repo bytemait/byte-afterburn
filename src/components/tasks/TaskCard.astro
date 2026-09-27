@@ -7,6 +7,19 @@ interface Props {
 }
 
 const { dept } = Astro.props;
+const parentDepartment: Record<string, string> = {
+  'app-dev': 'Development',
+  'web-dev': 'Development',
+  'agentic-ai': 'AI/ML',
+  'ml-research': 'AI/ML',
+  cybersecurity: 'Cyber Security',
+  electronics: 'Mechatronics',
+  ros: 'Mechatronics',
+  cad: 'Mechatronics',
+  'video-editing': 'Creative & Outreach',
+  'graphic-design': 'Creative & Outreach',
+  outreach: 'Creative & Outreach',
+};
 ---
 
 <div class="project-card dept-task-card" data-slug={dept.slug}>
@@ -74,7 +87,7 @@ const { dept } = Astro.props;
       <h3>{dept.department}</h3>
       <span class="dept-live-status">
         <span class="status-dot"></span>
-        <span class="status-text">Recruiting</span>
+        <span class="status-text">{parentDepartment[dept.slug] ?? dept.department}</span>
       </span>
     </div>
 

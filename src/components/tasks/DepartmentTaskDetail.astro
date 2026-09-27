@@ -4,6 +4,10 @@ import { taskDepartments, TASK_CONFIG } from '../../data/tasks';
 import { getCollection } from 'astro:content';
 import ProblemStatementCard from './ProblemStatementCard.astro';
 import AppDevRoadmap from './AppDevRoadmap.astro';
+import ElectronicsRosGuide from './ElectronicsRosGuide.astro';
+import CybersecurityChallenges from './CybersecurityChallenges.astro';
+import CybersecuritySubmission from './CybersecuritySubmission.astro';
+import GraphicDesignSubmission from './GraphicDesignSubmission.astro';
 import SubmissionProtocol from './SubmissionProtocol.astro';
 import OtherDepartments from './OtherDepartments.astro';
 
@@ -17,9 +21,14 @@ const contactIdsByDepartment: Record<string, string[]> = {
   'web-dev': ['khushi-dhankar', 'aditya-gupta'],
   'app-dev': ['khushi-dhankar', 'aditya-gupta'],
   cybersecurity: ['tejas-singh-kapur', 'shruti'],
-  'ml-research': ['snow-sadh', 'krishna-mudgal'],
-  'agentic-ai': ['snow-sadh', 'krishna-mudgal'],
-  mechatronics: ['aditya-kumar-maurya', 'devesh-dev'],
+  'ml-research': ['krishna-mudgal'],
+  'agentic-ai': ['snow-sadh'],
+  cad: ['devesh-dev'],
+  electronics: ['devesh-dev'],
+  ros: ['aditya-kumar-maurya'],
+  'graphic-design': ['priyanka'],
+  'video-editing': ['punya-arora'],
+  outreach: ['chidroopa-kanaparthy']
 };
 const members = await getCollection('members');
 const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
@@ -54,8 +63,66 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
 
     <!-- LEFT MAIN COLUMN -->
     <div class="event-detail-main">
+      {['ml-research', 'agentic-ai'].includes(dept.slug) && (
+        <section class="year-guidance" aria-labelledby="year-guidance-title">
+          <p class="year-guidance-eyebrow">ML Research / Agentic AI</p>
+          <h2 id="year-guidance-title">Choose two tasks.</h2>
+          <p class="year-guidance-intro">Pick any two of the four tasks across ML Research and Agentic AI. Your year determines the required difficulty combination:</p>
+          <ol class="year-guidance-list">
+            <li>
+              <span class="year-guidance-number" aria-hidden="true">01</span>
+              <div>
+                <h3>First year <span>Any two tasks</span></h3>
+                <p>Choose any two of the four tasks. You can pick both from the same track—for example, Basic and Advanced Agentic AI—or mix tracks and difficulty levels.</p>
+              </div>
+            </li>
+            <li>
+              <span class="year-guidance-number" aria-hidden="true">02</span>
+              <div>
+                <h3>Second year <span>At least one Advanced</span></h3>
+                <p>Choose any two of the four tasks across both tracks. At least one of your choices must be Advanced.</p>
+              </div>
+            </li>
+            <li>
+              <span class="year-guidance-number" aria-hidden="true">03</span>
+              <div>
+                <h3>Third year <span>Both Advanced</span></h3>
+                <p>Choose the Advanced task from ML Research and the Advanced task from Agentic AI.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+      )}
+      {['electronics', 'ros'].includes(dept.slug) && <ElectronicsRosGuide track={dept.slug as 'electronics' | 'ros'} />}
+      {dept.slug === 'cybersecurity' && <CybersecuritySubmission />}
       <div class="project-story">
-        {dept.slug !== 'app-dev' && (
+        {dept.slug === 'cad' && (
+          <section class="cad-guidelines">
+            <p class="domain-guidance-eyebrow">CAD submission requirements</p>
+            <h2>One folder. Both CAD tasks.</h2>
+            <p>Submit one Google Drive folder link through the website upload form. Your name, roll number, and department are already captured at login; use your name only in the folder name: <code>&lt;YourName&gt;_CAD</code>.</p>
+            <div class="cad-sharing-note">
+              <strong>Mandatory sharing permission</strong>
+              <span>Anyone with the link — Viewer</span>
+              <p>Restricted or login-required links count as not submitted. Test the folder from an incognito window before submitting.</p>
+            </div>
+            <h3>Required folder structure</h3>
+            <pre class="cad-folder-tree"><code>&lt;YourName&gt;_CAD/\n├── Task1/\n│   ├── Task1.stl (or Task1.step)\n│   └── Design_rationale.docx\n└── Task2/ (if attempted)\n    ├── Task2.step\n    ├── Demo.mp4 (or Demo.gif / labeled screenshots)\n    └── Design_rationale.docx</code></pre>
+            <h3>Choose tasks by year</h3>
+            <ol class="domain-year-rules">
+              <li><strong>1st year:</strong> Complete at least CAD Task 1.</li>
+              <li><strong>2nd year:</strong> Complete CAD Tasks 1 and 2.</li>
+            </ol>
+            <ul class="cad-checklist">
+              <li>Use the exact file names shown so submissions can be processed correctly.</li>
+              <li>Task 1 model: Task1.stl or Task1.step. Rationale: 150–250 words on board arrangement, standoff heights, wall height, lid mechanism and tradeoffs.</li>
+              <li>Task 2: preserve joints/mates in Task2.step. Demonstrate motion at 0°, 90°, 180°, and 270° without interference/binding, using video/GIF or labeled screenshots. Rationale: 150–250 words on dimensions, joints, and interference checks.</li>
+              <li>Use only official component drawings. Models should be printable in principle, with reasonable wall thickness and no unsupported overhangs; printing is not required.</li>
+              <li>Task 1 is required for shortlisting. Task 2 is optional and adds bonus weight.</li>
+            </ul>
+          </section>
+        )}
+        {!['app-dev', 'ml-research', 'agentic-ai', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'video-editing', 'outreach'].includes(dept.slug) && (
           <section>
             <h2>Evaluation Criteria</h2>
             <p>What our domain leads look for during code reviews and technical interview walkthroughs:</p>
@@ -70,11 +137,12 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
           </section>
         )}
 
+
         <section class="problem-statements-wrapper">
-          {dept.slug !== 'app-dev' && (
+          {dept.slug !== 'app-dev' && dept.slug !== 'cybersecurity' && (
             <>
-              <h2>Problem Statements</h2>
-              <p>Read through the problem statement below. Fulfill the core requirements and follow the mandatory engineering stages.</p>
+              <h2>{dept.slug === 'electronics' ? 'Electronics tasks' : dept.slug === 'ros' ? 'ROS task' : 'Problem Statements'}</h2>
+              <p>{dept.slug === 'electronics' ? 'Start with Task 1. Task 2 adds weight to your submission; Task 3 is an optional X-factor bonus.' : dept.slug === 'ros' ? 'Build and demonstrate the patrol package described below.' : 'Read through the problem statements below and follow the requirements for your chosen task.'}</p>
             </>
           )}
 
@@ -151,7 +219,7 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
               </div>
 
               <p class="gate-hint">
-                Review the evaluation criteria and familiarize yourself with the tech stack while waiting for the release.
+                Review the submission instructions while you wait for the tasks to unlock.
               </p>
             </div>
           </div>
@@ -160,6 +228,8 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
           <div class="tasks-stack" id="tasksStackContainer">
             {dept.slug === 'app-dev' ? (
               <AppDevRoadmap task={dept.tasks[0]} />
+            ) : dept.slug === 'cybersecurity' ? (
+              <CybersecurityChallenges tasks={dept.tasks} />
             ) : (
               dept.tasks.map((task) => <ProblemStatementCard task={task} />)
             )}
@@ -167,12 +237,13 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
         </section>
 
         <!-- SUBMISSION PROTOCOL -->
-        {dept.slug !== 'app-dev' && (
+        {!['app-dev', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design'].includes(dept.slug) && (
           <section>
             <SubmissionProtocol />
           </section>
         )}
       </div>
+      {dept.slug === 'graphic-design' && <GraphicDesignSubmission />}
     </div>
 
     <!-- RIGHT STICKY SIDEBAR -->
@@ -183,7 +254,7 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <h3>Need a hand?</h3>
         </div>
-        <p class="contacts-intro">Reach out to a {dept.department} lead for help with your task.</p>
+        <p class="contacts-intro">Reach out to {dept.slug === 'electronics' ? 'an Electronics' : `a ${dept.department}`} lead for help with your task.</p>
         <ul class="tech-stack-list">
           {helpContacts.map((contact) => (
             <li class="contact-item">
@@ -205,7 +276,7 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
             <span>Submission Window</span>
           </div>
           <h3>Ready to Submit?</h3>
-          <p>Submit your GitHub repository, README, and live demo output link before the window closes.</p>
+          <p>{dept.slug === 'cad' ? 'Submit one Google Drive folder link containing your CAD task files through the website upload form.' : dept.slug === 'electronics' ? 'Submit one Electronics-only Google Drive folder link through the website upload form.' : dept.slug === 'ros' ? 'Submit one separate ROS-only Google Drive folder link through the website upload form.' : dept.slug === 'cybersecurity' ? 'Submit a public GitHub repository and a public Google Doc explaining your approach and tools.' : ['graphic-design', 'video-editing', 'outreach'].includes(dept.slug) ? 'Submit your work using the format in the task instructions. Make sure all shared links are publicly accessible.' : 'Submit your GitHub repository, README, and live demo output link before the window closes.'}</p>
           <div class="side-deadline-tag">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span>Portal opens {TASK_CONFIG.submissionOpenShort}</span>
@@ -483,6 +554,226 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
 
   .project-story h2 {
     margin: 0 0 16px;
+  }
+
+  /* This guide sits outside .project-story so generic section/p rules cannot override its spacing. */
+  .year-guidance {
+    margin: 0;
+    padding: 24px 28px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+
+  .year-guidance-eyebrow {
+    margin: 0 0 8px;
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .year-guidance h2 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: clamp(1.2rem, 2vw, 1.45rem);
+    line-height: 1.3;
+    letter-spacing: -.02em;
+  }
+
+  .year-guidance-intro {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .88rem;
+    line-height: 1.6;
+  }
+
+  .year-guidance-list {
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .year-guidance-list li {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    align-items: start;
+    gap: 14px;
+    padding: 16px 0;
+  }
+
+  .year-guidance-list li + li {
+    border-top: 1px solid var(--line);
+  }
+
+  .year-guidance-list li:last-child {
+    padding-bottom: 0;
+  }
+
+  .year-guidance-number {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(82, 224, 166, .35);
+    border-radius: 50%;
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .72rem 'JetBrains Mono', monospace;
+  }
+
+  .year-guidance-list h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    margin: 0 0 4px;
+    color: var(--text);
+    font-size: .92rem;
+  }
+
+  .year-guidance-list h3 span {
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+
+  .year-guidance-list p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .82rem;
+    line-height: 1.55;
+  }
+
+  .domain-guidance-eyebrow {
+    margin: 0 0 8px;
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .domain-year-rules {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding-left: 22px;
+    color: var(--text-dim);
+    font-size: .86rem;
+    line-height: 1.55;
+  }
+
+  .domain-year-rules strong {
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  .cad-guidelines {
+    margin: 0 0 36px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+
+  .cad-guidelines h2 {
+    margin: 0 0 12px;
+    color: var(--text);
+    font-size: 1.08rem;
+    text-transform: uppercase;
+  }
+
+  .cad-guidelines h3 {
+    margin: 22px 0 10px;
+    font-size: .9rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+
+  .cad-guidelines > p {
+    margin: 0 0 16px;
+    color: var(--text-dim);
+    font-size: .88rem;
+    line-height: 1.65;
+  }
+
+  .cad-guidelines code {
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .85em;
+  }
+
+  .cad-sharing-note {
+    display: grid;
+    gap: 5px;
+    padding: 14px 16px;
+    border: 1px solid rgba(224, 199, 82, .3);
+    border-left: 3px solid #e0c752;
+    border-radius: 8px;
+    background: rgba(224, 199, 82, .06);
+  }
+
+  .cad-sharing-note strong {
+    color: #e0c752;
+    font-size: .75rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .cad-sharing-note span {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .cad-sharing-note p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .8rem;
+    line-height: 1.5;
+  }
+
+  .cad-folder-tree {
+    overflow-x: auto;
+    margin: 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-soft);
+    color: var(--text-dim);
+    font: .78rem/1.65 'JetBrains Mono', monospace;
+  }
+
+  .cad-folder-tree code {
+    white-space: pre;
+  }
+
+  .cad-checklist {
+    display: grid;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cad-checklist li {
+    position: relative;
+    padding-left: 20px;
+    color: var(--text-dim);
+    font-size: .83rem;
+    line-height: 1.55;
+  }
+
+  .cad-checklist li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--lime-bright, #52e0a6);
+    font-weight: 700;
   }
 
   .eval-criteria-list {
@@ -1059,6 +1350,18 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
   }
 
   @media (max-width: 640px) {
+    .year-guidance {
+      padding: 20px 18px;
+    }
+
+    .year-guidance-list li {
+      gap: 12px;
+    }
+
+    .cad-guidelines {
+      padding: 20px 18px;
+    }
+
     .task-lock-gate {
       padding: 32px 20px;
     }

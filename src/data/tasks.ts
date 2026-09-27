@@ -46,6 +46,7 @@ export interface TaskProblemStatement {
   id: string;
   title: string;
   level: 'Starter Track' | 'Advanced Track';
+  badgeLabel?: string;
   brief: string;
   concept?: string;
   referenceUrl?: { label: string; url: string };
@@ -288,42 +289,61 @@ export const taskDepartments: TaskDepartment[] = [
     ],
     tasks: [
       {
-        id: 'ml-research-task',
-        title: 'ML Research Challenge',
+        id: 'ml-paper-craft',
+        title: 'Paper Craft',
         level: 'Starter Track',
         brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+          'Choose exactly one paper from the approved list, read it in full, and complete every section of the Paper Craft Reading Template in your own words. You will discuss the paper in your interview, including its claim, surprising findings, and structural choices.',
         concept:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        stacks: ['Python', 'PyTorch / TensorFlow', 'Pandas / NumPy', 'FastAPI / Streamlit'],
-        stages: [
+          'The template is meant to capture your own reading. Do not use an LLM to fill it in blindly—we want to hear your understanding and reasoning.',
+        requirements: [
+          'Pick exactly one paper from the options below. Papers outside this list will not be accepted.',
+          'Read the selected paper in full and complete every section of the Paper Craft Reading Template in your own words.',
+          'Be ready to explain the paper’s central claim, what surprised you, and why the authors made their key structural choices.',
+        ],
+        detailSections: [
           {
-            stageNumber: 1,
-            title: 'Stage 1: Lorem Ipsum Data Ingestion & EDA',
-            subtitle: 'Dataset preprocessing and baseline analysis',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            ],
-          },
-          {
-            stageNumber: 2,
-            title: 'Stage 2: Lorem Ipsum Model Training & Pipeline',
-            subtitle: 'Architecture design, evaluation and inference',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-              'Excepteur sint occaecat cupidatat non proident, sunt in culpa.',
+            title: 'Paper options — choose exactly one',
+            items: [
+              'General: An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale',
+              'General: MiniLLM: On-Policy Distillation of Large Language Models',
+              'General: DeepSeek-V3 Technical Report',
+              'General: GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints',
+              'General: Direct Preference Optimization: Your Language Model is Secretly a Reward Model',
+              'RL Domain — Policy Gradient Algorithms: Trust Region Policy Optimization',
+              'RL Domain — Policy Gradient Algorithms: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning',
             ],
           },
         ],
-        submissionDeliverables: [
-          'GitHub repository with clean modular Python code and requirements.txt',
-          'Interactive demo via FastAPI or Streamlit / video screen recording',
-          'Benchmark evaluation comparison report',
+      },
+      {
+        id: 'ml-falsification-challenge',
+        title: 'The Falsification Challenge',
+        level: 'Advanced Track',
+        brief:
+          'Act as a skeptical researcher and investigate the claim that neural networks preferentially learn simpler predictive features. Design a small, controlled study that could falsify, weaken, or qualify the claim—not simply reproduce it. The main deliverable is a rigorous experimental research proposal; running experiments is optional and earns additional credit when it meaningfully strengthens the investigation.',
+        concept:
+          'Ask when simplicity bias might fail, what “simple” means, and whether observed preferences come from feature simplicity, data correlations, architecture, or optimization. Conclusions should match the evidence; you are not expected to disprove the claim.',
+        requirements: [
+          'State a specific research question, a falsifiable hypothesis, an appropriate null hypothesis, and at least one alternative explanation.',
+          'Propose an implementable experiment suite: describe the dataset or synthetic data, controlled features and variables, what changes and what stays fixed, model architecture, training procedure, and evaluation.',
+          'Include controls and baselines that distinguish simplicity from competing explanations such as predictive strength or ease of optimization.',
+          'Discuss multiple possible outcomes and their interpretations, plus limitations, confounders, and what the study cannot establish.',
+          'Implementation is optional. If feasible, a small, carefully controlled experiment is encouraged; do not add complexity just to produce graphs.',
+          'Write the proposal and any README yourself. Explain your reasoning and keep conclusions proportional to the evidence.',
         ],
-      }
+        detailSections: [
+          {
+            title: 'Full challenge brief',
+            paragraphs: [
+              'The full research brief includes background and recommended literature, detailed study-design guidance, expected-outcome examples, a suggested proposal structure, and the evaluation criteria.',
+            ],
+            links: [
+              { label: 'Read the full Falsification Challenge brief (Google Doc)', url: 'https://docs.google.com/document/d/1graf8SrI6j39DQIX5RNIR3eTS4YnliyC/edit?usp=sharing&ouid=108242014463214711938&rtpof=true&sd=true' },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -475,75 +495,170 @@ export const taskDepartments: TaskDepartment[] = [
     ],
   },
   {
-    slug: 'mechatronics',
-    department: 'Mechatronics',
-    tagline: 'Code meets the physical world.',
+    slug: 'cad',
+    department: 'CAD',
+    tagline: 'Design it. Assemble it. Make it work.',
     description:
-      'Robotics, embedded systems, hardware prototyping. Design circuits, write firmware, and build things that move, sense, and respond.',
+      'Create printable CAD models and a constrained mechanism assembly. Task 1 is required for shortlisting; Task 2 is optional bonus work.',
     image: '/assets/tasks/mechatronics.png',
-    skills: ['Arduino', 'Raspberry Pi', 'ROS / ROS2', 'PCB Design', 'C/C++'],
+    skills: ['3D CAD', '3D-printable design', 'Assembly joints / mates'],
     difficulty: 'Intermediate',
-    estimatedTime: '10–14 hours',
-    submissionFormat: 'GitHub Repo + Wokwi / Gazebo Simulation Link + Circuit Diagrams / Video',
-    evaluationCriteria: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-    ],
+    estimatedTime: 'Task 1 required · Task 2 optional',
+    submissionFormat: 'One public Google Drive folder link submitted through the website upload form',
+    evaluationCriteria: [],
     tasks: [
       {
-        id: 'mech-starter',
-        title: 'Problem Statement 01: [Mechatronics Title]',
+        id: 'cad-task-1',
+        title: 'Task 1 — Nano + MPU6050 Enclosure with Custom Lid',
         level: 'Starter Track',
         brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+          'Design a 3D-printable enclosure for a Nano and MPU6050, including a custom lid. This is the required CAD task for shortlisting.',
         concept:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        stacks: ['C/C++', 'Arduino / ESP32', 'Wokwi Simulator', 'FreeRTOS'],
-        stages: [
-          {
-            stageNumber: 1,
-            title: 'Stage 1: Lorem Ipsum Circuit Schematic & Sensors',
-            subtitle: 'Hardware interfacing and wiring setup',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            ],
-          },
-          {
-            stageNumber: 2,
-            title: 'Stage 2: Lorem Ipsum Control Logic & Firmware',
-            subtitle: 'Non-blocking state machine and sensor algorithms',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-              'Excepteur sint occaecat cupidatat non proident, sunt in culpa.',
-            ],
-          },
+          'Use only the official component drawings provided with the task brief. The model should be printable in principle: avoid unsupported overhangs and maintain reasonable wall thickness. You do not need to print it.',
+        requirements: [
+          'Include either Task1.stl or Task1.step in the Task1 folder.',
+          'Include Design_rationale.docx (150–250 words) explaining the board arrangement, standoff heights, wall height, lid mechanism choice and why, and tradeoffs made to fit the envelope.',
         ],
-        submissionDeliverables: [
-          'GitHub repository with well-commented firmware and schematics',
-          'Wokwi simulation link or video demonstration',
-          'Technical writeup with circuit diagram and component list',
+        detailSections: [
+          {
+            title: 'Rationale checklist',
+            items: [
+              'Describe how you arranged the Nano and MPU6050 boards.',
+              'Explain your standoff heights and enclosure wall height.',
+              'Describe the lid mechanism you chose and why.',
+              'Discuss tradeoffs made to fit the required envelope.',
+            ],
+          },
         ],
       },
       {
-        id: 'mech-advanced',
-        title: 'Problem Statement 02: [Advanced Track Title]',
+        id: 'cad-task-2',
+        title: 'Task 2 — Slider-Crank Mechanism',
         level: 'Advanced Track',
         brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-        stacks: ['ESP32', 'MQTT / WebSockets', 'KiCad', 'Fusion 360'],
+          'Model a slider-crank mechanism as a constrained assembly and demonstrate that it moves through its full range without interference or binding. This task is optional and adds bonus weight.',
+        concept:
+          'Task 2 is not required for shortlisting. If you attempt it, preserve the assembly joints/mates in your STEP export so the mechanism constraints remain available for evaluation.',
         requirements: [
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+          'Include Task2.step with joints/mates preserved. STEP is strongly preferred over STL because it retains the mechanism constraints.',
+          'Include a short Demo.mp4 or Demo.gif showing movement at crank angles 0°, 90°, 180°, and 270°, with no interference or binding.',
+          'If video/GIF is not possible, include labeled screenshots named Demo_0deg.png, Demo_90deg.png, Demo_180deg.png, and Demo_270deg.png.',
+          'Include Design_rationale.docx (150–250 words) explaining your crank radius and rod length choices, how you defined the joints, and what interference issues you checked.',
         ],
-        bonusTasks: [
-          'Lorem ipsum bonus task 01: Consectetur adipiscing elit.',
-          'Lorem ipsum bonus task 02: Sed do eiusmod tempor incididunt.',
+        detailSections: [
+          {
+            title: 'Rationale checklist',
+            items: [
+              'Explain your crank radius and connecting-rod length choices.',
+              'Describe how the joints/mates were defined.',
+              'Explain how you checked for interference throughout the range of motion.',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'electronics',
+    department: 'Electronics',
+    tagline: 'Sense, respond, and build reliable circuits.',
+    description:
+      'Three hands-on electronics tasks: a required sensor-voting challenge, a second core task, and an optional KiCad bonus.',
+    image: '/assets/tasks/mechatronics.png',
+    skills: ['Arduino', 'Wokwi', 'KiCad', 'Sensors'],
+    difficulty: 'Intermediate',
+    estimatedTime: 'Tasks 1–2 core · Task 3 bonus',
+    submissionFormat: 'One Electronics-only Google Drive folder link submitted through the website upload form',
+    evaluationCriteria: [],
+    tasks: [
+      {
+        id: 'electronics-task-1',
+        title: 'Task 1 — Redundant Sensor Voting',
+        level: 'Starter Track',
+        badgeLabel: 'Required · All years',
+        brief: 'Build an Arduino system that reads two potentiometers as redundant sensors and decides the output position reliably, including when the readings disagree or reach a boundary.',
+        concept: 'Electronics Task 1 is mandatory for shortlisting. You may use Wokwi; its Automation Scenarios can drive both potentiometers programmatically for testing.',
+        stacks: ['Arduino', 'Wokwi (public / unlisted link)', 'Code.txt'],
+        requirements: [
+          'Submit a public/unlisted Wokwi project URL in Link.txt containing only the raw URL. If using physical hardware, submit Demo.mp4 instead.',
+          'Submit the complete Arduino sketch as plain text in a file named Code.txt (not .ino).',
+          'Include Design_rationale.docx, 150–250 words, explaining your threshold value and why, how “hold last position” works, and how you prevent flicker at the boundary.',
+        ],
+        detailSections: [
+          {
+            title: 'Rationale should explain',
+            items: ['Your disagreement threshold and why you chose it.', 'How the system holds the last valid position when readings disagree.', 'How you prevent rapid switching/flicker near the decision boundary.'],
+          },
+        ],
+      },
+      {
+        id: 'electronics-task-2',
+        title: 'Task 2 — Simon Says with Heartbeat',
+        level: 'Advanced Track',
+        badgeLabel: 'Required · Second year',
+        brief: 'Build a Simon Says game with a heartbeat LED. Make the game’s speed increase with a clear ramp, while keeping the heartbeat indicator independent of game state.',
+        concept: 'Task 2 carries additional weight. Under the year-based criteria, second-years must attempt it in addition to Task 1.',
+        stacks: ['Arduino', 'Wokwi (public / unlisted link)', 'Code.txt'],
+        requirements: [
+          'Submit a public/unlisted Wokwi URL in Link.txt containing only the raw URL. If using physical hardware, submit Demo.mp4 instead.',
+          'Submit the complete Arduino sketch as plain text in a file named Code.txt (not .ino).',
+          'Include Design_rationale.docx, 150–250 words, explaining your speed-ramp formula and how the heartbeat LED remains independent of game state.',
+        ],
+        detailSections: [
+          {
+            title: 'Rationale should explain',
+            items: ['Your speed-ramp formula and how it changes the game over time.', 'How the heartbeat LED timing remains independent from the game logic/state.'],
+          },
+        ],
+      },
+      {
+        id: 'electronics-task-3',
+        title: 'Task 3 — MPU6050 KiCad Schematic',
+        level: 'Advanced Track',
+        badgeLabel: 'X-factor · Optional',
+        brief: 'Create an MPU6050 KiCad schematic. PCB layout may be included if attempted. This is an optional bonus-on-bonus task and is not required for shortlisting.',
+        concept: 'The submitted archive must be produced using KiCad’s own “Archive Project” (or equivalent zip-project) function. Do not manually zip a folder: KiCad’s built-in archive preserves file references so the project opens without path errors.',
+        stacks: ['KiCad', 'Native project archive'],
+        requirements: [
+          'If attempted, include a Task3/ folder containing MPU6050.zip, generated by KiCad’s native project-archive function, and Design_rationale.docx.',
+          'Include any PCB layout in the same native project archive.',
+          'Write a 200–350 word rationale covering your decoupling and pull-up value choices and why you tied AD0 the way you did.',
+          'Omit the entire Task3/ folder if you did not attempt this bonus.',
+        ],
+        detailSections: [
+          {
+            title: 'Rationale should explain',
+            items: ['Why you selected your decoupling and pull-up values.', 'How you connected AD0 and the reasoning behind that choice.', 'Any relevant schematic or PCB design tradeoffs.'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'ros',
+    department: 'ROS (Robot Operating System)',
+    tagline: 'Make a robot patrol, react, and stop safely.',
+    description:
+      'Build and demonstrate an autonomous TurtleBot patrol with obstacle avoidance and an emergency-stop service.',
+    image: '/assets/tasks/mechatronics.png',
+    skills: ['ROS', 'TurtleBot', 'Obstacle avoidance', 'Services'],
+    difficulty: 'Advanced',
+    estimatedTime: 'One mandatory task',
+    submissionFormat: 'One separate ROS-only Google Drive folder link submitted through the website upload form',
+    evaluationCriteria: [],
+    tasks: [
+      {
+        id: 'ros-turtlebot-patrol',
+        title: 'Task 1 — Autonomous TurtleBot Patrol & Obstacle Avoidance',
+        level: 'Starter Track',
+        badgeLabel: 'Mandatory task',
+        brief: 'Create a complete turtlebot_patrol package that autonomously patrols and avoids obstacles, with an emergency-stop service that can be triggered and reset.',
+        concept: 'ROS Task 1 is mandatory for this domain. Submit the complete GitHub repository, a demonstration recording, and a copy of your README in the shared submission folder.',
+        stacks: ['ROS', 'TurtleBot', 'GitHub repository'],
+        requirements: [
+          'Provide Link.txt containing only the raw GitHub repository URL. The repo must be public and contain the complete turtlebot_patrol package: source code, config, launch files, and README.',
+          'Include Demo.mp4: a one-minute screen recording demonstrating patrol, obstacle avoidance, and the emergency-stop service being triggered and reset.',
+          'Include README.md, copied from the repository for quick reference. It must explain setup, build, launch, and usage/testing, and include at least three images.',
         ],
       },
     ],
@@ -551,73 +666,148 @@ export const taskDepartments: TaskDepartment[] = [
   {
     slug: 'cybersecurity',
     department: 'Cybersecurity',
-    tagline: 'Break things. Then fix them.',
+    tagline: 'Break things. Then figure out why.',
     description:
-      'CTFs, penetration testing, vulnerability research, and secure architecture. Learn offensive and defensive security through hands-on challenges.',
+      'Three concise challenges across cryptography, steganography, and binary exploitation.',
     image: '/assets/tasks/cybersecurity.png',
-    skills: ['Linux', 'Networking', 'Burp Suite', 'Wireshark', 'Python'],
+    skills: ['Cryptography', 'Steganography', 'Binary exploitation'],
     difficulty: 'Intermediate',
-    estimatedTime: '8–12 hours',
-    submissionFormat: 'GitHub Repo + PDF Vulnerability Assessment & Remediation Report',
-    evaluationCriteria: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-    ],
+    estimatedTime: 'Three challenges',
+    submissionFormat: 'Public GitHub repository + public Google Doc',
+    evaluationCriteria: [],
     tasks: [
       {
-        id: 'sec-starter',
-        title: 'Problem Statement 01: [Cybersecurity Title]',
+        id: 'sec-cryptography',
+        title: 'Task 1 — Cryptography',
         level: 'Starter Track',
-        brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-        concept:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        stacks: ['Linux / Bash', 'Burp Suite', 'Python / Scripting', 'Wireshark'],
-        stages: [
-          {
-            stageNumber: 1,
-            title: 'Stage 1: Lorem Ipsum Recon & Assessment',
-            subtitle: 'Target inspection and vulnerability mapping',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            ],
-          },
-          {
-            stageNumber: 2,
-            title: 'Stage 2: Lorem Ipsum Exploitation & Patching',
-            subtitle: 'Proof-of-concept creation and defensive patch',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-              'Excepteur sint occaecat cupidatat non proident, sunt in culpa.',
-            ],
-          },
+        brief: 'Challenge text:',
+        concept: 'QkFJTntiQTczX1E4Ul9BcmhIQ19YNHlHY0R9',
+      },
+      {
+        id: 'sec-steganography',
+        title: 'Task 2 — Steganography',
+        level: 'Starter Track',
+        brief: 'Challenge file:',
+        referenceUrl: {
+          label: 'Open the steganography challenge file',
+          url: 'https://drive.google.com/file/d/1ELLQDWkqsSL-PM_xQcids8axmntXUiOL/view?usp=sharing',
+        },
+      },
+      {
+        id: 'sec-binary-exploitation',
+        title: 'Task 3 — Binary Exploitation',
+        level: 'Advanced Track',
+        brief: 'Challenge endpoint:',
+        concept: 'nc cybersub.bytesoc.dev 9999',
+      },
+    ],
+  },
+  {
+    slug: 'graphic-design',
+    department: 'Graphic Design',
+    tagline: 'Make BYTE impossible to scroll past.',
+    description: 'Create a first impression for BYTE and design an original piece of campus merchandise.',
+    image: '/assets/tasks/outreach.png',
+    skills: ['Visual design', 'Typography', 'Brand identity', 'Social media'],
+    difficulty: 'Beginner',
+    estimatedTime: 'Two design tasks',
+    submissionFormat: 'Public Google Drive links to final design files',
+    evaluationCriteria: [],
+    tasks: [
+      {
+        id: 'graphic-design-poster',
+        title: 'Task 1 — BYTE Freshers Poster',
+        level: 'Starter Track',
+        badgeLabel: 'Poster design',
+        brief: 'Create the first impression of BYTE for incoming MAIT freshers. Design a freshers-facing promotional poster introducing BYTE as a technical society and making a first-year student want to learn more and join.',
+        requirements: [
+          'At a glance, communicate who BYTE is, what it does, what it has done, what a fresher can gain, and how to join.',
+          'Use the supplied BYTE logo, official information, selected past-event names and photographs, WhatsApp community QR code, and official social handles/contact information as your primary source material.',
+          'Do not fabricate events, achievements, statistics, testimonials, or other factual claims. Keep any additional copy consistent with the content pack.',
+          'Create a modern, youthful, technically relevant, energetic, professional, cohesive design. Prioritise communication and hierarchy instead of forcing every detail onto the poster.',
+          'Primary format: 1080 × 1350 px (4:5 portrait), suitable for Instagram and digital campus promotion. Keep it readable on mobile and make the QR code visible and scannable.',
+          'Use high-resolution imagery, avoid unnecessary compression, use the BYTE logo correctly, and keep the final layout clean and professionally aligned.',
         ],
-        submissionDeliverables: [
-          'Vulnerability assessment report (PDF / Markdown)',
-          'Reproducible proof-of-concept scripts',
-          'Remediation guide with secure code patches',
+        detailSections: [
+          {
+            title: 'Official content pack',
+            paragraphs: ['The pack includes the BYTE logo, official information about BYTE and its purpose, selected past-event details and photos, the official WhatsApp community QR code, and official social/contact information where applicable.'],
+            links: [{ label: 'Open the BYTE freshers poster content pack', url: 'https://drive.google.com/drive/folders/1UW5E5ZzuGT7-GrafMBvQgPhwdlDhAuEg?usp=sharing' }],
+          },
+          {
+            title: 'Creative freedom and restrictions',
+            items: [
+              'You may create original graphic elements, illustrations, textures, compositions, typography treatments, and image treatments.',
+              'Do not replace the supplied event photographs with AI-generated representations, and do not use a pre-made template as the primary design.',
+            ],
+          },
         ],
       },
       {
-        id: 'sec-advanced',
-        title: 'Problem Statement 02: [Advanced Track Title]',
-        level: 'Advanced Track',
-        brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-        stacks: ['Ghidra / GDB', 'x86/ARM Assembly', 'Python / pwntools', 'C'],
+        id: 'graphic-design-merch',
+        title: 'Task 2 — BYTE T-shirt Merchandise',
+        level: 'Starter Track',
+        badgeLabel: 'Merch concept',
+        brief: 'Design an original T-shirt merchandise concept for BYTE MAIT that represents a tech, coding, and creative community. Make it modern, youthful, tech-inspired, visually strong, and suitable for actual college merchandise.',
         requirements: [
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+          'Create a front and/or back T-shirt design. You may experiment with typography, illustrations, coding/tech elements, abstract graphics, patterns, symbols, and short creative phrases.',
+          'Use the BYTE Society logo as the primary brand reference. The design should feel like BYTE even without relying heavily on the logo.',
+          'Last year’s BYTE merchandise is for reference only. Do not copy it; make your concept, graphics, typography, and composition original.',
         ],
-        bonusTasks: [
-          'Lorem ipsum bonus task 01: Consectetur adipiscing elit.',
-          'Lorem ipsum bonus task 02: Sed do eiusmod tempor incididunt.',
+        detailSections: [
+          {
+            title: 'Brand references',
+            links: [
+              { label: 'BYTE Society logo', url: 'https://drive.google.com/file/d/1vYrIaAsOh4psMuNjNyX7LoK4wwwB0AWx/view?usp=sharing' },
+              { label: 'Last year’s BYTE merchandise (reference only)', url: 'https://drive.google.com/file/d/1z_abqaDsHT8b2mJbsn7KUm6-5DzdkERc/view?usp=sharing' },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'video-editing',
+    department: 'Video Editing',
+    tagline: 'Turn raw footage into a story.',
+    description: 'Shape BYTE’s Algo Trading Sprint footage into a short, intentional vertical event recap.',
+    image: '/assets/tasks/outreach.png',
+    skills: ['Editing', 'Pacing', 'Sound design', 'Visual storytelling'],
+    difficulty: 'Intermediate',
+    estimatedTime: 'One 45–60 second edit',
+    submissionFormat: 'Public Google Drive link to final MP4',
+    evaluationCriteria: [],
+    tasks: [
+      {
+        id: 'video-editing-recap',
+        title: 'Algo Trading Sprint — Event Recap',
+        level: 'Starter Track',
+        badgeLabel: 'Video edit',
+        brief: 'Turn raw footage from BYTE’s Algo Trading Sprint into a polished 45–60-second vertical event recap. Make deliberate editorial decisions about what matters, what to cut, what to emphasise, how the edit flows, and what feeling viewers should leave with.',
+        requirements: [
+          'Create a compelling visual narrative by selecting, structuring, and pacing footage—not merely assembling clips.',
+          'Use music, sound design, typography, and visual treatment to strengthen the story. Keep the result professional and suitable for BYTE social media.',
+          'The supplied event footage must remain the primary visual source. External footage must not replace it. Supporting royalty-free music, sound effects, fonts, textures, and official BYTE/Algo Trading Sprint assets are allowed.',
+          'Duration: 45–60 seconds. Format: vertical 9:16. Recommended export: MP4 at 1080 × 1920 or higher.',
+          'Keep on-screen text purposeful and readable, use BYTE branding without overpowering the footage, and use transitions only when they help the rhythm or narrative.',
+          'Do not use a pre-made video template as the main structure of the edit.',
+        ],
+        detailSections: [
+          {
+            title: 'Source footage',
+            paragraphs: ['Use the raw footage captured during BYTE’s Algo Trading Sprint.'],
+            links: [{ label: 'Open the Algo Trading Sprint footage', url: 'https://drive.google.com/drive/folders/1MticD9zm5yy9MgohLxhra1RvbtMbGStR?usp=drive_link' }],
+          },
+          {
+            title: 'Deliverables and submission',
+            items: [
+              'Submit a publicly accessible Google Drive link to the final video in MP4 format, named Name_Branch_VideoEdit.mp4.',
+              'State the software/video-editing apps used.',
+              'Add a creative note of no more than 50 words explaining the concept or approach.',
+              'Keep the export at original quality; do not submit a compressed WhatsApp/Instagram version.',
+              'Set Drive access to Anyone with the link — Viewer.',
+            ],
+          },
         ],
       },
     ],
@@ -625,73 +815,53 @@ export const taskDepartments: TaskDepartment[] = [
   {
     slug: 'outreach',
     department: 'Outreach',
-    tagline: 'Connect minds. Build community.',
-    description:
-      'Sponsorships, event operations, PR, and community growth. Lead society initiatives, forge industry partnerships, and represent Byte to the wider tech ecosystem.',
+    tagline: 'Read the room. Make the ask.',
+    description: 'A practical outreach simulation: write with precision, handle rejection and silence, and identify realistic sponsors.',
     image: '/assets/tasks/outreach.png',
-    skills: ['Community', 'Event Ops', 'Sponsorships', 'Content Creation', 'PR & Media'],
-    difficulty: 'Beginner',
-    estimatedTime: '6–8 hours',
-    submissionFormat: 'PDF Pitch Deck + Notion Strategy Doc + Social Campaign Assets',
-    evaluationCriteria: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-    ],
+    skills: ['Written communication', 'Partnerships', 'Judgement', 'Research'],
+    difficulty: 'Intermediate',
+    estimatedTime: 'Six written responses + sponsor research',
+    submissionFormat: 'One public Google Drive link to a PDF or document',
+    evaluationCriteria: [],
     tasks: [
       {
-        id: 'out-starter',
-        title: 'Problem Statement 01: [Outreach Title]',
+        id: 'outreach-simulation',
+        title: 'Outreach Simulation',
         level: 'Starter Track',
-        brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-        concept:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        stacks: ['Notion', 'Figma / Canva', 'Pitch Decks', 'Social Media Analytics'],
-        stages: [
-          {
-            stageNumber: 1,
-            title: 'Stage 1: Lorem Ipsum Pitch Deck & Strategy',
-            subtitle: 'Partnership tiering and deliverables',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            ],
-          },
-          {
-            stageNumber: 2,
-            title: 'Stage 2: Lorem Ipsum Outreach & Engagement',
-            subtitle: 'Content calendar and communication pipeline',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-              'Excepteur sint occaecat cupidatat non proident, sunt in culpa.',
-            ],
-          },
-        ],
-        submissionDeliverables: [
-          'PDF sponsor pitch deck or outreach strategy document',
-          'Notion / Google Docs campaign calendar and budget model',
-          'Social media creative asset templates (Figma / Canva)',
-        ],
-      },
-      {
-        id: 'out-advanced',
-        title: 'Problem Statement 02: [Advanced Track Title]',
-        level: 'Advanced Track',
-        brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-        stacks: ['Community Management', 'Discord / Telegram', 'Google Analytics', 'Notion'],
+        badgeLabel: 'One submission',
+        brief: 'This is not a writing-polish test. Show that you can read the room, handle a “no,” and work well when deadlines are minutes away. Write your own responses and be ready to defend them.',
         requirements: [
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+          'Do not contact any real business or person using BYTE’s name. This is a simulation; submit one response per person.',
+          'Word and character limits are strict. Going over costs marks; going substantially over costs more.',
+          'If you used an LLM, disclose where in one line at the end. You may be asked to defend every line.',
         ],
-        bonusTasks: [
-          'Lorem ipsum bonus task 01: Consectetur adipiscing elit.',
-          'Lorem ipsum bonus task 02: Sed do eiusmod tempor incididunt.',
+        detailSections: [
+          {
+            title: 'Part 1 — Review and outreach messages',
+            items: [
+              '1. Review this speaker request: “heyy!! we\'re doing a coding event, wanted to ask if u\'d like to come as speaker, it\'ll be so much fun and great exposure for you!! lmk asap”. Name five things wrong with it, one line each.',
+              '2a. For BYTE Hackathon on AI Agents, 25–26 October at MAIT, expecting about 150 students, write a message (maximum 150 words) to a nearby print/stationery shop asking it to sponsor goodie-bag printing. It has sponsored other societies before and was unimpressed by turnout. You have no budget, only visibility and footfall data.',
+              '2b. Write a message (maximum 120 words) to an alum working as a SWE/PM at a startup asking for a 40-minute tech talk. They work 9–6 and receive many such requests. Add one line naming the platform you would use and why.',
+              '2c. Write a mass broadcast announcing registration for the hackathon on college-wide WhatsApp and Instagram (maximum 280 characters). Include what it is, the dates, one reason to attend, and where to register. Do not use “excited,” “amazing,” “don’t miss out,” or 🔥; use no more than one emoji.',
+            ],
+          },
+          {
+            title: 'Part 2 — Replies and sponsor research',
+            items: [
+              '3. The print shop says: “We did this for XXX club last year. Nobody redeemed the coupons. Not doing it again.” Write a reply (maximum 70 words). How would you get them to agree?',
+              '4. The alum has not replied after six days. Write a follow-up (maximum 60 words), or describe another idea for moving forward.',
+              '5. The alum says: “I can do it, but I need to know at least 60 people will actually show up, not just RSVP.” You cannot guarantee attendance. Write a reply (maximum 70 words).',
+              '6. Find three real entities BYTE could realistically approach for the hackathon (companies, local shops, alumni-run startups, ed-tech tools, etc.). For each, provide its name and what it does; why it fits this event (maximum two lines); a concrete offer beyond generic visibility; and an exact contact point (a person, role, or form—not “check their website”). Present Question 6 as a table. Fabricated or copy-pasted entries are an instant reject; entries are checked.',
+            ],
+          },
+          {
+            title: 'Submission',
+            items: [
+              'Submit one PDF or document, in task order, named FullName_Branch_Outreach.',
+              'Upload it to Google Drive and submit the link. Set access to Anyone with the link — Viewer and verify it is publicly accessible.',
+              'Part 1 is approximately 35% of the weight; Part 2 is approximately 65%. Part 2 and the interview are the main filters.',
+            ],
+          },
         ],
       },
     ],
