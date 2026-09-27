@@ -354,8 +354,8 @@ export const taskDepartments: TaskDepartment[] = [
     ],
   },
   {
-    slug: 'agentic-ai',
-    department: 'Agentic AI',
+    slug: 'applied-ml',
+    department: 'Applied ML',
     tagline: 'Build systems that reason and take action.',
     description:
       'Choose either of these independent tracks. Both are optional—pick the one that fits your interests and experience.',
