@@ -1,0 +1,1389 @@
+---
+import type { TaskDepartment } from '../../data/tasks';
+import { taskDepartments, TASK_CONFIG } from '../../data/tasks';
+import { getCollection } from 'astro:content';
+import ProblemStatementCard from './ProblemStatementCard.astro';
+import AppDevRoadmap from './AppDevRoadmap.astro';
+import ElectronicsRosGuide from './ElectronicsRosGuide.astro';
+import CybersecurityChallenges from './CybersecurityChallenges.astro';
+import CybersecuritySubmission from './CybersecuritySubmission.astro';
+import CybersecurityArchiveBanner from './CybersecurityArchiveBanner.astro';
+import WebDevRepoBanner from './WebDevRepoBanner.astro';
+import WebDevSpecBanner from './WebDevSpecBanner.astro';
+import WebDevSubmission from './WebDevSubmission.astro';
+import GraphicDesignSubmission from './GraphicDesignSubmission.astro';
+import SubmissionProtocol from './SubmissionProtocol.astro';
+import OtherDepartments from './OtherDepartments.astro';
+
+interface Props {
+  dept: TaskDepartment;
+}
+
+const { dept } = Astro.props;
+const otherDepts = taskDepartments.filter((d) => d.slug !== dept.slug);
+const contactIdsByDepartment: Record<string, string[]> = {
+  'web-dev': ['khushi-dhankar', 'aditya-gupta'],
+  'app-dev': ['khushi-dhankar', 'aditya-gupta'],
+  cybersecurity: ['tejas-singh-kapur', 'shruti'],
+  'ml-research': ['krishna-mudgal'],
+  'applied-ml': ['snow-sadh'],
+  cad: ['devesh-dev'],
+  electronics: ['devesh-dev'],
+  ros: ['aditya-kumar-maurya'],
+  'graphic-design': ['priyanka'],
+  'video-editing': ['punya-arora'],
+  outreach: ['chidroopa-kanaparthy']
+};
+const members = await getCollection('members');
+const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
+  .map((id) => members.find((member) => member.id === id))
+  .filter((member) => member !== undefined);
+---
+
+<!-- PAGE HEADER -->
+<div class="page-header project-detail-header">
+  <div class="wrap">
+    <div class="header-top-row">
+      <span class="type-pill">Recruitment Task &bull; {dept.department}</span>
+    </div>
+
+    <h1>{dept.department} Tasks</h1>
+  </div>
+</div>
+
+<!-- MAIN TWO-COLUMN CONTENT GRID -->
+<section class="dept-content-section">
+  <div class="wrap event-detail-grid">
+
+    <!-- LEFT MAIN COLUMN -->
+    <div class="event-detail-main">
+      {['ml-research', 'applied-ml'].includes(dept.slug) && (
+        <section class="year-guidance" aria-labelledby="year-guidance-title">
+          <p class="year-guidance-eyebrow">ML Research / Applied ML</p>
+          <h2 id="year-guidance-title">Choose two tasks.</h2>
+          <p class="year-guidance-intro">Pick any two of the four tasks across ML Research and Applied ML. Your year determines the required difficulty combination:</p>
+          <ol class="year-guidance-list">
+            <li><span class="year-guidance-number" aria-hidden="true">01</span><div><h3>First year <span>Any two tasks</span></h3><p>Choose any two of the four tasks. You can pick both from the same track—for example, Basic and Advanced Applied ML—or mix tracks and difficulty levels.</p></div></li>
+            <li><span class="year-guidance-number" aria-hidden="true">02</span><div><h3>Second year <span>At least one Advanced</span></h3><p>Choose any two of the four tasks across both tracks. At least one of your choices must be Advanced.</p></div></li>
+            <li><span class="year-guidance-number" aria-hidden="true">03</span><div><h3>Third year <span>Both Advanced</span></h3><p>Choose the Advanced task from ML Research and the Advanced task from Applied ML.</p></div></li>
+          </ol>
+        </section>
+      )}
+
+      <div class="project-story">
+        {!['app-dev', 'ml-research', 'applied-ml', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'video-editing', 'outreach', 'web-dev'].includes(dept.slug) && (
+          <section>
+            <h2>Evaluation Criteria</h2>
+            <p>What our domain leads look for during code reviews and technical interview walkthroughs:</p>
+            <ul class="attend-list eval-criteria-list">
+              {dept.evaluationCriteria.map((criterion) => (
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>{criterion}</span></li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section class="problem-statements-wrapper">
+          {dept.slug === 'web-dev' && <WebDevRepoBanner />}
+          {dept.slug !== 'app-dev' && dept.slug !== 'cybersecurity' && dept.slug !== 'web-dev' && (
+            <>
+              <h2>{dept.slug === 'electronics' ? 'Electronics tasks' : dept.slug === 'ros' ? 'ROS task' : 'Problem Statements'}</h2>
+              <p>{dept.slug === 'electronics' ? 'Start with Task 1. Task 2 adds weight to your submission; Task 3 is an optional X-factor bonus.' : dept.slug === 'ros' ? 'Build and demonstrate the patrol package described below.' : 'Read through the problem statements below and follow the requirements for your chosen task.'}</p>
+            </>
+          )}
+
+          <div class="task-lock-gate" id="taskLockGate">
+            <span class="gate-corner top-left" aria-hidden="true"></span><span class="gate-corner top-right" aria-hidden="true"></span><span class="gate-corner bottom-left" aria-hidden="true"></span><span class="gate-corner bottom-right" aria-hidden="true"></span>
+            <svg aria-hidden="true" class="gate-network" viewBox="0 0 700 240">
+              <defs><linearGradient id="gateNetGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#52e0a6" stop-opacity="0.3"/><stop offset="50%" stop-color="#52e0a6" stop-opacity="0.08"/><stop offset="100%" stop-color="#52e0a6" stop-opacity="0.25"/></linearGradient></defs>
+              <path d="M20,170 L110,80 L220,140 L350,55 L480,120 L590,40 L670,160 M110,80 L260,40 L480,120 M220,140 L380,190 L590,40" stroke="url(#gateNetGrad)" stroke-width="1.2" fill="none"/>
+              <circle cx="20" cy="170" r="3" fill="#52e0a6" opacity="0.6"/><circle cx="110" cy="80" r="3.5" fill="#52e0a6" opacity="0.85"/><circle cx="220" cy="140" r="3" fill="#52e0a6" opacity="0.6"/><circle cx="260" cy="40" r="2.5" fill="#52e0a6" opacity="0.5"/><circle cx="350" cy="55" r="4" fill="#52e0a6" opacity="0.95"/><circle cx="380" cy="190" r="3" fill="#52e0a6" opacity="0.6"/><circle cx="480" cy="120" r="3.5" fill="#52e0a6" opacity="0.8"/><circle cx="590" cy="40" r="3" fill="#52e0a6" opacity="0.75"/><circle cx="670" cy="160" r="3.5" fill="#52e0a6" opacity="0.7"/>
+            </svg>
+            <div class="gate-card">
+              <div class="gate-telemetry-pill"><span class="gate-live-dot" aria-hidden="true"></span><span class="telemetry-label">// ACCESS LOCKED //</span></div>
+              <div class="gate-icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+              <div class="gate-header-block"><h3 class="gate-title">Problem Statements Locked</h3><p class="gate-desc">Tasks for <strong>{dept.department}</strong> will be revealed on <strong>{TASK_CONFIG.revealDateFull}</strong>.</p></div>
+              <div class="gate-countdown-grid" role="timer" aria-live="polite">
+                <div class="gate-cd-box"><span class="cd-num" id="gateCdDays">00</span><span class="cd-label">// DAYS //</span></div><span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box"><span class="cd-num" id="gateCdHours">00</span><span class="cd-label">// HOURS //</span></div><span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box"><span class="cd-num" id="gateCdMins">00</span><span class="cd-label">// MINS //</span></div><span class="cd-colon" aria-hidden="true">:</span>
+                <div class="gate-cd-box"><span class="cd-num" id="gateCdSecs">00</span><span class="cd-label">// SECS //</span></div>
+              </div>
+              <p class="gate-hint">Review the submission instructions while you wait for the tasks to unlock.</p>
+            </div>
+          </div>
+
+          <div class="tasks-stack" id="tasksStackContainer">
+            {dept.slug === 'app-dev' ? (
+              <AppDevRoadmap task={dept.tasks[0]} />
+            ) : dept.slug === 'electronics' ? (
+              <>
+                <WebDevSpecBanner track="electronics" />
+                {dept.tasks.map((task) => <ProblemStatementCard task={task} />)}
+              </>
+            ) : dept.slug === 'cybersecurity' ? (
+              <CybersecurityChallenges tasks={dept.tasks} />
+            ) : (
+              dept.tasks.map((task) => (
+                <>
+                  {dept.slug === 'applied-ml' && task.id === 'manga-advanced' && (
+                    <a class="advanced-brief-link" href="https://docs.google.com/document/d/1QwsqMYJZUDtiaXJIL0wDrdOpjxbaM8AcPL3HIxd2ABA/edit?tab=t.0#heading=h.ubr3uv6ruzl1" target="_blank" rel="noopener noreferrer">
+                      <span class="brief-file-icon" aria-hidden="true">↗</span><span class="advanced-brief-copy"><small>Applied ML · Advanced track</small><strong>Open the full task brief</strong><span>View the complete instructions in Google Docs.</span></span><span class="brief-open-mark" aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                  <ProblemStatementCard task={task} />
+                  {dept.slug === 'web-dev' && task.id === 'web-debugging' && <WebDevSpecBanner />}
+                </>
+              ))
+            )}
+          </div>
+        </section>
+      </div>
+
+      <!-- All track-specific submission guidance follows the problem statements. -->
+      {dept.slug === 'electronics' && <ElectronicsRosGuide track="electronics" />}
+      {dept.slug === 'ros' && <ElectronicsRosGuide track="ros" />}
+      {dept.slug === 'ros' && <WebDevSpecBanner track="ros" />}
+      {dept.slug === 'cybersecurity' && <CybersecurityArchiveBanner />}
+      {dept.slug === 'cybersecurity' && <CybersecuritySubmission />}
+      {dept.slug === 'cad' && (
+        <>
+          <WebDevSpecBanner track="cad" />
+          <section class="cad-guidelines">
+            <p class="domain-guidance-eyebrow">CAD submission requirements</p>
+            <h2>One folder. Both CAD tasks.</h2>
+            <p>Submit one Google Drive folder link through the website upload form. Your name, roll number, and department are already captured at login; use your name only in the folder name: <code>&lt;YourName&gt;_CAD</code>.</p>
+            <div class="cad-sharing-note"><strong>Mandatory sharing permission</strong><span>Anyone with the link — Viewer</span><p>Restricted or login-required links count as not submitted. Test the folder from an incognito window before submitting.</p></div>
+            <h3>Required folder structure</h3>
+            <pre class="cad-folder-tree"><code>&lt;YourName&gt;_CAD/
+├── Task1/
+│   ├── Task1.stl (or Task1.step)
+│   └── Design_rationale.docx
+└── Task2/ (if attempted)
+    ├── Task2.step
+    ├── Demo.mp4 (or Demo.gif / labeled screenshots)
+    └── Design_rationale.docx</code></pre>
+            <h3>Choose tasks by year</h3>
+            <ol class="domain-year-rules"><li><strong>1st year:</strong> Complete at least CAD Task 1.</li><li><strong>2nd year:</strong> Complete CAD Tasks 1 and 2.</li></ol>
+            <ul class="cad-checklist">
+              <li>Use the exact file names shown so submissions can be processed correctly.</li>
+              <li>Task 1 model: Task1.stl or Task1.step. Rationale: 150–250 words on board arrangement, standoff heights, wall height, lid mechanism and tradeoffs.</li>
+              <li>Task 2: preserve joints/mates in Task2.step. Demonstrate motion at 0°, 90°, 180°, and 270° without interference/binding, using video/GIF or labeled screenshots. Rationale: 150–250 words on dimensions, joints, and interference checks.</li>
+              <li>Use only official component drawings. Models should be printable in principle, with reasonable wall thickness and no unsupported overhangs; printing is not required.</li>
+              <li>Task 1 is required for shortlisting. Task 2 is optional and adds bonus weight.</li>
+            </ul>
+          </section>
+        </>
+      )}
+      {dept.slug === 'graphic-design' && <GraphicDesignSubmission />}
+      {dept.slug === 'web-dev' && <WebDevSubmission />}
+      {!['app-dev', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'video-editing', 'outreach', 'web-dev', 'applied-ml'].includes(dept.slug) && <SubmissionProtocol />}
+    </div>
+
+    <!-- RIGHT STICKY SIDEBAR -->
+    <aside class="event-detail-side">
+      <!-- TASK SUPPORT CONTACTS -->
+      <div class="register-card contacts-card">
+        <div class="tech-stack-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h3>Need a hand?</h3>
+        </div>
+        <p class="contacts-intro">Reach out to {dept.slug === 'electronics' ? 'an Electronics' : `a ${dept.department}`} lead for help with your task.</p>
+        <ul class="tech-stack-list">
+          {helpContacts.map((contact) => (
+            <li class="contact-item">
+              <span class="contact-initials" aria-hidden="true">{(contact.data.short || contact.data.name.slice(0, 1)).slice(0, 2)}</span>
+              <div>
+                <a class="tech-name contact-name" href={`/members/${contact.id}/`}>{contact.data.name}</a>
+                <span class="contact-role">{contact.data.role}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- SUBMISSION ACTION CARD -->
+      <div class="register-card submit-sidebar-card">
+        <div class="submit-card-content">
+          <div class="submit-card-badge">
+            <span class="live-dot"></span>
+            <span>Submission Window</span>
+          </div>
+          <h3>Ready to Submit?</h3>
+          <p>{dept.slug === 'cad' ? 'Submit one Google Drive folder link containing your CAD task files through the website upload form.' : dept.slug === 'electronics' ? 'Submit one Electronics-only Google Drive folder link through the website upload form.' : dept.slug === 'ros' ? 'Submit one separate ROS-only Google Drive folder link through the website upload form.' : dept.slug === 'cybersecurity' ? 'Submit a public GitHub repository and a public Google Doc explaining your approach and tools.' : ['graphic-design', 'video-editing', 'outreach'].includes(dept.slug) ? 'Submit your work using the format in the task instructions. Make sure all shared links are publicly accessible.' : 'Submit your GitHub repository, README, and live demo output link before the window closes.'}</p>
+          <div class="side-deadline-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Portal opens {TASK_CONFIG.submissionOpenShort}</span>
+          </div>
+          <div class="submission-countdown" role="timer" aria-label="Submission portal opening countdown">
+            <div><strong id="submitCdDays">00</strong><span>Days</span></div>
+            <div><strong id="submitCdHours">00</strong><span>Hours</span></div>
+            <div><strong id="submitCdMins">00</strong><span>Minutes</span></div>
+            <div><strong id="submitCdSecs">00</strong><span>Seconds</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISCORD MENTOR SUPPORT LINK -->
+      <a href={TASK_CONFIG.discordUrl} class="github-project-link discord-sidebar-link" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6h0a14.5 14.5 0 0 0-4-1.5 9.8 9.8 0 0 0-.4 1.8 13.9 13.9 0 0 0-3.2 0 9.8 9.8 0 0 0-.4-1.8A14.5 14.5 0 0 0 6 6a15.8 15.8 0 0 0-2.4 9.7 14.4 14.4 0 0 0 4.5 2.3 10.3 10.3 0 0 0 1-1.6 9.3 9.3 0 0 1-1.5-.7c.1-.1.3-.2.4-.3a10.6 10.6 0 0 0 8 0c.1.1.3.2.4.3a9.3 9.3 0 0 1-1.5.7 10.3 10.3 0 0 0 1 1.6 14.4 14.4 0 0 0 4.5-2.3A15.8 15.8 0 0 0 18 6Z"/><path d="M9.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/><path d="M14.5 11.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
+        <span>Ask in Discord (#recruitment)</span>
+        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+
+      <!-- BACK TO ALL TASKS LINK -->
+      <a href="/tasks" class="link-btn back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to all tasks
+      </a>
+    </aside>
+
+  </div>
+</section>
+
+<!-- OTHER DEPARTMENTS -->
+<section class="other-depts-wrap-section">
+  <div class="wrap">
+    <OtherDepartments otherDepts={otherDepts} />
+  </div>
+</section>
+
+<script>
+  import { TASK_CONFIG } from '../../data/tasks';
+
+  function initSubmissionCountdown() {
+    const daysEl = document.getElementById('submitCdDays');
+    const hoursEl = document.getElementById('submitCdHours');
+    const minsEl = document.getElementById('submitCdMins');
+    const secsEl = document.getElementById('submitCdSecs');
+    if (!daysEl) return;
+
+    const update = () => {
+      let diff = Math.max(0, TASK_CONFIG.submissionOpenTimestamp - Date.now());
+      const days = Math.floor(diff / 86400000);
+      diff -= days * 86400000;
+      const hours = Math.floor(diff / 3600000);
+      diff -= hours * 3600000;
+      const minutes = Math.floor(diff / 60000);
+      diff -= minutes * 60000;
+      const seconds = Math.floor(diff / 1000);
+      const pad = (value: number) => String(value).padStart(2, '0');
+      daysEl.textContent = pad(days);
+      if (hoursEl) hoursEl.textContent = pad(hours);
+      if (minsEl) minsEl.textContent = pad(minutes);
+      if (secsEl) secsEl.textContent = pad(seconds);
+    };
+
+    update();
+    const interval = setInterval(update, 1000);
+    document.addEventListener('astro:before-swap', () => clearInterval(interval), { once: true });
+  }
+
+  initSubmissionCountdown();
+  document.addEventListener('astro:page-load', initSubmissionCountdown);
+
+  function initDetailLock() {
+    const daysEl = document.getElementById('gateCdDays');
+    const hoursEl = document.getElementById('gateCdHours');
+    const minsEl = document.getElementById('gateCdMins');
+    const secsEl = document.getElementById('gateCdSecs');
+
+    const TARGET_TIME = TASK_CONFIG.revealTimestamp;
+    const OVERRIDE_KEY = 'byte_tasks_lock_override';
+
+    function isLocked() {
+      const override = localStorage.getItem(OVERRIDE_KEY);
+      if (override === 'unlocked') return false;
+      if (override === 'locked') return true;
+      return Date.now() < TARGET_TIME;
+    }
+
+    function applyLockState(locked: boolean) {
+      const statusTextEl = document.querySelector('.lock-status-text');
+      if (locked) {
+        document.documentElement.classList.add('tasks-locked');
+        document.documentElement.classList.remove('tasks-unlocked');
+        if (statusTextEl) statusTextEl.textContent = 'Status: Locked';
+      } else {
+        document.documentElement.classList.remove('tasks-locked');
+        document.documentElement.classList.add('tasks-unlocked');
+        if (statusTextEl) statusTextEl.textContent = 'Status: Unlocked';
+      }
+    }
+
+    applyLockState(isLocked());
+
+    // Listen to global lock changes
+    window.addEventListener('byte:tasks-lock-change', ((e: CustomEvent) => {
+      const locked = e.detail?.locked ?? isLocked();
+      applyLockState(locked);
+    }) as EventListener);
+
+    // Gate countdown calculation
+    function updateGateTimer() {
+      if (!daysEl) return;
+      const now = Date.now();
+      let diff = Math.max(0, TARGET_TIME - now);
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= d * (1000 * 60 * 60 * 24);
+      const h = Math.floor(diff / (1000 * 60 * 60));
+      diff -= h * (1000 * 60 * 60);
+      const m = Math.floor(diff / (1000 * 60));
+      diff -= m * (1000 * 60);
+      const s = Math.floor(diff / 1000);
+
+      const pad = (n: number) => String(n).padStart(2, '0');
+      if (daysEl) daysEl.textContent = pad(d);
+      if (hoursEl) hoursEl.textContent = pad(h);
+      if (minsEl) minsEl.textContent = pad(m);
+      if (secsEl) secsEl.textContent = pad(s);
+    }
+
+    updateGateTimer();
+    const interval = setInterval(updateGateTimer, 1000);
+
+    document.addEventListener(
+      'astro:before-swap',
+      () => clearInterval(interval),
+      { once: true }
+    );
+  }
+
+  initDetailLock();
+  document.addEventListener('astro:page-load', initDetailLock);
+</script>
+
+<style>
+  .project-detail-header {
+    padding-bottom: 24px;
+  }
+
+  .project-detail-header .wrap { padding-top: 6px; }
+
+  .header-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .type-pill {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--lime);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 14px;
+    margin: 0;
+  }
+
+  .project-detail-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+  }
+
+  .event-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 16px;
+  }
+
+  .event-meta-row span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    font-size: .9rem;
+  }
+
+  .event-meta-row svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    color: var(--lime);
+  }
+
+  .status-live-meta {
+    color: var(--text-dim) !important;
+    font-weight: 600;
+  }
+
+  :global(html.tasks-unlocked) .status-live-meta {
+    color: var(--lime-bright, #52e0a6) !important;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime-dim, #1a9c5f);
+    box-shadow: 0 0 6px var(--lime-dim, #1a9c5f);
+  }
+
+  :global(html.tasks-unlocked) .live-dot {
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+    animation: livePulse 2s infinite ease-in-out;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* TWO-COLUMN GRID */
+  .dept-content-section {
+    padding-top: 28px;
+    padding-bottom: 72px;
+  }
+
+  .event-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  .event-detail-main,
+  .project-story,
+  .problem-statements-wrapper {
+    min-width: 0;
+  }
+
+  .event-detail-main h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin: 40px 0 16px;
+    color: var(--text);
+  }
+
+  .event-detail-main h2:first-child {
+    margin-top: 0;
+  }
+
+  .event-description {
+    color: var(--text-dim);
+    line-height: 1.75;
+    font-size: .96rem;
+    margin: 0;
+  }
+
+  .project-story p {
+    color: var(--text-dim);
+    line-height: 1.75;
+    font-size: .96rem;
+    margin: 0 0 16px;
+  }
+
+  .project-story section {
+    padding: 40px 0 0;
+  }
+
+  .project-story h2 {
+    margin: 0 0 16px;
+  }
+
+  /* This guide sits outside .project-story so generic section/p rules cannot override its spacing. */
+  .year-guidance {
+    margin: 0;
+    padding: 24px 28px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+
+  .year-guidance-eyebrow {
+    margin: 0 0 8px;
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .year-guidance h2 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: clamp(1.2rem, 2vw, 1.45rem);
+    line-height: 1.3;
+    letter-spacing: -.02em;
+  }
+
+  .year-guidance-intro {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .88rem;
+    line-height: 1.6;
+  }
+
+  .year-guidance-list {
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .year-guidance-list li {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    align-items: start;
+    gap: 14px;
+    padding: 16px 0;
+  }
+
+  .year-guidance-list li + li {
+    border-top: 1px solid var(--line);
+  }
+
+  .year-guidance-list li:last-child {
+    padding-bottom: 0;
+  }
+
+  .year-guidance-number {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(82, 224, 166, .35);
+    border-radius: 50%;
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .72rem 'JetBrains Mono', monospace;
+  }
+
+  .year-guidance-list h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    margin: 0 0 4px;
+    color: var(--text);
+    font-size: .92rem;
+  }
+
+  .year-guidance-list h3 span {
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+
+  .year-guidance-list p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .82rem;
+    line-height: 1.55;
+  }
+
+  .domain-guidance-eyebrow {
+    margin: 0 0 8px;
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .domain-year-rules {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding-left: 22px;
+    color: var(--text-dim);
+    font-size: .86rem;
+    line-height: 1.55;
+  }
+
+  .domain-year-rules strong {
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  .advanced-brief-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    margin-top: 14px;
+    padding: 16px 18px;
+    border: 1px solid rgba(237, 143, 183, .36);
+    border-left: 3px solid #ed8fb7;
+    border-radius: 10px;
+    background: linear-gradient(110deg, rgba(237, 143, 183, .08), var(--panel) 55%);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color .18s ease, background .18s ease;
+  }
+
+  .advanced-brief-link:hover {
+    border-color: rgba(237, 143, 183, .7);
+    background: linear-gradient(110deg, rgba(237, 143, 183, .13), var(--panel) 60%);
+  }
+
+  .advanced-brief-link:focus-visible {
+    outline: 2px solid #ed8fb7;
+    outline-offset: 3px;
+  }
+
+  .brief-file-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(237, 143, 183, .34);
+    border-radius: 8px;
+    background: rgba(237, 143, 183, .09);
+    color: #ed8fb7;
+    font-size: 1.1rem;
+  }
+
+  .advanced-brief-copy {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .advanced-brief-copy small {
+    color: #ed8fb7;
+    font: 700 .64rem 'JetBrains Mono', monospace;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .advanced-brief-copy strong { font-size: .88rem; }
+  .advanced-brief-copy > span { color: var(--text-dim); font-size: .76rem; line-height: 1.45; }
+  .brief-open-mark { margin-left: auto; flex: 0 0 auto; color: #ed8fb7; }
+
+  .cad-guidelines {
+    margin: 0 0 36px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+
+  .cad-guidelines h2 {
+    margin: 0 0 12px;
+    color: var(--text);
+    font-size: 1.08rem;
+    text-transform: uppercase;
+  }
+
+  .cad-guidelines h3 {
+    margin: 22px 0 10px;
+    font-size: .9rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+
+  .cad-guidelines > p {
+    margin: 0 0 16px;
+    color: var(--text-dim);
+    font-size: .88rem;
+    line-height: 1.65;
+  }
+
+  .cad-guidelines code {
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .85em;
+  }
+
+  .cad-sharing-note {
+    display: grid;
+    gap: 5px;
+    padding: 14px 16px;
+    border: 1px solid rgba(224, 199, 82, .3);
+    border-left: 3px solid #e0c752;
+    border-radius: 8px;
+    background: rgba(224, 199, 82, .06);
+  }
+
+  .cad-sharing-note strong {
+    color: #e0c752;
+    font-size: .75rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .cad-sharing-note span {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .cad-sharing-note p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .8rem;
+    line-height: 1.5;
+  }
+
+  .cad-folder-tree {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    margin: 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-soft);
+    color: var(--text-dim);
+    font: .78rem/1.65 'JetBrains Mono', monospace;
+    scrollbar-width: thin;
+    scrollbar-color: var(--lime-dim) var(--panel);
+  }
+
+  .cad-folder-tree code {
+    font: inherit;
+    white-space: pre;
+  }
+
+  .cad-checklist {
+    display: grid;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cad-checklist li {
+    position: relative;
+    padding-left: 20px;
+    color: var(--text-dim);
+    font-size: .83rem;
+    line-height: 1.55;
+  }
+
+  .cad-checklist li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--lime-bright, #52e0a6);
+    font-weight: 700;
+  }
+
+  .eval-criteria-list {
+    margin-top: 18px;
+  }
+
+  .attend-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .attend-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--text-dim);
+    font-size: .92rem;
+    line-height: 1.55;
+  }
+
+  .attend-list svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--lime);
+  }
+
+  /* ==========================================================================
+     B.Y.T.E. CYBER LOCK GATE
+     ========================================================================== */
+  .problem-statements-wrapper {
+    position: relative;
+  }
+
+  .task-lock-gate {
+    display: none;
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, rgba(82, 224, 166, 0.08) 0%, rgba(13, 17, 14, 0.95) 75%), #0d110e;
+    border: 1px solid rgba(82, 224, 166, 0.28);
+    border-radius: 16px;
+    padding: 36px 24px 32px;
+    text-align: center;
+    margin-top: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.8), 0 0 24px -6px rgba(82, 224, 166, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* CORNER RETICLES */
+  .gate-corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .gate-corner.top-left {
+    top: 8px;
+    left: 8px;
+    border-top: 2px solid var(--lime-bright, #52e0a6);
+    border-left: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .gate-corner.top-right {
+    top: 8px;
+    right: 8px;
+    border-top: 2px solid var(--lime-bright, #52e0a6);
+    border-right: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .gate-corner.bottom-left {
+    bottom: 8px;
+    left: 8px;
+    border-bottom: 2px solid var(--lime-bright, #52e0a6);
+    border-left: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .gate-corner.bottom-right {
+    bottom: 8px;
+    right: 8px;
+    border-bottom: 2px solid var(--lime-bright, #52e0a6);
+    border-right: 2px solid var(--lime-bright, #52e0a6);
+  }
+
+  .gate-network {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: 0;
+  }
+
+  .gate-card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .gate-telemetry-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(82, 224, 166, 0.08);
+    border: 1px solid rgba(82, 224, 166, 0.25);
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .gate-live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
+    animation: livePulse 2s infinite ease-in-out;
+  }
+
+  .telemetry-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  .gate-icon-badge {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(82, 224, 166, 0.12);
+    border: 1px solid rgba(82, 224, 166, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lime-bright, #52e0a6);
+    box-shadow: 0 0 20px rgba(82, 224, 166, 0.2);
+  }
+
+  .gate-icon-badge svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .gate-header-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .gate-title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 600;
+    color: var(--text, #ffffff);
+    margin: 0;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .gate-desc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-dim, #a4b0a2);
+    margin: 0;
+  }
+
+  /* COUNTDOWN GRID */
+  .gate-countdown-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 420px;
+    margin: 4px 0;
+  }
+
+  .gate-cd-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    background: rgba(14, 20, 16, 0.85);
+    border: 1px solid rgba(82, 224, 166, 0.2);
+    border-radius: 10px;
+    padding: 8px 4px 6px;
+    position: relative;
+    transition: border-color 0.25s ease;
+  }
+
+  .gate-cd-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime-bright, #52e0a6), transparent);
+  }
+
+  .gate-cd-box:hover {
+    border-color: rgba(82, 224, 166, 0.4);
+  }
+
+  .cd-num {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+    font-weight: 700;
+    color: var(--lime-bright, #52e0a6);
+    line-height: 1.1;
+    font-feature-settings: 'tnum' on, 'zero' on;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 12px rgba(82, 224, 166, 0.3);
+  }
+
+  .cd-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.54rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-dim, #a4b0a2);
+    margin-top: 3px;
+    text-transform: uppercase;
+  }
+
+  .cd-colon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--lime-dim, #1a9c5f);
+    opacity: 0.6;
+    margin-bottom: 10px;
+    user-select: none;
+  }
+
+  .gate-hint {
+    font-size: 0.82rem;
+    color: var(--text-dim, #a4b0a2);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .tasks-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 20px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  /* TOGGLED STATES */
+  :global(html.tasks-locked) .task-lock-gate {
+    display: block;
+    animation: fadeInLockGate 0.3s ease both;
+  }
+
+  :global(html.tasks-locked) .tasks-stack {
+    display: none;
+  }
+
+  :global(html.tasks-unlocked) .task-lock-gate {
+    display: none;
+  }
+
+  :global(html.tasks-unlocked) .tasks-stack {
+    display: flex;
+    animation: smoothRevealTasks 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes fadeInLockGate {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes smoothRevealTasks {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* SIDEBAR STYLING */
+  .event-detail-side {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .register-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px;
+  }
+
+  .tech-stack-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tech-stack-header svg {
+    width: 18px;
+    height: 18px;
+    color: var(--lime);
+  }
+
+  .tech-stack-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    color: var(--text);
+  }
+
+  .contacts-intro {
+    margin: 0 0 16px;
+    color: var(--text-dim);
+    font-size: .86rem;
+    line-height: 1.55;
+  }
+
+  .tech-stack-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .contact-initials {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--bg-soft);
+    color: var(--lime);
+    font-size: .75rem;
+    font-weight: 700;
+  }
+
+  .contact-item > div {
+    display: grid;
+    gap: 3px;
+  }
+
+  .contact-name {
+    text-decoration: none;
+  }
+
+  .contact-name:hover {
+    color: var(--lime);
+  }
+
+  .contact-role {
+    color: var(--text-dim);
+    font-size: .76rem;
+  }
+
+  .tech-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: var(--bg-soft);
+    padding: 3px;
+    border: 1px solid var(--line);
+  }
+
+  .tech-logo-fallback {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: .8rem;
+    color: var(--lime);
+  }
+
+  .tech-name {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .submit-card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--lime-bright, #52e0a6);
+    background: rgba(82, 224, 166, 0.08);
+    border: 1px solid rgba(82, 224, 166, 0.2);
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .submit-sidebar-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 8px;
+  }
+
+  .submit-sidebar-card p {
+    font-size: .86rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+
+  .side-deadline-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--lime-bright, #52e0a6);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+  }
+
+  .side-deadline-tag svg {
+    width: 14px;
+    height: 14px;
+    color: var(--lime);
+  }
+
+  .submission-countdown {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0 0 18px;
+  }
+
+  .submission-countdown > div {
+    display: grid;
+    justify-items: center;
+    gap: 3px;
+    padding: 9px 4px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-soft);
+  }
+
+  .submission-countdown strong {
+    color: var(--lime-bright, #52e0a6);
+    font-size: 1.1rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .submission-countdown span {
+    color: var(--text-dim);
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .discord-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-size: .88rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .discord-sidebar-link:hover {
+    border-color: rgba(82, 224, 166, 0.4);
+    background: var(--bg-soft);
+    color: var(--lime-bright, #52e0a6);
+  }
+
+  .discord-sidebar-link svg:first-child {
+    width: 20px;
+    height: 20px;
+    color: var(--lime);
+  }
+
+  .discord-sidebar-link .external-icon {
+    width: 14px;
+    height: 14px;
+    margin-left: auto;
+    color: var(--text-dim);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    font-size: .88rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+    padding: 6px 0;
+  }
+
+  .back-link:hover {
+    color: var(--text);
+  }
+
+  .back-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .other-depts-wrap-section {
+    padding-bottom: 80px;
+    border-top: 1px solid var(--line);
+    margin-top: 24px;
+    padding-top: 56px;
+  }
+
+  @media (max-width: 900px) {
+    .event-detail-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .event-detail-side {
+      position: static;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .year-guidance {
+      padding: 20px 18px;
+    }
+
+    .year-guidance-list li {
+      gap: 12px;
+    }
+
+    .cad-guidelines {
+      padding: 20px 18px;
+    }
+
+    .cad-folder-tree {
+      padding: 12px;
+      font-size: .7rem;
+    }
+
+    .task-lock-gate {
+      padding: 32px 20px;
+    }
+
+    .gate-title {
+      font-size: 1.2rem;
+    }
+
+    .gate-countdown-grid {
+      padding: 12px 14px;
+    }
+
+    .cd-num {
+      font-size: 1.15rem;
+    }
+  }
+</style>

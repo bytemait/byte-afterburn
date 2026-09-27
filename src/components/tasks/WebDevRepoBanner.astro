@@ -1,0 +1,74 @@
+<aside class="repo-banner" aria-label="Start Task 1 from the Canteen Chaos repository">
+  <div class="repo-mark" aria-hidden="true">&lt;/&gt;</div>
+  <div class="repo-copy">
+    <p class="repo-eyebrow">Task 1 · Debugging stage</p>
+    <h2>Start with the Canteen Chaos repository</h2>
+    <p>Use GitHub’s Fork action to create your own copy, clone it, and run the app locally. Make all changes and commits in your fork.</p>
+  </div>
+  <a href="https://github.com/bytemait/canteen-chaos/" target="_blank" rel="noopener noreferrer" class="repo-cta">
+    Open Canteen Chaos <span aria-hidden="true">↗</span>
+  </a>
+</aside>
+
+<style>
+  .repo-banner {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding: 18px 20px;
+    border: 1px solid rgba(82, 224, 166, .35);
+    border-left: 3px solid var(--lime-bright, #52e0a6);
+    border-radius: 10px;
+    background: linear-gradient(110deg, rgba(82, 224, 166, .085), var(--panel) 52%);
+  }
+
+  .repo-mark {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(82, 224, 166, .35);
+    border-radius: 8px;
+    background: rgba(82, 224, 166, .08);
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .9rem 'JetBrains Mono', monospace;
+  }
+
+  .repo-copy { min-width: 0; }
+  .repo-eyebrow {
+    margin: 0 0 4px;
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .65rem 'JetBrains Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .repo-copy h2 { margin: 0; color: var(--text); font-size: .98rem; line-height: 1.4; }
+  .repo-copy > p:last-child { margin: 4px 0 0; color: var(--text-dim); font-size: .78rem; line-height: 1.5; }
+
+  .repo-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 14px;
+    border: 1px solid rgba(82, 224, 166, .4);
+    border-radius: 7px;
+    background: rgba(82, 224, 166, .1);
+    color: var(--lime-bright, #52e0a6);
+    font-size: .8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background .18s ease, border-color .18s ease;
+  }
+  .repo-cta:hover { border-color: var(--lime-bright, #52e0a6); background: rgba(82, 224, 166, .18); }
+  .repo-cta:focus-visible { outline: 2px solid var(--lime-bright, #52e0a6); outline-offset: 3px; }
+
+  @media (max-width: 620px) {
+    .repo-banner { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; padding: 16px; }
+    .repo-mark { width: 40px; height: 40px; }
+    .repo-cta { grid-column: 1 / -1; width: 100%; }
+  }
+</style>

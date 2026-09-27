@@ -20,5 +20,7 @@ awards:
     detail: N.A. · Top 30
     url: "https://www.linkedin.com/posts/punya-arora-1aa97a31a_hack4delhi-ieee-mait-activity-7421459585405825024-luOr"
 linkedin: "https://www.linkedin.com/in/punya-arora-1aa97a31a"
+phone: "+91 95824 35171"
+discord: "punya2006"
 ---
 

@@ -1,0 +1,83 @@
+<section class="graphic-submission" aria-labelledby="graphic-submission-title">
+  <p class="eyebrow">Final hand-in</p>
+  <h2 id="graphic-submission-title">Deliverables &amp; submission</h2>
+  <p class="intro">For both tasks, upload the final design to Google Drive and submit a publicly accessible link. Set access to <strong>Anyone with the link — Viewer</strong>.</p>
+
+  <div class="deliverable-grid">
+    <article class="deliverable-card">
+      <span class="task-label">Task 01</span>
+      <h3>Freshers poster</h3>
+      <ul>
+        <li>Final poster as PNG or JPG, named <code>Name_Branch_Poster.png</code>.</li>
+        <li>Name the design software. If made in Canva, include an editable Canva link.</li>
+        <li>Add a concept explanation of no more than 50 words.</li>
+        <li>Check that the QR code scans and the text is readable.</li>
+      </ul>
+    </article>
+    <article class="deliverable-card">
+      <span class="task-label task-label-merch">Task 02</span>
+      <h3>T-shirt merchandise</h3>
+      <ul>
+        <li>Final design as PNG or JPG, named <code>Name_Branch_Merch.png</code>.</li>
+        <li>Name the design software. If made in Canva, include an editable Canva link.</li>
+        <li>Include links to resources, references, or inspirations used.</li>
+        <li>Add a concept explanation of no more than 50 words.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<style>
+  .graphic-submission {
+    margin-top: 28px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+
+  .eyebrow {
+    margin: 0 0 8px;
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .68rem/1.4 'JetBrains Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  h2 { margin: 0 0 8px; color: var(--text); font-size: 1.12rem; }
+  .intro { margin: 0; color: var(--text-dim); font-size: .86rem; line-height: 1.6; }
+  .intro strong { color: var(--text); }
+
+  .deliverable-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .deliverable-card {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--bg-soft);
+  }
+
+  .task-label {
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .65rem 'JetBrains Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .task-label-merch { color: #e0c752; }
+  .deliverable-card h3 { margin: 5px 0 10px; color: var(--text); font-size: .9rem; }
+  .deliverable-card ul { display: grid; gap: 8px; margin: 0; padding-left: 17px; color: var(--text-dim); font-size: .8rem; line-height: 1.55; }
+  .deliverable-card li::marker { color: var(--lime-bright, #52e0a6); }
+  .deliverable-card code { color: var(--text); font: .76rem 'JetBrains Mono', monospace; overflow-wrap: anywhere; }
+
+  @media (max-width: 620px) {
+    .graphic-submission { padding: 20px 16px; }
+    .deliverable-grid { grid-template-columns: 1fr; }
+  }
+</style>

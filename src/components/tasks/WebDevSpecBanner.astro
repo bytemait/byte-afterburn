@@ -1,0 +1,97 @@
+---
+interface Props {
+  track?: 'web-dev' | 'electronics' | 'cad' | 'ros';
+}
+const { track = 'web-dev' } = Astro.props;
+const title = track === 'electronics' ? 'Electronics Domain' : track === 'cad' ? 'CAD Domain' : track === 'ros' ? 'ROS Domain' : 'Gym Slot Booking';
+const href = track === 'electronics' ? '/tasks/Electronics%20Domain.pdf' : track === 'cad' ? '/tasks/CAD%20Domain.pdf' : track === 'ros' ? '/tasks/ROS_domain.pdf' : '/tasks/web-task.pdf';
+const taskLabel = track === 'electronics' ? 'Electronics · Full specification' : track === 'cad' ? 'CAD · Full specification' : track === 'ros' ? 'ROS · Full specification' : 'Task 2 · Full specification';
+const description = track === 'electronics'
+  ? 'Download the full task brief for the complete Electronics requirements and submission details.'
+  : track === 'cad'
+    ? 'Download the complete CAD task brief, including the official task details and submission guidance.'
+    : track === 'ros'
+      ? 'Download the complete ROS task brief and submission instructions.'
+      : 'The brief above is the overview. Download the full spec for complete rules, requirements, and evaluation details.';
+---
+
+<aside class="spec-banner" aria-label={`Full ${title} task specification`}>
+  <div class="spec-mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 2.75h8l4.25 4.3v14.2H6a2 2 0 0 1-2-2v-14.5a2 2 0 0 1 2-2Z" />
+      <path d="M14 2.75v4.5h4.25M8 12h8M8 15.5h8M8 19h5" />
+    </svg>
+  </div>
+  <div class="spec-copy">
+    <p class="spec-eyebrow">{taskLabel}</p>
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </div>
+  <a href={href} download class="spec-cta">
+    Download task brief <span aria-hidden="true">↓</span>
+  </a>
+</aside>
+
+<style>
+  .spec-banner {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    margin: 0;
+    padding: 18px 20px;
+    border: 1px solid rgba(224, 199, 82, .35);
+    border-left: 3px solid #e0c752;
+    border-radius: 10px;
+    background: linear-gradient(110deg, rgba(224, 199, 82, .09), var(--panel) 52%);
+  }
+
+  .spec-mark {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(224, 199, 82, .35);
+    border-radius: 8px;
+    background: rgba(224, 199, 82, .08);
+    color: #e0c752;
+  }
+
+  .spec-mark svg { width: 23px; height: 23px; }
+
+  .spec-copy { min-width: 0; }
+  .spec-eyebrow {
+    margin: 0 0 4px;
+    color: #e0c752;
+    font: 700 .65rem 'JetBrains Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .spec-copy h2 { margin: 0; color: var(--text); font-size: .98rem; line-height: 1.4; }
+  .spec-copy > p:last-child { margin: 4px 0 0; color: var(--text-dim); font-size: .78rem; line-height: 1.5; }
+
+  .spec-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 14px;
+    border: 1px solid rgba(224, 199, 82, .42);
+    border-radius: 7px;
+    background: rgba(224, 199, 82, .1);
+    color: #e0c752;
+    font-size: .8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background .18s ease, border-color .18s ease;
+  }
+  .spec-cta:hover { border-color: #e0c752; background: rgba(224, 199, 82, .18); }
+  .spec-cta:focus-visible { outline: 2px solid #e0c752; outline-offset: 3px; }
+
+  @media (max-width: 620px) {
+    .spec-banner { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; padding: 16px; }
+    .spec-mark { width: 40px; height: 40px; }
+    .spec-cta { grid-column: 1 / -1; width: 100%; }
+  }
+</style>

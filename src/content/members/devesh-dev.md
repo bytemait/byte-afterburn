@@ -6,7 +6,7 @@ group: "mechatronics"
 status: "core"
 order: 16
 photo: "/team_pics/optimized/devesh_dev_alpha.webp"
-quote: "We're here to live l. We're here to do. We're here to be"
+quote: "ass toot gyi"
 
 career:
   - org: Identium tech solutions
@@ -24,5 +24,7 @@ contributions:
 linkedin: "https://www.linkedin.com/in/devesh-dev-928222283"
 github: "https://github.com/divs27-xgb"
 twitter: "https://x.com/itsmedevesh278"
+phone: "+91 73036 69928"
+discord: "devs_12."
 ---
 

@@ -36,5 +36,7 @@ awards:
 linkedin: "https://www.linkedin.com/in/snow-s"
 github: "https://github.com/snowsadh"
 twitter: "https://twitter.com/snoetwt"
+phone: "+91 99115 63478"
+discord: "kaichousama"
 ---
 

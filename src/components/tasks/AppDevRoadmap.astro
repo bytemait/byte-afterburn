@@ -1,0 +1,403 @@
+---
+import type { TaskProblemStatement } from '../../data/tasks';
+
+interface Props {
+  task: TaskProblemStatement;
+}
+
+const { task } = Astro.props;
+const stages = task.stages ?? [];
+---
+
+<section class="app-roadmap" aria-labelledby="app-roadmap-title">
+  <header class="roadmap-intro">
+    <p class="roadmap-eyebrow">Your challenge</p>
+    <h2 id="app-roadmap-title">Build a personal save-for-later app</h2>
+    <p class="roadmap-summary">{task.brief}</p>
+    {task.concept && <blockquote>{task.concept}</blockquote>}
+    <div class="roadmap-guidance">
+      <h3>Choose your own tools</h3>
+      <p>Use any reasonable mobile stack: Flutter, React Native / Expo, or native Android. A backend-as-a-service such as Firebase or Supabase is optional. You are not expected to complete every stage. Focus on a stable, polished result at the level you can explain—a reliable Stage 1 is better than a broken Stage 3.</p>
+    </div>
+  </header>
+
+  <div class="roadmap-track" aria-label="Three-stage development roadmap">
+    {stages.map((stage, index) => (
+      <article class:list={['roadmap-stage', { 'roadmap-stage-final': index === 2 }]}>
+        <div class="stage-marker" aria-hidden="true">
+          <span>{String(index + 1).padStart(2, '0')}</span>
+        </div>
+        <div class="stage-card">
+          <header class="stage-card-header">
+            <div>
+              <p class="stage-kicker">Stage 0{index + 1}</p>
+              <h3>{stage.title}</h3>
+              {stage.subtitle && <p class="stage-subtitle">{stage.subtitle}</p>}
+            </div>
+            {index === 0 && <span class="stage-level">Everyone starts here</span>}
+            {index === 1 && <span class="stage-level">For second-years</span>}
+            {index === 2 && <span class="stage-level stage-level-optional">The X-factor</span>}
+          </header>
+
+          {index === 0 && <p class="stage-context"><strong>Everyone starts here</strong>—including <strong>first-years and anyone new to app development</strong>. No authentication or backend needed; focus on a useful, reliable single-device app and build your fundamentals.</p>}
+          {index === 1 && <p class="stage-context">Designed for <strong>second-years</strong> ready to take their app further. Build on the Stage 1 foundation with authentication, a real backend, and private cross-device data.</p>}
+          {index === 2 && <p class="stage-context">The <strong>X-factor for MAIT’s cracked devs</strong>: go beyond standard CRUD. Build the share-into-app feature, then pick at least one advanced mission to show what you can do.</p>}
+
+          <ul class="stage-requirements">
+            {stage.requirements.map((requirement) => <li><span class="requirement-check" aria-hidden="true">✓</span><span>{requirement}</span></li>)}
+          </ul>
+
+          {stage.securityNote && <aside class="security-callout"><strong>Security is non-negotiable</strong><p>{stage.securityNote}</p></aside>}
+
+          {index === 2 && task.optionalMissions && (
+            <section class="mission-list" aria-labelledby="mission-heading">
+              <div class="mission-list-heading">
+                <span class="mission-asterisk" aria-hidden="true">✳</span>
+                <div><p class="stage-kicker">Choose at least one</p><h4 id="mission-heading">Advanced missions</h4></div>
+              </div>
+              <div class="missions">
+                {task.optionalMissions.map((mission) => (
+                  <article class="mission">
+                    <h5>{mission.name}</h5>
+                    <p>{mission.benefit}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  {task.submissionDeliverables && (
+    <section class="submission-notes" aria-labelledby="submission-notes-title">
+      <p class="roadmap-eyebrow">Before you submit</p>
+      <h3 id="submission-notes-title">What to include</h3>
+      <ul>
+        {task.submissionDeliverables.map((item) => <li><span aria-hidden="true">↗</span>{item}</li>)}
+      </ul>
+    </section>
+  )}
+</section>
+
+<style>
+  .app-roadmap {
+    --stage-one: #52e0a6;
+    --stage-two: #e0c752;
+    --stage-three: #ed8fb7;
+    --roadmap-line: rgba(82, 224, 166, 0.34);
+    color: var(--text);
+  }
+
+  .roadmap-intro {
+    padding: 4px 0 30px;
+  }
+
+  .roadmap-eyebrow,
+  .stage-kicker {
+    margin: 0 0 8px;
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .72rem/1.3 'JetBrains Mono', monospace;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .roadmap-intro h2 {
+    margin: 0 0 14px;
+    font-size: clamp(1.55rem, 3vw, 2rem);
+    line-height: 1.16;
+    letter-spacing: -.025em;
+    text-transform: none;
+  }
+
+  .roadmap-summary,
+  .roadmap-guidance p {
+    max-width: 72ch;
+    color: var(--text-dim);
+    font-size: .96rem;
+    line-height: 1.72;
+  }
+
+  .roadmap-summary { margin: 0; }
+
+  .roadmap-intro blockquote {
+    margin: 18px 0 0;
+    padding: 2px 0 2px 16px;
+    border-left: 2px solid var(--lime);
+    color: var(--text);
+    font-size: 1rem;
+    font-style: italic;
+  }
+
+  .roadmap-guidance {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  .roadmap-guidance h3 {
+    margin: 0 0 6px;
+    font-size: .96rem;
+    font-weight: 700;
+  }
+
+  .roadmap-guidance p { margin: 0; font-size: .88rem; }
+
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stack-list li {
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text-dim);
+    font-size: .75rem;
+  }
+
+  .roadmap-track {
+    --stage-gap: 22px;
+    position: relative;
+    display: grid;
+    gap: var(--stage-gap);
+    padding: 8px 0 12px 28px;
+  }
+
+  .roadmap-stage {
+    position: relative;
+    min-width: 0;
+  }
+
+  /* Each segment runs from its own marker centre to the next one.
+     This keeps the transition at the marker even when card heights differ. */
+  .roadmap-stage::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    bottom: calc(-1 * var(--stage-gap) - 24px);
+    left: -15px;
+    width: 2px;
+    background: linear-gradient(to bottom,
+      var(--stage-one) 0,
+      var(--stage-one) calc(100% - 36px),
+      var(--stage-two) 100%);
+  }
+
+  .roadmap-stage:nth-child(2)::before {
+    background: linear-gradient(to bottom,
+      var(--stage-two) 0,
+      var(--stage-two) calc(100% - 36px),
+      var(--stage-three) 100%);
+  }
+
+  .roadmap-stage-final::before {
+    bottom: 16px;
+    background: var(--stage-three);
+  }
+
+  .stage-marker {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: -28px;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--stage-one);
+    border-radius: 50%;
+    background: var(--bg, #101010);
+    color: var(--stage-one);
+    font: 700 .62rem 'JetBrains Mono', monospace;
+  }
+
+  .stage-card {
+    padding: 22px clamp(18px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+  }
+
+  .roadmap-stage:nth-child(2) .stage-marker {
+    border-color: var(--stage-two);
+    color: var(--stage-two);
+  }
+
+  .roadmap-stage-final .stage-marker {
+    border-color: var(--stage-three);
+    color: var(--stage-three);
+  }
+
+  .roadmap-stage-final .stage-card {
+    border-color: color-mix(in srgb, var(--stage-three) 30%, transparent);
+  }
+
+  .roadmap-stage:nth-child(2) .stage-kicker {
+    color: var(--stage-two);
+  }
+
+  .roadmap-stage-final .stage-kicker,
+  .roadmap-stage-final .stage-context strong {
+    color: var(--stage-three);
+  }
+
+  .roadmap-stage:nth-child(2) .stage-context strong {
+    color: var(--stage-two);
+  }
+
+  .stage-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stage-card-header h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.12rem;
+    line-height: 1.3;
+    text-transform: none;
+  }
+
+  .stage-kicker { margin-bottom: 5px; font-size: .64rem; }
+
+  .stage-subtitle {
+    margin: 5px 0 0;
+    color: var(--text-dim);
+    font-size: .84rem;
+    line-height: 1.5;
+  }
+
+  .stage-level {
+    flex: 0 0 auto;
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text-dim);
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .stage-level-optional {
+    color: var(--stage-three);
+    border-color: color-mix(in srgb, var(--stage-three) 35%, transparent);
+  }
+
+  .stage-context {
+    margin: 14px 0 0;
+    color: var(--text-dim);
+    font-size: .85rem;
+    line-height: 1.6;
+  }
+
+  .stage-context strong {
+    color: var(--lime-bright, #52e0a6);
+    font-weight: 700;
+  }
+
+  .stage-requirements,
+  .submission-notes ul {
+    display: grid;
+    gap: 12px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stage-requirements li,
+  .submission-notes li {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    align-items: start;
+    gap: 10px;
+    color: var(--text-dim);
+    font-size: .86rem;
+    line-height: 1.62;
+  }
+
+  .requirement-check {
+    display: grid;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+    margin-top: 2px;
+    border: 1px solid var(--roadmap-line);
+    border-radius: 50%;
+    color: var(--lime-bright, #52e0a6);
+    font-size: .65rem;
+  }
+
+  .security-callout {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-left: 3px solid #e0c752;
+    background: rgba(224, 199, 82, .06);
+  }
+
+  .security-callout strong { color: #e0c752; font-size: .8rem; }
+  .security-callout p { margin: 5px 0 0; color: var(--text-dim); font-size: .82rem; line-height: 1.6; }
+
+  .mission-list {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .mission-list-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 14px;
+  }
+
+  .mission-asterisk {
+    color: #e0c752;
+    font-size: 1.5rem;
+  }
+
+  .mission-list-heading .stage-kicker { color: #e0c752; }
+  .mission-list-heading h4 { margin: 0; font-size: .96rem; }
+
+  .missions { display: grid; gap: 10px; }
+
+  .mission {
+    padding: 13px 15px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-soft);
+  }
+
+  .mission h5 { margin: 0 0 5px; color: var(--text); font-size: .84rem; }
+  .mission p { margin: 0; color: var(--text-dim); font-size: .8rem; line-height: 1.6; }
+
+  .submission-notes {
+    margin: 34px 0 8px 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+
+  .submission-notes h3 { margin: 0; font-size: 1.05rem; }
+  .submission-notes ul { margin-top: 14px; }
+  .submission-notes li > span { color: var(--lime-bright, #52e0a6); }
+
+  @media (max-width: 560px) {
+    .roadmap-track { --stage-gap: 16px; padding-left: 24px; }
+    .roadmap-stage::before { top: 22px; bottom: calc(-1 * var(--stage-gap) - 22px); left: -13px; }
+    .roadmap-stage-final::before { bottom: 16px; }
+    .stage-marker { left: -24px; width: 24px; height: 24px; font-size: .56rem; }
+    .stage-card { padding: 18px 15px; }
+    .stage-card-header { flex-direction: column; gap: 10px; }
+    .submission-notes { margin-left: 24px; }
+  }
+</style>

@@ -150,8 +150,8 @@ export default function Hero({
             <img
               src="/assets/hero.webp"
               alt="BYTE MAIT members at Maharaja Agrasen Institute of Technology"
-              width="1944"
-              height="915"
+              width="1300"
+              height="802"
               className="hero-zoom-image"
               loading="eager"
             />

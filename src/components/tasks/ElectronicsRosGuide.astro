@@ -1,0 +1,270 @@
+---
+interface Props {
+  track: 'electronics' | 'ros';
+}
+const { track } = Astro.props;
+---
+
+<section class:list={['guide', `guide-${track}`]} aria-labelledby="guide-title">
+  <div class="guide-heading">
+    <p class="eyebrow">{track === 'electronics' ? 'Electronics / Submission guide' : 'ROS / Submission guide'}</p>
+    <h2 id="guide-title">{track === 'electronics' ? 'Submit your Electronics work' : 'Submit your ROS task'}</h2>
+    <p>{track === 'electronics' ? <>Submit a single Google Drive folder containing the Electronics tasks required for your year through the website upload form. This folder is for Electronics only.</> : <>ROS has one mandatory task. Submit the ROS task in a separate Google Drive folder through the website upload form, containing its repository link, demo, and README.</>}</p>
+  </div>
+
+  {track === 'electronics' ? (
+    <>
+      <div class="requirements" aria-label="Electronics tasks by year">
+        <div class="requirement-row">
+          <span class="year">01 <span>First year</span></span>
+          <p>Complete Electronics <strong>Task 1</strong>.</p>
+        </div>
+        <div class="requirement-row">
+          <span class="year year-two">02 <span>Second year</span></span>
+          <p>Complete Electronics <strong>Tasks 1 &amp; 2</strong>.</p>
+        </div>
+        <div class="requirement-row bonus-row">
+          <span class="year">✳ <span>X-factor</span></span>
+          <p>Electronics <strong>Task 3</strong> is optional bonus-on-bonus for any year. Omit its folder if you don't attempt it.</p>
+        </div>
+      </div>
+      <div class="folder-reference">
+        <h3>Electronics folder structure</h3>
+        <p>Name your folder <code>&lt;YourName&gt;_Electronics</code>. Your identity is already captured at login; do not repeat it in the files.</p>
+        <pre><code>&lt;YourName&gt;_Electronics/
+├── Task1/
+│   ├── Link.txt  (or Demo.mp4 for hardware)
+│   ├── Code.txt
+│   └── Design_rationale.docx
+├── Task2/
+│   ├── Link.txt  (or Demo.mp4 for hardware)
+│   ├── Code.txt
+│   └── Design_rationale.docx
+└── Task3/  (bonus; omit if not attempted)
+    ├── MPU6050.zip
+    └── Design_rationale.docx</code></pre>
+        <ul>
+          <li>Use exact file names. Save sketches as plain-text <code>Code.txt</code>, not <code>.ino</code>. Each <code>Link.txt</code> must contain only the raw Wokwi URL.</li>
+          <li>Tasks 1 and 2 each need a public/unlisted Wokwi link (or a demo video for physical hardware), code, and a 150–250-word rationale. Wokwi Automation Scenarios can drive both Task 1 potentiometers.</li>
+          <li>For bonus Task 3, use KiCad’s native Archive Project function to create <code>MPU6050.zip</code> (not a manually zipped folder). Include any PCB layout and a 200–350-word rationale in that archive/folder.</li>
+        </ul>
+      </div>
+    </>
+  ) : (
+    <div class="folder-reference ros-folder-reference">
+      <h3>ROS folder structure</h3>
+      <p>Name your folder <code>&lt;YourName&gt;_ROS</code>. Your identity is already captured at login; do not repeat it in the files. Keep this ROS folder separate from your Electronics submission.</p>
+      <pre><code>&lt;YourName&gt;_ROS/
+├── Link.txt
+├── Demo.mp4
+└── README.md</code></pre>
+      <ul>
+        <li><code>Link.txt</code> must contain only the raw GitHub URL. The repository must be public and contain the complete <code>turtlebot_patrol</code> package: source, config, launch files, and README.</li>
+        <li><code>Demo.mp4</code> should be a one-minute screen recording demonstrating patrol, obstacle avoidance, and the emergency-stop service being triggered and reset.</li>
+        <li>Include a copy of the repository’s <code>README.md</code> with setup, build, launch, usage/testing instructions, and at least three images.</li>
+      </ul>
+    </div>
+  )}
+
+  <div class="access-note">
+    <span class="access-icon" aria-hidden="true">↗</span>
+    <div>
+      <h3>Make every link accessible</h3>
+      <p>Set your Drive folder to <strong>Anyone with the link — Viewer</strong>. {track === 'electronics' ? 'Wokwi projects' : 'GitHub repositories'} must also open without a login. Restricted links count as <strong>not submitted</strong>; test every link in an incognito window.</p>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .guide {
+    min-width: 0;
+    padding: 24px clamp(18px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+    color: var(--text);
+  }
+
+  .eyebrow {
+    margin: 0 0 8px;
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .68rem/1.4 'JetBrains Mono', monospace;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .guide h2 {
+    margin: 0 0 9px;
+    font-size: clamp(1.22rem, 2vw, 1.45rem);
+    line-height: 1.25;
+    letter-spacing: -.02em;
+  }
+
+  .guide-heading > p:last-child {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .88rem;
+    line-height: 1.65;
+  }
+
+  .guide strong { color: var(--text); font-weight: 700; }
+
+  .requirements {
+    margin-top: 20px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .requirement-row {
+    display: grid;
+    grid-template-columns: minmax(108px, 135px) minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+    padding: 13px 0;
+  }
+
+  .requirement-row + .requirement-row { border-top: 1px solid var(--line); }
+
+  .year {
+    color: var(--lime-bright, #52e0a6);
+    font: 700 .72rem/1.5 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+
+  .year span { color: var(--text); font: 700 .8rem/1.5 'Inter', sans-serif; }
+  .year-two { color: #e0c752; }
+  .year-two span { color: #e0c752; }
+  .bonus-row .year { color: #ed8fb7; }
+  .bonus-row .year span { color: #ed8fb7; }
+
+  .requirement-row p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: .82rem;
+    line-height: 1.55;
+  }
+
+  .track-link {
+    margin: 12px 0 0;
+    color: var(--text-dim);
+    font-size: .82rem;
+  }
+
+  .track-link a { color: var(--lime-bright, #52e0a6); text-decoration: underline; text-underline-offset: 3px; }
+  .track-link a:hover { color: var(--text); }
+  .track-link a:focus-visible { outline: 2px solid var(--lime-bright, #52e0a6); outline-offset: 3px; }
+
+  .access-note {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+    padding: 14px 16px;
+    border: 1px solid rgba(82, 224, 166, .28);
+    border-left: 3px solid var(--lime-bright, #52e0a6);
+    border-radius: 8px;
+    background: rgba(82, 224, 166, .045);
+  }
+
+  .access-icon { color: var(--lime-bright, #52e0a6); font-size: 1.1rem; line-height: 1.2; }
+  .access-note h3 { margin: 0 0 5px; color: var(--lime-bright, #52e0a6); font-size: .86rem; }
+  .access-note p { margin: 0; color: var(--text-dim); font-size: .8rem; line-height: 1.6; }
+
+  .folder-reference {
+    min-width: 0;
+    margin-top: 18px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-soft);
+  }
+
+  .folder-reference h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: .88rem;
+    line-height: 1.4;
+  }
+
+  .folder-reference > p {
+    margin: 0 0 14px;
+    color: var(--text-dim);
+    font-size: .8rem;
+    line-height: 1.6;
+  }
+
+  .folder-reference > p code,
+  .folder-reference li code {
+    color: var(--lime-bright, #52e0a6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .92em;
+    overflow-wrap: anywhere;
+  }
+
+  .folder-reference summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-size: .82rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .folder-reference summary::-webkit-details-marker { display: none; }
+
+  .folder-reference pre {
+    display: block;
+    max-width: 100%;
+    margin: 0;
+    padding: 16px 18px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: #101411;
+    color: #bdc9bf;
+    font: .76rem/1.7 'JetBrains Mono', monospace;
+    tab-size: 2;
+    scrollbar-color: rgba(82, 224, 166, .4) var(--panel);
+    scrollbar-width: thin;
+  }
+
+  .folder-reference pre code {
+    color: inherit;
+    font: inherit;
+    white-space: pre;
+    overflow-wrap: normal;
+  }
+
+  .folder-reference ul {
+    display: grid;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding-left: 20px;
+    color: var(--text-dim);
+    font-size: .8rem;
+    line-height: 1.6;
+  }
+
+  .folder-reference li::marker { color: var(--lime-bright, #52e0a6); }
+
+  .guide-ros .folder-reference pre {
+    width: fit-content;
+    min-width: min(100%, 250px);
+  }
+
+  @media (max-width: 520px) {
+    .guide { padding: 20px 16px; }
+    .requirement-row { grid-template-columns: 1fr; gap: 3px; }
+    .folder-reference { padding: 14px; }
+    .folder-reference pre { padding: 12px; font-size: .7rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .folder-reference summary span { transition: none; }
+  }
+</style>

@@ -32,6 +32,8 @@ const members = defineCollection({
     linkedin: z.url().optional(),
     github: z.url().optional(),
     twitter: z.string().optional(),
+    phone: z.string().optional(),
+    discord: z.string().optional(),
     contributions: z
       .array(
         z.object({
