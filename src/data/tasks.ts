@@ -58,6 +58,7 @@ export interface TaskProblemStatement {
   bonusTasks?: string[];
   starterKitUrl?: string;
   detailSections?: TaskDetailSection[];
+  introSections?: { title: string; text: string }[];
 }
 
 export interface TaskDepartment {
@@ -205,68 +206,74 @@ export const taskDepartments: TaskDepartment[] = [
     ],
     tasks: [
       {
-        id: 'web-starter',
-        title: 'Problem Statement 01: [Web Dev Title]',
+        id: 'web-debugging',
+        title: 'Task 1 — Debugging Stage',
         level: 'Starter Track',
-        brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-        concept:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        referenceUrl: {
-          label: 'Inspiration: example.com',
-          url: 'https://example.com',
-        },
-        stacks: ['React / Next.js', 'Astro', 'TypeScript', 'Tailwind CSS'],
-        stages: [
-          {
-            stageNumber: 1,
-            title: 'Stage 1: Lorem Ipsum UI & Structure',
-            subtitle: 'Component design and responsive layout',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            ],
-          },
-          {
-            stageNumber: 2,
-            title: 'Stage 2: Lorem Ipsum State & Data Flow',
-            subtitle: 'Interactive search, filtering and API handling',
-            requirements: [
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-              'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.',
-              'Excepteur sint occaecat cupidatat non proident, sunt in culpa.',
-            ],
-          },
+        badgeLabel: 'Mandatory · All candidates',
+        brief: 'You will receive a bug log: each entry describes what someone observed, not where the problem lives. Reproduce each assigned bug locally, trace the cause, fix the underlying issue, and document your reasoning.',
+        requirements: [
+          'Open the Canteen Chaos repository linked above and fork it into your GitHub account. Clone your fork, install dependencies, and run the app locally before changing anything; do all work and commits in your fork.',
+          'For every assigned bug, reproduce it on your own machine before making changes.',
+          'Trace the root cause, which may be in a different file from where the symptom appears. Fix the cause, not just the visible symptom; hiding a button is not the same as fixing a rule.',
+          'In LOG.md, in your own words, document how you reproduced the bug, what was actually wrong, and what you changed and why that was the right place to fix it.',
+          'Commit as you work so the history shows your debugging and progress.',
         ],
         optionalMissions: [
           {
-            name: 'Mission Alpha',
-            benefit: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            name: 'X-factor — Find an unreported bug',
+            benefit: 'There are problems in the app that are not in the bug log. Find one, prove it, document how you noticed it, reproduce it, and explain the cause and fix in LOG.md.',
+          },
+          {
+            name: 'X-factor — Add a regression test',
+            benefit: 'Add a test, script, or check that fails before your fix and passes after it.',
+          },
+          {
+            name: 'X-factor — Honest engineering note',
+            benefit: 'Describe something you noticed but could not fix, or a fix you are unsure about. Explain the uncertainty clearly. This is more valuable than staying silent.',
           },
         ],
-        submissionDeliverables: [
-          'GitHub repository with clear documentation and setup instructions',
-          'Live deployed URL on Vercel / Netlify / Cloudflare',
-          'Lighthouse audit score report (Performance & Accessibility)',
+        detailSections: [
+          {
+            title: 'Submission',
+            items: [
+              'Submit the public URL of your forked repository, including your fixes and LOG.md with reproduction steps, root-cause analysis, and explanations for every assigned bug.',
+              'Brownie-point fixes must not break anything else. A regression costs marks rather than earning a bonus.',
+            ],
+          },
         ],
       },
       {
-        id: 'web-advanced',
-        title: 'Problem Statement 02: [Advanced Track Title]',
+        id: 'web-gym-booking',
+        title: 'Task 2 — Gym Slot Booking: Build as Much as You Can',
         level: 'Advanced Track',
-        brief:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-        stacks: ['Next.js / Remix', 'WebSockets / Realtime', 'TypeScript', 'PostgreSQL / Prisma'],
-        requirements: [
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+        badgeLabel: 'Build as much as you can',
+        brief: 'A gym runs hourly sessions with twenty mats each. Members book and cancel online; staff check members in at the door. Build as much of the system as you can—full completion is not expected.',
+        badgeLabel: 'Build as much as you can',
+        introSections: [
+          {
+            title: 'Task 02 · Build',
+            text: 'Gym Slot Booking — from an empty repo.',
+          },
+          {
+            title: 'The booking flow',
+            text: 'The gym runs hourly sessions, twenty mats each. You book one. Mats left, you are in and you get a code. Full, you join the waitlist and you can see your position. Somebody cancels, the next person in the queue is booked automatically — nobody refreshes anything. At the door you show the code and staff check you in.',
+          },
+          {
+            title: 'Your decisions',
+            text: 'That is the whole app. What it is built with, how the data is shaped and where the rules live are your call — deciding that is the task, so we are not telling you.\n\nTwo things to hold on to. Twenty mats means never twenty-one, and the server decides, never the browser.',
+          },
+          {
+            title: 'Build thoughtfully',
+            text: 'Half of it working beats none of it submitted. We would rather see the booking flow done properly than all five features half-wired.\n\nNo AI. You will walk us through your own code at the end.',
+          },
+          {
+            title: 'Full specification',
+            text: 'Everything else — the rules, the full spec, what counts — is in the brief.',
+          },
         ],
-        bonusTasks: [
-          'Lorem ipsum bonus task 01: Consectetur adipiscing elit.',
-          'Lorem ipsum bonus task 02: Sed do eiusmod tempor incididunt.',
-        ],
+        stacks: [],
+        requirements: [],
+        detailSections: [],
       },
     ],
   },
@@ -276,7 +283,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Models that solve real problems.',
     description:
       'Data pipelines, model training, evaluation, and deployment. Work on projects where machine learning meets a genuine use case — not just a notebook.',
-    image: '/assets/tasks/ai-ml.png',
+    image: '/assets/tasks/ml_research.jpeg',
     skills: ['Python', 'PyTorch', 'TensorFlow', 'Pandas', 'OpenCV'],
     difficulty: 'Intermediate',
     estimatedTime: '10–14 hours',
@@ -352,7 +359,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Build systems that reason and take action.',
     description:
       'Choose either of these independent tracks. Both are optional—pick the one that fits your interests and experience.',
-    image: '/assets/tasks/ai-ml.png',
+    image: '/assets/tasks/agentic.jpeg',
     skills: ['Python', 'LLMs', 'Open-weight models', 'Data analysis', 'Computer vision'],
     difficulty: 'Intermediate',
     estimatedTime: 'Choose your track',
@@ -500,7 +507,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Design it. Assemble it. Make it work.',
     description:
       'Create printable CAD models and a constrained mechanism assembly. Task 1 is required for shortlisting; Task 2 is optional bonus work.',
-    image: '/assets/tasks/mechatronics.png',
+    image: '/assets/tasks/cad.jpeg',
     skills: ['3D CAD', '3D-printable design', 'Assembly joints / mates'],
     difficulty: 'Intermediate',
     estimatedTime: 'Task 1 required · Task 2 optional',
@@ -564,7 +571,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Sense, respond, and build reliable circuits.',
     description:
       'Three hands-on electronics tasks: a required sensor-voting challenge, a second core task, and an optional KiCad bonus.',
-    image: '/assets/tasks/mechatronics.png',
+    image: '/assets/tasks/electronics.jpeg',
     skills: ['Arduino', 'Wokwi', 'KiCad', 'Sensors'],
     difficulty: 'Intermediate',
     estimatedTime: 'Tasks 1–2 core · Task 3 bonus',
@@ -873,10 +880,10 @@ export function getDepartmentBySlug(slug: string): TaskDepartment | undefined {
 }
 
 export const timelineSteps: TimelineStep[] = [
-  { step: '01', title: 'Tasks Drop', date: 'Day 1', desc: 'Problem statements live', status: 'current' },
-  { step: '02', title: 'Build Sprint', date: 'Days 2–4', desc: 'Hack, test & mentor sync', status: 'upcoming' },
-  { step: '03', title: 'Submission Lock', date: 'Day 5', desc: 'Repo & form lock at 11:59 PM', status: 'upcoming' },
-  { step: '04', title: 'Walkthroughs', date: 'Days 6–7', desc: '1-on-1 lead discussions', status: 'upcoming' },
+  { step: '01', title: 'Orientation Headstart', date: '25 Sep', desc: 'Orientation headstart complete', status: 'completed' },
+  { step: '02', title: 'Task Release', date: '27 Sep', desc: 'Tasks go live — start building', status: 'current' },
+  { step: '03', title: 'Submission', date: '29 Sep – 13 Oct', desc: 'Submission portal is open', status: 'upcoming' },
+  { step: '04', title: 'Interviews', date: 'After submissions', desc: 'Shortlisted candidate interviews', status: 'upcoming' },
 ];
 
 export const taskFaqs: TaskFAQItem[] = [

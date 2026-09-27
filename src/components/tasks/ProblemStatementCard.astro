@@ -29,14 +29,17 @@ const bonusCount = task.bonusTasks?.length || 0;
     'electronics-stage-one': task.id === 'electronics-task-1',
     'electronics-stage-two': task.id === 'electronics-task-2',
     'electronics-stage-three': task.id === 'electronics-task-3',
+    'web-debug-task': task.id === 'web-debugging',
   },
 ]} data-has-expand={hasDeepDetails ? 'true' : 'false'}>
   <!-- CARD TOP HEADER & LEVEL BADGE -->
   <div class="task-card-top-bar">
-    <span class:list={['task-level-badge', task.level === 'Advanced Track' ? 'is-advanced' : 'is-starter']}>
-      <span class="level-indicator-dot"></span>
-      {task.badgeLabel ?? task.level}
-    </span>
+    {task.badgeLabel && (
+      <span class:list={['task-level-badge', task.id === 'electronics-task-3' ? 'is-bonus-label' : '']}>
+        <span class="level-indicator-dot"></span>
+        {task.badgeLabel}
+      </span>
+    )}
 
     {hasDeepDetails && (
       <span class="task-meta-preview">
@@ -52,6 +55,17 @@ const bonusCount = task.bonusTasks?.length || 0;
   </div>
 
   <p class="task-brief">{task.brief}</p>
+
+  {task.introSections && (
+    <div class="web-build-brief">
+      {task.introSections.map((section) => (
+        <section class="web-build-section">
+          <h4>{section.title}</h4>
+          <p>{section.text}</p>
+        </section>
+      ))}
+    </div>
+  )}
 
   <!-- CONCEPT CALLOUT -->
   {task.concept && (
@@ -357,6 +371,21 @@ const bonusCount = task.bonusTasks?.length || 0;
     border-color: rgba(237, 143, 183, .55);
   }
 
+  .task-item-card.web-debug-task .missions-section {
+    border-color: rgba(237, 143, 183, .3);
+    background: rgba(237, 143, 183, .045);
+  }
+
+  .task-item-card.web-debug-task .missions-header h4,
+  .task-item-card.web-debug-task .bonus-star,
+  .task-item-card.web-debug-task .mission-name {
+    color: #ed8fb7;
+  }
+
+  .task-item-card.web-debug-task .mission-item {
+    border-color: rgba(237, 143, 183, .22);
+  }
+
   .task-item-card.electronics-stage-one { border-top: 2px solid #52e0a6; }
   .task-item-card.electronics-stage-two { border-top: 2px solid #e0c752; }
   .task-item-card.electronics-stage-three { border-top: 2px solid #ed8fb7; }
@@ -423,6 +452,12 @@ const bonusCount = task.bonusTasks?.length || 0;
     border: 1px solid rgba(224, 199, 82, 0.25);
   }
 
+  .task-level-badge.is-bonus-label {
+    color: #ed8fb7;
+    background: rgba(237, 143, 183, .08);
+    border: 1px solid rgba(237, 143, 183, .32);
+  }
+
   .level-indicator-dot {
     width: 6px;
     height: 6px;
@@ -458,6 +493,35 @@ const bonusCount = task.bonusTasks?.length || 0;
     color: var(--text-dim, #a4b0a2);
     margin: 0 0 20px;
   }
+
+  .web-build-brief {
+    display: grid;
+    gap: 0;
+    margin: 4px 0 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .web-build-section {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .web-build-section h4 {
+    margin: 0 0 7px;
+    color: var(--lime-bright, #52e0a6);
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+  }
+
+  .web-build-section p {
+    margin: 0;
+    color: var(--text-dim, #a4b0a2);
+    font-size: .87rem;
+    line-height: 1.65;
+    white-space: pre-line;
+  }
+
 
   /* CONCEPT CALLOUT */
   .task-concept-callout {
@@ -939,6 +1003,10 @@ const bonusCount = task.bonusTasks?.length || 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 10px;
+  }
+
+  .task-item-card.web-debug-task .missions-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .mission-item {

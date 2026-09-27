@@ -7,6 +7,9 @@ import AppDevRoadmap from './AppDevRoadmap.astro';
 import ElectronicsRosGuide from './ElectronicsRosGuide.astro';
 import CybersecurityChallenges from './CybersecurityChallenges.astro';
 import CybersecuritySubmission from './CybersecuritySubmission.astro';
+import WebDevRepoBanner from './WebDevRepoBanner.astro';
+import WebDevSpecBanner from './WebDevSpecBanner.astro';
+import WebDevSubmission from './WebDevSubmission.astro';
 import GraphicDesignSubmission from './GraphicDesignSubmission.astro';
 import SubmissionProtocol from './SubmissionProtocol.astro';
 import OtherDepartments from './OtherDepartments.astro';
@@ -122,7 +125,7 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
             </ul>
           </section>
         )}
-        {!['app-dev', 'ml-research', 'agentic-ai', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'video-editing', 'outreach'].includes(dept.slug) && (
+        {!['app-dev', 'ml-research', 'agentic-ai', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'video-editing', 'outreach', 'web-dev'].includes(dept.slug) && (
           <section>
             <h2>Evaluation Criteria</h2>
             <p>What our domain leads look for during code reviews and technical interview walkthroughs:</p>
@@ -139,7 +142,8 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
 
 
         <section class="problem-statements-wrapper">
-          {dept.slug !== 'app-dev' && dept.slug !== 'cybersecurity' && (
+          {dept.slug === 'web-dev' && <WebDevRepoBanner />}
+          {dept.slug !== 'app-dev' && dept.slug !== 'cybersecurity' && dept.slug !== 'web-dev' && (
             <>
               <h2>{dept.slug === 'electronics' ? 'Electronics tasks' : dept.slug === 'ros' ? 'ROS task' : 'Problem Statements'}</h2>
               <p>{dept.slug === 'electronics' ? 'Start with Task 1. Task 2 adds weight to your submission; Task 3 is an optional X-factor bonus.' : dept.slug === 'ros' ? 'Build and demonstrate the patrol package described below.' : 'Read through the problem statements below and follow the requirements for your chosen task.'}</p>
@@ -231,19 +235,25 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
             ) : dept.slug === 'cybersecurity' ? (
               <CybersecurityChallenges tasks={dept.tasks} />
             ) : (
-              dept.tasks.map((task) => <ProblemStatementCard task={task} />)
+              dept.tasks.map((task) => (
+                <>
+                  <ProblemStatementCard task={task} />
+                  {dept.slug === 'web-dev' && task.id === 'web-debugging' && <WebDevSpecBanner />}
+                </>
+              ))
             )}
           </div>
         </section>
 
         <!-- SUBMISSION PROTOCOL -->
-        {!['app-dev', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design'].includes(dept.slug) && (
+        {!['app-dev', 'cad', 'electronics', 'ros', 'cybersecurity', 'graphic-design', 'web-dev'].includes(dept.slug) && (
           <section>
             <SubmissionProtocol />
           </section>
         )}
       </div>
       {dept.slug === 'graphic-design' && <GraphicDesignSubmission />}
+      {dept.slug === 'web-dev' && <WebDevSubmission />}
     </div>
 
     <!-- RIGHT STICKY SIDEBAR -->
