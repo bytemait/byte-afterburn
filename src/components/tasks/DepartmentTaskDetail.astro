@@ -116,6 +116,11 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
           <div class="tasks-stack" id="tasksStackContainer">
             {dept.slug === 'app-dev' ? (
               <AppDevRoadmap task={dept.tasks[0]} />
+            ) : dept.slug === 'electronics' ? (
+              <>
+                <WebDevSpecBanner track="electronics" />
+                {dept.tasks.map((task) => <ProblemStatementCard task={task} />)}
+              </>
             ) : dept.slug === 'cybersecurity' ? (
               <CybersecurityChallenges tasks={dept.tasks} />
             ) : (
