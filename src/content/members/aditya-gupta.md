@@ -33,7 +33,7 @@ contributions:
 linkedin: "https://www.linkedin.com/in/sortedcord"
 github: "https://github.com/sortedcord"
 twitter: "https://twitter.com/sortedcord"
-phone: "202-555-0102"
-discord: "Adityagupta#0000"
+phone: "+91 98213 09705"
+discord: "sortedcord9"
 ---
 

@@ -322,23 +322,6 @@ const chapters = groupEntries
                                             The President
                                         </span>
                                     </div>
-                                    <div
-                                        class="mobile-council-role-index"
-                                        aria-label="Council roles"
-                                    >
-                                        {[
-                                            "The President",
-                                            "Vice Presidents",
-                                            "Gen Secretaries",
-                                            "Project Managers",
-                                        ].map((roleLabel) => (
-                                            <span
-                                                data-council-role-index={roleLabel}
-                                            >
-                                                {roleLabel}
-                                            </span>
-                                        ))}
-                                    </div>
                                 )}
                                 <p>{chapter.note}</p>
                                 {chapter.listedMembers.length > 0 && (
@@ -849,15 +832,6 @@ const chapters = groupEntries
         const reducedMotion = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         );
-        if (mobile.matches) {
-            // The RGB-channel duplicates only exist for the pointer-hover glitch effect.
-            // Mobile no longer drives member-node activation via scroll (see
-            // updateHorizontalChapters below), so these would never be shown — drop them
-            // before the browser can fetch them.
-            root.querySelectorAll<HTMLElement>(".portrait-channel").forEach(
-                (node) => node.remove(),
-            );
-        }
         let alumniFrame = 0;
         let introFrame = 0;
         let horizontalFrame = 0;
@@ -1285,9 +1259,31 @@ const chapters = groupEntries
 
         const updateHorizontalChapters = () => {
             horizontalFrame = 0;
-            // Mobile keeps the member field as a normal vertical/grid flow.
-            // The role indicator is updated continuously from the member
-            // closest to the middle of the viewport.
+            if (mobile.matches) {
+                const viewportTarget = Math.min(window.innerHeight * 0.52, window.innerHeight - 120);
+                const candidate = memberNodes
+                    .map((node) => ({ node, rect: node.getBoundingClientRect() }))
+                    .filter(({ rect }) => rect.bottom > 90 && rect.top < window.innerHeight - 40)
+                    .sort((a, b) =>
+                        Math.abs(a.rect.top + a.rect.height / 2 - viewportTarget) -
+                        Math.abs(b.rect.top + b.rect.height / 2 - viewportTarget),
+                    )[0]?.node ?? null;
+                setActiveMember(candidate, candidate ? 'mobile-scroll' : 'none');
+                // Activate both portraits in the same grid row, but keep the
+                // president's full-width row on its own.
+                if (candidate) {
+                    const candidateRect = candidate.getBoundingClientRect();
+                    memberNodes.forEach((node) => {
+                        if (node === candidate) return;
+                        const rect = node.getBoundingClientRect();
+                        const sameRow = node.parentElement === candidate.parentElement &&
+                            Math.abs(rect.top - candidateRect.top) < 40 &&
+                            rect.bottom > 90 && rect.top < window.innerHeight - 40;
+                        if (sameRow) node.dataset.memberActive = 'true';
+                        else delete node.dataset.memberActive;
+                    });
+                }
+            }
             updateCouncilRoleFromViewport();
         };
 
@@ -3742,7 +3738,7 @@ const chapters = groupEntries
         }
         .member-label {
             min-height: auto;
-            padding: 0.8rem 0.15rem 0;
+            padding: 0.55rem 0.15rem 0;
         }
 
         .member-label h3 {
@@ -3768,19 +3764,23 @@ const chapters = groupEntries
 
         .member-quote {
             position: relative;
+            top: auto;
             right: auto;
-            margin-top: 0.7rem;
+            left: auto;
+            margin-top: 0.4rem;
             font-size: 0.88rem;
             line-height: 1.35;
         }
+        /* Keep the identity in the normal flow so the revealed quote sits
+           immediately beneath it, rather than leaving a portrait-sized gap. */
         .member-node.has-member-quote[data-member-active="true"]
             .member-identity {
-            transform: translateY(calc(-100% - 0.85rem));
+            transform: none;
         }
         .member-node.has-member-quote[data-member-active="true"]
             .member-label
             h3 {
-            transform: scale(1.08);
+            transform: none;
         }
 
         .member-node .portrait-stage {

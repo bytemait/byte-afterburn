@@ -205,7 +205,7 @@ const memberStructuredData: JsonLd[] = [
 
             {(member.phone || member.discord) && (
               <div class="member-contact-details" aria-label="Contact details">
-                {member.phone && <div><span class="meta-label">Phone</span><a href={`tel:${member.phone}`}>{member.phone}</a></div>}
+                {member.phone && <div><span class="meta-label">Phone</span><a href={`tel:${member.phone.replace(/\s+/g, '')}`}>{member.phone}</a></div>}
                 {member.discord && <div><span class="meta-label">Discord</span><p>{member.discord}</p></div>}
               </div>
             )}
