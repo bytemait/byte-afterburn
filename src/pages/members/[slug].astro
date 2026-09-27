@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/common/Footer.astro';
+import MemberContact from '../../components/members/MemberContact.astro';
 import { getCollection, getEntries, getEntry, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import {
@@ -203,13 +204,6 @@ const memberStructuredData: JsonLd[] = [
               </div>
             </div>
 
-            {(member.phone || member.discord) && (
-              <div class="member-contact-details" aria-label="Contact details">
-                {member.phone && <div><span class="meta-label">Phone</span><a href={`tel:${member.phone.replace(/\s+/g, '')}`}>{member.phone}</a></div>}
-                {member.discord && <div><span class="meta-label">Discord</span><p>{member.discord}</p></div>}
-              </div>
-            )}
-
             {(socials.length > 0 || portfolio) && (
               <div class="summary-links">
                 {socials.length > 0 && (
@@ -241,6 +235,10 @@ const memberStructuredData: JsonLd[] = [
               </div>
             )}
           </div>
+
+          {(member.phone || member.discord) && (
+            <MemberContact phone={member.phone} discord={member.discord} />
+          )}
 
           {hasBody && (
             <section class="profile-about-block">
@@ -358,17 +356,6 @@ const memberStructuredData: JsonLd[] = [
             </section>
           )}
 
-          <div class="profile-actions">
-            <a href="/contact" class="btn btn-primary">
-              <span>Connect with Byte</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true" width="14" height="14">
-                <path d="M3 13L13 3M13 3H5M13 3V11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </a>
-            <a href="/members" class="btn btn-outline">
-              <span>Explore All Members</span>
-            </a>
-          </div>
         </div>
       </article>
     </div>
@@ -730,6 +717,7 @@ const memberStructuredData: JsonLd[] = [
   }
 
   .profile-info-column {
+    min-width: 0;
     counter-reset: section;
     display: flex;
     flex-direction: column;
@@ -832,33 +820,6 @@ const memberStructuredData: JsonLd[] = [
     font-weight: 600;
     line-height: 1.4;
     letter-spacing: -0.015em;
-  }
-
-  .member-contact-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px 32px;
-    padding-top: 18px;
-    border-top: 1px solid var(--line);
-  }
-
-  .member-contact-details > div {
-    display: grid;
-    gap: 5px;
-  }
-
-  .member-contact-details a,
-  .member-contact-details p {
-    margin: 0;
-    color: #ffffff;
-    font-family: 'Clash Display', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .member-contact-details a:hover {
-    color: var(--green);
   }
 
   .profile-meta-section {
@@ -1201,13 +1162,6 @@ const memberStructuredData: JsonLd[] = [
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-  }
-
-  .profile-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding-top: 12px;
   }
 
   @media (max-width: 900px) {

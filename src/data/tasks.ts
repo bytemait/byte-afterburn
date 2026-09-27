@@ -10,7 +10,7 @@ export const TASK_CONFIG = {
   revealDateDay: '25 Sep',
   submissionDeadline: 'Day 5 at 11:59 PM IST',
   submissionFormUrl: 'https://forms.gle',
-  discordUrl: 'https://discord.gg/HNYhA4Ww5',
+  discordUrl: 'https://discord.gg/534RnMEuH',
   submissionOpenIso: '2026-09-29T00:01:00+05:30',
   submissionOpenTimestamp: new Date('2026-09-29T00:01:00+05:30').getTime(),
   submissionOpenFull: '29 SEP 2026 • 00:01 IST',
