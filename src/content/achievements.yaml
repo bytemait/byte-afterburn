@@ -1,7 +1,7 @@
 - id: openai-codex-hackathon
   name: "Winners, OpenAI Hackathon 2026"
   tags: ["Hackathon", "AI"]
-  description: "Team Byte took first place in the Codex Hackathon organized by OpenAI and won $4,000 in prize credits."
+  description: "Team Byte took first place in the Codex Hackathon organized by OpenAI and won $15,000 in prize credits."
   image: "/assets/works/openai_hack/openai_hack_win_1.webp"
   link: "/works/codex_26"
 - id: ezcrack
