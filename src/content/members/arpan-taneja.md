@@ -6,10 +6,10 @@ role: "Project Manager"
 group: "leadership"
 status: "core"
 order: 5
-quote: "look mom i can fly"
+quote: "Look mom i can fly"
 
 career:
-  - org: Lean Summits Inc.
+  - org: Lean Summits
     title: AI Engineer Intern
     period: April 2026 – Present
 portfolio: "https://arpantaneja.dev"
@@ -43,11 +43,11 @@ contributions:
 awards:
   - title: BAJAJ HackRX 6.0
     date: Aug 2025
-    detail: Rs. 20,000 · - Pace & Power Award (Top 4)
+    detail: Rs. 20,000 · Pace & Power Award (Top 4)
     url: https://github.com/HackRx-6/Laal-Tamatar
   - title: Cognizance 2025, IIT Roorkee
     date: March 2025
-    detail: i forgot · 2nd Pos.
+    detail: 2nd Pos.
     url: https://hyperstack.id/credential/8400b23b-5a1b-4543-97a8-61125fe8586a
   - title: Tesco Retail Media InnovAItion Jam
     date: December 2025
