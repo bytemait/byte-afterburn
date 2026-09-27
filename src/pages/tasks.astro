@@ -7,9 +7,42 @@ import TaskCard from '../components/tasks/TaskCard.astro';
 import TaskFAQ from '../components/tasks/TaskFAQ.astro';
 import CountdownHUD from '../components/tasks/CountdownHUD.astro';
 import { taskDepartments, taskFaqs, timelineSteps, TASK_CONFIG } from '../data/tasks';
+import { absoluteUrl, breadcrumbJsonLd, toMetaDescription, type JsonLd } from '../lib/seo';
+
+const tasksTitle = 'Recruitment Tasks | BYTE MAIT';
+const tasksDescription = toMetaDescription(
+  'Explore BYTE MAIT recruitment tasks across development, AI/ML, cybersecurity, mechatronics, design, and outreach. Choose a challenge and start building.',
+);
+const taskListingStructuredData: JsonLd[] = [
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Recruitment Tasks', path: '/tasks/' },
+  ]),
+  {
+    '@type': 'ItemList',
+    name: 'BYTE MAIT Recruitment Tasks',
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: taskDepartments.length,
+    itemListElement: taskDepartments.map((dept, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: `${dept.department} Tasks`,
+      description: toMetaDescription(dept.description),
+      url: absoluteUrl(`/tasks/${dept.slug}/`),
+    })),
+  },
+];
 ---
 
-<Layout title="Tasks: B.Y.T.E." active="tasks" footerInSlot>
+<Layout
+  title={tasksTitle}
+  description={tasksDescription}
+  canonical="/tasks/"
+  pageType="CollectionPage"
+  structuredData={taskListingStructuredData}
+  active="tasks"
+  footerInSlot
+>
   <div class="page-header">
     <div class="wrap">
       <h1>Tasks</h1>
