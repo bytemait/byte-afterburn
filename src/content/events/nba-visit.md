@@ -2,7 +2,7 @@
 name: NBA Visit
 type: Showcase
 date: "2025-10-11"
-time: 10:00 AM – 05:00 PM
+time: 10:00 AM to 05:00 PM
 venue: MAIT Campus
 shortDescription: BYTE members showcased their projects to the NBA accreditation body during their visit to MAIT.
 agenda:
@@ -21,4 +21,4 @@ gallery:
   - /assets/events/nba-visit/nba-visit.webp
 ---
 
-During the National Board of Accreditation (NBA) visit to MAIT, the BYTE team had the opportunity to showcase their technical projects to the accreditation panel. Members demonstrated a wide range of work spanning software development, robotics, AI/ML, and more — reflecting the depth and breadth of the society's output.
+During the National Board of Accreditation (NBA) visit to MAIT, the BYTE team had the opportunity to showcase their technical projects to the accreditation panel. Members demonstrated a wide range of work spanning software development, robotics, AI/ML, and more, reflecting the depth and breadth of the society's output.

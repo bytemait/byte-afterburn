@@ -2,7 +2,7 @@
 name: WebCMD Hackathon
 type: Competition
 date: "2026-09-12"
-time: 09:00 AM – 06:00 PM
+time: 09:00 AM to 06:00 PM
 venue: MAIT Campus
 shortDescription: A hands-on hackathon hosted by webcmd to build Self-Learning Browser Agents.
 agenda:

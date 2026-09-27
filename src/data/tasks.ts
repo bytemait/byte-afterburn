@@ -94,11 +94,11 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'App Development',
     tagline: 'Build apps people actually use.',
     description:
-      'Work on native and cross-platform mobile apps — from first wireframe to Play Store. Ship real products alongside a team that reviews, iterates, and cares about UX.',
+      'Work on native and cross platform mobile apps, from first wireframe to Play Store. Ship real products alongside a team that reviews, iterates, and cares about UX.',
     image: '/assets/tasks/app-dev.png',
     skills: ['Flutter', 'React Native', 'Expo', 'Kotlin / Swift', 'Supabase / Firebase'],
     difficulty: 'Intermediate',
-    estimatedTime: '10–14 hours',
+    estimatedTime: '10 to 14 hours',
     submissionFormat: 'GitHub Repo + APK / Expo Go / TestFlight + Architecture Diagram',
     evaluationCriteria: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -112,7 +112,7 @@ export const taskDepartments: TaskDepartment[] = [
         title: 'Cross-device Personal Inbox',
         level: 'Starter Track',
         brief:
-          'Build a mobile app for quickly saving useful notes, links, snippets, and images so they are easy to find again. Choose your own product name—the brief does not prescribe one. This challenge has three stages; you are not expected to complete them all. A polished, reliable Stage 1 is better than a broken Stage 3.',
+          'Build a mobile app for quickly saving useful notes, links, snippets, and images so they are easy to find again. Choose your own product name. The brief does not prescribe one. This challenge has three stages; you are not expected to complete them all. A polished, reliable Stage 1 is better than a broken Stage 3.',
         concept:
           '“I found something useful and don’t want to lose it.” Start with a dependable single-device inbox, then add private cloud sync and mobile sharing if you are ready.',
         stacks: ['Flutter', 'React Native / Expo', 'Native Android', 'Firebase / Supabase (optional)'],
@@ -136,7 +136,7 @@ export const taskDepartments: TaskDepartment[] = [
             requirements: [
               'Add sign-up and sign-in with simple email/username and password authentication; OAuth is not required.',
               'Store items remotely with an owner ID and support create, read, edit, archive/restore, and delete. Signing in on another device or emulator must show the same account data.',
-              'Enforce privacy on the backend—not just by hiding other users’ items in the UI. Changing an item ID, request, URL, route, or deep link must never expose another user’s item.',
+              'Enforce privacy on the backend, not just by hiding other users’ items in the UI. Changing an item ID, request, URL, route, or deep link must never expose another user’s item.',
               'With Firebase, configure Firestore Security Rules; with Supabase, configure Row Level Security; with a custom backend, check authenticated ownership on the server.',
               'Testing scenario: Account A creates private items; Account B must not be able to read, edit, or delete them, including by directly requesting an item ID.',
               'Handle backend loading, request failures, temporary loss of internet, and incorrect credentials with clear feedback and a way to retry. A sophisticated offline-first sync engine is not required.',
@@ -148,7 +148,7 @@ export const taskDepartments: TaskDepartment[] = [
             title: 'Make it feel like a real product',
             subtitle: 'Complete Share into the app, then choose at least one advanced mission',
             requirements: [
-              'Core challenge — Share into the app: receive shared text and URLs through the phone’s normal Share menu. For example, sharing an article from Chrome should open your app with the URL filled in so the user can add a title or tags and save it.',
+              'Core challenge: Share into the app. Receive shared text and URLs through the phone’s normal Share menu. For example, sharing an article from Chrome should open your app with the URL filled in so the user can add a title or tags and save it.',
               'Handle malformed or unsupported shared content without crashing.',
               'After implementing Share into the app, choose at least one advanced mission below.',
             ],
@@ -156,23 +156,23 @@ export const taskDepartments: TaskDepartment[] = [
         ],
         optionalMissions: [
           {
-            name: 'A — Better sync behaviour',
+            name: 'A: Better sync behaviour',
             benefit: 'Improve unreliable-network behaviour: retry failed saves, cache loaded items, preserve an unsaved draft during refresh, or detect remote edits. Document your conflict policy (for example, most recently updated wins, with a warning before replacing an item being edited). Perfect conflict resolution is not expected.',
           },
           {
-            name: 'B — Public read-only sharing',
+            name: 'B: Public read only sharing',
             benefit: 'Let an owner create a public link to one item. The link must not expose the inbox, other items, account information, or predictable internal IDs. The owner can revoke it; deleted or revoked links show an appropriate unavailable state.',
           },
           {
-            name: 'C — Attachment vault',
+            name: 'C: Attachment vault',
             benefit: 'Save an image or PDF with an item. For multi-user apps, enforce file ownership through storage permissions; an obscure filename is not security.',
           },
           {
-            name: 'D — Resurface an item later',
+            name: 'D: Resurface an item later',
             benefit: 'Let users schedule a reminder (for example, tomorrow or in 7 days) with a local or push notification. Tapping it opens the item; handle items that have since been deleted.',
           },
           {
-            name: 'E — Data ownership',
+            name: 'E: Data ownership',
             benefit: 'Let users export their data and delete their account, including associated items and uploaded files. Briefly explain what happens to their data after account deletion.',
           },
         ],
@@ -192,11 +192,11 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'Web Development',
     tagline: 'Ship it. Then ship it faster.',
     description:
-      'Full-stack web projects — marketing sites, dashboards, tools, APIs. We care about performance, accessibility, and code that the next person can read.',
+      'Full stack web projects, marketing sites, dashboards, tools, and APIs. We care about performance, accessibility, and code that the next person can read.',
     image: '/assets/tasks/web-dev.png',
     skills: ['React', 'Astro', 'Next.js', 'TypeScript', 'Tailwind CSS'],
     difficulty: 'Beginner',
-    estimatedTime: '6–10 hours',
+    estimatedTime: '6 to 10 hours',
     submissionFormat: 'GitHub Repo + Deployed Live Link (Vercel / Netlify / Cloudflare)',
     evaluationCriteria: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -207,7 +207,7 @@ export const taskDepartments: TaskDepartment[] = [
     tasks: [
       {
         id: 'web-debugging',
-        title: 'Task 1 — Debugging Stage',
+        title: 'Task 1: Debugging Stage',
         level: 'Starter Track',
         badgeLabel: 'Mandatory · All candidates',
         brief: 'You will receive a bug log: each entry describes what someone observed, not where the problem lives. Reproduce each assigned bug locally, trace the cause, fix the underlying issue, and document your reasoning.',
@@ -220,15 +220,15 @@ export const taskDepartments: TaskDepartment[] = [
         ],
         optionalMissions: [
           {
-            name: 'X-factor — Find an unreported bug',
+            name: 'X factor: Find an unreported bug',
             benefit: 'There are problems in the app that are not in the bug log. Find one, prove it, document how you noticed it, reproduce it, and explain the cause and fix in LOG.md.',
           },
           {
-            name: 'X-factor — Add a regression test',
+            name: 'X factor: Add a regression test',
             benefit: 'Add a test, script, or check that fails before your fix and passes after it.',
           },
           {
-            name: 'X-factor — Honest engineering note',
+            name: 'X factor: Honest engineering note',
             benefit: 'Describe something you noticed but could not fix, or a fix you are unsure about. Explain the uncertainty clearly. This is more valuable than staying silent.',
           },
         ],
@@ -244,23 +244,23 @@ export const taskDepartments: TaskDepartment[] = [
       },
       {
         id: 'web-gym-booking',
-        title: 'Task 2 — Gym Slot Booking: Build as Much as You Can',
+        title: 'Task 2: Gym Slot Booking, Build as Much as You Can',
         level: 'Advanced Track',
         badgeLabel: 'Build as much as you can',
-        brief: 'A gym runs hourly sessions with twenty mats each. Members book and cancel online; staff check members in at the door. Build as much of the system as you can—full completion is not expected.',
+        brief: 'A gym runs hourly sessions with twenty mats each. Members book and cancel online; staff check members in at the door. Build as much of the system as you can. Full completion is not expected.',
         badgeLabel: 'Build as much as you can',
         introSections: [
           {
             title: 'Task 02 · Build',
-            text: 'Gym Slot Booking — from an empty repo.',
+            text: 'Gym Slot Booking, from an empty repo.',
           },
           {
             title: 'The booking flow',
-            text: 'The gym runs hourly sessions, twenty mats each. You book one. Mats left, you are in and you get a code. Full, you join the waitlist and you can see your position. Somebody cancels, the next person in the queue is booked automatically — nobody refreshes anything. At the door you show the code and staff check you in.',
+            text: 'The gym runs hourly sessions, twenty mats each. You book one. Mats left, you are in and you get a code. Full, you join the waitlist and you can see your position. Somebody cancels, the next person in the queue is booked automatically. Nobody refreshes anything. At the door you show the code and staff check you in.',
           },
           {
             title: 'Your decisions',
-            text: 'That is the whole app. What it is built with, how the data is shaped and where the rules live are your call — deciding that is the task, so we are not telling you.\n\nTwo things to hold on to. Twenty mats means never twenty-one, and the server decides, never the browser.',
+            text: 'That is the whole app. What it is built with, how the data is shaped and where the rules live are your call. Deciding that is the task, so we are not telling you.\n\nTwo things to hold on to. Twenty mats means never twenty one, and the server decides, never the browser.',
           },
           {
             title: 'Build thoughtfully',
@@ -268,7 +268,7 @@ export const taskDepartments: TaskDepartment[] = [
           },
           {
             title: 'Full specification',
-            text: 'Everything else — the rules, the full spec, what counts — is in the brief.',
+            text: 'Everything else, the rules, the full spec, and what counts, is in the brief.',
           },
         ],
         stacks: [],
@@ -282,11 +282,11 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'ML Research',
     tagline: 'Models that solve real problems.',
     description:
-      'Data pipelines, model training, evaluation, and deployment. Work on projects where machine learning meets a genuine use case — not just a notebook.',
+      'Data pipelines, model training, evaluation, and deployment. Work on projects where machine learning meets a genuine use case, not just a notebook.',
     image: '/assets/tasks/ml_research.jpeg',
     skills: ['Python', 'PyTorch', 'TensorFlow', 'Pandas', 'OpenCV'],
     difficulty: 'Intermediate',
-    estimatedTime: '10–14 hours',
+    estimatedTime: '10 to 14 hours',
     submissionFormat: 'GitHub Repo + Jupyter Notebook + FastAPI / Streamlit Demo',
     evaluationCriteria: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -302,7 +302,7 @@ export const taskDepartments: TaskDepartment[] = [
         brief:
           'Choose exactly one paper from the approved list, read it in full, and complete every section of the Paper Craft Reading Template in your own words. You will discuss the paper in your interview, including its claim, surprising findings, and structural choices.',
         concept:
-          'The template is meant to capture your own reading. Do not use an LLM to fill it in blindly—we want to hear your understanding and reasoning.',
+          'The template is meant to capture your own reading. Do not use an LLM to fill it in blindly. We want to hear your understanding and reasoning.',
         requirements: [
           'Choose exactly one paper from the options below or select a published paper of your own choice.',
           'Read the selected paper in full and complete every section of the Paper Craft Reading Template in your own words.',
@@ -310,15 +310,15 @@ export const taskDepartments: TaskDepartment[] = [
         ],
         detailSections: [
           {
-            title: 'Paper options — choose exactly one',
+            title: 'Paper options: choose exactly one',
             items: [
               'General: An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale',
               'General: MiniLLM: On-Policy Distillation of Large Language Models',
               'General: DeepSeek-V3 Technical Report',
               'General: GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints',
               'General: Direct Preference Optimization: Your Language Model is Secretly a Reward Model',
-              'RL Domain — Policy Gradient Algorithms: Trust Region Policy Optimization',
-              'RL Domain — Policy Gradient Algorithms: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning',
+              'RL Domain: Policy Gradient Algorithms, Trust Region Policy Optimization',
+              'RL Domain: Policy Gradient Algorithms, DeepSeek R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning',
             ],
           },
         ],
@@ -328,7 +328,7 @@ export const taskDepartments: TaskDepartment[] = [
         title: 'The Falsification Challenge',
         level: 'Advanced Track',
         brief:
-          'Act as a skeptical researcher and investigate the claim that neural networks preferentially learn simpler predictive features. Design a small, controlled study that could falsify, weaken, or qualify the claim—not simply reproduce it. The main deliverable is a rigorous experimental research proposal; running experiments is optional and earns additional credit when it meaningfully strengthens the investigation.',
+          'Act as a skeptical researcher and investigate the claim that neural networks preferentially learn simpler predictive features. Design a small, controlled study that could falsify, weaken, or qualify the claim, not simply reproduce it. The main deliverable is a rigorous experimental research proposal; running experiments is optional and earns additional credit when it meaningfully strengthens the investigation.',
         concept:
           'Ask when simplicity bias might fail, what “simple” means, and whether observed preferences come from feature simplicity, data correlations, architecture, or optimization. Conclusions should match the evidence; you are not expected to disprove the claim.',
         requirements: [
@@ -358,7 +358,7 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'Applied ML',
     tagline: 'Build systems that reason and take action.',
     description:
-      'Choose either of these independent tracks. Both are optional—pick the one that fits your interests and experience.',
+      'Choose either of these independent tracks. Both are optional. Pick the one that fits your interests and experience.',
     image: '/assets/tasks/agentic.jpeg',
     skills: ['Python', 'LLMs', 'Open-weight models', 'Data analysis', 'Computer vision'],
     difficulty: 'Intermediate',
@@ -376,7 +376,7 @@ export const taskDepartments: TaskDepartment[] = [
         title: 'The Agentic Task [Basic]',
         level: 'Starter Track',
         brief:
-          'Optional track. Build a data-analysis agent that accepts a tabular dataset and natural-language questions, then uses its own tools to analyse the data and answer accurately. We are interested in how you learn, experiment, build something that works, and explain your decisions—not a perfect product. External resources and LLMs are fine; clearly describe your own contribution.',
+          'Optional track. Build a data analysis agent that accepts a tabular dataset and natural language questions, then uses its own tools to analyse the data and answer accurately. We are interested in how you learn, experiment, build something that works, and explain your decisions, not a perfect product. External resources and LLMs are fine; clearly describe your own contribution.',
         concept:
           'Choose any suitable tabular dataset and demonstrate real analysis. The system should not be hard-coded for one dataset; evaluators may try their own data and questions.',
         stacks: ['Any reasonable APIs, open models, and development stack'],
@@ -388,7 +388,7 @@ export const taskDepartments: TaskDepartment[] = [
         ],
         optionalMissions: [
           {
-            name: 'Brownie points — Persistent memory',
+            name: 'Brownie points: Persistent memory',
             benefit: 'Add useful memory across sessions. Do not simply save every chat message or dump whole datasets into a database. Memory should retain useful facts, retrieve them when relevant, and change the agent’s future responses. For example, remember what a metric or column means, a corrected fact, a preference for weekly rather than daily summaries, or a reusable named filter. If a user says “active customers” excludes cancelled accounts, the agent should remember and apply that definition next time. Thoughtful memory can decide what is worth keeping, update stale or incorrect facts, handle conflicts, and let users inspect or control what is remembered.',
           },
         ],
@@ -422,9 +422,9 @@ export const taskDepartments: TaskDepartment[] = [
               'These beginner-friendly articles can help you get familiar with agents and tools. They are starting points, not required frameworks; explore and build with the libraries, models, tools, or combinations that interest you.',
             ],
             links: [
-              { label: 'What is an Agent? — Hugging Face', url: 'https://huggingface.co/blog/agents' },
-              { label: 'What are Tools? — Hugging Face', url: 'https://huggingface.co/docs/smolagents/tutorials/tools' },
-              { label: 'Agents — LangChain', url: 'https://python.langchain.com/docs/concepts/agents/' },
+              { label: 'What is an Agent? Hugging Face', url: 'https://huggingface.co/blog/agents' },
+              { label: 'What are Tools? Hugging Face', url: 'https://huggingface.co/docs/smolagents/tutorials/tools' },
+              { label: 'Agents: LangChain', url: 'https://python.langchain.com/docs/concepts/agents/' },
             ],
           },
         ],
@@ -434,7 +434,7 @@ export const taskDepartments: TaskDepartment[] = [
         title: 'The Manga Task [Advanced]',
         level: 'Advanced Track',
         brief:
-          'Optional track. Build a system that reads three consecutive English manga pages, extracts the story text in reading order, and identifies who spoke each line. Keep character labels consistent across all three pages in a sequence. Real character names are not required—labels such as char1, tomato2, or tungtungsahur are fine. Labels may restart or change for the next sequence.',
+          'Optional track. Build a system that reads three consecutive English manga pages, extracts the story text in reading order, and identifies who spoke each line. Keep character labels consistent across all three pages in a sequence. Real character names are not required. Labels such as char1, tomato2, or tungtungsahur are fine. Labels may restart or change for the next sequence.',
         concept:
           'There are 80 labelled development sequences and 15 unlabelled test sequences. Each sequence has three consecutive pages. Use sequences.json to identify the page triplets, and keep each complete sequence together when creating your own train/validation split.',
         stacks: ['Open-weight models', 'Open-source tools', 'Your choice of pipeline'],
@@ -492,9 +492,9 @@ export const taskDepartments: TaskDepartment[] = [
             title: 'Beginner resources',
             paragraphs: ['These are starting points for vision-language models and fine-tuning. You are encouraged to explore other open-weight models, training methods, supporting tools, and pipeline designs.'],
             links: [
-              { label: 'Introduction to Vision Language Models — Hugging Face', url: 'https://huggingface.co/blog/vlms' },
-              { label: 'Fine-Tuning Vision Language Models — Hugging Face', url: 'https://huggingface.co/docs/trl/main/en/training_vlm' },
-              { label: 'LoRA — Hugging Face PEFT', url: 'https://huggingface.co/docs/peft/en/conceptual_guides/lora' },
+              { label: 'Introduction to Vision Language Models: Hugging Face', url: 'https://huggingface.co/blog/vlms' },
+              { label: 'Fine Tuning Vision Language Models: Hugging Face', url: 'https://huggingface.co/docs/trl/main/en/training_vlm' },
+              { label: 'LoRA: Hugging Face PEFT', url: 'https://huggingface.co/docs/peft/en/conceptual_guides/lora' },
             ],
           },
         ],
@@ -516,7 +516,7 @@ export const taskDepartments: TaskDepartment[] = [
     tasks: [
       {
         id: 'cad-task-1',
-        title: 'Task 1 — Nano + MPU6050 Enclosure with Custom Lid',
+        title: 'Task 1: Nano + MPU6050 Enclosure with Custom Lid',
         level: 'Starter Track',
         brief:
           'Design a 3D-printable enclosure for a Nano and MPU6050, including a custom lid. This is the required CAD task for shortlisting.',
@@ -524,7 +524,7 @@ export const taskDepartments: TaskDepartment[] = [
           'Use only the official component drawings provided with the task brief. The model should be printable in principle: avoid unsupported overhangs and maintain reasonable wall thickness. You do not need to print it.',
         requirements: [
           'Include either Task1.stl or Task1.step in the Task1 folder.',
-          'Include Design_rationale.docx (150–250 words) explaining the board arrangement, standoff heights, wall height, lid mechanism choice and why, and tradeoffs made to fit the envelope.',
+          'Include Design_rationale.docx (150 to 250 words) explaining the board arrangement, standoff heights, wall height, lid mechanism choice and why, and tradeoffs made to fit the envelope.',
         ],
         detailSections: [
           {
@@ -540,7 +540,7 @@ export const taskDepartments: TaskDepartment[] = [
       },
       {
         id: 'cad-task-2',
-        title: 'Task 2 — Slider-Crank Mechanism',
+        title: 'Task 2: Slider Crank Mechanism',
         level: 'Advanced Track',
         brief:
           'Model a slider-crank mechanism as a constrained assembly and demonstrate that it moves through its full range without interference or binding. This task is optional and adds bonus weight.',
@@ -550,7 +550,7 @@ export const taskDepartments: TaskDepartment[] = [
           'Include Task2.step with joints/mates preserved. STEP is strongly preferred over STL because it retains the mechanism constraints.',
           'Include a short Demo.mp4 or Demo.gif showing movement at crank angles 0°, 90°, 180°, and 270°, with no interference or binding.',
           'If video/GIF is not possible, include labeled screenshots named Demo_0deg.png, Demo_90deg.png, Demo_180deg.png, and Demo_270deg.png.',
-          'Include Design_rationale.docx (150–250 words) explaining your crank radius and rod length choices, how you defined the joints, and what interference issues you checked.',
+          'Include Design_rationale.docx (150 to 250 words) explaining your crank radius and rod length choices, how you defined the joints, and what interference issues you checked.',
         ],
         detailSections: [
           {
@@ -570,17 +570,17 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'Electronics',
     tagline: 'Sense, respond, and build reliable circuits.',
     description:
-      'Three hands-on electronics tasks: a required sensor-voting challenge, a second core task, and an optional KiCad bonus.',
+      'Three hands on electronics tasks: a required sensor voting challenge, a second core task, and an optional KiCad bonus.',
     image: '/assets/tasks/electronics.jpeg',
     skills: ['Arduino', 'Wokwi', 'KiCad', 'Sensors'],
     difficulty: 'Intermediate',
-    estimatedTime: 'Tasks 1–2 core · Task 3 bonus',
+    estimatedTime: 'Tasks 1 and 2 core · Task 3 bonus',
     submissionFormat: 'One Electronics-only Google Drive folder link submitted through the website upload form',
     evaluationCriteria: [],
     tasks: [
       {
         id: 'electronics-task-1',
-        title: 'Task 1 — Redundant Sensor Voting',
+        title: 'Task 1: Redundant Sensor Voting',
         level: 'Starter Track',
         badgeLabel: 'Required · All years',
         brief: 'Build an Arduino system that reads two potentiometers as redundant sensors and decides the output position reliably, including when the readings disagree or reach a boundary.',
@@ -589,7 +589,7 @@ export const taskDepartments: TaskDepartment[] = [
         requirements: [
           'Submit a public/unlisted Wokwi project URL in Link.txt containing only the raw URL. If using physical hardware, submit Demo.mp4 instead.',
           'Submit the complete Arduino sketch as plain text in a file named Code.txt (not .ino).',
-          'Include Design_rationale.docx, 150–250 words, explaining your threshold value and why, how “hold last position” works, and how you prevent flicker at the boundary.',
+          'Include Design_rationale.docx, 150 to 250 words, explaining your threshold value and why, how “hold last position” works, and how you prevent flicker at the boundary.',
         ],
         detailSections: [
           {
@@ -600,7 +600,7 @@ export const taskDepartments: TaskDepartment[] = [
       },
       {
         id: 'electronics-task-2',
-        title: 'Task 2 — Simon Says with Heartbeat',
+        title: 'Task 2: Simon Says with Heartbeat',
         level: 'Advanced Track',
         badgeLabel: 'Required · Second year',
         brief: 'Build a Simon Says game with a heartbeat LED. Make the game’s speed increase with a clear ramp, while keeping the heartbeat indicator independent of game state.',
@@ -609,7 +609,7 @@ export const taskDepartments: TaskDepartment[] = [
         requirements: [
           'Submit a public/unlisted Wokwi URL in Link.txt containing only the raw URL. If using physical hardware, submit Demo.mp4 instead.',
           'Submit the complete Arduino sketch as plain text in a file named Code.txt (not .ino).',
-          'Include Design_rationale.docx, 150–250 words, explaining your speed-ramp formula and how the heartbeat LED remains independent of game state.',
+          'Include Design_rationale.docx, 150 to 250 words, explaining your speed ramp formula and how the heartbeat LED remains independent of game state.',
         ],
         detailSections: [
           {
@@ -620,7 +620,7 @@ export const taskDepartments: TaskDepartment[] = [
       },
       {
         id: 'electronics-task-3',
-        title: 'Task 3 — MPU6050 KiCad Schematic',
+        title: 'Task 3: MPU6050 KiCad Schematic',
         level: 'Advanced Track',
         badgeLabel: 'X-factor · Optional',
         brief: 'Create an MPU6050 KiCad schematic. PCB layout may be included if attempted. This is an optional bonus-on-bonus task and is not required for shortlisting.',
@@ -629,7 +629,7 @@ export const taskDepartments: TaskDepartment[] = [
         requirements: [
           'If attempted, include a Task3/ folder containing MPU6050.zip, generated by KiCad’s native project-archive function, and Design_rationale.docx.',
           'Include any PCB layout in the same native project archive.',
-          'Write a 200–350 word rationale covering your decoupling and pull-up value choices and why you tied AD0 the way you did.',
+          'Write a 200 to 350 word rationale covering your decoupling and pull up value choices and why you tied AD0 the way you did.',
           'Omit the entire Task3/ folder if you did not attempt this bonus.',
         ],
         detailSections: [
@@ -646,7 +646,7 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'ROS',
     tagline: 'Robot Operating System',
     description:
-      'Build and demonstrate an autonomous TurtleBot patrol with obstacle avoidance and an emergency-stop service.',
+      'Build and demonstrate an autonomous TurtleBot patrol with obstacle avoidance and an emergency stop service.',
     image: '/assets/tasks/mechatronics.png',
     skills: ['ROS', 'TurtleBot', 'Obstacle avoidance', 'Services'],
     difficulty: 'Advanced',
@@ -656,7 +656,7 @@ export const taskDepartments: TaskDepartment[] = [
     tasks: [
       {
         id: 'ros-turtlebot-patrol',
-        title: 'Task 1 — Autonomous TurtleBot Patrol & Obstacle Avoidance',
+        title: 'Task 1: Autonomous TurtleBot Patrol & Obstacle Avoidance',
         level: 'Starter Track',
         badgeLabel: 'Mandatory task',
         brief: 'Create a complete turtlebot_patrol package that autonomously patrols and avoids obstacles, with an emergency-stop service that can be triggered and reset.',
@@ -685,14 +685,14 @@ export const taskDepartments: TaskDepartment[] = [
     tasks: [
       {
         id: 'sec-cryptography',
-        title: 'Task 1 — Cryptography',
+        title: 'Task 1: Cryptography',
         level: 'Starter Track',
         brief: 'The challenge is a simple cipher challenge that has the flag in the format BYTE{...}.',
         concept: 'QkFJTntiQTczX1E4Ul9BcmhIQ19YNHlHY0R9',
       },
       {
         id: 'sec-steganography',
-        title: 'Task 2 — Steganography',
+        title: 'Task 2: Steganography',
         level: 'Starter Track',
         brief: 'The challenge is a PNG file that has been corrupted. Find the flag in the format BYTE{...}.',
         referenceUrl: {
@@ -702,7 +702,7 @@ export const taskDepartments: TaskDepartment[] = [
       },
       {
         id: 'sec-binary-exploitation',
-        title: 'Task 3 — Binary Exploitation',
+        title: 'Task 3: Binary Exploitation',
         level: 'Advanced Track',
         brief: 'This challenge uses an insecure memory buffer, also known as a buffer overflow. Exploit it to reach the part of the program that contains the flag in the format BYTE{...}. The flag in the provided dummy binary is fake. The actual challenge runs as a remote service; connect with Netcat (nc) using the supplied host and port.',
         concept: 'nc cybersub.bytesoc.dev 9999',
@@ -729,7 +729,7 @@ export const taskDepartments: TaskDepartment[] = [
     tasks: [
       {
         id: 'graphic-design-poster',
-        title: 'Task 1 — BYTE Freshers Poster',
+        title: 'Task 1: BYTE Freshers Poster',
         level: 'Starter Track',
         badgeLabel: 'Poster design',
         brief: 'Create the first impression of BYTE for incoming MAIT freshers. Design a freshers-facing promotional poster introducing BYTE as a technical society and making a first-year student want to learn more and join.',
@@ -758,7 +758,7 @@ export const taskDepartments: TaskDepartment[] = [
       },
       {
         id: 'graphic-design-merch',
-        title: 'Task 2 — BYTE T-shirt Merchandise',
+        title: 'Task 2: BYTE T shirt Merchandise',
         level: 'Starter Track',
         badgeLabel: 'Merch concept',
         brief: 'Design an original T-shirt merchandise concept for BYTE MAIT that represents a tech, coding, and creative community. Make it modern, youthful, tech-inspired, visually strong, and suitable for actual college merchandise.',
@@ -787,21 +787,21 @@ export const taskDepartments: TaskDepartment[] = [
     image: '/assets/tasks/video_editing.jpeg',
     skills: ['Editing', 'Pacing', 'Sound design', 'Visual storytelling'],
     difficulty: 'Intermediate',
-    estimatedTime: 'One 45–60 second edit',
+    estimatedTime: 'One 45 to 60 second edit',
     submissionFormat: 'Public Google Drive link to final MP4',
     evaluationCriteria: [],
     tasks: [
       {
         id: 'video-editing-recap',
-        title: 'Algo Trading Sprint — Event Recap',
+        title: 'Algo Trading Sprint: Event Recap',
         level: 'Starter Track',
         badgeLabel: 'Video edit',
-        brief: 'Turn raw footage from BYTE’s Algo Trading Sprint into a polished 45–60-second vertical event recap. Make deliberate editorial decisions about what matters, what to cut, what to emphasise, how the edit flows, and what feeling viewers should leave with.',
+        brief: 'Turn raw footage from BYTE’s Algo Trading Sprint into a polished 45 to 60 second vertical event recap. Make deliberate editorial decisions about what matters, what to cut, what to emphasise, how the edit flows, and what feeling viewers should leave with.',
         requirements: [
-          'Create a compelling visual narrative by selecting, structuring, and pacing footage—not merely assembling clips.',
+          'Create a compelling visual narrative by selecting, structuring, and pacing footage, not merely assembling clips.',
           'Use music, sound design, typography, and visual treatment to strengthen the story. Keep the result professional and suitable for BYTE social media.',
           'The supplied event footage must remain the primary visual source. External footage must not replace it. Supporting royalty-free music, sound effects, fonts, textures, and official BYTE/Algo Trading Sprint assets are allowed.',
-          'Duration: 45–60 seconds. Format: vertical 9:16. Recommended export: MP4 at 1080 × 1920 or higher.',
+          'Duration: 45 to 60 seconds. Format: vertical 9:16. Recommended export: MP4 at 1080 × 1920 or higher.',
           'Keep on-screen text purposeful and readable, use BYTE branding without overpowering the footage, and use transitions only when they help the rhythm or narrative.',
           'Do not use a pre-made video template as the main structure of the edit.',
         ],
@@ -818,7 +818,7 @@ export const taskDepartments: TaskDepartment[] = [
               'State the software/video-editing apps used.',
               'Add a creative note of no more than 50 words explaining the concept or approach.',
               'Keep the export at original quality; do not submit a compressed WhatsApp/Instagram version.',
-              'Set Drive access to Anyone with the link — Viewer.',
+              'Set Drive access to Anyone with the link: Viewer.',
             ],
           },
         ],
@@ -850,28 +850,28 @@ export const taskDepartments: TaskDepartment[] = [
         ],
         detailSections: [
           {
-            title: 'Part 1 — Review and outreach messages',
+            title: 'Part 1: Review and outreach messages',
             items: [
               '1. Review this speaker request: “heyy!! we\'re doing a coding event, wanted to ask if u\'d like to come as speaker, it\'ll be so much fun and great exposure for you!! lmk asap”. Name five things wrong with it, one line each.',
-              '2a. For BYTE Hackathon on AI Agents, 25–26 October at MAIT, expecting about 150 students, write a message (maximum 150 words) to a nearby print/stationery shop asking it to sponsor goodie-bag printing. It has sponsored other societies before and was unimpressed by turnout. You have no budget, only visibility and footfall data.',
-              '2b. Write a message (maximum 120 words) to an alum working as a SWE/PM at a startup asking for a 40-minute tech talk. They work 9–6 and receive many such requests. Add one line naming the platform you would use and why.',
+              '2a. For BYTE Hackathon on AI Agents, 25 to 26 October at MAIT, expecting about 150 students, write a message (maximum 150 words) to a nearby print/stationery shop asking it to sponsor goodie bag printing. It has sponsored other societies before and was unimpressed by turnout. You have no budget, only visibility and footfall data.',
+              '2b. Write a message (maximum 120 words) to an alum working as a SWE/PM at a startup asking for a 40 minute tech talk. They work 9 to 6 and receive many such requests. Add one line naming the platform you would use and why.',
               '2c. Write a mass broadcast announcing registration for the hackathon on college-wide WhatsApp and Instagram (maximum 280 characters). Include what it is, the dates, one reason to attend, and where to register. Do not use “excited,” “amazing,” “don’t miss out,” or 🔥; use no more than one emoji.',
             ],
           },
           {
-            title: 'Part 2 — Replies and sponsor research',
+            title: 'Part 2: Replies and sponsor research',
             items: [
               '3. The print shop says: “We did this for XXX club last year. Nobody redeemed the coupons. Not doing it again.” Write a reply (maximum 70 words). How would you get them to agree?',
               '4. The alum has not replied after six days. Write a follow-up (maximum 60 words), or describe another idea for moving forward.',
               '5. The alum says: “I can do it, but I need to know at least 60 people will actually show up, not just RSVP.” You cannot guarantee attendance. Write a reply (maximum 70 words).',
-              '6. Find three real entities BYTE could realistically approach for the hackathon (companies, local shops, alumni-run startups, ed-tech tools, etc.). For each, provide its name and what it does; why it fits this event (maximum two lines); a concrete offer beyond generic visibility; and an exact contact point (a person, role, or form—not “check their website”). Present Question 6 as a table. Fabricated or copy-pasted entries are an instant reject; entries are checked.',
+              '6. Find three real entities BYTE could realistically approach for the hackathon (companies, local shops, alumni run startups, education technology tools, etc.). For each, provide its name and what it does; why it fits this event (maximum two lines); a concrete offer beyond generic visibility; and an exact contact point (a person, role, or form, not “check their website”). Present Question 6 as a table. Fabricated or copied entries are an instant reject; entries are checked.',
             ],
           },
           {
             title: 'Submission',
             items: [
               'Submit one PDF or document, in task order, named FullName_Branch_Outreach.',
-              'Upload it to Google Drive and submit the link. Set access to Anyone with the link — Viewer and verify it is publicly accessible.',
+              'Upload it to Google Drive and submit the link. Set access to Anyone with the link: Viewer, and verify it is publicly accessible.',
               'Part 1 is approximately 35% of the weight; Part 2 is approximately 65%. Part 2 and the interview are the main filters.',
             ],
           },
@@ -887,8 +887,8 @@ export function getDepartmentBySlug(slug: string): TaskDepartment | undefined {
 
 export const timelineSteps: TimelineStep[] = [
   { step: '01', title: 'Orientation Headstart', date: '25 Sep', desc: 'Orientation headstart complete', status: 'completed' },
-  { step: '02', title: 'Task Release', date: '27 Sep', desc: 'Tasks go live — start building', status: 'current' },
-  { step: '03', title: 'Submission', date: '29 Sep – 13 Oct', desc: 'Submission portal is open', status: 'upcoming' },
+  { step: '02', title: 'Task Release', date: '27 Sep', desc: 'Tasks go live: start building', status: 'current' },
+  { step: '03', title: 'Submission', date: '29 Sep to 13 Oct', desc: 'Submission portal is open', status: 'upcoming' },
   { step: '04', title: 'Interviews', date: 'After submissions', desc: 'Shortlisted candidate interviews', status: 'upcoming' },
 ];
 

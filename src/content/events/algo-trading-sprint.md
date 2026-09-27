@@ -2,7 +2,7 @@
 name: Algo Trading Sprint
 type: Competition
 date: "2026-03-16"
-time: 09:00 AM – 06:00 PM
+time: 09:00 AM to 06:00 PM
 venue: Lab 2
 shortDescription: A two-day sprint to build and deploy ML-based trading bots.
 agenda:
