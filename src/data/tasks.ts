@@ -687,7 +687,7 @@ export const taskDepartments: TaskDepartment[] = [
         id: 'sec-cryptography',
         title: 'Task 1: Cryptography',
         level: 'Starter Track',
-        brief: 'The challenge is a simple cipher challenge that has the flag in the format flag{...}.',
+        brief: 'The challenge is a simple cipher challenge that has the flag in the format BYTE{...}.',
         concept: 'QkFJTntiQTczX1E4Ul9BcmhIQ19YNHlHY0R9',
       },
       {
@@ -704,7 +704,7 @@ export const taskDepartments: TaskDepartment[] = [
         id: 'sec-binary-exploitation',
         title: 'Task 3: Binary Exploitation',
         level: 'Advanced Track',
-        brief: 'This challenge uses an insecure memory buffer, also known as a buffer overflow. Exploit it to reach the part of the program that contains the flag in the format flag{...}. The flag in the provided dummy binary is fake. The actual challenge runs as a remote service; connect with Netcat (nc) using the supplied host and port.',
+        brief: 'This challenge uses an insecure memory buffer, also known as a buffer overflow. Exploit it to reach the part of the program that contains the flag in the format BYTE{...}. The flag in the provided dummy binary is fake. The actual challenge runs as a remote service; connect with Netcat (nc) using the supplied host and port.',
         concept: 'nc cybersub.bytesoc.dev 9999',
         requirements: [
           'Download the provided ZIP and extract it. Keep all extracted files in the same folder.',

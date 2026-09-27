@@ -43,7 +43,7 @@ const { tasks } = Astro.props;
           </ul>
         </>
       )}
-      <p class="flag-format">Find the flag that is in the format <code>flag&#123;&#125;</code></p>
+      <p class="flag-format">Find the flag that is in the format <code>{task.id === 'sec-steganography' ? 'flag{}' : 'BYTE{}'}</code></p>
     </article>
   ))}
 </div>
