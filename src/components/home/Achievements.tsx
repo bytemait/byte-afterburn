@@ -50,8 +50,7 @@ export default function Achievements({ achievements }: Props) {
 
         {/* Subtitle */}
         <p className="achievements-subtitle">
-          A snapshot of the ideas, experiments, and builds our members have brought to life<br className="desktop-br" />
-          through collaboration, curiosity, and hands-on learning.
+          A snapshot of the ideas, experiments, and builds our members have brought to life through collaboration, curiosity, and hands on learning.
         </p>
 
         {/* 1:1 Framer Row Stream */}
@@ -127,7 +126,7 @@ export default function Achievements({ achievements }: Props) {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 96px;
+          gap: 76px;
           position: relative;
         }
 
@@ -161,12 +160,13 @@ export default function Achievements({ achievements }: Props) {
         .achievements-subtitle {
           margin: 0 auto;
           font-family: 'Inter', sans-serif;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 20px;
+          line-height: 1.5;
           color: #ffffff;
           text-align: center;
-          max-width: 480px;
+          max-width: 620px;
+          text-wrap: balance;
         }
 
         /* Stream Rows */

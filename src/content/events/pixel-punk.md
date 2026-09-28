@@ -2,7 +2,7 @@
 name: Pixel Punk Game Jam
 type: Competition
 date: "2025-03-27"
-time: 10:00 AM – 10:00 AM
+time: 10:00 AM to 10:00 AM
 venue: Virtual & Campus
 shortDescription: Merging retro-futurism with modern gameplay in a high-stakes game jam.
 agenda:

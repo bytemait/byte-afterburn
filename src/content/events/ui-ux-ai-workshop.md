@@ -2,7 +2,7 @@
 name: UI/UX & AI Workshop
 type: Workshop
 date: "2025-10-29"
-time: 02:00 PM – 05:00 PM
+time: 02:00 PM to 05:00 PM
 venue: Design Studio
 shortDescription: Exploring how human-centered design blends with artificial intelligence.
 agenda:

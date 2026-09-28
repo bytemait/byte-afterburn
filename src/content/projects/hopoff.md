@@ -19,7 +19,7 @@ contributors:
 
 ## Overview
 
-HopOff! is a mobile companion for Delhi Metro riders who want a reliable reminder before their destination. A rider sets an intended stop and receives a timely alert through configurable notifications, sound, and haptics—useful when a commute includes crowds, fatigue, or a moment of distraction.
+HopOff! is a mobile companion for Delhi Metro riders who want a reliable reminder before their destination. A rider sets an intended stop and receives a timely alert through configurable notifications, sound, and haptics. This is useful when a commute includes crowds, fatigue, or a moment of distraction.
 
 ## Challenge
 
