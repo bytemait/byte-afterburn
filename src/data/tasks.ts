@@ -8,13 +8,12 @@ export const TASK_CONFIG = {
   revealDateFull: '25 SEP 2026 • 15:00 IST',
   revealDateShort: '25 Sep • 3:00 PM IST',
   revealDateDay: '25 Sep',
-  submissionDeadline: 'Day 5 at 11:59 PM IST',
-  submissionFormUrl: 'https://forms.gle',
+  submissionDeadline: '13 Oct 2026 at 11:59 PM IST',
   discordUrl: 'https://discord.gg/534RnMEuH',
-  submissionOpenIso: '2026-09-29T00:01:00+05:30',
-  submissionOpenTimestamp: new Date('2026-09-29T00:01:00+05:30').getTime(),
-  submissionOpenFull: '29 SEP 2026 • 00:01 IST',
-  submissionOpenShort: '29 Sep • 12:01 AM IST',
+  submissionOpenIso: '2026-10-13T23:59:00+05:30',
+  submissionOpenTimestamp: new Date('2026-10-13T23:59:00+05:30').getTime(),
+  submissionOpenFull: '13 OCT 2026 • 23:59 IST',
+  submissionOpenShort: '13 Oct • 11:59 PM IST',
 };
 
 export const TASK_REVEAL_TIMESTAMP = TASK_CONFIG.revealTimestamp;
@@ -887,8 +886,8 @@ export function getDepartmentBySlug(slug: string): TaskDepartment | undefined {
 
 export const timelineSteps: TimelineStep[] = [
   { step: '01', title: 'Orientation Headstart', date: '25 Sep', desc: 'Orientation headstart complete', status: 'completed' },
-  { step: '02', title: 'Task Release', date: '27 Sep', desc: 'Tasks go live: start building', status: 'current' },
-  { step: '03', title: 'Submission', date: '29 Sep to 13 Oct', desc: 'Submission portal is open', status: 'upcoming' },
+  { step: '02', title: 'Task Release', date: '27 Sep', desc: 'Tasks go live: start building', status: 'completed' },
+  { step: '03', title: 'Submission', date: '29 Sep to 13 Oct', desc: 'Submission portal is open', status: 'current' },
   { step: '04', title: 'Interviews', date: 'After submissions', desc: 'Shortlisted candidate interviews', status: 'upcoming' },
 ];
 
