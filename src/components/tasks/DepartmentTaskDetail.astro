@@ -127,9 +127,14 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
               dept.tasks.map((task) => (
                 <>
                   {dept.slug === 'applied-ml' && task.id === 'manga-advanced' && (
-                    <a class="advanced-brief-link" href="https://docs.google.com/document/d/1QwsqMYJZUDtiaXJIL0wDrdOpjxbaM8AcPL3HIxd2ABA/edit?tab=t.0#heading=h.ubr3uv6ruzl1" target="_blank" rel="noopener noreferrer">
-                      <span class="brief-file-icon" aria-hidden="true">↗</span><span class="advanced-brief-copy"><small>Applied ML · Advanced track</small><strong>Open the full task brief</strong><span>View the complete instructions in Google Docs.</span></span><span class="brief-open-mark" aria-hidden="true">↗</span>
-                    </a>
+                    <>
+                      <a class="advanced-brief-link" href="https://docs.google.com/document/d/1QwsqMYJZUDtiaXJIL0wDrdOpjxbaM8AcPL3HIxd2ABA/edit?tab=t.0#heading=h.ubr3uv6ruzl1" target="_blank" rel="noopener noreferrer">
+                        <span class="brief-file-icon" aria-hidden="true">↗</span><span class="advanced-brief-copy"><small>Applied ML · Advanced track</small><strong>Open the full task brief</strong><span>View the complete instructions in Google Docs.</span></span><span class="brief-open-mark" aria-hidden="true">↗</span>
+                      </a>
+                      <a class="advanced-brief-link" href="https://drive.google.com/drive/folders/1UDZ6es3VdDyxd3mEsBQBrrYa7fD2lWYp" target="_blank" rel="noopener noreferrer">
+                        <span class="brief-file-icon" aria-hidden="true">↗</span><span class="advanced-brief-copy"><small>Applied ML · Advanced track</small><strong>Open the manga dataset</strong><span>Access the dataset files in Google Drive.</span></span><span class="brief-open-mark" aria-hidden="true">↗</span>
+                      </a>
+                    </>
                   )}
                   <ProblemStatementCard task={task} />
                   {dept.slug === 'web-dev' && task.id === 'web-debugging' && <WebDevSpecBanner />}
