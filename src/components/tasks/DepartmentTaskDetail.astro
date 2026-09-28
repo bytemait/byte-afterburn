@@ -218,14 +218,18 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
           <p>{dept.slug === 'cad' ? 'Submit one Google Drive folder link containing your CAD task files through the website upload form.' : dept.slug === 'electronics' ? 'Submit one Electronics-only Google Drive folder link through the website upload form.' : dept.slug === 'ros' ? 'Submit one separate ROS-only Google Drive folder link through the website upload form.' : dept.slug === 'cybersecurity' ? 'Submit a public GitHub repository and a public Google Doc explaining your approach and tools.' : ['graphic-design', 'video-editing', 'outreach'].includes(dept.slug) ? 'Submit your work using the format in the task instructions. Make sure all shared links are publicly accessible.' : 'Submit your GitHub repository, README, and live demo output link before the window closes.'}</p>
           <div class="side-deadline-tag">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Portal opens {TASK_CONFIG.submissionOpenShort}</span>
+            <span>Portal closes {TASK_CONFIG.submissionOpenShort}</span>
           </div>
-          <div class="submission-countdown" role="timer" aria-label="Submission portal opening countdown">
+          <div class="submission-countdown" role="timer" aria-label="Submission deadline countdown">
             <div><strong id="submitCdDays">00</strong><span>Days</span></div>
             <div><strong id="submitCdHours">00</strong><span>Hours</span></div>
             <div><strong id="submitCdMins">00</strong><span>Minutes</span></div>
             <div><strong id="submitCdSecs">00</strong><span>Seconds</span></div>
           </div>
+          <a href={TASK_CONFIG.submissionPortalUrl} class="btn btn-primary track-submit-btn" target="_blank" rel="noopener noreferrer">
+            Submit Your Task
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
         </div>
       </div>
 
@@ -1284,6 +1288,20 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
     font-size: .62rem;
     text-transform: uppercase;
     letter-spacing: .04em;
+  }
+  .track-submit-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+    text-decoration: none;
+  }
+
+  .track-submit-btn svg {
+    width: 16px;
+    height: 16px;
   }
 
   .discord-sidebar-link {
