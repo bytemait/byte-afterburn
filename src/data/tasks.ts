@@ -10,6 +10,7 @@ export const TASK_CONFIG = {
   revealDateDay: '25 Sep',
   submissionDeadline: '13 Oct 2026 at 11:59 PM IST',
   discordUrl: 'https://discord.gg/534RnMEuH',
+  submissionPortalUrl: 'https://submissions.bytesoc.dev/',
   submissionOpenIso: '2026-10-13T23:59:00+05:30',
   submissionOpenTimestamp: new Date('2026-10-13T23:59:00+05:30').getTime(),
   submissionOpenFull: '13 OCT 2026 • 23:59 IST',
