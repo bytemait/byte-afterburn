@@ -310,6 +310,13 @@ export const taskDepartments: TaskDepartment[] = [
         ],
         detailSections: [
           {
+            title: 'Paper Craft Reading Template',
+            paragraphs: ['The template is available now. You can fill it in.'],
+            links: [
+              { label: 'Open the Paper Craft Reading Template (Google Doc)', url: 'https://docs.google.com/document/d/1wxOj4FGdB5SJ1dycmRn9Bm1OSwXlPtwD/edit?usp=sharing&ouid=107701619708970618258&rtpof=true&sd=true' },
+            ],
+          },
+          {
             title: 'Paper options: choose exactly one',
             items: [
               'General: An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale',
