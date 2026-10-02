@@ -95,7 +95,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Build apps people actually use.',
     description:
       'Work on native and cross platform mobile apps, from first wireframe to Play Store. Ship real products alongside a team that reviews, iterates, and cares about UX.',
-    image: '/assets/tasks/app-dev.png',
+    image: '/assets/tasks/app-dev.webp',
     skills: ['Flutter', 'React Native', 'Expo', 'Kotlin / Swift', 'Supabase / Firebase'],
     difficulty: 'Intermediate',
     estimatedTime: '10 to 14 hours',
@@ -193,7 +193,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Ship it. Then ship it faster.',
     description:
       'Full stack web projects, marketing sites, dashboards, tools, and APIs. We care about performance, accessibility, and code that the next person can read.',
-    image: '/assets/tasks/web-dev.png',
+    image: '/assets/tasks/web-dev.webp',
     skills: ['React', 'Astro', 'Next.js', 'TypeScript', 'Tailwind CSS'],
     difficulty: 'Beginner',
     estimatedTime: '6 to 10 hours',
@@ -283,7 +283,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Models that solve real problems.',
     description:
       'Data pipelines, model training, evaluation, and deployment. Work on projects where machine learning meets a genuine use case, not just a notebook.',
-    image: '/assets/tasks/ml_research.jpeg',
+    image: '/assets/tasks/ml_research.webp',
     skills: ['Python', 'PyTorch', 'TensorFlow', 'Pandas', 'OpenCV'],
     difficulty: 'Intermediate',
     estimatedTime: '10 to 14 hours',
@@ -359,7 +359,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Build systems that reason and take action.',
     description:
       'Choose either of these independent tracks. Both are optional. Pick the one that fits your interests and experience.',
-    image: '/assets/tasks/agentic.jpeg',
+    image: '/assets/tasks/agentic.webp',
     skills: ['Python', 'LLMs', 'Open-weight models', 'Data analysis', 'Computer vision'],
     difficulty: 'Intermediate',
     estimatedTime: 'Choose your track',
@@ -507,7 +507,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Design it. Assemble it. Make it work.',
     description:
       'Create printable CAD models and a constrained mechanism assembly. Task 1 is required for shortlisting; Task 2 is optional bonus work.',
-    image: '/assets/tasks/cad.jpeg',
+    image: '/assets/tasks/cad.webp',
     skills: ['3D CAD', '3D-printable design', 'Assembly joints / mates'],
     difficulty: 'Intermediate',
     estimatedTime: 'Task 1 required · Task 2 optional',
@@ -571,7 +571,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Sense, respond, and build reliable circuits.',
     description:
       'Three hands on electronics tasks: a required sensor voting challenge, a second core task, and an optional KiCad bonus.',
-    image: '/assets/tasks/electronics.jpeg',
+    image: '/assets/tasks/electronics.webp',
     skills: ['Arduino', 'Wokwi', 'KiCad', 'Sensors'],
     difficulty: 'Intermediate',
     estimatedTime: 'Tasks 1 and 2 core · Task 3 bonus',
@@ -647,7 +647,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Robot Operating System',
     description:
       'Build and demonstrate an autonomous TurtleBot patrol with obstacle avoidance and an emergency stop service.',
-    image: '/assets/tasks/mechatronics.png',
+    image: '/assets/tasks/mechatronics.webp',
     skills: ['ROS', 'TurtleBot', 'Obstacle avoidance', 'Services'],
     difficulty: 'Advanced',
     estimatedTime: 'One mandatory task',
@@ -676,7 +676,7 @@ export const taskDepartments: TaskDepartment[] = [
     tagline: 'Break things. Then figure out why.',
     description:
       'Three concise challenges across cryptography, steganography, and binary exploitation.',
-    image: '/assets/tasks/cybersecurity.png',
+    image: '/assets/tasks/cybersecurity.webp',
     skills: ['Cryptography', 'Steganography', 'Binary exploitation'],
     difficulty: 'Intermediate',
     estimatedTime: 'Three challenges',
@@ -720,7 +720,7 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'Graphic Design',
     tagline: 'Make BYTE impossible to scroll past.',
     description: 'Create a first impression for BYTE and design an original piece of campus merchandise.',
-    image: '/assets/tasks/graphic_design.jpeg',
+    image: '/assets/tasks/graphic_design.webp',
     skills: ['Visual design', 'Typography', 'Brand identity', 'Social media'],
     difficulty: 'Beginner',
     estimatedTime: 'Two design tasks',
@@ -784,7 +784,7 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'Video Editing',
     tagline: 'Turn raw footage into a story.',
     description: 'Shape BYTE’s Algo Trading Sprint footage into a short, intentional vertical event recap.',
-    image: '/assets/tasks/video_editing.jpeg',
+    image: '/assets/tasks/video_editing.webp',
     skills: ['Editing', 'Pacing', 'Sound design', 'Visual storytelling'],
     difficulty: 'Intermediate',
     estimatedTime: 'One 45 to 60 second edit',
@@ -830,7 +830,7 @@ export const taskDepartments: TaskDepartment[] = [
     department: 'Outreach',
     tagline: 'Read the room. Make the ask.',
     description: 'A practical outreach simulation: write with precision, handle rejection and silence, and identify realistic sponsors.',
-    image: '/assets/tasks/outreach.png',
+    image: '/assets/tasks/outreach.webp',
     skills: ['Written communication', 'Partnerships', 'Judgement', 'Research'],
     difficulty: 'Intermediate',
     estimatedTime: 'Six written responses + sponsor research',

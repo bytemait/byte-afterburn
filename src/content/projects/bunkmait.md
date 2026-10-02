@@ -6,8 +6,8 @@ links:
   github: https://github.com/iamadityamaurya/bunkmait-releases
   live: https://bunkmait.adityamaurya.dev
 images:
-  - /assets/works/bunkmait/bunkmait-1.jpeg
-  - /assets/works/bunkmait/bunkmait-mobile.jpeg
+  - /assets/works/bunkmait/bunkmait-1.webp
+  - /assets/works/bunkmait/bunkmait-mobile.webp
 stack:
   - React
   - Node.js

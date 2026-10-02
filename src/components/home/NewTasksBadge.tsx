@@ -6,16 +6,16 @@ interface TrackItem {
 }
 
 const TRACKS: TrackItem[] = [
-  { name: 'App Dev', image: '/assets/tasks/app-dev.png' },
-  { name: 'Web Dev', image: '/assets/tasks/web-dev.png' },
-  { name: 'Applied ML', image: '/assets/tasks/agentic.jpeg' },
-  { name: 'ML Research', image: '/assets/tasks/ml_research.jpeg' },
-  { name: 'ROS', image: '/assets/tasks/mechatronics.png' },
-  { name: 'Electronics', image: '/assets/tasks/electronics.jpeg' },
-  { name: 'CAD', image: '/assets/tasks/cad.jpeg' },
-  { name: 'Cybersecurity', image: '/assets/tasks/cybersecurity.png' },
-  { name: 'Graphic Design', image: '/assets/tasks/graphic_design.jpeg' },
-  { name: 'Video Editing', image: '/assets/tasks/video_editing.jpeg' },
+  { name: 'App Dev', image: '/assets/tasks/app-dev.webp' },
+  { name: 'Web Dev', image: '/assets/tasks/web-dev.webp' },
+  { name: 'Applied ML', image: '/assets/tasks/agentic.webp' },
+  { name: 'ML Research', image: '/assets/tasks/ml_research.webp' },
+  { name: 'ROS', image: '/assets/tasks/mechatronics.webp' },
+  { name: 'Electronics', image: '/assets/tasks/electronics.webp' },
+  { name: 'CAD', image: '/assets/tasks/cad.webp' },
+  { name: 'Cybersecurity', image: '/assets/tasks/cybersecurity.webp' },
+  { name: 'Graphic Design', image: '/assets/tasks/graphic_design.webp' },
+  { name: 'Video Editing', image: '/assets/tasks/video_editing.webp' },
 ];
 
 export default function NewTasksBadge() {

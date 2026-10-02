@@ -6,7 +6,7 @@ links:
   github: https://github.com/ChhabraSanyam/HopOff
   live: https://play.google.com/store/apps/details?id=com.hopoff.app
 images:
-  - /assets/works/hopoff/WhatsApp%20Image%202026-09-13%20at%2019.49.10.jpeg
+  - /assets/works/hopoff/WhatsApp%20Image%202026-09-13%20at%2019.49.10.webp
 stack:
   - React Native
   - TypeScript

@@ -8,7 +8,7 @@
   name: "EZCrack"
   tags: ["Project", "Development"]
   description: "EZCrack streamlines exam prep with high-impact study material, topic weightage, and frequently repeated questions."
-  image: "/assets/works/ezcrack/ezcrack-1.jpeg"
+  image: "/assets/works/ezcrack/ezcrack-1.webp"
   link: "/projects/ezcrack"
 - id: lam-research-hackathon
   name: "Winners, LAM Research Hackathon 2026"
@@ -21,19 +21,19 @@
   name: "HopOff"
   tags: ["Project", "Development"]
   description: "HopOff! alerts Delhi Metro riders before their stop with customizable notifications, sound, and haptics."
-  image: "/assets/works/hopoff/WhatsApp Image 2026-09-13 at 19.49.10.jpeg"
+  image: "/assets/works/hopoff/WhatsApp Image 2026-09-13 at 19.49.10.webp"
   link: "/projects/hopoff"
 - id: bunkmait
   name: "BunkMAIT"
   tags: ["Project", "Development"]
   description: "BunkMAIT is a free attendance calculator that loads your timetable, tracks classes, and helps you plan safe bunks."
-  image: "/assets/works/bunkmait/bunkmait-1.jpeg"
+  image: "/assets/works/bunkmait/bunkmait-1.webp"
   link: "/projects/bunkmait"
 - id: scrape2sim
   name: "Scrape2Sim"
   tags: ["Machine Learning", "Project"]
   description: "A machine learning project built around turning data into useful simulation workflows."
-  image: "/assets/works/scrape-2-sim/scrape-2-sim.jpeg"
+  image: "/assets/works/scrape-2-sim/scrape-2-sim.webp"
   link: "/projects/scrape2sim"
 - id: hack-iitk
   name: "Winners, Hack IIT Kanpur 2025"
