@@ -5,7 +5,7 @@ order: 3
 links:
   github: https://github.com/icyzh/lumi
 images:
-  - /assets/works/scrape-2-sim/scrape-2-sim.jpeg
+  - /assets/works/scrape-2-sim/scrape-2-sim.webp
 stack:
   - Python
   - FastAPI

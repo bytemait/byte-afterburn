@@ -6,9 +6,9 @@ links:
   github: https://github.com/swymbnsl/EZCrack
   live: https://ezcrack.swymbnsl.com
 images:
-  - /assets/works/ezcrack/ezcrack-1.jpeg
-  - /assets/works/ezcrack/ezcrack-2.jpeg
-  - /assets/works/ezcrack/ezcrack-3.jpeg
+  - /assets/works/ezcrack/ezcrack-1.webp
+  - /assets/works/ezcrack/ezcrack-2.webp
+  - /assets/works/ezcrack/ezcrack-3.webp
 stack:
   - JavaScript
   - Node.js
