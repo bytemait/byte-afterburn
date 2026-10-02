@@ -54,10 +54,10 @@ const events = (await getCollection('events')).map((entry) => ({
       <WhoAreWe client:load />
 
       <!-- 3. Our Achievements -->
-      <Achievements client:load achievements={achievements} />
+      <Achievements client:visible achievements={achievements} />
 
       <!-- 4. Events -->
-      <Events client:load events={events} />
+      <Events client:visible events={events} />
 
       <!-- 5. Departments and stats
       <Departments client:load />

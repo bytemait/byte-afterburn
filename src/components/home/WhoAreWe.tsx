@@ -140,9 +140,9 @@ export default function WhoAreWe() {
               ref={labStageRef}
               className="whoarewe-lab-art"
             >
-              <img className="whoarewe-lab-frame" src="/assets/collage_frame.png" alt="" width="2380" height="1792" loading="lazy" decoding="async" />
+              <img className="whoarewe-lab-frame" src="/assets/collage_frame.webp" alt="" width="2380" height="1792" loading="lazy" decoding="async" />
               <img className="whoarewe-lab-outer" src="/assets/collage_outer.png" alt="BYTE MAIT technology society project laboratory" width="2380" height="1792" loading="lazy" decoding="async" />
-              <img className="whoarewe-lab-reveal" src="/assets/collage_frame.png" alt="" width="2380" height="1792" loading="lazy" decoding="async" />
+              <img className="whoarewe-lab-reveal" src="/assets/collage_frame.webp" alt="" width="2380" height="1792" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
