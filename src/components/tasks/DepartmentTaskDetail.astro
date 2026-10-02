@@ -197,7 +197,7 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
         <ul class="tech-stack-list">
           {helpContacts.map((contact) => (
             <li class="contact-item">
-              <span class="contact-initials" aria-hidden="true">{(contact.data.short || contact.data.name.slice(0, 1)).slice(0, 2)}</span>
+              <span class="contact-initials" aria-hidden="true">{contact.data.photo ? <img src={contact.data.photo} alt="" loading="lazy" /> : (contact.data.short || contact.data.name.slice(0, 1)).slice(0, 2)}</span>
               <div>
                 <a class="tech-name contact-name" href={`/members/${contact.id}/`}>{contact.data.name}</a>
                 <span class="contact-role">{contact.data.role}</span>
@@ -1159,6 +1159,14 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
     color: var(--lime);
     font-size: .75rem;
     font-weight: 700;
+    overflow: hidden;
+  }
+
+  .contact-initials img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
   }
 
   .contact-item > div {
