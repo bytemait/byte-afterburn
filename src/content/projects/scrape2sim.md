@@ -1,13 +1,20 @@
 ---
 title: Scrape2Sim
-description: Explores how collected data can be cleaned, interpreted, and turned into inputs for useful simulation workflows.
+description: Turns public robot-component product pages into an evidence-backed 3D assembly and a reproducible MuJoCo physics simulation.
 order: 3
+links:
+  github: https://github.com/icyzh/lumi
 images:
   - /assets/works/scrape-2-sim/scrape-2-sim.jpeg
 stack:
   - Python
-  - TensorFlow
-  - Scrapy
+  - FastAPI
+  - MuJoCo
+  - Next.js
+  - TypeScript
+  - React Three Fiber
+  - Bright Data
+  - OpenAI
 domains:
   - AI/ML
   - Development
@@ -17,16 +24,16 @@ contributors:
 
 ## Overview
 
-Scrape2Sim explores an end-to-end workflow for turning web-collected data into useful simulation inputs. It connects collection, cleaning, interpretation, and modelling so that a raw external dataset can become something structured enough to inspect and experiment with.
+Scrape2Sim turns public robot-component product pages into an evidence-backed 3D assembly and, when the required physics data exists, a reproducible MuJoCo run. Paste a growing list of product URLs and it builds a parts library, arranges the parts into a robot, and plays the simulated trajectory back in the browser.
 
 ## Challenge
 
-Data collected from the web is rarely ready for modelling. The team needed to account for inconsistent inputs, make the assumptions in the pipeline visible, and ensure that the simulation remained connected to the quality of the data feeding it.
+Product pages are inconsistent, and simulation needs trustworthy numbers. The team had to keep scraped evidence separate from guesses, stop an AI from inventing parts or physics values, and still stay useful when one URL fails or a spec is missing.
 
 ## Approach
 
-Using Python, Scrapy, and TensorFlow, the project treats collection, processing, and simulation as connected stages. Each stage is designed to make weak inputs easier to spot and correct before they distort the resulting model or experiment.
+Bright Data Scraper Studio collects structured product records into a local parts library. GPT proposes a topology from the selected catalog parts, a human confirms it, and a compatibility gate validates it before it is compiled to MJCF. MuJoCo is the authority for physics. Missing simulation inputs appear as visibly labelled estimates, never as source evidence. A FastAPI backend and a Next.js and React Three Fiber frontend handle the API and 3D playback. Drone, rover and humanoid families have deterministic MuJoCo adapters, and other projects stay editable assemblies with compatibility findings instead of fake simulation. Reference ESP32 firmware adds a guarded hardware link.
 
 ## Outcome
 
-Scrape2Sim provides a practical base for experiments at the intersection of web data, machine learning, and simulation. Its emphasis on traceable stages makes it easier to refine the system as better data and modelling ideas emerge.
+Scrape2Sim goes from product URLs to an inspectable, simulated build, with every part traceable to its source page. It was built for the Into the Scrape-Verse hackathon.
