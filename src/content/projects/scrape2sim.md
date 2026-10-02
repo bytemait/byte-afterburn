@@ -36,4 +36,4 @@ Bright Data Scraper Studio collects structured product records into a local part
 
 ## Outcome
 
-Scrape2Sim goes from product URLs to an inspectable, simulated build, with every part traceable to its source page. It was built for the Into the Scrape-Verse hackathon.
+Scrape2Sim goes from product URLs to an inspectable, simulated build, with every part traceable to its source page.
