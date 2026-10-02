@@ -5,6 +5,8 @@
 
 const BASE = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
 
+const GFAV = 'https://www.google.com/s2/favicons?sz=64&domain=';
+
 const techLogos: Record<string, string> = {
   'Python':               `${BASE}/python/python-original.svg`,
   'JavaScript':           `${BASE}/javascript/javascript-original.svg`,
@@ -42,7 +44,11 @@ const techLogos: Record<string, string> = {
   'Git':                  `${BASE}/git/git-original.svg`,
   'GitHub':               `${BASE}/github/github-original.svg`,
   'Scrapy':               `${BASE}/python/python-original.svg`,
-  'OpenAI API':           `${BASE}/openal/openal-original.svg`,
+  'OpenAI API':           `${GFAV}openai.com`,
+  'OpenAI':               `${GFAV}openai.com`,
+  'MuJoCo':               `${GFAV}mujoco.org`,
+  'Bright Data':          `${GFAV}brightdata.com`,
+  'React Three Fiber':    `${BASE}/threejs/threejs-original.svg`,
   'CAD':                  null as unknown as string,
   'Networking':           null as unknown as string,
   'PCB Design':           null as unknown as string,
