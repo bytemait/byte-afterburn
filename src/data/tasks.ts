@@ -497,11 +497,13 @@ export const taskDepartments: TaskDepartment[] = [
           },
           {
             title: 'Beginner resources',
-            paragraphs: ['These are starting points for vision-language models and fine-tuning. You are encouraged to explore other open-weight models, training methods, supporting tools, and pipeline designs.'],
+            paragraphs: ['If you are new to any of these concepts, these resources may help you get started. They cover VLM basics, running an open-weight model, OCR, image preprocessing, and loading models from Hugging Face. SmolVLM is only an example, and the final video uses text models, so its exact code will differ for a VLM. There is no single correct approach to this task; it is more about exploration and experimentation than following a fixed pipeline.'],
             links: [
-              { label: 'Introduction to Vision Language Models: Hugging Face', url: 'https://huggingface.co/blog/vlms' },
-              { label: 'Fine Tuning Vision Language Models: Hugging Face', url: 'https://huggingface.co/docs/trl/main/en/training_vlm' },
-              { label: 'LoRA: Hugging Face PEFT', url: 'https://huggingface.co/docs/peft/en/conceptual_guides/lora' },
+              { label: 'VLM basics: Introduction to Vision Language Models — Hugging Face', url: 'https://huggingface.co/blog/vlms' },
+              { label: 'Open-weight VLM example: SmolVLM — Hugging Face', url: 'https://huggingface.co/blog/smolvlm' },
+              { label: 'OCR basics: How to Use EasyOCR — Roboflow', url: 'https://roboflow.com/blog/how-to-use-easyocr' },
+              { label: 'OCR preprocessing: EasyOCR and Image Preprocessing — Kevin Wood', url: 'https://youtu.be/RFK3NUWJT9I' },
+              { label: 'Loading Hugging Face models: Getting Started in 15 Minutes — AssemblyAI', url: 'https://www.youtube.com/watch?v=QEaBAZQCtwE' },
             ],
           },
         ],
