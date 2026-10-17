@@ -210,26 +210,12 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
       <!-- SUBMISSION ACTION CARD -->
       <div class="register-card submit-sidebar-card">
         <div class="submit-card-content">
-          <div class="submit-card-badge">
-            <span class="live-dot"></span>
-            <span>Submission Window</span>
+          <div class="submit-card-badge is-judging">
+            <span class="live-dot is-judging"></span>
+            <span>Submissions Closed</span>
           </div>
-          <h3>Ready to Submit?</h3>
-          <p>{dept.slug === 'cad' ? 'Submit one Google Drive folder link containing your CAD task files through the website upload form.' : dept.slug === 'electronics' ? 'Submit one Electronics-only Google Drive folder link through the website upload form.' : dept.slug === 'ros' ? 'Submit one separate ROS-only Google Drive folder link through the website upload form.' : dept.slug === 'cybersecurity' ? 'Submit a public GitHub repository and a public Google Doc explaining your approach and tools.' : ['graphic-design', 'video-editing', 'outreach'].includes(dept.slug) ? 'Submit your work using the format in the task instructions. Make sure all shared links are publicly accessible.' : 'Submit your GitHub repository, README, and live demo output link before the window closes.'}</p>
-          <div class="side-deadline-tag">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Portal closes {TASK_CONFIG.submissionOpenShort}</span>
-          </div>
-          <div class="submission-countdown" role="timer" aria-label="Submission deadline countdown">
-            <div><strong id="submitCdDays">00</strong><span>Days</span></div>
-            <div><strong id="submitCdHours">00</strong><span>Hours</span></div>
-            <div><strong id="submitCdMins">00</strong><span>Minutes</span></div>
-            <div><strong id="submitCdSecs">00</strong><span>Seconds</span></div>
-          </div>
-          <a href={TASK_CONFIG.submissionPortalUrl} class="btn btn-primary track-submit-btn" target="_blank" rel="noopener noreferrer">
-            Submit Your Task
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
+          <h3>Judging in Progress</h3>
+          <p class="judging-notice">We're judging your submissions. Stay Tuned!</p>
         </div>
       </div>
 
@@ -259,37 +245,6 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
 
 <script>
   import { TASK_CONFIG } from '../../data/tasks';
-
-  function initSubmissionCountdown() {
-    const daysEl = document.getElementById('submitCdDays');
-    const hoursEl = document.getElementById('submitCdHours');
-    const minsEl = document.getElementById('submitCdMins');
-    const secsEl = document.getElementById('submitCdSecs');
-    if (!daysEl) return;
-
-    const update = () => {
-      let diff = Math.max(0, TASK_CONFIG.submissionOpenTimestamp - Date.now());
-      const days = Math.floor(diff / 86400000);
-      diff -= days * 86400000;
-      const hours = Math.floor(diff / 3600000);
-      diff -= hours * 3600000;
-      const minutes = Math.floor(diff / 60000);
-      diff -= minutes * 60000;
-      const seconds = Math.floor(diff / 1000);
-      const pad = (value: number) => String(value).padStart(2, '0');
-      daysEl.textContent = pad(days);
-      if (hoursEl) hoursEl.textContent = pad(hours);
-      if (minsEl) minsEl.textContent = pad(minutes);
-      if (secsEl) secsEl.textContent = pad(seconds);
-    };
-
-    update();
-    const interval = setInterval(update, 1000);
-    document.addEventListener('astro:before-swap', () => clearInterval(interval), { once: true });
-  }
-
-  initSubmissionCountdown();
-  document.addEventListener('astro:page-load', initSubmissionCountdown);
 
   function initDetailLock() {
     const daysEl = document.getElementById('gateCdDays');
@@ -1217,7 +1172,23 @@ const helpContacts = (contactIdsByDepartment[dept.slug] ?? [])
     color: var(--text);
   }
 
-  .submit-card-badge {
+  .submit-card-badge.is-judging {
+    color: #e0c752;
+    background: rgba(224, 199, 82, 0.08);
+    border-color: rgba(224, 199, 82, 0.25);
+  }
+
+  .live-dot.is-judging {
+    background: #e0c752;
+    box-shadow: 0 0 6px #e0c752;
+  }
+
+  .judging-notice {
+    font-size: .88rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin: 0 !important;
+  }
     display: inline-flex;
     align-items: center;
     gap: 6px;

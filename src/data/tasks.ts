@@ -80,7 +80,7 @@ export interface TimelineStep {
   title: string;
   date: string;
   desc: string;
-  status: 'completed' | 'current' | 'upcoming';
+  status: 'completed' | 'current' | 'upcoming' | 'starting-soon';
 }
 
 export interface TaskFAQItem {
@@ -895,8 +895,8 @@ export function getDepartmentBySlug(slug: string): TaskDepartment | undefined {
 export const timelineSteps: TimelineStep[] = [
   { step: '01', title: 'Orientation Headstart', date: '25 Sep', desc: 'Orientation headstart complete', status: 'completed' },
   { step: '02', title: 'Task Release', date: '27 Sep', desc: 'Tasks go live: start building', status: 'completed' },
-  { step: '03', title: 'Submission', date: '29 Sep to 16 Oct', desc: 'Submission portal is open', status: 'current' },
-  { step: '04', title: 'Interviews', date: 'After submissions', desc: 'Shortlisted candidate interviews', status: 'upcoming' },
+  { step: '03', title: 'Submission', date: '29 Sep to 16 Oct', desc: 'Submissions closed', status: 'completed' },
+  { step: '04', title: 'Interviews', date: 'Starting soon', desc: 'Shortlisted candidate interviews', status: 'starting-soon' },
 ];
 
 export const taskFaqs: TaskFAQItem[] = [

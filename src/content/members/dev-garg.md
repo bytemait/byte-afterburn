@@ -1,9 +1,9 @@
 ---
-name: "Anagh Miglani"
+name: "Dev Garg"
 role: "General Secretary"
 group: "alumni-2025"
 status: "alumni"
-order: 6
+order: 5
 tier: "inner"
 batch: "2025"
 ---

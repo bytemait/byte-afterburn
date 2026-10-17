@@ -4,7 +4,7 @@ short: "DD"
 role: "Coordinator"
 group: "mechatronics"
 status: "core"
-order: 16
+order: 17
 photo: "/team_pics/optimized/devesh_dev_alpha.webp"
 quote: "ass toot gyi"
 
