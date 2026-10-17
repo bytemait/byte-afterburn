@@ -1,11 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/common/Footer.astro';
-import TaskCountdown from '../components/tasks/TaskCountdown.astro';
 import TaskTimeline from '../components/tasks/TaskTimeline.astro';
 import TaskCard from '../components/tasks/TaskCard.astro';
 import TaskFAQ from '../components/tasks/TaskFAQ.astro';
-import CountdownHUD from '../components/tasks/CountdownHUD.astro';
 import { taskDepartments, taskFaqs, timelineSteps, TASK_CONFIG } from '../data/tasks';
 import { absoluteUrl, breadcrumbJsonLd, toMetaDescription, type JsonLd } from '../lib/seo';
 
@@ -52,8 +50,8 @@ const taskListingStructuredData: JsonLd[] = [
 
   <section class="tasks-section">
     <div class="wrap">
-      <!-- COUNTDOWN TIMER -->
-      <TaskCountdown />
+      <!-- RECRUITMENT ROADMAP TIMELINE -->
+      <TaskTimeline steps={timelineSteps} />
 
       <!-- DEPARTMENTS TASK GRID -->
       <div class="project-grid">
@@ -61,9 +59,6 @@ const taskListingStructuredData: JsonLd[] = [
           <TaskCard dept={dept} />
         ))}
       </div>
-
-      <!-- RECRUITMENT ROADMAP TIMELINE -->
-      <TaskTimeline steps={timelineSteps} />
 
       <!-- DISCORD SUPPORT CALLOUT -->
       <div class="discord-callout">
@@ -95,10 +90,6 @@ const taskListingStructuredData: JsonLd[] = [
       </div>
     </div>
   </section>
-
-  <!-- STICKY FLOATING HUD TIMER -->
-  <CountdownHUD />
-
 
   <Footer immersive />
 </Layout>

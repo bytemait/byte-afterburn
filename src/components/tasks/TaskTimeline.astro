@@ -27,9 +27,10 @@ const { steps = timelineSteps } = Astro.props;
     {steps.map((item) => {
       const isCurrent = item.status === 'current';
       const isCompleted = item.status === 'completed';
+      const isStartingSoon = item.status === 'starting-soon';
 
       return (
-        <div class:list={['stage-card', { 'is-current': isCurrent, 'is-completed': isCompleted }]}>
+        <div class:list={['stage-card', { 'is-current': isCurrent, 'is-completed': isCompleted, 'is-starting-soon': isStartingSoon }]}>
           {/* Top Cyber Fact Divider */}
           <div class="stage-fact-bar">
             <span class="stage-code">STAGE_{item.step}</span>
@@ -43,6 +44,11 @@ const { steps = timelineSteps } = Astro.props;
               <div class="stage-status-badge is-active">
                 <span class="live-dot"></span>
                 <span>Active Stage</span>
+              </div>
+            ) : isStartingSoon ? (
+              <div class="stage-status-badge is-starting-soon">
+                <span class="live-dot yellow-dot"></span>
+                <span>Starting Soon</span>
               </div>
             ) : isCompleted ? (
               <div class="stage-status-badge is-done">
@@ -85,7 +91,7 @@ const { steps = timelineSteps } = Astro.props;
 <style>
   .task-roadmap-section {
     width: 100%;
-    margin-top: 56px;
+    margin-top: 16px;
     margin-bottom: 56px;
     position: relative;
   }
@@ -163,6 +169,12 @@ const { steps = timelineSteps } = Astro.props;
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 20px rgba(82, 224, 166, 0.12);
   }
 
+  .stage-card.is-starting-soon {
+    background: linear-gradient(180deg, #1c1a12 0%, #14130d 100%);
+    border-color: rgba(224, 199, 82, 0.45);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 20px rgba(224, 199, 82, 0.12);
+  }
+
   /* FACT TOP BAR */
   .stage-fact-bar {
     display: flex;
@@ -186,11 +198,19 @@ const { steps = timelineSteps } = Astro.props;
     color: var(--lime-bright, #52e0a6);
   }
 
+  .stage-card.is-starting-soon .stage-code {
+    color: #e0c752;
+  }
+
   .stage-slash {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.78rem;
     font-weight: 700;
     color: var(--lime, #22c579);
+  }
+
+  .stage-card.is-starting-soon .stage-slash {
+    color: #e0c752;
   }
 
   /* GIANT NUMBER & STATUS BOX */
@@ -218,6 +238,11 @@ const { steps = timelineSteps } = Astro.props;
     text-shadow: 0 0 24px rgba(82, 224, 166, 0.4);
   }
 
+  .stage-card.is-starting-soon .stage-giant-number {
+    color: #e0c752;
+    text-shadow: 0 0 24px rgba(224, 199, 82, 0.4);
+  }
+
   .stage-card.is-completed .stage-giant-number {
     color: var(--lime-dim, #1a9c5f);
   }
@@ -228,6 +253,14 @@ const { steps = timelineSteps } = Astro.props;
 
   .stage-card.is-current:hover .stage-giant-number {
     color: var(--lime-bright, #52e0a6);
+  }
+
+  .stage-card.is-starting-soon:hover {
+    border-color: rgba(224, 199, 82, 0.65);
+  }
+
+  .stage-card.is-starting-soon:hover .stage-giant-number {
+    color: #f5dc6e;
   }
 
   /* STATUS BADGES */
@@ -248,6 +281,12 @@ const { steps = timelineSteps } = Astro.props;
     color: var(--lime-bright, #52e0a6);
     background: rgba(82, 224, 166, 0.12);
     border: 1px solid rgba(82, 224, 166, 0.35);
+  }
+
+  .stage-status-badge.is-starting-soon {
+    color: #e0c752;
+    background: rgba(224, 199, 82, 0.12);
+    border: 1px solid rgba(224, 199, 82, 0.35);
   }
 
   .stage-status-badge.is-done {
@@ -274,6 +313,11 @@ const { steps = timelineSteps } = Astro.props;
     background: var(--lime-bright, #52e0a6);
     box-shadow: 0 0 6px var(--lime-bright, #52e0a6);
     animation: livePulse 2s infinite ease-in-out;
+  }
+
+  .live-dot.yellow-dot {
+    background: #e0c752;
+    box-shadow: 0 0 6px #e0c752;
   }
 
   @keyframes livePulse {
@@ -351,6 +395,12 @@ const { steps = timelineSteps } = Astro.props;
 
   .stage-card.is-current .accent-fill {
     width: 100%;
+  }
+
+  .stage-card.is-starting-soon .accent-fill {
+    width: 100%;
+    background: #e0c752;
+    box-shadow: 0 0 8px #e0c752;
   }
 
   .stage-card.is-completed .accent-fill {

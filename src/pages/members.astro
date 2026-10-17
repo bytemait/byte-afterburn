@@ -2512,6 +2512,46 @@ const chapters = groupEntries
         transform: translateY(5rem);
     }
 
+    /* Creative & Outreach: Compact triangular formation to fit in one viewport */
+    #creative {
+        min-height: 100svh;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    .field-creative {
+        gap: 1.5rem 1rem;
+        padding-top: 1vh;
+    }
+
+    .field-creative .member-node:first-child {
+        grid-column: 2 / span 4;
+        transform: none;
+    }
+    .field-creative .member-node:nth-child(2) {
+        grid-column: 8 / span 4;
+        transform: none;
+    }
+    .field-creative .member-node:nth-child(3) {
+        grid-column: 5 / span 4;
+        transform: none;
+        margin-top: -1.75rem;
+    }
+
+    .field-creative .portrait-stage {
+        aspect-ratio: 4 / 5;
+        max-height: min(290px, 32svh);
+    }
+
+    .field-creative .member-label {
+        min-height: 5.5rem;
+        padding: 0.8rem 1.5rem 0 0;
+    }
+
+    .field-creative .member-label h3 {
+        font-size: clamp(1.3rem, 2.2vw, 2rem);
+    }
+
     @media (min-width: 761px) {
         .field-leadership .member-node:first-child .portrait-stage {
             height: min(46rem, max(18rem, calc(100svh - 20rem)));
@@ -2641,6 +2681,12 @@ const chapters = groupEntries
 
     .member-node:nth-child(3n + 2)[data-member-active="true"] {
         transform: translateY(4.3rem) scale(1.035);
+    }
+
+    .field-creative .member-node:first-child[data-member-active="true"],
+    .field-creative .member-node:nth-child(2)[data-member-active="true"],
+    .field-creative .member-node:nth-child(3)[data-member-active="true"] {
+        transform: translateY(-0.7rem) scale(1.035);
     }
 
     .field-leadership .member-node:nth-child(3)[data-member-active="true"] {
@@ -2803,6 +2849,25 @@ const chapters = groupEntries
 
     .member-node[data-member-active="true"] .member-label h3 {
         color: var(--green);
+        text-shadow: 0 0.65rem 1.6rem rgba(0, 0, 0, 0.72);
+        transform: scale(1.22);
+    }
+
+    .member-node[data-member-active="true"]
+        .member-label
+        h3::before {
+        animation: member-name-glitch-a 500ms steps(1, end) both;
+    }
+
+    .member-node[data-member-active="true"]
+        .member-label
+        h3::after {
+        animation: member-name-glitch-b 500ms steps(1, end) 35ms both;
+    }
+
+    .member-node[data-member-active="true"] .member-role {
+        background: var(--green);
+        color: #07110b;
         transform: translateX(0.35rem);
     }
 
@@ -2810,33 +2875,10 @@ const chapters = groupEntries
         transform: translateY(calc(-100% - 1.15rem));
     }
 
-    .member-node.has-member-quote[data-member-active="true"] .member-label h3 {
-        text-shadow: 0 0.65rem 1.6rem rgba(0, 0, 0, 0.72);
-        transform: scale(1.22);
-    }
-
-    .member-node.has-member-quote[data-member-active="true"]
-        .member-label
-        h3::before {
-        animation: member-name-glitch-a 500ms steps(1, end) both;
-    }
-
-    .member-node.has-member-quote[data-member-active="true"]
-        .member-label
-        h3::after {
-        animation: member-name-glitch-b 500ms steps(1, end) 35ms both;
-    }
-
     .member-node.has-member-quote[data-member-active="true"] .member-quote {
         opacity: 1;
         transform: translateY(0);
         transition-delay: 90ms;
-    }
-
-    .member-node.has-member-quote[data-member-active="true"] .member-role {
-        background: var(--green);
-        color: #07110b;
-        transform: translateX(0.35rem);
     }
 
     .member-node[data-member-active="true"] .member-pulse {
@@ -3664,6 +3706,29 @@ const chapters = groupEntries
             padding: 0 1rem 2rem;
         }
 
+        .field-creative {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2rem 0.5rem;
+        }
+
+        .field-creative .member-node,
+        .field-creative .member-node:nth-child(n) {
+            grid-column: auto;
+            grid-row: auto;
+            transform: none;
+        }
+
+        .field-creative .member-label h3 {
+            font-size: clamp(0.75rem, 3.2vw, 1.05rem);
+            line-height: 1.1;
+            word-break: break-word;
+        }
+
+        .field-creative .member-role {
+            font-size: 0.52rem;
+            letter-spacing: 0.05em;
+        }
+
         .member-node,
         .member-node:nth-child(n),
         .field-leadership .member-node:nth-child(n) {
@@ -4122,6 +4187,10 @@ const chapters = groupEntries
             width: auto;
             height: auto;
             padding: 0 1rem 2rem;
+        }
+        .field-creative {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2rem 0.5rem;
         }
         .mobile-member-reveal-ready .member-node,
         .mobile-member-reveal-ready .member-node.is-mobile-visible,

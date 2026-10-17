@@ -4,7 +4,7 @@ short: "SN"
 role: "Coordinator"
 group: "aiml"
 status: "core"
-order: 13
+order: 14
 photo: "/team_pics/optimized/snow_alpha.webp"
 quote: "i am gitler"
 portfolio: "https://www.linkedin.com/in/snow-s"
