@@ -2512,6 +2512,20 @@ const chapters = groupEntries
         transform: translateY(5rem);
     }
 
+    /* Creative & Outreach: Triangular formation for the 3 coordinators */
+    .field-creative .member-node:first-child {
+        grid-column: 1 / span 6;
+        transform: none;
+    }
+    .field-creative .member-node:nth-child(2) {
+        grid-column: 7 / span 6;
+        transform: none;
+    }
+    .field-creative .member-node:nth-child(3) {
+        grid-column: 4 / span 6;
+        transform: none;
+    }
+
     @media (min-width: 761px) {
         .field-leadership .member-node:first-child .portrait-stage {
             height: min(46rem, max(18rem, calc(100svh - 20rem)));
@@ -2641,6 +2655,10 @@ const chapters = groupEntries
 
     .member-node:nth-child(3n + 2)[data-member-active="true"] {
         transform: translateY(4.3rem) scale(1.035);
+    }
+
+    .field-creative .member-node:nth-child(2)[data-member-active="true"] {
+        transform: translateY(-0.7rem) scale(1.035);
     }
 
     .field-leadership .member-node:nth-child(3)[data-member-active="true"] {
@@ -3664,6 +3682,29 @@ const chapters = groupEntries
             padding: 0 1rem 2rem;
         }
 
+        .field-creative {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2rem 0.5rem;
+        }
+
+        .field-creative .member-node,
+        .field-creative .member-node:nth-child(n) {
+            grid-column: auto;
+            grid-row: auto;
+            transform: none;
+        }
+
+        .field-creative .member-label h3 {
+            font-size: clamp(0.75rem, 3.2vw, 1.05rem);
+            line-height: 1.1;
+            word-break: break-word;
+        }
+
+        .field-creative .member-role {
+            font-size: 0.52rem;
+            letter-spacing: 0.05em;
+        }
+
         .member-node,
         .member-node:nth-child(n),
         .field-leadership .member-node:nth-child(n) {
@@ -4122,6 +4163,10 @@ const chapters = groupEntries
             width: auto;
             height: auto;
             padding: 0 1rem 2rem;
+        }
+        .field-creative {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2rem 0.5rem;
         }
         .mobile-member-reveal-ready .member-node,
         .mobile-member-reveal-ready .member-node.is-mobile-visible,
